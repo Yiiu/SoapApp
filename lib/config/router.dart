@@ -1,9 +1,9 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:soap_app/screens/index.dart';
-import 'package:soap_app/screens/test.dart';
-import 'package:soap_app/ui/widget/route_animation.dart';
+
+import '../screens/home/home.dart';
+import '../screens/test.dart';
+import '../ui/widget/route_animation.dart';
 
 class RouteName {
   static const home = '/';
@@ -14,11 +14,15 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.home:
-        return NoAnimRouteBuilder(MyHomePage(title: 'test',));
+        return NoAnimRouteBuilder(
+          MyHomePage(
+            title: 'test',
+          ),
+        );
       case RouteName.test:
         return CupertinoPageRoute(
           // fullscreenDialog: true,
-          builder: (_) => Test()
+          builder: (_) => Test(),
         );
       default:
         return CupertinoPageRoute(
@@ -26,7 +30,7 @@ class Router {
             body: Center(
               child: Text('No route defined for ${settings.name}'),
             ),
-          )
+          ),
         );
     }
   }

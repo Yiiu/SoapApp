@@ -1,4 +1,4 @@
-String Pictures = """
+String pictures = """
   query Pictures(\$query: PicturesQueryInput!) {
     pictures(query: \$query) {
       data {

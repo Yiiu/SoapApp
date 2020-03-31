@@ -1,11 +1,8 @@
+import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
-
 class Header extends SliverPersistentHeaderDelegate {
-  Header({
-    this.title,
-  }) : super();
+  Header({this.title}) : super();
 
   double scrollAnimationValue(double shrinkOffset) {
     double maxScrollAllowed = maxExtent - minExtent;
@@ -24,10 +21,7 @@ class Header extends SliverPersistentHeaderDelegate {
   ) {
     final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
     final double animationVal = scrollAnimationValue(shrinkOffset);
-    final EdgeInsets padding = MediaQuery.of(context).padding;
-    print(visibleMainHeight / 2);
     return Container(
-      color: Colors.white,
       height: visibleMainHeight,
       width: MediaQuery.of(context).size.width,
       child: Stack(
@@ -41,13 +35,9 @@ class Header extends SliverPersistentHeaderDelegate {
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
                   Expanded(
-//                      flex: (animationVal * 100).toInt(),
                     child: Container(),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: padding.top),
-                    child: title,
-                  ),
+                  title,
                   Expanded(
                     flex: 100,
                     child: Container(),
@@ -55,7 +45,7 @@ class Header extends SliverPersistentHeaderDelegate {
                 ],
               ),
             ),
-          ),
+          )
         ],
       ),
     );

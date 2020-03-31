@@ -1,7 +1,9 @@
 import 'package:provider/provider.dart';
-import 'package:soap_app/provider/test.dart';
+import 'package:provider/single_child_widget.dart';
 
-List<SingleChildCloneableWidget> providers = [
+import 'test.dart';
+
+List<SingleChildWidget> providers = [
   ChangeNotifierProvider<Counter>(
     create: (context) => Counter(),
   )

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
+import '../../config/router.dart';
 import '../../model/picture.dart';
-// import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 
 class PictureItem extends StatelessWidget {
   final Picture picture;
@@ -34,8 +34,12 @@ class PictureItem extends StatelessWidget {
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
                           picture.user.fullName,
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600, fontSize: 15),
+                          style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
                       )
                     ],

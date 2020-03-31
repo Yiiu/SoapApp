@@ -1,4 +1,4 @@
-import "package:json_annotation/json_annotation.dart";
+import 'package:json_annotation/json_annotation.dart';
 
 import '../utils/picture.dart';
 import './user.dart';
@@ -7,7 +7,7 @@ part 'picture.g.dart';
 
 @JsonSerializable()
 class Picture {
-  String id;
+  int id;
   String key;
   String hash;
   String title;
