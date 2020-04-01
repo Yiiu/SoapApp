@@ -94,7 +94,7 @@ class PictureItem extends StatelessWidget {
       child: AspectRatio(
         aspectRatio: picture.width / picture.height,
         child: BlurHash(
-          hash: 'WGHU9B0IGM#3b^OZjP.6v2o;Ac-q00}~n6E8-nwiOiIEKQeb+]Om',
+          hash: picture.blurhash,
         ),
       ),
     );

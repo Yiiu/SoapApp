@@ -56,16 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          appBar(),
-          // TabBarView(
-          //   controller: tabController,
-          //   children: <Widget>[
           Expanded(child: container()),
-          // Text('Search'),
-          // Text('Add'),
-          // Text('User'),
-          //   ],
-          // )
         ],
       ),
       bottomNavigationBar: navigationBar(),
@@ -73,113 +64,138 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget appBar() {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
+    return SafeArea(
+      child: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom:
+                BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
+          ),
         ),
-      ),
-      child: SizedBox(
-        height: 60,
-        child: Row(
-          children: <Widget>[
-            // Padding(
-            //   padding: const EdgeInsets.only(top: 4),
-            //   child: Container(
-            //     width: AppBar().preferredSize.height - 8,
-            //     height: AppBar().preferredSize.height - 8,
-            //   ),
-            // ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 12),
-                child: Text(
-                  'Home',
-                  style: GoogleFonts.rubik(
-                    textStyle: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w700,
+        child: SizedBox(
+          height: 60,
+          child: Row(
+            children: <Widget>[
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 4),
+              //   child: Container(
+              //     width: AppBar().preferredSize.height - 8,
+              //     height: AppBar().preferredSize.height - 8,
+              //   ),
+              // ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: Text(
+                    'Home',
+                    style: GoogleFonts.rubik(
+                      textStyle: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 0, right: 8),
-              child: Container(
-                width: AppBar().preferredSize.height - 8,
-                height: AppBar().preferredSize.height - 8,
-                color: Colors.white,
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
-                    borderRadius: BorderRadius.circular(
-                      AppBar().preferredSize.height,
+              Padding(
+                padding: const EdgeInsets.only(top: 0, right: 8),
+                child: Container(
+                  width: AppBar().preferredSize.height - 8,
+                  height: AppBar().preferredSize.height - 8,
+                  color: Colors.white,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(
+                        AppBar().preferredSize.height,
+                      ),
+                      child: Icon(
+                        FeatherIcons.bell,
+                      ),
+                      onTap: () {},
                     ),
-                    child: Icon(
-                      FeatherIcons.bell,
-                    ),
-                    onTap: () {},
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget container() {
+    var header = Header;
     return TabBarView(
       physics: NeverScrollableScrollPhysics(),
       controller: tabController,
       children: <Widget>[
-        SafeArea(
-          child: CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            semanticChildCount: products.length,
-            slivers: <Widget>[
-              SliverToBoxAdapter(),
-              Query(
-                options: QueryOptions(
-                  documentNode: gql(pictures),
-                  fetchPolicy: FetchPolicy.cacheAndNetwork,
-                  // pollInterval: 15,
-                  variables: {
-                    'query': {
-                      'page': 1,
-                      'pageSize': 30,
-                    }
-                  },
+        // Center(
+        //   child: Text('123123'),
+        // ),
+        // Center(
+        //   child: Column(
+        //     children: <Widget>[
+        //       appBar(),
+        CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          semanticChildCount: products.length,
+          slivers: <Widget>[
+            SliverPersistentHeader(
+              // floating: false,
+              // pinned: false,
+              delegate: Header(
+                title: Text(
+                  'Latest',
+                  style: TextStyle(
+                    fontSize: 34,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-                builder: (QueryResult result,
-                    {VoidCallback refetch, FetchMore fetchMore}) {
-                  if (result.hasException) {
-                    return Text(result.exception.toString());
+              ),
+            ),
+            SliverToBoxAdapter(),
+            Query(
+              options: QueryOptions(
+                documentNode: gql(pictures),
+                fetchPolicy: FetchPolicy.cacheAndNetwork,
+                // pollInterval: 15,
+                variables: {
+                  'query': {
+                    'page': 1,
+                    'pageSize': 30,
                   }
-                  if (result.loading) {
-                    return SliverFillRemaining(
-                      child: Container(
-                        padding: EdgeInsets.all(24.0),
-                        child: CupertinoActivityIndicator(),
-                      ),
-                    );
-                  }
-                  List pictures =
-                      Picture.fromListJson(result.data['pictures']['data']);
-                  return SliverList(
-                    delegate: SliverChildListDelegate(
-                      pictures.map((picture) {
-                        return _buildItem(picture);
-                      }).toList(),
-                    ),
-                  );
                 },
               ),
-            ],
-          ),
+              builder: (QueryResult result,
+                  {VoidCallback refetch, FetchMore fetchMore}) {
+                if (result.hasException) {
+                  return Text(result.exception.toString());
+                }
+                if (result.loading) {
+                  return SliverFillRemaining(
+                    child: Container(
+                      padding: EdgeInsets.all(24.0),
+                      child: CupertinoActivityIndicator(),
+                    ),
+                  );
+                }
+                List pictures =
+                    Picture.fromListJson(result.data['pictures']['data']);
+                return SliverList(
+                  delegate: SliverChildListDelegate(
+                    pictures.map((picture) {
+                      return _buildItem(picture);
+                    }).toList(),
+                  ),
+                );
+              },
+            ),
+          ],
         ),
+        //     ],
+        //   ),
+        // ),
         Text('2'),
         Text('3'),
         Text('4'),
