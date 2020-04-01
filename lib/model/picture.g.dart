@@ -19,12 +19,14 @@ Picture _$PictureFromJson(Map<String, dynamic> json) {
     ..size = json['size'] as int
     ..isLike = json['isLike'] as bool
     ..likedCount = json['likedCount'] as int
+    ..commentCount = json['commentCount'] as int
     ..color = json['color'] as String
     ..isDark = json['isDark'] as bool
     ..height = json['height'] as int
     ..width = json['width'] as int
     ..make = json['make'] as String
     ..model = json['model'] as String
+    ..blurhash = json['blurhash'] as String
     ..createTime = json['createTime'] == null
         ? null
         : DateTime.parse(json['createTime'] as String)
@@ -48,12 +50,14 @@ Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{
       'size': instance.size,
       'isLike': instance.isLike,
       'likedCount': instance.likedCount,
+      'commentCount': instance.commentCount,
       'color': instance.color,
       'isDark': instance.isDark,
       'height': instance.height,
       'width': instance.width,
       'make': instance.make,
       'model': instance.model,
+      'blurhash': instance.blurhash,
       'createTime': instance.createTime?.toIso8601String(),
       'updateTime': instance.updateTime?.toIso8601String(),
       'user': instance.user,

@@ -18,12 +18,14 @@ class Picture {
   int size;
   bool isLike;
   int likedCount;
+  int commentCount;
   String color;
   bool isDark;
   int height;
   int width;
   String make;
   String model;
+  String blurhash;
   DateTime createTime;
   DateTime updateTime;
   User user;

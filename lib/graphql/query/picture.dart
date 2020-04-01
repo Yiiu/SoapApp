@@ -21,6 +21,8 @@ String pictures = """
         model
         createTime
         updateTime
+        blurhash
+        commentCount
         user {
           id
           username

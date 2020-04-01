@@ -28,22 +28,22 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Picture> list = [];
   int _selectedIndex = 0;
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   tabController = TabController(
-  //     length: _tabValues.length,
-  //     vsync: ScrollableState(),
-  //   )..addListener(() {
-  //       setState(() {
-  //         _selectedIndex = tabController.index;
-  //       });
-  //     });
-  // }
+  TabController tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      length: 4,
+      vsync: ScrollableState(),
+      initialIndex: _selectedIndex,
+    );
+  }
 
   handleTabChange(int index) {
     setState(() {
       _selectedIndex = index;
+      tabController.index = index;
     });
   }
 
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 8, right: 8),
+              padding: const EdgeInsets.only(top: 0, right: 8),
               child: Container(
                 width: AppBar().preferredSize.height - 8,
                 height: AppBar().preferredSize.height - 8,
@@ -131,53 +131,64 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget container() {
-    return CustomScrollView(
-      physics: BouncingScrollPhysics(),
-      semanticChildCount: products.length,
-      slivers: <Widget>[
-        SliverToBoxAdapter(),
-        Query(
-          options: QueryOptions(
-            documentNode: gql(pictures),
-            fetchPolicy: FetchPolicy.cacheAndNetwork,
-            // pollInterval: 15,
-            variables: {
-              'query': {
-                'page': 1,
-                'pageSize': 30,
-              }
-            },
-          ),
-          builder: (QueryResult result,
-              {VoidCallback refetch, FetchMore fetchMore}) {
-            if (result.hasException) {
-              return Text(result.exception.toString());
-            }
-            if (result.loading) {
-              return SliverToBoxAdapter(
-                child: Container(
-                  padding: EdgeInsets.all(24.0),
-                  child: CupertinoActivityIndicator(),
+    return TabBarView(
+      physics: NeverScrollableScrollPhysics(),
+      controller: tabController,
+      children: <Widget>[
+        SafeArea(
+          child: CustomScrollView(
+            physics: BouncingScrollPhysics(),
+            semanticChildCount: products.length,
+            slivers: <Widget>[
+              SliverToBoxAdapter(),
+              Query(
+                options: QueryOptions(
+                  documentNode: gql(pictures),
+                  fetchPolicy: FetchPolicy.cacheAndNetwork,
+                  // pollInterval: 15,
+                  variables: {
+                    'query': {
+                      'page': 1,
+                      'pageSize': 30,
+                    }
+                  },
                 ),
-              );
-            }
-            List pictures =
-                Picture.fromListJson(result.data['pictures']['data']);
-            return SliverList(
-              delegate: SliverChildListDelegate(
-                pictures.map((picture) {
-                  return _buildItem(picture);
-                }).toList(),
+                builder: (QueryResult result,
+                    {VoidCallback refetch, FetchMore fetchMore}) {
+                  if (result.hasException) {
+                    return Text(result.exception.toString());
+                  }
+                  if (result.loading) {
+                    return SliverFillRemaining(
+                      child: Container(
+                        padding: EdgeInsets.all(24.0),
+                        child: CupertinoActivityIndicator(),
+                      ),
+                    );
+                  }
+                  List pictures =
+                      Picture.fromListJson(result.data['pictures']['data']);
+                  return SliverList(
+                    delegate: SliverChildListDelegate(
+                      pictures.map((picture) {
+                        return _buildItem(picture);
+                      }).toList(),
+                    ),
+                  );
+                },
               ),
-            );
-          },
+            ],
+          ),
         ),
+        Text('2'),
+        Text('3'),
+        Text('4'),
       ],
     );
   }
 
   Widget navigationBar() {
-    double gap = 5;
+    double gap = 8.5;
     return Container(
       decoration: BoxDecoration(color: Colors.white, boxShadow: [
         BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
@@ -190,8 +201,8 @@ class _MyHomePageState extends State<MyHomePage> {
             activeColor: Colors.white,
             color: Colors.grey[400],
             iconSize: 18,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-            duration: Duration(milliseconds: 300),
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+            duration: Duration(milliseconds: 400),
             tabBackgroundColor: Colors.grey[800],
             tabs: [
               GButton(

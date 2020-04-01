@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
 
 import 'config/const.dart';
@@ -12,6 +13,7 @@ import 'provider/index.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  Jiffy.locale("zh-cn");
   runApp(GraphQLProvider(client: GraphqlConfig.client, child: SoapApp()));
   // if (Platform.isAndroid) {
   //   SystemChrome.setEnabledSystemUIOverlays([]);
