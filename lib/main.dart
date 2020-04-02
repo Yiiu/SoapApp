@@ -36,6 +36,7 @@ class SoapApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         initialRoute: RouteName.home,
         onGenerateRoute: Router.generateRoute,
+        // themeMode: ThemeMode.dark,
         title: Constants.appName,
         theme: Constants.lightTheme,
         darkTheme: Constants.darkTheme,

@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
@@ -15,26 +17,25 @@ class PictureInfoWidget {
   PictureInfoWidget({this.icon, this.color, this.text});
 }
 
-class PictureItem extends StatelessWidget {
+class PictureItem extends StatefulWidget {
   final Picture picture;
+
   PictureItem({this.picture});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              header(),
-              container(),
-              bottom(),
-            ],
-          ),
-        ],
-      ),
-    );
+  PictureItemState createState() => PictureItemState();
+}
+
+class PictureItemState extends State<PictureItem> {
+  Picture picture;
+  Uint8List imageDataBytes;
+
+  PictureItemState({this.picture});
+
+  @override
+  void initState() {
+    super.initState();
+    picture = widget.picture;
   }
 
   Widget header() {
@@ -148,6 +149,24 @@ class PictureItem extends StatelessWidget {
                 ),
               );
             }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Stack(
+        children: <Widget>[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              header(),
+              container(),
+              bottom(),
+            ],
           ),
         ],
       ),

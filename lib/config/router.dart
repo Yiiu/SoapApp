@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../screens/home/home.dart';
+import '../screens/home/index.dart';
 import '../screens/test.dart';
 import '../ui/widget/route_animation.dart';
 
@@ -15,7 +15,7 @@ class Router {
     switch (settings.name) {
       case RouteName.home:
         return NoAnimRouteBuilder(
-          MyHomePage(
+          HomePage(
             title: 'test',
           ),
         );
