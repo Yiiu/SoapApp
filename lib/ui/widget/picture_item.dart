@@ -1,12 +1,12 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:soap_app/config/router.dart';
 
-import '../../config/router.dart';
 import '../../model/picture.dart';
 
 class PictureInfoWidget {
@@ -91,11 +91,31 @@ class PictureItemState extends State<PictureItem> {
   }
 
   Widget container() {
-    return Container(
-      child: AspectRatio(
-        aspectRatio: picture.width / picture.height,
-        child: BlurHash(
-          hash: picture.blurhash,
+    Uint8List bytes = base64
+        .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(RouteName.picture_detail, arguments: picture);
+      },
+      child: Container(
+        child: AspectRatio(
+          aspectRatio: picture.width / picture.height,
+          child: new FadeInImage.memoryNetwork(
+            placeholder: bytes,
+            fadeInDuration: Duration(milliseconds: 400),
+            image: picture.pictureUrl(),
+            fit: BoxFit.cover,
+            // imageBuilder: (context, imageProvider) => Container(
+            //   decoration: BoxDecoration(
+            //     image: DecorationImage(
+            //         image: imageProvider,
+            //         fit: BoxFit.cover,
+            //         colorFilter:
+            //             ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+            //   ),
+            // ),
+          ),
         ),
       ),
     );
@@ -158,6 +178,12 @@ class PictureItemState extends State<PictureItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        // color: Colors.white,
+        border: Border(
+          bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
+        ),
+      ),
       child: Stack(
         children: <Widget>[
           Column(

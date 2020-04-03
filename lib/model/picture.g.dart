@@ -27,6 +27,7 @@ Picture _$PictureFromJson(Map<String, dynamic> json) {
     ..make = json['make'] as String
     ..model = json['model'] as String
     ..blurhash = json['blurhash'] as String
+    ..blurhashSrc = json['blurhashSrc'] as String
     ..createTime = json['createTime'] == null
         ? null
         : DateTime.parse(json['createTime'] as String)
@@ -58,6 +59,7 @@ Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{
       'make': instance.make,
       'model': instance.model,
       'blurhash': instance.blurhash,
+      'blurhashSrc': instance.blurhashSrc,
       'createTime': instance.createTime?.toIso8601String(),
       'updateTime': instance.updateTime?.toIso8601String(),
       'user': instance.user,

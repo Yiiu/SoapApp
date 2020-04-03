@@ -26,6 +26,7 @@ class Picture {
   String make;
   String model;
   String blurhash;
+  String blurhashSrc;
   DateTime createTime;
   DateTime updateTime;
   User user;

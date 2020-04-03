@@ -22,6 +22,7 @@ String pictures = """
         createTime
         updateTime
         blurhash
+        blurhashSrc
         commentCount
         user {
           id

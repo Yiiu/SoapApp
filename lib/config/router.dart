@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/screens/picture_detail/index.dart';
 
 import '../screens/home/index.dart';
 import '../screens/test.dart';
@@ -8,6 +9,7 @@ import '../ui/widget/route_animation.dart';
 class RouteName {
   static const home = '/';
   static const test = 'test';
+  static const picture_detail = 'picture_detail';
 }
 
 class Router {
@@ -18,6 +20,10 @@ class Router {
           HomePage(
             title: 'test',
           ),
+        );
+      case RouteName.picture_detail:
+        return MaterialPageRoute(
+          builder: (_) => PictureDetail(picture: settings.arguments),
         );
       case RouteName.test:
         return CupertinoPageRoute(
