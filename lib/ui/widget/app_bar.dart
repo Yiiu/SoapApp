@@ -30,15 +30,15 @@ class SoapAppBarState extends State<SoapAppBar> {
   void initState() {
     super.initState();
     title = widget.title;
-    if (widget.controller != null) {
-      widget.controller.addListener(() {
-        if (widget.controller.offset <= 0) {
-          if (!isTop) setState(() => isTop = true);
-        } else {
-          if (isTop) setState(() => isTop = false);
-        }
-      });
-    }
+    // if (widget.controller != null) {
+    //   widget.controller.addListener(() {
+    //     if (widget.controller.offset <= 0) {
+    //       if (!isTop) setState(() => isTop = true);
+    //     } else {
+    //       if (isTop) setState(() => isTop = false);
+    //     }
+    //   });
+    // }
   }
 
   @override

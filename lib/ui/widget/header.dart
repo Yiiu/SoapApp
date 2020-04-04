@@ -24,7 +24,6 @@ class Header extends SliverPersistentHeaderDelegate {
   ) {
     final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
     final double animationVal = scrollAnimationValue(shrinkOffset);
-    print('full height: ${visibleMainHeight}');
     return Container(
       // color: Colors.white,
       // height: 70 + MediaQuery.of(context).padding.top,

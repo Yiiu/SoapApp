@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:graphql/internal.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/graphql/query/picture.dart';
@@ -15,11 +18,31 @@ class HomeView extends StatefulWidget {
 }
 
 class HomeViewState extends State<HomeView> {
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  RefreshController _refreshController = RefreshController(
+    initialRefresh: false,
+    // initialRefreshStatus: RefreshStatus.completed,
+  );
   ScrollController _controller = new ScrollController();
 
   int page = 1;
+
+  bool isCompleted = false;
+
+  @override
+  initState() {
+    super.initState();
+
+    // SchedulerBinding.instance.addPostFrameCallback(
+    //     (_) => _refreshController.requestRefresh(needMove: false));
+  }
+
+  completed() {
+    if (!isCompleted) {
+      setState(() {
+        isCompleted = true;
+      });
+    }
+  }
 
   _onRefresh(Function refresh) {
     return () async {
@@ -36,7 +59,6 @@ class HomeViewState extends State<HomeView> {
       updateQuery: (previousResultData, fetchMoreResultData) {
         // this function will be called so as to combine both the original and fetchMore results
         // it allows you to combine them as you would like
-        print(fetchMoreResultData['pictures']['data']);
         final List<dynamic> repos = [
           ...previousResultData['pictures']['data'] as List<dynamic>,
           ...fetchMoreResultData['pictures']['data'] as List<dynamic>
@@ -100,9 +122,19 @@ class HomeViewState extends State<HomeView> {
       color: Colors.white,
       child: Column(
         children: <Widget>[
-          SoapAppBar(
-            title: 'Home',
-            controller: _controller,
+          AppBar(
+            centerTitle: false,
+            title: Text(
+              'Home',
+              style: GoogleFonts.rubik(
+                textStyle: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            backgroundColor: Colors.transparent,
+            elevation: 0,
           ),
           Expanded(
             child: Query(
@@ -117,8 +149,11 @@ class HomeViewState extends State<HomeView> {
                   }
                 },
               ),
-              builder: (QueryResult result,
-                  {VoidCallback refetch, FetchMore fetchMore}) {
+              builder: (
+                QueryResult result, {
+                VoidCallback refetch,
+                FetchMore fetchMore,
+              }) {
                 if (result.hasException) {
                   return SmartRefresher(
                     enablePullDown: true,
@@ -147,27 +182,26 @@ class HomeViewState extends State<HomeView> {
                     ),
                   );
                 }
+                List pictures = [];
                 if (result.loading && result.data == null) {
-                  return SingleChildScrollView(
-                    physics: BouncingScrollPhysics(),
-                    child: Row(
-                      children: <Widget>[
-                        Expanded(
-                          child: Container(
-                            alignment: Alignment.center,
-                            padding: EdgeInsets.all(64.0),
-                            child: CupertinoActivityIndicator(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  return Center(child: const CircularProgressIndicator());
+                } else {
+                  // completed();
+                  // if (!isCompleted) {
+                  //   setState(() {
+                  //     isCompleted = true;
+                  //   });
+                  // }
+                  if (result.data &&
+                      result.data['pictures'] &&
+                      result.data['pictures']['data']) {
+                    pictures =
+                        Picture.fromListJson(result.data['pictures']['data']);
+                  }
                 }
-                List pictures =
-                    Picture.fromListJson(result.data['pictures']['data']);
                 return SmartRefresher(
                   enablePullDown: true,
-                  enablePullUp: true,
+                  enablePullUp: !(result.loading && result.data == null),
                   controller: _refreshController,
                   onRefresh: _onRefresh(refetch),
                   onLoading: _onLoading(fetchMore),
