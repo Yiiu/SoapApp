@@ -20,7 +20,8 @@ class HomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _MyHomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   List<Picture> list = [];
   int _selectedIndex = 0;
 
@@ -31,7 +32,7 @@ class _MyHomePageState extends State<HomePage> {
     super.initState();
     tabController = TabController(
       length: 4,
-      vsync: ScrollableState(),
+      vsync: this,
       initialIndex: _selectedIndex,
     );
   }

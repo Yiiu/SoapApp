@@ -4,13 +4,15 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(uri: 'http://localhost:3001/graphql');
 
-  static ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: httpLink,
-      cache: NormalizedInMemoryCache(
-        dataIdFromObject: typenameDataIdFromObject,
-      ),
+  static GraphQLClient graphQLClient = GraphQLClient(
+    link: httpLink,
+    cache: NormalizedInMemoryCache(
+      dataIdFromObject: typenameDataIdFromObject,
     ),
+  );
+
+  static ValueNotifier<GraphQLClient> client = ValueNotifier(
+    graphQLClient,
   );
 
   GraphQLClient clientToQuery() {
@@ -22,4 +24,3 @@ class GraphqlConfig {
     );
   }
 }
-

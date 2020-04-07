@@ -1,13 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:graphql/internal.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/graphql/query/picture.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/ui/widget/app_bar.dart';
+import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/widget/picture_item.dart';
 
 class HomeView extends StatefulWidget {
@@ -17,7 +15,10 @@ class HomeView extends StatefulWidget {
   }
 }
 
-class HomeViewState extends State<HomeView> {
+class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   RefreshController _refreshController = RefreshController(
     initialRefresh: false,
     // initialRefreshStatus: RefreshStatus.completed,
@@ -28,12 +29,9 @@ class HomeViewState extends State<HomeView> {
 
   bool isCompleted = false;
 
-  @override
-  initState() {
-    super.initState();
-
-    // SchedulerBinding.instance.addPostFrameCallback(
-    //     (_) => _refreshController.requestRefresh(needMove: false));
+  didChangeDependencies() {
+    super.didChangeDependencies();
+    Provider.of<HomeProvider>(context, listen: false).getPictureList();
   }
 
   completed() {
@@ -137,94 +135,122 @@ class HomeViewState extends State<HomeView> {
             elevation: 0,
           ),
           Expanded(
-            child: Query(
-              options: QueryOptions(
-                documentNode: gql(pictures),
-                fetchPolicy: FetchPolicy.cacheAndNetwork,
-                // pollInterval: 15,
-                variables: {
-                  'query': {
-                    'page': 1,
-                    'pageSize': 5,
-                  }
-                },
-              ),
-              builder: (
-                QueryResult result, {
-                VoidCallback refetch,
-                FetchMore fetchMore,
-              }) {
-                if (result.hasException) {
-                  return SmartRefresher(
-                    enablePullDown: true,
-                    enablePullUp: false,
-                    controller: _refreshController,
-                    onRefresh: _onRefresh(refetch),
-                    header: refresherHeader,
-                    child: SingleChildScrollView(
-                      physics: BouncingScrollPhysics(),
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.all(64.0),
-                              child: Text(
-                                '出错啦',
-                                style: TextStyle(
-                                  fontSize: 32,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
+            child: Consumer<HomeProvider>(
+              builder: (BuildContext context, HomeProvider home, child) =>
+                  SmartRefresher(
+                enablePullDown: true,
+                enablePullUp: false,
+                controller: _refreshController,
+                // onRefresh: _onRefresh(refetch),
+                // onLoading: _onLoading(fetchMore),
+                header: refresherHeader,
+                footer: refresherFooter,
+                child: CustomScrollView(
+                  controller: _controller,
+                  physics: BouncingScrollPhysics(),
+                  slivers: <Widget>[
+                    SliverToBoxAdapter(),
+                    SliverList(
+                      delegate: SliverChildListDelegate(
+                        home.pictureList.map((picture) {
+                          return _buildItem(picture);
+                        }).toList(),
                       ),
                     ),
-                  );
-                }
-                List pictures = [];
-                if (result.loading && result.data == null) {
-                  return Center(child: const CircularProgressIndicator());
-                } else {
-                  // completed();
-                  // if (!isCompleted) {
-                  //   setState(() {
-                  //     isCompleted = true;
-                  //   });
-                  // }
-                  if (result.data &&
-                      result.data['pictures'] &&
-                      result.data['pictures']['data']) {
-                    pictures =
-                        Picture.fromListJson(result.data['pictures']['data']);
-                  }
-                }
-                return SmartRefresher(
-                  enablePullDown: true,
-                  enablePullUp: !(result.loading && result.data == null),
-                  controller: _refreshController,
-                  onRefresh: _onRefresh(refetch),
-                  onLoading: _onLoading(fetchMore),
-                  header: refresherHeader,
-                  footer: refresherFooter,
-                  child: CustomScrollView(
-                    controller: _controller,
-                    physics: BouncingScrollPhysics(),
-                    slivers: <Widget>[
-                      SliverToBoxAdapter(),
-                      SliverList(
-                        delegate: SliverChildListDelegate(
-                          pictures.map((picture) {
-                            return _buildItem(picture);
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
+                  ],
+                ),
+              ),
             ),
-          ),
+          )
+          // Expanded(
+          //   child: Query(
+          //     options: QueryOptions(
+          //       documentNode: gql(pictures),
+          //       fetchPolicy: FetchPolicy.cacheAndNetwork,
+          //       // pollInterval: 15,
+          //       variables: {
+          //         'query': {
+          //           'page': 1,
+          //           'pageSize': 5,
+          //         }
+          //       },
+          //     ),
+          //     builder: (
+          //       QueryResult result, {
+          //       VoidCallback refetch,
+          //       FetchMore fetchMore,
+          //     }) {
+          //       if (result.hasException) {
+          //         return SmartRefresher(
+          //           enablePullDown: true,
+          //           enablePullUp: false,
+          //           controller: _refreshController,
+          //           onRefresh: _onRefresh(refetch),
+          //           header: refresherHeader,
+          //           child: SingleChildScrollView(
+          //             physics: BouncingScrollPhysics(),
+          //             child: Row(
+          //               children: <Widget>[
+          //                 Expanded(
+          //                   child: Container(
+          //                     alignment: Alignment.center,
+          //                     padding: EdgeInsets.all(64.0),
+          //                     child: Text(
+          //                       '出错啦',
+          //                       style: TextStyle(
+          //                         fontSize: 32,
+          //                       ),
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //           ),
+          //         );
+          //       }
+          //       List pictures = [];
+          //       if (result.loading && result.data == null) {
+          //         return Center(child: const CircularProgressIndicator());
+          //       } else {
+          //         // completed();
+          //         // if (!isCompleted) {
+          //         //   setState(() {
+          //         //     isCompleted = true;
+          //         //   });
+          //         // }
+          //         if (result.data &&
+          //             result.data['pictures'] &&
+          //             result.data['pictures']['data']) {
+          //           pictures =
+          //               Picture.fromListJson(result.data['pictures']['data']);
+          //         }
+          //       }
+          //       return SmartRefresher(
+          //         enablePullDown: true,
+          //         enablePullUp: !(result.loading && result.data == null),
+          //         controller: _refreshController,
+          //         onRefresh: _onRefresh(refetch),
+          //         onLoading: _onLoading(fetchMore),
+          //         header: refresherHeader,
+          //         footer: refresherFooter,
+          //         child: CustomScrollView(
+          //           controller: _controller,
+          //           physics: BouncingScrollPhysics(),
+          //           slivers: <Widget>[
+          //             SliverToBoxAdapter(),
+          //             SliverList(
+          //               delegate: SliverChildListDelegate(
+          //                 pictures.map((picture) {
+          //                   return _buildItem(picture);
+          //                 }).toList(),
+          //               ),
+          //             ),
+          //           ],
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );
