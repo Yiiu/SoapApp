@@ -164,9 +164,10 @@ class _PictureDetailState extends State<PictureDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: Container(
-        color: Colors.white,
+        color: theme.backgroundColor,
         child: Column(
           children: <Widget>[
             appBar(),

@@ -6,15 +6,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/screens/home/search.dart';
 
 import '../../model/picture.dart';
 import 'home.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  HomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -49,102 +48,99 @@ class _MyHomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(child: container()),
-        ],
-      ),
-      bottomNavigationBar: navigationBar(),
-    );
-  }
-
-  Widget container() {
-    return TabBarView(
-      physics: NeverScrollableScrollPhysics(),
-      controller: tabController,
-      children: <Widget>[
-        HomeView(),
-        SearchView(),
-        Text(''),
-        Text('4'),
-      ],
-    );
-  }
-
-  Widget navigationBar() {
     double gap = 8.5;
-    return Container(
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-      ]),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(10).add(EdgeInsets.only(top: 5)),
-          child: GNav(
-            gap: gap,
-            activeColor: Colors.white,
-            color: Colors.grey[400],
-            iconSize: 18,
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-            duration: Duration(milliseconds: 400),
-            tabBackgroundColor: Colors.grey[800],
-            tabs: [
-              GButton(
-                icon: FeatherIcons.home,
-                text: 'Home',
-                iconActiveColor: Colors.purple,
-                iconColor: Colors.black26,
-                textStyle: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    color: Colors.purple,
-                    letterSpacing: 2,
-                  ),
-                ),
-                backgroundColor: Colors.purple.withOpacity(0),
+    final theme = Theme.of(context);
+    return Scaffold(
+      body: CupertinoScaffold(
+        body: Column(
+          children: <Widget>[
+            Expanded(
+              child: TabBarView(
+                physics: NeverScrollableScrollPhysics(),
+                controller: tabController,
+                children: <Widget>[
+                  HomeView(),
+                  SearchView(),
+                  Text(''),
+                  Text('4'),
+                ],
               ),
-              GButton(
-                icon: FeatherIcons.search,
-                text: 'Search',
-                iconActiveColor: Colors.pink,
-                iconColor: Colors.black26,
-                textStyle: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    color: Colors.pink,
-                    letterSpacing: 2,
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(color: theme.backgroundColor, boxShadow: [
+          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
+        ]),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(10).add(EdgeInsets.only(top: 5)),
+            child: GNav(
+              gap: gap,
+              activeColor: Colors.white,
+              color: Colors.grey[400],
+              iconSize: 18,
+              padding: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+              duration: Duration(milliseconds: 400),
+              tabBackgroundColor: Colors.grey[800],
+              tabs: [
+                GButton(
+                  icon: FeatherIcons.home,
+                  text: 'Home',
+                  iconActiveColor: Colors.purple,
+                  iconColor: Colors.black26,
+                  textStyle: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                      color: Colors.purple,
+                      letterSpacing: 2,
+                    ),
                   ),
+                  backgroundColor: Colors.purple.withOpacity(0),
                 ),
-                backgroundColor: Colors.pink.withOpacity(0),
-              ),
-              GButton(
-                icon: FeatherIcons.plus,
-                text: 'Add',
-                iconActiveColor: Colors.amber[600],
-                iconColor: Colors.black26,
-                textStyle: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    color: Colors.amber[600],
-                    letterSpacing: 2,
+                GButton(
+                  icon: FeatherIcons.search,
+                  text: 'Search',
+                  iconActiveColor: Colors.pink,
+                  iconColor: Colors.black26,
+                  textStyle: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                      color: Colors.pink,
+                      letterSpacing: 2,
+                    ),
                   ),
+                  backgroundColor: Colors.pink.withOpacity(0),
                 ),
-                backgroundColor: Colors.amber[600].withOpacity(0),
-              ),
-              GButton(
-                icon: FeatherIcons.user,
-                text: 'User',
-                iconActiveColor: Colors.teal,
-                iconColor: Colors.black26,
-                textStyle: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    color: Colors.teal,
-                    letterSpacing: 2,
+                GButton(
+                  icon: FeatherIcons.plus,
+                  text: 'Add',
+                  iconActiveColor: Colors.amber[600],
+                  iconColor: Colors.black26,
+                  textStyle: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                      color: Colors.amber[600],
+                      letterSpacing: 2,
+                    ),
                   ),
+                  backgroundColor: Colors.amber[600].withOpacity(0),
                 ),
-                backgroundColor: Colors.teal.withOpacity(0),
-              ),
-            ],
-            selectedIndex: _selectedIndex,
-            onTabChange: handleTabChange,
+                GButton(
+                  icon: FeatherIcons.user,
+                  text: 'User',
+                  iconActiveColor: Colors.teal,
+                  iconColor: Colors.black26,
+                  textStyle: GoogleFonts.rubik(
+                    textStyle: TextStyle(
+                      color: Colors.teal,
+                      letterSpacing: 2,
+                    ),
+                  ),
+                  backgroundColor: Colors.teal.withOpacity(0),
+                ),
+              ],
+              selectedIndex: _selectedIndex,
+              onTabChange: handleTabChange,
+            ),
           ),
         ),
       ),

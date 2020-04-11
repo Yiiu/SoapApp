@@ -116,8 +116,9 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
         );
       },
     );
+    final theme = Theme.of(context);
     return Container(
-      color: Colors.white,
+      color: theme.backgroundColor,
       child: Column(
         children: <Widget>[
           AppBar(
@@ -141,8 +142,6 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
                 enablePullDown: true,
                 enablePullUp: false,
                 controller: _refreshController,
-                // onRefresh: _onRefresh(refetch),
-                // onLoading: _onLoading(fetchMore),
                 header: refresherHeader,
                 footer: refresherFooter,
                 child: CustomScrollView(
@@ -161,96 +160,7 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
                 ),
               ),
             ),
-          )
-          // Expanded(
-          //   child: Query(
-          //     options: QueryOptions(
-          //       documentNode: gql(pictures),
-          //       fetchPolicy: FetchPolicy.cacheAndNetwork,
-          //       // pollInterval: 15,
-          //       variables: {
-          //         'query': {
-          //           'page': 1,
-          //           'pageSize': 5,
-          //         }
-          //       },
-          //     ),
-          //     builder: (
-          //       QueryResult result, {
-          //       VoidCallback refetch,
-          //       FetchMore fetchMore,
-          //     }) {
-          //       if (result.hasException) {
-          //         return SmartRefresher(
-          //           enablePullDown: true,
-          //           enablePullUp: false,
-          //           controller: _refreshController,
-          //           onRefresh: _onRefresh(refetch),
-          //           header: refresherHeader,
-          //           child: SingleChildScrollView(
-          //             physics: BouncingScrollPhysics(),
-          //             child: Row(
-          //               children: <Widget>[
-          //                 Expanded(
-          //                   child: Container(
-          //                     alignment: Alignment.center,
-          //                     padding: EdgeInsets.all(64.0),
-          //                     child: Text(
-          //                       '出错啦',
-          //                       style: TextStyle(
-          //                         fontSize: 32,
-          //                       ),
-          //                     ),
-          //                   ),
-          //                 ),
-          //               ],
-          //             ),
-          //           ),
-          //         );
-          //       }
-          //       List pictures = [];
-          //       if (result.loading && result.data == null) {
-          //         return Center(child: const CircularProgressIndicator());
-          //       } else {
-          //         // completed();
-          //         // if (!isCompleted) {
-          //         //   setState(() {
-          //         //     isCompleted = true;
-          //         //   });
-          //         // }
-          //         if (result.data &&
-          //             result.data['pictures'] &&
-          //             result.data['pictures']['data']) {
-          //           pictures =
-          //               Picture.fromListJson(result.data['pictures']['data']);
-          //         }
-          //       }
-          //       return SmartRefresher(
-          //         enablePullDown: true,
-          //         enablePullUp: !(result.loading && result.data == null),
-          //         controller: _refreshController,
-          //         onRefresh: _onRefresh(refetch),
-          //         onLoading: _onLoading(fetchMore),
-          //         header: refresherHeader,
-          //         footer: refresherFooter,
-          //         child: CustomScrollView(
-          //           controller: _controller,
-          //           physics: BouncingScrollPhysics(),
-          //           slivers: <Widget>[
-          //             SliverToBoxAdapter(),
-          //             SliverList(
-          //               delegate: SliverChildListDelegate(
-          //                 pictures.map((picture) {
-          //                   return _buildItem(picture);
-          //                 }).toList(),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     },
-          //   ),
-          // ),
+          ),
         ],
       ),
     );

@@ -33,6 +33,7 @@ dependencies:
   flutter_blurhash: ^0.1.2
   jiffy: ^3.0.1
   pull_to_refresh: ^1.5.8
+  modal_bottom_sheet: ^0.1.4
 
 dev_dependencies:
   build_runner: ^1.8.1

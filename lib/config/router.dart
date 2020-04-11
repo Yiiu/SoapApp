@@ -17,18 +17,11 @@ class Router {
     switch (settings.name) {
       case RouteName.home:
         return NoAnimRouteBuilder(
-          HomePage(
-            title: 'test',
-          ),
+          HomePage(),
         );
       case RouteName.picture_detail:
         return MaterialPageRoute(
           builder: (_) => PictureDetail(picture: settings.arguments),
-        );
-      case RouteName.test:
-        return CupertinoPageRoute(
-          // fullscreenDialog: true,
-          builder: (_) => Test(),
         );
       default:
         return CupertinoPageRoute(
