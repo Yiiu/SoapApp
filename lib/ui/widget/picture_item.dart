@@ -2,10 +2,12 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/router.dart';
+import 'package:soap_app/screens/picture_detail/index.dart';
 
 import '../../model/picture.dart';
 
@@ -91,30 +93,39 @@ class PictureItemState extends State<PictureItem> {
   }
 
   Widget container() {
+    var id = picture.id;
     Uint8List bytes = base64
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
     return GestureDetector(
       onTap: () {
-        Navigator.of(context)
-            .pushNamed(RouteName.picture_detail, arguments: picture);
+        Navigator.push(
+          context,
+          PageRouteBuilder(
+            transitionDuration: Duration(milliseconds: 200), //动画时间为500毫秒
+            pageBuilder: (BuildContext context, Animation animation,
+                Animation secondaryAnimation) {
+              return new FadeTransition(
+                //使用渐隐渐入过渡,
+                opacity: animation,
+                child: PictureDetail(
+                  picture: picture,
+                ), //路由B
+              );
+            },
+          ),
+        );
       },
       child: Container(
-        child: AspectRatio(
-          aspectRatio: picture.width / picture.height,
-          child: new FadeInImage.memoryNetwork(
-            placeholder: bytes,
-            fadeInDuration: Duration(milliseconds: 400),
-            image: picture.pictureUrl(),
-            fit: BoxFit.cover,
-            // imageBuilder: (context, imageProvider) => Container(
-            //   decoration: BoxDecoration(
-            //     image: DecorationImage(
-            //         image: imageProvider,
-            //         fit: BoxFit.cover,
-            //         colorFilter:
-            //             ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
-            //   ),
-            // ),
+        child: Hero(
+          tag: 'picture-$id',
+          child: AspectRatio(
+            aspectRatio: picture.width / picture.height,
+            child: new FadeInImage.memoryNetwork(
+              placeholder: bytes,
+              fadeInDuration: Duration(milliseconds: 400),
+              image: picture.pictureUrl(),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),

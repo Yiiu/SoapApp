@@ -108,6 +108,7 @@ class _PictureDetailState extends State<PictureDetail> {
   }
 
   Widget container() {
+    var id = picture.id;
     Uint8List bytes = base64
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
     return GestureDetector(
@@ -116,13 +117,16 @@ class _PictureDetailState extends State<PictureDetail> {
         //     .pushNamed(RouteName.picture_detail, arguments: picture);
       },
       child: Container(
-        child: AspectRatio(
-          aspectRatio: picture.width / picture.height,
-          child: new FadeInImage.memoryNetwork(
-            placeholder: bytes,
-            fadeInDuration: Duration(milliseconds: 400),
-            image: picture.pictureUrl(),
-            fit: BoxFit.cover,
+        child: Hero(
+          tag: 'picture-$id',
+          child: AspectRatio(
+            aspectRatio: picture.width / picture.height,
+            child: new FadeInImage.memoryNetwork(
+              placeholder: bytes,
+              fadeInDuration: Duration(milliseconds: 400),
+              image: picture.pictureUrl(),
+              fit: BoxFit.cover,
+            ),
           ),
         ),
       ),
@@ -175,7 +179,7 @@ class _PictureDetailState extends State<PictureDetail> {
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[
-                  userHeader(),
+                  // userHeader(),
                   container(),
                   handleContent(),
                 ],
