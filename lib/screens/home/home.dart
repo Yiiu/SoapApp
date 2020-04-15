@@ -6,7 +6,8 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
-import 'package:soap_app/ui/widget/picture_item.dart';
+import 'package:soap_app/ui/widget/app_bar.dart';
+import 'package:soap_app/ui/widget/picture/picture_item.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -15,7 +16,8 @@ class HomeView extends StatefulWidget {
   }
 }
 
-class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
+class HomeViewState extends State<HomeView>
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
 
@@ -25,9 +27,24 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
   );
   ScrollController _controller = new ScrollController();
 
+  TabController _tabController;
+
   int page = 1;
 
   bool isCompleted = false;
+
+  static List<String> get tabs => ["最新", "热门"];
+
+  @override
+  initState() {
+    super.initState();
+
+    _tabController = TabController(
+      initialIndex: 0,
+      length: tabs.length,
+      vsync: this,
+    );
+  }
 
   didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,42 +57,6 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
         isCompleted = true;
       });
     }
-  }
-
-  _onRefresh(Function refresh) {
-    return () async {
-      await refresh();
-      _refreshController.refreshCompleted();
-    };
-  }
-
-  _onLoading(FetchMore more) {
-    FetchMoreOptions opts = FetchMoreOptions(
-      variables: {
-        'query': {'page': page + 1}
-      },
-      updateQuery: (previousResultData, fetchMoreResultData) {
-        // this function will be called so as to combine both the original and fetchMore results
-        // it allows you to combine them as you would like
-        final List<dynamic> repos = [
-          ...previousResultData['pictures']['data'] as List<dynamic>,
-          ...fetchMoreResultData['pictures']['data'] as List<dynamic>
-        ];
-
-        // to avoid a lot of work, lets just update the list of repos in returned
-        // data with new data, this also ensures we have the endCursor already set
-        // correctly
-        fetchMoreResultData['pictures']['data'] = repos;
-
-        return fetchMoreResultData;
-      },
-    );
-    return () async {
-      // setState(() => page += 1);
-      await more(opts);
-      await Future.delayed(Duration(milliseconds: 500));
-      _refreshController.loadComplete();
-    };
   }
 
   Widget _buildItem(Picture picture) {
@@ -117,51 +98,55 @@ class HomeViewState extends State<HomeView> with AutomaticKeepAliveClientMixin {
       },
     );
     final theme = Theme.of(context);
-    return Container(
-      color: theme.backgroundColor,
-      child: Column(
-        children: <Widget>[
-          AppBar(
-            centerTitle: false,
-            title: Text(
-              'Home',
-              style: GoogleFonts.rubik(
-                textStyle: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
-                ),
+    return FixedAppBarWrapper(
+      appBar: SoapAppBar(
+        centerTitle: false,
+        elevation: 0.1,
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Home',
+            style: GoogleFonts.rubik(
+              textStyle: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w700,
               ),
             ),
-            backgroundColor: Colors.transparent,
-            elevation: 0,
           ),
-          Expanded(
-            child: Consumer<HomeProvider>(
-              builder: (BuildContext context, HomeProvider home, child) =>
-                  SmartRefresher(
-                enablePullDown: true,
-                enablePullUp: false,
-                controller: _refreshController,
-                header: refresherHeader,
-                footer: refresherFooter,
-                child: CustomScrollView(
-                  controller: _controller,
-                  physics: BouncingScrollPhysics(),
-                  slivers: <Widget>[
-                    SliverToBoxAdapter(),
-                    SliverList(
-                      delegate: SliverChildListDelegate(
-                        home.pictureList.map((picture) {
-                          return _buildItem(picture);
-                        }).toList(),
+        ),
+      ),
+      body: Container(
+        color: theme.backgroundColor,
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              child: Consumer<HomeProvider>(
+                builder: (BuildContext context, HomeProvider home, child) =>
+                    SmartRefresher(
+                  enablePullDown: true,
+                  enablePullUp: false,
+                  controller: _refreshController,
+                  header: refresherHeader,
+                  footer: refresherFooter,
+                  child: CustomScrollView(
+                    controller: _controller,
+                    physics: BouncingScrollPhysics(),
+                    slivers: <Widget>[
+                      SliverToBoxAdapter(),
+                      SliverList(
+                        delegate: SliverChildListDelegate(
+                          home.pictureList.map((picture) {
+                            return _buildItem(picture);
+                          }).toList(),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

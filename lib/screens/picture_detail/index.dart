@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/model/picture.dart';
@@ -25,32 +26,6 @@ class _PictureDetailState extends State<PictureDetail> {
   initState() {
     super.initState();
     picture = widget.picture;
-  }
-
-  Widget appBar() {
-    return SoapAppBar(
-      centerTitle: true,
-      title: '',
-      leading: Padding(
-        padding: EdgeInsets.only(left: 0),
-        child: Container(
-          width: 46,
-          height: 46,
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(
-                AppBar().preferredSize.height,
-              ),
-              child: Icon(
-                FeatherIcons.chevronLeft,
-              ),
-              onTap: () => Navigator.pop(context),
-            ),
-          ),
-        ),
-      ),
-    );
   }
 
   Widget userHeader() {
@@ -111,22 +86,16 @@ class _PictureDetailState extends State<PictureDetail> {
     var id = picture.id;
     Uint8List bytes = base64
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
-    return GestureDetector(
-      onTap: () {
-        // Navigator.of(context)
-        //     .pushNamed(RouteName.picture_detail, arguments: picture);
-      },
-      child: Container(
+    return Container(
+      child: AspectRatio(
+        aspectRatio: picture.width / picture.height,
         child: Hero(
           tag: 'picture-$id',
-          child: AspectRatio(
-            aspectRatio: picture.width / picture.height,
-            child: new FadeInImage.memoryNetwork(
-              placeholder: bytes,
-              fadeInDuration: Duration(milliseconds: 400),
-              image: picture.pictureUrl(),
-              fit: BoxFit.cover,
-            ),
+          child: new FadeInImage.memoryNetwork(
+            placeholder: bytes,
+            fadeInDuration: Duration(milliseconds: 400),
+            image: picture.pictureUrl(),
+            fit: BoxFit.cover,
           ),
         ),
       ),
@@ -143,16 +112,27 @@ class _PictureDetailState extends State<PictureDetail> {
                 onPressed: () {},
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.black12,
-                    borderRadius: BorderRadius.circular(20.0),
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(color: Color(0xFFE1E7EF), width: 1),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 6, horizontal: 18),
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 14),
                     child: Row(
                       children: <Widget>[
-                        Icon(FeatherIcons.heart),
+                        Icon(
+                          FeatherIcons.heart,
+                          color: Colors.red,
+                          size: 16,
+                        ),
+                        SizedBox(width: 6),
                         Text(
                           picture.likedCount.toString(),
+                          style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 15,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -172,9 +152,8 @@ class _PictureDetailState extends State<PictureDetail> {
     return Scaffold(
       body: Container(
         color: theme.backgroundColor,
-        child: Column(
+        child: Stack(
           children: <Widget>[
-            appBar(),
             Expanded(
               child: ListView(
                 physics: BouncingScrollPhysics(),
@@ -183,6 +162,26 @@ class _PictureDetailState extends State<PictureDetail> {
                   container(),
                   handleContent(),
                 ],
+              ),
+            ),
+            Positioned(
+              right: 16,
+              top: 16,
+              child: CupertinoButton(
+                onPressed: () => Navigator.pop(context),
+                pressedOpacity: .8,
+                child: ClipOval(
+                  child: Container(
+                    color: Color.fromRGBO(0, 0, 0, .6),
+                    width: 34,
+                    height: 34,
+                    child: Icon(
+                      FeatherIcons.x,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ),
               ),
             ),
           ],

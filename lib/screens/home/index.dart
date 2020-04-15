@@ -70,9 +70,15 @@ class _MyHomePageState extends State<HomePage>
         ),
       ),
       bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: theme.backgroundColor, boxShadow: [
-          BoxShadow(blurRadius: 20, color: Colors.black.withOpacity(.1))
-        ]),
+        decoration: BoxDecoration(
+          color: theme.backgroundColor,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 5,
+              color: Color(0xFFE1E7EF).withOpacity(0.6),
+            )
+          ],
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.all(10).add(EdgeInsets.only(top: 5)),

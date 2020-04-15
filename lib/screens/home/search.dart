@@ -14,7 +14,7 @@ class SearchView extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SoapAppBar(
-            title: 'Search',
+            title: Text('Search'),
           ),
           Text('Search'),
         ],

@@ -6,10 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/config/router.dart';
+import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
-
-import '../../model/picture.dart';
 
 class PictureInfoWidget {
   IconData icon;
@@ -115,16 +113,20 @@ class PictureItemState extends State<PictureItem> {
           ),
         );
       },
-      child: Container(
-        child: Hero(
-          tag: 'picture-$id',
-          child: AspectRatio(
-            aspectRatio: picture.width / picture.height,
-            child: new FadeInImage.memoryNetwork(
-              placeholder: bytes,
-              fadeInDuration: Duration(milliseconds: 400),
-              image: picture.pictureUrl(),
-              fit: BoxFit.cover,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 16),
+        child: AspectRatio(
+          aspectRatio: picture.width / picture.height,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(4),
+            child: Hero(
+              tag: 'picture-$id',
+              child: FadeInImage.memoryNetwork(
+                placeholder: bytes,
+                fadeInDuration: Duration(milliseconds: 400),
+                image: picture.pictureUrl(),
+                fit: BoxFit.cover,
+              ),
             ),
           ),
         ),
@@ -202,7 +204,7 @@ class PictureItemState extends State<PictureItem> {
             children: <Widget>[
               header(),
               container(),
-              bottom(),
+              // bottom(),
             ],
           ),
         ],

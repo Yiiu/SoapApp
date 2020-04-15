@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
+const double appBarHeight = 75.0;
+
 class Constants {
   static String appName = "Soap";
 

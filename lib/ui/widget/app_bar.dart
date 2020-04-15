@@ -1,118 +1,130 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-class SoapAppBar extends StatefulWidget {
-  SoapAppBar({
+import 'package:soap_app/config/const.dart';
+
+/// Customized appbar.
+/// 自定义的顶栏。
+class SoapAppBar extends StatelessWidget {
+  const SoapAppBar({
+    Key key,
+    this.automaticallyImplyLeading = true,
     this.title,
-    this.controller,
-    this.leading,
-    this.centerTitle = false,
+    this.centerTitle = true,
+    this.backgroundColor,
+    this.elevation = 2.0,
     this.actions,
-  });
+    this.actionsPadding,
+    this.height,
+  }) : super(key: key);
 
-  final String title;
-  final ScrollController controller;
-  final Widget leading;
-  final bool centerTitle;
+  final Widget title;
   final List<Widget> actions;
+  final EdgeInsetsGeometry actionsPadding;
+  final bool automaticallyImplyLeading;
+  final bool centerTitle;
+  final Color backgroundColor;
+  final double elevation;
+  final double height;
 
   @override
-  SoapAppBarState createState() => SoapAppBarState();
-}
-
-class SoapAppBarState extends State<SoapAppBar> {
-  String title;
-  Widget leading;
-
-  bool isTop = true;
-
-  @override
-  void initState() {
-    super.initState();
-    title = widget.title;
-    // if (widget.controller != null) {
-    //   widget.controller.addListener(() {
-    //     if (widget.controller.offset <= 0) {
-    //       if (!isTop) setState(() => isTop = true);
-    //     } else {
-    //       if (isTop) setState(() => isTop = false);
-    //     }
-    //   });
-    // }
-  }
-
-  @override
-  Widget build(BuildContext content) {
-    bool centerTitle = widget.centerTitle;
-
-    Widget actions;
-    if (widget.actions != null && widget.actions.isNotEmpty) {
-      actions = Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: widget.actions,
-      );
-    } else if (centerTitle) {
-      actions = Row(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Container(
-            width: 46,
-          ),
-        ],
-      );
+  Widget build(BuildContext context) {
+    Widget _title = title;
+    if (centerTitle) {
+      _title = Center(child: _title);
     }
-
-    Widget leading = widget.leading;
-
-    return SafeArea(
+    var sp;
+    return Material(
+      type: MaterialType.transparency,
       child: Container(
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        height: height ?? appBarHeight + MediaQuery.of(context).padding.top,
         decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              offset: Offset(0, 3.0),
-              blurRadius: 12.0,
-              spreadRadius: 2.0,
-            ),
-          ],
-          // border: Border(
-          //   bottom: BorderSide(
-          //       color: Color.fromRGBO(243, 243, 244, 1), width: 1),
-          // ),
+          boxShadow: elevation > 0
+              ? <BoxShadow>[
+                  BoxShadow(
+                    color: Color(0x0d000000),
+                    blurRadius: elevation * 1.0,
+                    offset: Offset(0, elevation * 2.0),
+                  ),
+                ]
+              : null,
+          color: backgroundColor ?? Theme.of(context).primaryColor,
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6),
-          child: SizedBox(
-            height: 60,
-            child: Row(
-              children: <Widget>[
-                if (leading != null) leading,
-                Expanded(
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Text(
-                        title,
-                        textAlign:
-                            centerTitle ? TextAlign.center : TextAlign.left,
-                        style: GoogleFonts.rubik(
-                          textStyle: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ),
-                    ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            if (automaticallyImplyLeading && Navigator.of(context).canPop())
+              BackButton(),
+            if (_title != null)
+              Expanded(
+                child: Align(
+                  alignment: centerTitle
+                      ? Alignment.center
+                      : AlignmentDirectional.centerStart,
+                  child: DefaultTextStyle(
+                    child: _title,
+                    style: Theme.of(context)
+                        .textTheme
+                        .title
+                        .copyWith(fontSize: 23.0),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
-                if (actions != null) actions,
-              ],
-            ),
-          ),
+              ),
+            if (automaticallyImplyLeading &&
+                Navigator.of(context).canPop() &&
+                (actions?.isEmpty ?? true))
+              SizedBox(width: 48.0)
+            else if (actions?.isNotEmpty ?? false)
+              Padding(
+                padding: actionsPadding ?? EdgeInsets.zero,
+                child: Row(mainAxisSize: MainAxisSize.min, children: actions),
+              ),
+          ],
         ),
+      ),
+    );
+  }
+}
+
+/// Wrapper for [FixedAppBar]. Avoid elevation covered by body.
+/// 顶栏封装。防止内容块层级高于顶栏导致遮挡阴影。
+class FixedAppBarWrapper extends StatelessWidget {
+  const FixedAppBarWrapper({
+    Key key,
+    @required this.appBar,
+    @required this.body,
+  })  : assert(
+          appBar != null && body != null,
+          'All fields must not be null.',
+        ),
+        super(key: key);
+
+  final SoapAppBar appBar;
+  final Widget body;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      type: MaterialType.transparency,
+      child: Stack(
+        children: <Widget>[
+          Positioned(
+            top: appBarHeight + MediaQuery.of(context).padding.top,
+            left: 0.0,
+            right: 0.0,
+            bottom: 0.0,
+            child: body,
+          ),
+          Positioned(
+            top: 0.0,
+            left: 0.0,
+            right: 0.0,
+            child: appBar,
+          ),
+        ],
       ),
     );
   }

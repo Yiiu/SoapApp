@@ -12,7 +12,7 @@ class ProfileView extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SoapAppBar(
-            title: 'Profile',
+            title: Text('Profile'),
           ),
           Text('Profile'),
         ],

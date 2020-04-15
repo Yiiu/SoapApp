@@ -10,6 +10,7 @@ class PictureRepository {
       documentNode: gql(pictures),
       pollInterval: 10,
       variables: {
+        'type': "NEW",
         'query': {
           'page': 1,
           'pageSize': 5,
