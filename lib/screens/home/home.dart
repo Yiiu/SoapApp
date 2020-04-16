@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/model/picture.dart';
@@ -106,11 +105,9 @@ class HomeViewState extends State<HomeView>
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Home',
-            style: GoogleFonts.rubik(
-              textStyle: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w700,
-              ),
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w900,
             ),
           ),
         ),

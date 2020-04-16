@@ -6,8 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
+import 'package:soap_app/ui/widget/avatar.dart';
 
 class PictureInfoWidget {
   IconData icon;
@@ -48,22 +50,17 @@ class PictureItemState extends State<PictureItem> {
             flex: 2,
             child: Row(
               children: <Widget>[
-                ClipOval(
-                  child: Image(
-                    width: 40,
-                    height: 40,
-                    image: NetworkImage(picture.user.avatarUrl),
-                  ),
+                Avatar(
+                  size: 40,
+                  image: picture.user.avatarUrl,
                 ),
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     picture.user.fullName,
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 15,
-                      ),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                      fontSize: 15,
                     ),
                   ),
                 )
@@ -75,12 +72,10 @@ class PictureItemState extends State<PictureItem> {
               alignment: FractionalOffset.centerRight,
               child: Text(
                 Jiffy(picture.createTime.toString()).fromNow(),
-                style: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black38,
-                  ),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.black38,
                 ),
               ),
             ),
@@ -96,22 +91,31 @@ class PictureItemState extends State<PictureItem> {
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          PageRouteBuilder(
-            transitionDuration: Duration(milliseconds: 200), //动画时间为500毫秒
-            pageBuilder: (BuildContext context, Animation animation,
-                Animation secondaryAnimation) {
-              return new FadeTransition(
-                //使用渐隐渐入过渡,
-                opacity: animation,
-                child: PictureDetail(
-                  picture: picture,
-                ), //路由B
-              );
-            },
+        showMaterialModalBottomSheet(
+          context: context,
+          expand: true,
+          backgroundColor: Colors.transparent,
+          builder: (context, scrollController) => PictureDetail(
+            scrollController: scrollController,
+            picture: picture,
           ),
         );
+        // Navigator.push(
+        //   context,
+        //   PageRouteBuilder(
+        //     transitionDuration: Duration(milliseconds: 200), //动画时间为500毫秒
+        //     pageBuilder: (BuildContext context, Animation animation,
+        //         Animation secondaryAnimation) {
+        //       return new FadeTransition(
+        //         //使用渐隐渐入过渡,
+        //         opacity: animation,
+        //         child: PictureDetail(
+        //           picture: picture,
+        //         ), //路由B
+        //       );
+        //     },
+        //   ),
+        // );
       },
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16),
@@ -174,9 +178,7 @@ class PictureItemState extends State<PictureItem> {
                     ),
                     Text(
                       data.text,
-                      style: GoogleFonts.rubik(
-                        textStyle: TextStyle(color: Colors.black54),
-                      ),
+                      style: TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),

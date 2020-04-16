@@ -22,6 +22,7 @@ class Constants {
   );
 
   static ThemeData lightTheme = ThemeData(
+    fontFamily: 'Rubik',
     backgroundColor: const Color(0xfffafafa),
     primaryColor: lightPrimary,
     accentColor: lightAccent,
@@ -35,6 +36,7 @@ class Constants {
   );
 
   static ThemeData darkTheme = ThemeData(
+    fontFamily: 'Rubik',
     brightness: Brightness.dark,
     backgroundColor: const Color.fromRGBO(28, 28, 28, 1),
     primaryColor: darkPrimary,

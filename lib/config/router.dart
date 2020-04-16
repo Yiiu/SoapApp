@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 
 import '../screens/home/index.dart';
@@ -16,8 +17,9 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.home:
-        return NoAnimRouteBuilder(
-          HomePage(),
+        return MaterialWithModalsPageRoute(
+          builder: (_) => HomePage(),
+          settings: settings,
         );
       case RouteName.picture_detail:
         return MaterialPageRoute(

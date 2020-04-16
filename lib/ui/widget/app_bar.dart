@@ -7,7 +7,7 @@ import 'package:soap_app/config/const.dart';
 class SoapAppBar extends StatelessWidget {
   const SoapAppBar({
     Key key,
-    this.automaticallyImplyLeading = true,
+    this.automaticallyImplyLeading = false,
     this.title,
     this.centerTitle = true,
     this.backgroundColor,

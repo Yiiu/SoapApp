@@ -51,11 +51,9 @@ class Header extends SliverPersistentHeaderDelegate {
               bottom: 18,
               child: Text(
                 'home',
-                style: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                  ),
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
