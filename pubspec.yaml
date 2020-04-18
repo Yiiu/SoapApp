@@ -50,9 +50,9 @@ flutter:
   fonts:
     - family: Rubik
       fonts:
-        - asset: fonts/Rubik-Light.ttf
+        - asset: assets/fonts/Rubik-Light.ttf
           weight: 300
-        - asset: fonts/Rubik-LightItalic.ttf
+        - asset: assets/fonts/Rubik-LightItalic.ttf
           style: italic
           weight: 300
         - asset: assets/fonts/Rubik-Italic.ttf

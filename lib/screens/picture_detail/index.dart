@@ -5,6 +5,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/model/picture.dart';
@@ -34,6 +35,13 @@ class _PictureDetailState extends State<PictureDetail> {
     scrollController = widget.scrollController;
   }
 
+  @override
+  dispose() {
+    super.dispose();
+    SystemChrome.setEnabledSystemUIOverlays(
+        [SystemUiOverlay.top, SystemUiOverlay.bottom]);
+  }
+
   Uint8List get bytes => base64
       .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
 
@@ -44,6 +52,7 @@ class _PictureDetailState extends State<PictureDetail> {
     // blurhash
     double num = picture.width / picture.height;
     double minFactor = MediaQuery.of(context).size.width / 500;
+    SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return Material(
       child: CupertinoPageScaffold(
         child: SafeArea(
@@ -52,6 +61,7 @@ class _PictureDetailState extends State<PictureDetail> {
             fit: StackFit.expand,
             children: <Widget>[
               ListView(
+                padding: EdgeInsets.zero,
                 shrinkWrap: true,
                 controller: scrollController,
                 physics: BouncingScrollPhysics(),
@@ -204,11 +214,14 @@ class _PictureDetailState extends State<PictureDetail> {
                       ],
                     ),
                   ),
+                  SizedBox(
+                    height: 600,
+                  )
                 ],
               ),
               Positioned(
                 right: 16,
-                top: 16,
+                top: MediaQuery.of(context).padding.top,
                 child: CupertinoButton(
                   onPressed: () => Navigator.pop(context),
                   pressedOpacity: .8,

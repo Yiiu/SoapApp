@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:soap_app/config/const.dart';
 
@@ -15,6 +16,7 @@ class SoapAppBar extends StatelessWidget {
     this.actions,
     this.actionsPadding,
     this.height,
+    this.brightness,
   }) : super(key: key);
 
   final Widget title;
@@ -25,6 +27,7 @@ class SoapAppBar extends StatelessWidget {
   final Color backgroundColor;
   final double elevation;
   final double height;
+  final Brightness brightness;
 
   @override
   Widget build(BuildContext context) {
@@ -32,57 +35,66 @@ class SoapAppBar extends StatelessWidget {
     if (centerTitle) {
       _title = Center(child: _title);
     }
-    var sp;
+    final AppBarTheme appBarTheme = AppBarTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final Brightness baseBrightness =
+        brightness ?? appBarTheme.brightness ?? theme.primaryColorBrightness;
+    final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
+        ? SystemUiOverlayStyle.light
+        : SystemUiOverlayStyle.dark;
     return Material(
       type: MaterialType.transparency,
-      child: Container(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        height: height ?? appBarHeight + MediaQuery.of(context).padding.top,
-        decoration: BoxDecoration(
-          boxShadow: elevation > 0
-              ? <BoxShadow>[
-                  BoxShadow(
-                    color: Color(0x0d000000),
-                    blurRadius: elevation * 1.0,
-                    offset: Offset(0, elevation * 2.0),
-                  ),
-                ]
-              : null,
-          color: backgroundColor ?? Theme.of(context).primaryColor,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            if (automaticallyImplyLeading && Navigator.of(context).canPop())
-              BackButton(),
-            if (_title != null)
-              Expanded(
-                child: Align(
-                  alignment: centerTitle
-                      ? Alignment.center
-                      : AlignmentDirectional.centerStart,
-                  child: DefaultTextStyle(
-                    child: _title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .title
-                        .copyWith(fontSize: 23.0),
-                    maxLines: 1,
-                    softWrap: false,
-                    overflow: TextOverflow.ellipsis,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: overlayStyle,
+        child: Container(
+          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+          height: height ?? appBarHeight + MediaQuery.of(context).padding.top,
+          decoration: BoxDecoration(
+            boxShadow: elevation > 0
+                ? <BoxShadow>[
+                    BoxShadow(
+                      color: Color(0x0d000000),
+                      blurRadius: elevation * 1.0,
+                      offset: Offset(0, elevation * 2.0),
+                    ),
+                  ]
+                : null,
+            color: backgroundColor ?? Theme.of(context).primaryColor,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              if (automaticallyImplyLeading && Navigator.of(context).canPop())
+                BackButton(),
+              if (_title != null)
+                Expanded(
+                  child: Align(
+                    alignment: centerTitle
+                        ? Alignment.center
+                        : AlignmentDirectional.centerStart,
+                    child: DefaultTextStyle(
+                      child: _title,
+                      style: Theme.of(context)
+                          .textTheme
+                          .title
+                          .copyWith(fontSize: 23.0),
+                      maxLines: 1,
+                      softWrap: false,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ),
-              ),
-            if (automaticallyImplyLeading &&
-                Navigator.of(context).canPop() &&
-                (actions?.isEmpty ?? true))
-              SizedBox(width: 48.0)
-            else if (actions?.isNotEmpty ?? false)
-              Padding(
-                padding: actionsPadding ?? EdgeInsets.zero,
-                child: Row(mainAxisSize: MainAxisSize.min, children: actions),
-              ),
-          ],
+              if (automaticallyImplyLeading &&
+                  Navigator.of(context).canPop() &&
+                  (actions?.isEmpty ?? true))
+                SizedBox(width: 48.0)
+              else if (actions?.isNotEmpty ?? false)
+                Padding(
+                  padding: actionsPadding ?? EdgeInsets.zero,
+                  child: Row(mainAxisSize: MainAxisSize.min, children: actions),
+                ),
+            ],
+          ),
         ),
       ),
     );

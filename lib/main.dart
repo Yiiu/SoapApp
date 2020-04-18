@@ -15,6 +15,11 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   Jiffy.locale("zh-cn");
   runApp(GraphQLProvider(client: GraphqlConfig.client, child: SoapApp()));
+  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+  );
+  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   // if (Platform.isAndroid) {
   //   SystemChrome.setEnabledSystemUIOverlays([]);
   //   SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(

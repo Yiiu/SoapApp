@@ -75,47 +75,20 @@ class _MyHomePageState extends State<HomePage>
         showCupertinoModalBottomSheet(
           context: context,
           expand: true,
-          backgroundColor: Colors.transparent,
-          builder: (context, scrollController) => Padding(
-            padding: EdgeInsets.only(top: 42),
-            child: Material(
-              child: CupertinoPageScaffold(
-                navigationBar: CupertinoNavigationBar(
-                    leading: Container(), middle: Text('Modal Page')),
-                child: SafeArea(
-                  bottom: false,
-                  child: ListView(
-                    shrinkWrap: true,
-                    controller: scrollController,
-                    physics: BouncingScrollPhysics(),
-                    children: <Widget>[
-                      ListTile(
-                        title: Text('Edit'),
-                        leading: Icon(Icons.edit),
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      ListTile(
-                        title: Text('Copy'),
-                        leading: Icon(Icons.content_copy),
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      ListTile(
-                        title: Text('Cut'),
-                        leading: Icon(Icons.content_cut),
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      ListTile(
-                        title: Text('Move'),
-                        leading: Icon(Icons.folder_open),
-                        onTap: () => Navigator.of(context).pop(),
-                      ),
-                      ListTile(
-                        title: Text('Delete'),
-                        leading: Icon(Icons.delete),
-                        onTap: () => Navigator.of(context).pop(),
-                      )
-                    ],
-                  ),
+          builder: (context, scrollController) => Material(
+            child: CupertinoPageScaffold(
+              navigationBar: CupertinoNavigationBar(
+                leading: Container(),
+                middle: Text('添加图片'),
+              ),
+              child: SafeArea(
+                child: ListView(
+                  shrinkWrap: true,
+                  controller: scrollController,
+                  physics: BouncingScrollPhysics(),
+                  children: <Widget>[
+                    Text('24124'),
+                  ],
                 ),
               ),
             ),
