@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/screens/animtetest/index.dart';
 import 'package:soap_app/screens/home/search.dart';
 import 'package:soap_app/screens/home/user.dart';
 
@@ -72,28 +73,35 @@ class _MyHomePageState extends State<HomePage>
   handleTabChange(int index) {
     setState(() {
       if (index == _addIndex) {
-        showCupertinoModalBottomSheet(
-          context: context,
-          expand: true,
-          builder: (context, scrollController) => Material(
-            child: CupertinoPageScaffold(
-              navigationBar: CupertinoNavigationBar(
-                leading: Container(),
-                middle: Text('添加图片'),
-              ),
-              child: SafeArea(
-                child: ListView(
-                  shrinkWrap: true,
-                  controller: scrollController,
-                  physics: BouncingScrollPhysics(),
-                  children: <Widget>[
-                    Text('24124'),
-                  ],
-                ),
-              ),
-            ),
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) {
+              return SharedAxisTransitionDemo();
+            },
           ),
         );
+        // showCupertinoModalBottomSheet(
+        //   context: context,
+        //   expand: true,
+        //   builder: (context, scrollController) => Material(
+        //     child: CupertinoPageScaffold(
+        //       navigationBar: CupertinoNavigationBar(
+        //         leading: Container(),
+        //         middle: Text('添加图片'),
+        //       ),
+        //       child: SafeArea(
+        //         child: ListView(
+        //           shrinkWrap: true,
+        //           controller: scrollController,
+        //           physics: BouncingScrollPhysics(),
+        //           children: <Widget>[
+        //             Text('24124'),
+        //           ],
+        //         ),
+        //       ),
+        //     ),
+        //   ),
+        // );
         return;
       }
       _selectedIndex = index;

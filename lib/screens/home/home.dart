@@ -1,3 +1,4 @@
+import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -5,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
+import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/picture/picture_item.dart';
 
@@ -56,6 +58,12 @@ class HomeViewState extends State<HomeView>
         isCompleted = true;
       });
     }
+  }
+
+  // 下拉刷新
+  void _onRefresh() async {
+    await Provider.of<HomeProvider>(context, listen: false).getPictureList();
+    _refreshController.refreshCompleted();
   }
 
   Widget _buildItem(Picture picture) {
@@ -125,6 +133,7 @@ class HomeViewState extends State<HomeView>
                   controller: _refreshController,
                   header: refresherHeader,
                   footer: refresherFooter,
+                  onRefresh: _onRefresh,
                   child: CustomScrollView(
                     controller: _controller,
                     physics: BouncingScrollPhysics(),

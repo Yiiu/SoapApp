@@ -1,16 +1,40 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:animations/animations.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
+
+class OpenContainerWrapper extends StatelessWidget {
+  const OpenContainerWrapper({
+    this.closedBuilder,
+    this.picture,
+  });
+
+  final OpenContainerBuilder closedBuilder;
+  final Picture picture;
+
+  @override
+  Widget build(BuildContext context) {
+    return OpenContainer(
+      transitionType: ContainerTransitionType.fadeThrough,
+      openBuilder: (BuildContext context, VoidCallback _) {
+        return PictureDetail(picture: picture);
+      },
+      tappable: false,
+      closedShape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(0)),
+      ),
+      closedElevation: 0.0,
+      closedBuilder: closedBuilder,
+    );
+  }
+}
 
 class PictureDetail extends StatefulWidget {
   PictureDetail({Key key, this.picture, this.scrollController})
@@ -53,195 +77,199 @@ class _PictureDetailState extends State<PictureDetail> {
     double num = picture.width / picture.height;
     double minFactor = MediaQuery.of(context).size.width / 500;
     SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
-    return Material(
-      child: CupertinoPageScaffold(
-        child: SafeArea(
-          top: false,
-          child: Stack(
-            fit: StackFit.expand,
+    return FixedAppBarWrapper(
+      appBar: SoapAppBar(
+        centerTitle: true,
+        automaticallyImplyLeading: true,
+        elevation: 0.1,
+        title: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            picture.title,
+            style: TextStyle(
+              fontSize: 22,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+        ),
+      ),
+      body: Stack(
+        fit: StackFit.expand,
+        children: <Widget>[
+          ListView(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            controller: scrollController,
+            physics: BouncingScrollPhysics(),
             children: <Widget>[
-              ListView(
-                padding: EdgeInsets.zero,
-                shrinkWrap: true,
-                controller: scrollController,
-                physics: BouncingScrollPhysics(),
-                children: <Widget>[
-                  Container(
-                    child: (num < minFactor && num < 1)
-                        ? Container(
-                            color: Color(0xFFF8FAFC),
-                            height: 500,
-                            child: FractionallySizedBox(
-                              widthFactor: picture.width / picture.height,
-                              child: Hero(
-                                tag: 'picture-$id',
-                                child: new FadeInImage.memoryNetwork(
-                                  placeholder: bytes,
-                                  fadeInDuration: Duration(milliseconds: 400),
-                                  image: picture.pictureUrl(),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          )
-                        : AspectRatio(
-                            aspectRatio: picture.width / picture.height,
-                            child: Hero(
-                              tag: 'picture-$id',
-                              child: new FadeInImage.memoryNetwork(
-                                placeholder: bytes,
-                                fadeInDuration: Duration(milliseconds: 400),
-                                image: picture.pictureUrl(),
-                                fit: BoxFit.cover,
-                              ),
+              Container(
+                child: (num < minFactor && num < 1)
+                    ? Container(
+                        color: Color(0xFFF8FAFC),
+                        height: 500,
+                        child: FractionallySizedBox(
+                          widthFactor: picture.width / picture.height,
+                          child: Hero(
+                            tag: 'picture-$id',
+                            child: new FadeInImage.memoryNetwork(
+                              placeholder: bytes,
+                              fadeInDuration: Duration(milliseconds: 400),
+                              image: picture.pictureUrl(),
+                              fit: BoxFit.cover,
                             ),
                           ),
-                  ),
-                  Container(
-                    child: Column(
+                        ),
+                      )
+                    : AspectRatio(
+                        aspectRatio: picture.width / picture.height,
+                        child: Hero(
+                          tag: 'picture-$id',
+                          child: new FadeInImage.memoryNetwork(
+                            placeholder: bytes,
+                            fadeInDuration: Duration(milliseconds: 400),
+                            image: picture.pictureUrl(),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Flex(
+                      direction: Axis.horizontal,
                       children: <Widget>[
-                        Flex(
-                          direction: Axis.horizontal,
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Row(
-                                children: <Widget>[
-                                  CupertinoButton(
-                                    onPressed: () {},
-                                    child: Container(
-                                      height: 36,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(36.0),
-                                        border: Border.all(
-                                            color: Color(0xFFE1E7EF), width: 1),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(
-                                            horizontal: 20),
-                                        child: Row(
-                                          children: <Widget>[
-                                            Icon(
-                                              FeatherIcons.heart,
-                                              color: Colors.red,
-                                              size: 18,
-                                            ),
-                                            SizedBox(width: 6),
-                                            Text(
-                                              picture.likedCount.toString(),
-                                              style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
+                        Expanded(
+                          flex: 1,
+                          child: Row(
+                            children: <Widget>[
+                              CupertinoButton(
+                                onPressed: () {},
+                                child: Container(
+                                  height: 36,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(36.0),
+                                    border: Border.all(
+                                        color: Color(0xFFE1E7EF), width: 1),
                                   ),
-                                ],
-                              ),
-                            ),
-                            Expanded(
-                              flex: 2,
-                              child: Row(
-                                textDirection: TextDirection.rtl,
-                                children: <Widget>[
-                                  CupertinoButton(
-                                    onPressed: () {},
-                                    child: Container(
-                                      height: 36,
-                                      width: 36,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(36.0),
-                                        border: Border.all(
-                                            color: Color(0xFFE1E7EF), width: 1),
-                                      ),
-                                      child: Center(
-                                        child: Icon(
-                                          FeatherIcons.bookmark,
-                                          color: Colors.black87,
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                    child: Row(
+                                      children: <Widget>[
+                                        Icon(
+                                          FeatherIcons.heart,
+                                          color: Colors.red,
                                           size: 18,
                                         ),
-                                      ),
+                                        SizedBox(width: 6),
+                                        Text(
+                                          picture.likedCount.toString(),
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 15,
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 16, horizontal: 20),
-                          child: Flex(
-                            direction: Axis.horizontal,
-                            children: <Widget>[
-                              Expanded(
-                                flex: 2,
-                                child: Row(
-                                  children: <Widget>[
-                                    Avatar(
-                                      size: 46,
-                                      image: picture.user.avatarUrl,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 12),
-                                      child: Column(
-                                        children: <Widget>[
-                                          Padding(
-                                            padding: EdgeInsets.only(bottom: 6),
-                                            child: Text(
-                                              picture.user.fullName,
-                                              style: TextStyle(
-                                                fontWeight: FontWeight.w600,
-                                                fontSize: 16,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ],
                           ),
                         ),
+                        Expanded(
+                          flex: 2,
+                          child: Row(
+                            textDirection: TextDirection.rtl,
+                            children: <Widget>[
+                              CupertinoButton(
+                                onPressed: () {},
+                                child: Container(
+                                  height: 36,
+                                  width: 36,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(36.0),
+                                    border: Border.all(
+                                        color: Color(0xFFE1E7EF), width: 1),
+                                  ),
+                                  child: Center(
+                                    child: Icon(
+                                      FeatherIcons.bookmark,
+                                      color: Colors.black87,
+                                      size: 18,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    height: 600,
-                  )
-                ],
-              ),
-              Positioned(
-                right: 16,
-                top: MediaQuery.of(context).padding.top,
-                child: CupertinoButton(
-                  onPressed: () => Navigator.pop(context),
-                  pressedOpacity: .8,
-                  child: ClipOval(
-                    child: Container(
-                      color: Color.fromRGBO(0, 0, 0, .6),
-                      width: 34,
-                      height: 34,
-                      child: Icon(
-                        FeatherIcons.x,
-                        color: Colors.white,
-                        size: 16,
+                    Padding(
+                      padding:
+                          EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        children: <Widget>[
+                          Expanded(
+                            flex: 2,
+                            child: Row(
+                              children: <Widget>[
+                                Avatar(
+                                  size: 46,
+                                  image: picture.user.avatarUrl,
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
+                                  child: Column(
+                                    children: <Widget>[
+                                      Padding(
+                                        padding: EdgeInsets.only(bottom: 6),
+                                        child: Text(
+                                          picture.user.fullName,
+                                          style: TextStyle(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
           ),
-        ),
+          // Positioned(
+          //   right: 16,
+          //   top: MediaQuery.of(context).padding.top,
+          //   child: CupertinoButton(
+          //     onPressed: () => Navigator.pop(context),
+          //     pressedOpacity: .8,
+          //     child: ClipOval(
+          //       child: Container(
+          //         color: Color.fromRGBO(0, 0, 0, .6),
+          //         width: 34,
+          //         height: 34,
+          //         child: Icon(
+          //           FeatherIcons.x,
+          //           color: Colors.white,
+          //           size: 16,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
     );
   }

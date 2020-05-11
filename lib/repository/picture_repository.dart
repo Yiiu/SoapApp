@@ -13,7 +13,7 @@ class PictureRepository {
         'type': "NEW",
         'query': {
           'page': 1,
-          'pageSize': 5,
+          'pageSize': 30,
         }
       },
     );

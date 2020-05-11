@@ -89,51 +89,32 @@ class PictureItemState extends State<PictureItem> {
     var id = picture.id;
     Uint8List bytes = base64
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
-    return GestureDetector(
-      onTap: () {
-        showMaterialModalBottomSheet(
-          context: context,
-          expand: true,
-          backgroundColor: Colors.transparent,
-          builder: (context, scrollController) => PictureDetail(
-            scrollController: scrollController,
-            picture: picture,
-          ),
-        );
-        // Navigator.push(
-        //   context,
-        //   PageRouteBuilder(
-        //     transitionDuration: Duration(milliseconds: 200), //动画时间为500毫秒
-        //     pageBuilder: (BuildContext context, Animation animation,
-        //         Animation secondaryAnimation) {
-        //       return new FadeTransition(
-        //         //使用渐隐渐入过渡,
-        //         opacity: animation,
-        //         child: PictureDetail(
-        //           picture: picture,
-        //         ), //路由B
-        //       );
-        //     },
-        //   ),
-        // );
-      },
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16),
-        child: AspectRatio(
-          aspectRatio: picture.width / picture.height,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(4),
-            child: Hero(
-              tag: 'picture-$id',
-              child: FadeInImage.memoryNetwork(
-                placeholder: bytes,
-                fadeInDuration: Duration(milliseconds: 400),
-                image: picture.pictureUrl(),
-                fit: BoxFit.cover,
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: OpenContainerWrapper(
+        closedBuilder: (BuildContext _, VoidCallback openContainer) {
+          return GestureDetector(
+            onTap: () {
+              openContainer();
+            },
+            child: AspectRatio(
+              aspectRatio: picture.width / picture.height,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: Hero(
+                  tag: 'picture-$id',
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: bytes,
+                    fadeInDuration: Duration(milliseconds: 400),
+                    image: picture.pictureUrl(),
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        },
+        picture: picture,
       ),
     );
   }
@@ -196,7 +177,7 @@ class PictureItemState extends State<PictureItem> {
       decoration: BoxDecoration(
         // color: Colors.white,
         border: Border(
-          bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
+          bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 0),
         ),
       ),
       child: Stack(
