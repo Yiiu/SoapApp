@@ -23,7 +23,7 @@ class Constants {
 
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Rubik',
-    backgroundColor: const Color(0xfffafafa),
+    backgroundColor: const Color(0xfffbfcfe),
     primaryColor: lightPrimary,
     accentColor: lightAccent,
     cursorColor: lightAccent,

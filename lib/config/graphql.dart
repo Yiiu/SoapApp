@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class GraphqlConfig {
-  static HttpLink httpLink = HttpLink(uri: 'http://localhost:3000/graphql');
+  static HttpLink httpLink = HttpLink(uri: 'https://soapphoto.com/graphql');
 
   static GraphQLClient graphQLClient = GraphQLClient(
     link: httpLink,
