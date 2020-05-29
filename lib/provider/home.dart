@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 
@@ -10,9 +11,10 @@ class HomeProvider with ChangeNotifier {
   List<Picture> get pictureList => _pictureList;
 
   Future<void> getPictureList() async {
-    final result = await repository.getPictureList();
+    final QueryResult result = await repository.getPictureList();
     if (result.data != null) {
-      _pictureList = Picture.fromListJson(result.data['pictures']['data']);
+      _pictureList = Picture.fromListJson(
+          result.data['pictures']['data'] as List<dynamic>);
       notifyListeners();
     }
   }

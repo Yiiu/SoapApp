@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -13,9 +11,9 @@ import 'provider/index.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  Jiffy.locale("zh-cn");
+  Jiffy.locale('zh-cn');
   runApp(GraphQLProvider(client: GraphqlConfig.client, child: SoapApp()));
-  SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+  const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   );

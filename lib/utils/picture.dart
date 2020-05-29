@@ -1,4 +1,3 @@
-
 enum PictureStyle {
   full,
   raw,
@@ -19,8 +18,8 @@ Map<PictureStyle, String> pictureStyleData = {
   PictureStyle.itemprop: '-itemprop',
 };
 
-String getPictureUrl({String key, PictureStyle style: PictureStyle.blur}) {
-  String styleName = pictureStyleData[style];
+String getPictureUrl({String key, PictureStyle style = PictureStyle.blur}) {
+  final String styleName = pictureStyleData[style];
   if (RegExp(r'default.svg$').hasMatch(key)) {
     return key;
   }

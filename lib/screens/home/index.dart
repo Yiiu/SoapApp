@@ -4,9 +4,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/screens/animtetest/index.dart';
 import 'package:soap_app/screens/home/search.dart';
 import 'package:soap_app/screens/home/user.dart';
@@ -27,7 +25,7 @@ class SoapBottomNavigationBarItem {
 }
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  const HomePage({Key key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -37,10 +35,10 @@ class _MyHomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   List<Picture> list = [];
   int _selectedIndex = 0;
-  int _addIndex = 1;
+  final int _addIndex = 1;
 
   static List<SoapBottomNavigationBarItem> get bottomBar => [
-        SoapBottomNavigationBarItem(
+        const SoapBottomNavigationBarItem(
           icon: FeatherIcons.home,
           title: 'Home',
         ),
@@ -48,11 +46,11 @@ class _MyHomePageState extends State<HomePage>
         //   icon: FeatherIcons.search,
         //   title: 'Search',
         // ),
-        SoapBottomNavigationBarItem(
+        const SoapBottomNavigationBarItem(
           icon: FeatherIcons.plus,
           title: 'Add',
         ),
-        SoapBottomNavigationBarItem(
+        const SoapBottomNavigationBarItem(
           icon: FeatherIcons.user,
           title: 'Profile',
         ),
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<HomePage>
     );
   }
 
-  handleTabChange(int index) {
+  void handleTabChange(int index) {
     setState(() {
       if (index == _addIndex) {
         Navigator.of(context).push(
@@ -111,8 +109,8 @@ class _MyHomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    double gap = 8.5;
-    final theme = Theme.of(context);
+    const double gap = 8.5;
+    final ThemeData theme = Theme.of(context);
     return Material(
       child: CupertinoPageScaffold(
         child: Scaffold(
@@ -120,13 +118,13 @@ class _MyHomePageState extends State<HomePage>
             children: <Widget>[
               Expanded(
                 child: TabBarView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: tabController,
                   children: <Widget>[
                     HomeView(),
-                    SearchView(),
-                    ProfileView(),
-                    Text('4'),
+                    const SearchView(),
+                    const ProfileView(),
+                    const Text('4'),
                   ],
                 ),
               ),
@@ -138,33 +136,37 @@ class _MyHomePageState extends State<HomePage>
               boxShadow: [
                 BoxShadow(
                   blurRadius: 5,
-                  color: Color(0xFFE1E7EF).withOpacity(0.6),
+                  color: const Color(0xFFE1E7EF).withOpacity(0.6),
                 )
               ],
             ),
             child: SafeArea(
               child: Padding(
-                padding: const EdgeInsets.all(10).add(EdgeInsets.only(top: 5)),
+                padding: const EdgeInsets.all(10).add(
+                  const EdgeInsets.only(top: 5),
+                ),
                 child: GNav(
                   gap: gap,
                   activeColor: Colors.white,
                   color: Colors.grey[400],
                   iconSize: 18,
-                  padding: EdgeInsets.symmetric(horizontal: 24, vertical: 6),
-                  duration: Duration(milliseconds: 400),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
+                  duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Colors.grey[800],
                   tabs: bottomBar
-                      .map<GButton>((bar) => GButton(
-                            icon: bar.icon,
-                            text: bar.title,
-                            iconActiveColor: Colors.white,
-                            iconColor: Colors.black87,
-                            textStyle: TextStyle(
-                              color: Colors.white,
-                              letterSpacing: 2,
-                            ),
-                            backgroundColor: Colors.black87,
-                          ))
+                      .map<GButton>(
+                          (SoapBottomNavigationBarItem bar) => GButton(
+                                icon: bar.icon,
+                                text: bar.title,
+                                iconActiveColor: Colors.white,
+                                iconColor: Colors.black87,
+                                textStyle: const TextStyle(
+                                  color: Colors.white,
+                                  letterSpacing: 2,
+                                ),
+                                backgroundColor: Colors.black87,
+                              ))
                       .toList(),
                   selectedIndex: _selectedIndex,
                   onTabChange: handleTabChange,

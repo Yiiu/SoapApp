@@ -5,7 +5,6 @@ import 'package:animations/animations.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
@@ -23,7 +22,7 @@ class OpenContainerWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
-      transitionType: ContainerTransitionType.fade,
+      transitionType: ContainerTransitionType.fadeThrough,
       openBuilder: (BuildContext context, VoidCallback _) {
         return PictureDetail(picture: picture);
       },
@@ -38,7 +37,7 @@ class OpenContainerWrapper extends StatelessWidget {
 }
 
 class PictureDetail extends StatefulWidget {
-  PictureDetail({Key key, this.picture, this.scrollController})
+  const PictureDetail({Key key, this.picture, this.scrollController})
       : super(key: key);
 
   final Picture picture;
@@ -54,14 +53,14 @@ class _PictureDetailState extends State<PictureDetail> {
   ScrollController scrollController;
 
   @override
-  initState() {
+  void initState() {
     super.initState();
     picture = widget.picture;
     scrollController = widget.scrollController;
   }
 
   @override
-  dispose() {
+  void dispose() {
     super.dispose();
     // SystemChrome.setEnabledSystemUIOverlays(
     //     [SystemUiOverlay.top, SystemUiOverlay.bottom]);
@@ -72,11 +71,11 @@ class _PictureDetailState extends State<PictureDetail> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    var id = picture.id;
+    final ThemeData theme = Theme.of(context);
+    final int id = picture.id;
     // blurhash
-    double num = picture.width / picture.height;
-    double minFactor = MediaQuery.of(context).size.width / 500;
+    final double num = picture.width / picture.height;
+    final double minFactor = MediaQuery.of(context).size.width / 500;
     // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
     return FixedAppBarWrapper(
         appBar: SoapAppBar(
@@ -84,10 +83,10 @@ class _PictureDetailState extends State<PictureDetail> {
           automaticallyImplyLeading: true,
           elevation: 0.1,
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
               picture.title,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w900,
               ),
@@ -102,20 +101,21 @@ class _PictureDetailState extends State<PictureDetail> {
               ListView(
                 padding: EdgeInsets.zero,
                 controller: scrollController,
-                physics: BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(),
                 children: <Widget>[
                   Container(
                     child: (num < minFactor && num < 1)
                         ? Container(
-                            color: Color(0xFFF8FAFC),
+                            color: const Color(0xFFF8FAFC),
                             height: 500,
                             child: FractionallySizedBox(
                               widthFactor: picture.width / picture.height,
                               child: Hero(
                                 tag: 'picture-$id',
-                                child: new FadeInImage.memoryNetwork(
+                                child: FadeInImage.memoryNetwork(
                                   placeholder: bytes,
-                                  fadeInDuration: Duration(milliseconds: 400),
+                                  fadeInDuration:
+                                      const Duration(milliseconds: 400),
                                   image: picture.pictureUrl(),
                                   fit: BoxFit.cover,
                                 ),
@@ -126,9 +126,10 @@ class _PictureDetailState extends State<PictureDetail> {
                             aspectRatio: picture.width / picture.height,
                             child: Hero(
                               tag: 'picture-$id',
-                              child: new FadeInImage.memoryNetwork(
+                              child: FadeInImage.memoryNetwork(
                                 placeholder: bytes,
-                                fadeInDuration: Duration(milliseconds: 400),
+                                fadeInDuration:
+                                    const Duration(milliseconds: 400),
                                 image: picture.pictureUrl(),
                                 fit: BoxFit.cover,
                               ),
@@ -153,24 +154,24 @@ class _PictureDetailState extends State<PictureDetail> {
                                         borderRadius:
                                             BorderRadius.circular(36.0),
                                         border: Border.all(
-                                          color: Color(0xFFE1E7EF),
+                                          color: const Color(0xFFE1E7EF),
                                           width: 1.5,
                                         ),
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(
+                                        padding: const EdgeInsets.symmetric(
                                             horizontal: 20),
                                         child: Row(
                                           children: <Widget>[
-                                            Icon(
+                                            const Icon(
                                               FeatherIcons.heart,
                                               color: Colors.red,
                                               size: 18,
                                             ),
-                                            SizedBox(width: 6),
+                                            const SizedBox(width: 6),
                                             Text(
                                               picture.likedCount.toString(),
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 color: Colors.black,
                                                 fontWeight: FontWeight.w700,
                                                 fontSize: 15,
@@ -198,11 +199,11 @@ class _PictureDetailState extends State<PictureDetail> {
                                         borderRadius:
                                             BorderRadius.circular(36.0),
                                         border: Border.all(
-                                          color: Color(0xFFE1E7EF),
+                                          color: const Color(0xFFE1E7EF),
                                           width: 1.5,
                                         ),
                                       ),
-                                      child: Center(
+                                      child: const Center(
                                         child: Icon(
                                           FeatherIcons.bookmark,
                                           color: Colors.black87,
@@ -217,7 +218,7 @@ class _PictureDetailState extends State<PictureDetail> {
                           ],
                         ),
                         Padding(
-                          padding: EdgeInsets.symmetric(
+                          padding: const EdgeInsets.symmetric(
                               vertical: 16, horizontal: 20),
                           child: Flex(
                             direction: Axis.horizontal,
@@ -231,16 +232,17 @@ class _PictureDetailState extends State<PictureDetail> {
                                       image: picture.user.avatarUrl,
                                     ),
                                     Padding(
-                                      padding:
-                                          EdgeInsets.symmetric(horizontal: 12),
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 12),
                                       child: Column(
                                         children: <Widget>[
                                           Padding(
-                                            padding: EdgeInsets.only(bottom: 6),
+                                            padding: const EdgeInsets.only(
+                                                bottom: 6),
                                             child: Text(
                                               picture.user.fullName,
                                               style: GoogleFonts.rubik(
-                                                textStyle: TextStyle(
+                                                textStyle: const TextStyle(
                                                   fontWeight: FontWeight.w600,
                                                   fontSize: 16,
                                                 ),
@@ -256,7 +258,7 @@ class _PictureDetailState extends State<PictureDetail> {
                             ],
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 1200,
                         ),
                       ],

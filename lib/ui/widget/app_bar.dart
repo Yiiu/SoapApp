@@ -53,7 +53,7 @@ class SoapAppBar extends StatelessWidget {
             boxShadow: elevation > 0
                 ? <BoxShadow>[
                     BoxShadow(
-                      color: Color(0x0d000000),
+                      color: const Color(0x0d000000),
                       blurRadius: elevation * 1.0,
                       offset: Offset(0, elevation * 2.0),
                     ),
@@ -65,7 +65,7 @@ class SoapAppBar extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               if (automaticallyImplyLeading && Navigator.of(context).canPop())
-                BackButton(),
+                const BackButton(),
               if (_title != null)
                 Expanded(
                   child: Align(
@@ -87,7 +87,7 @@ class SoapAppBar extends StatelessWidget {
               if (automaticallyImplyLeading &&
                   Navigator.of(context).canPop() &&
                   (actions?.isEmpty ?? true))
-                SizedBox(width: 48.0)
+                const SizedBox(width: 48.0)
               else if (actions?.isNotEmpty ?? false)
                 Padding(
                   padding: actionsPadding ?? EdgeInsets.zero,

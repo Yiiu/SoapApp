@@ -1,14 +1,13 @@
-import 'package:feather_icons_flutter/feather_icons_flutter.dart';
-import 'package:flutter/material.dart';
 import 'dart:math';
 
-import 'package:google_fonts/google_fonts.dart';
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
+import 'package:flutter/material.dart';
 
 class Header extends SliverPersistentHeaderDelegate {
   Header({this.title}) : super();
 
   double scrollAnimationValue(double shrinkOffset) {
-    double maxScrollAllowed = maxExtent - minExtent;
+    final double maxScrollAllowed = maxExtent - minExtent;
     return ((maxScrollAllowed - shrinkOffset) / maxScrollAllowed)
         .clamp(0, 1)
         .toDouble();
@@ -22,12 +21,10 @@ class Header extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    final double visibleMainHeight = max(maxExtent - shrinkOffset, minExtent);
-    final double animationVal = scrollAnimationValue(shrinkOffset);
     return Container(
       // color: Colors.white,
       // height: 70 + MediaQuery.of(context).padding.top,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Colors.white,
         border: Border(
           bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
@@ -46,7 +43,7 @@ class Header extends SliverPersistentHeaderDelegate {
             //     height: AppBar().preferredSize.height - 8,
             //   ),
             // ),
-            Positioned(
+            const Positioned(
               left: 12,
               bottom: 18,
               child: Text(
@@ -70,7 +67,7 @@ class Header extends SliverPersistentHeaderDelegate {
                     borderRadius: BorderRadius.circular(
                       AppBar().preferredSize.height,
                     ),
-                    child: Icon(
+                    child: const Icon(
                       FeatherIcons.bell,
                     ),
                     onTap: () {},

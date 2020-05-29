@@ -4,12 +4,11 @@ class Test extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Test'),
-      ),
-      body: Center(
-        child: Text('test'),
-      )
-    );
+        appBar: AppBar(
+          title: const Text('Test'),
+        ),
+        body: const Center(
+          child: Text('test'),
+        ));
   }
 }

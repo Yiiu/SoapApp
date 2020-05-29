@@ -1,32 +1,31 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 
 import '../screens/home/index.dart';
-import '../screens/test.dart';
-import '../ui/widget/route_animation.dart';
 
 class RouteName {
-  static const home = '/';
-  static const test = 'test';
-  static const picture_detail = 'picture_detail';
+  static const String home = '/';
+  static const String test = 'test';
+  static const String picture_detail = 'picture_detail';
 }
 
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.home:
-        return MaterialWithModalsPageRoute(
-          builder: (_) => HomePage(),
+        return MaterialWithModalsPageRoute<void>(
+          builder: (_) => const HomePage(),
           settings: settings,
         );
       case RouteName.picture_detail:
-        return MaterialPageRoute(
-          builder: (_) => PictureDetail(picture: settings.arguments),
+        return MaterialPageRoute<void>(
+          builder: (_) => PictureDetail(picture: settings.arguments as Picture),
         );
       default:
-        return CupertinoPageRoute(
+        return CupertinoPageRoute<void>(
           builder: (_) => Scaffold(
             body: Center(
               child: Text('No route defined for ${settings.name}'),

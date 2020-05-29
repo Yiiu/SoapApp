@@ -1,12 +1,9 @@
-import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
-import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/picture/picture_item.dart';
 
@@ -22,37 +19,30 @@ class HomeViewState extends State<HomeView>
   @override
   bool get wantKeepAlive => true;
 
-  RefreshController _refreshController = RefreshController(
+  final RefreshController _refreshController = RefreshController(
     initialRefresh: false,
     // initialRefreshStatus: RefreshStatus.completed,
   );
-  ScrollController _controller = new ScrollController();
-
-  TabController _tabController;
+  final ScrollController _controller = ScrollController();
 
   int page = 1;
 
   bool isCompleted = false;
 
-  static List<String> get tabs => ["最新", "热门"];
+  static List<String> get tabs => ['最新', '热门'];
 
   @override
-  initState() {
+  void initState() {
     super.initState();
-
-    _tabController = TabController(
-      initialIndex: 0,
-      length: tabs.length,
-      vsync: this,
-    );
   }
 
-  didChangeDependencies() {
+  @override
+  void didChangeDependencies() {
     super.didChangeDependencies();
     Provider.of<HomeProvider>(context, listen: false).getPictureList();
   }
 
-  completed() {
+  void completed() {
     if (!isCompleted) {
       setState(() {
         isCompleted = true;
@@ -61,7 +51,7 @@ class HomeViewState extends State<HomeView>
   }
 
   // 下拉刷新
-  void _onRefresh() async {
+  Future<void> _onRefresh() async {
     await Provider.of<HomeProvider>(context, listen: false).getPictureList();
     _refreshController.refreshCompleted();
   }
@@ -72,7 +62,7 @@ class HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
-    Widget refresherHeader = ClassicHeader(
+    const Widget refresherHeader = ClassicHeader(
       refreshStyle: RefreshStyle.UnFollow,
       idleText: '',
       idleIcon: CupertinoActivityIndicator(
@@ -84,19 +74,19 @@ class HomeViewState extends State<HomeView>
       releaseIcon: CupertinoActivityIndicator(),
       completeText: '',
     );
-    Widget refresherFooter = CustomFooter(
+    final Widget refresherFooter = CustomFooter(
       builder: (BuildContext context, LoadStatus mode) {
         Widget body;
         if (mode == LoadStatus.idle) {
-          body = Text("上拉加载");
+          body = const Text('上拉加载');
         } else if (mode == LoadStatus.loading) {
-          body = CupertinoActivityIndicator();
+          body = const CupertinoActivityIndicator();
         } else if (mode == LoadStatus.failed) {
-          body = Text("加载失败！点击重试！");
+          body = const Text('加载失败！点击重试！');
         } else if (mode == LoadStatus.canLoading) {
-          body = Text("松手,加载更多!");
+          body = const Text('松手,加载更多!');
         } else {
-          body = Text("没有更多数据了!");
+          body = const Text('没有更多数据了!');
         }
         return Container(
           height: 55.0,
@@ -104,9 +94,9 @@ class HomeViewState extends State<HomeView>
         );
       },
     );
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return FixedAppBarWrapper(
-      appBar: SoapAppBar(
+      appBar: const SoapAppBar(
         centerTitle: false,
         elevation: 0.1,
         title: Padding(
@@ -126,8 +116,9 @@ class HomeViewState extends State<HomeView>
           children: <Widget>[
             Expanded(
               child: Consumer<HomeProvider>(
-                builder: (BuildContext context, HomeProvider home, child) =>
-                    SmartRefresher(
+                builder:
+                    (BuildContext context, HomeProvider home, Widget child) =>
+                        SmartRefresher(
                   enablePullDown: true,
                   enablePullUp: false,
                   controller: _refreshController,
@@ -136,12 +127,12 @@ class HomeViewState extends State<HomeView>
                   onRefresh: _onRefresh,
                   child: CustomScrollView(
                     controller: _controller,
-                    physics: BouncingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(),
                     slivers: <Widget>[
-                      SliverToBoxAdapter(),
+                      const SliverToBoxAdapter(),
                       SliverList(
                         delegate: SliverChildListDelegate(
-                          home.pictureList.map((picture) {
+                          home.pictureList.map((Picture picture) {
                             return _buildItem(picture);
                           }).toList(),
                         ),

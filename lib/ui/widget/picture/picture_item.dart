@@ -4,35 +4,33 @@ import 'dart:typed_data';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
 
 class PictureInfoWidget {
+  PictureInfoWidget({this.icon, this.color, this.text});
+
   IconData icon;
   Color color;
   String text;
-
-  PictureInfoWidget({this.icon, this.color, this.text});
 }
 
 class PictureItem extends StatefulWidget {
-  final Picture picture;
+  const PictureItem({this.picture});
 
-  PictureItem({this.picture});
+  final Picture picture;
 
   @override
   PictureItemState createState() => PictureItemState();
 }
 
 class PictureItemState extends State<PictureItem> {
+  PictureItemState({this.picture});
+
   Picture picture;
   Uint8List imageDataBytes;
-
-  PictureItemState({this.picture});
 
   @override
   void initState() {
@@ -42,7 +40,7 @@ class PictureItemState extends State<PictureItem> {
 
   Widget header() {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
@@ -55,10 +53,10 @@ class PictureItemState extends State<PictureItem> {
                   image: picture.user.avatarUrl,
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12),
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     picture.user.fullName,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 15,
                     ),
@@ -72,7 +70,7 @@ class PictureItemState extends State<PictureItem> {
               alignment: FractionalOffset.centerRight,
               child: Text(
                 Jiffy(picture.createTime.toString()).fromNow(),
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w600,
                   color: Colors.black38,
@@ -86,11 +84,11 @@ class PictureItemState extends State<PictureItem> {
   }
 
   Widget container() {
-    var id = picture.id;
-    Uint8List bytes = base64
+    final int id = picture.id;
+    final Uint8List bytes = base64
         .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: OpenContainerWrapper(
         closedBuilder: (BuildContext _, VoidCallback openContainer) {
           return GestureDetector(
@@ -105,7 +103,7 @@ class PictureItemState extends State<PictureItem> {
                   tag: 'picture-$id',
                   child: FadeInImage.memoryNetwork(
                     placeholder: bytes,
-                    fadeInDuration: Duration(milliseconds: 400),
+                    fadeInDuration: const Duration(milliseconds: 400),
                     image: picture.pictureUrl(),
                     fit: BoxFit.cover,
                   ),
@@ -120,7 +118,7 @@ class PictureItemState extends State<PictureItem> {
   }
 
   Widget bottom() {
-    List<PictureInfoWidget> list = [
+    final List<PictureInfoWidget> list = [
       PictureInfoWidget(
         icon: FeatherIcons.eye,
         color: Colors.blue[300],
@@ -138,19 +136,19 @@ class PictureItemState extends State<PictureItem> {
       ),
     ];
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: Column(
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: list.map((data) {
+            children: list.map((PictureInfoWidget data) {
               return Padding(
-                padding: EdgeInsets.only(right: 16),
+                padding: const EdgeInsets.only(right: 16),
                 child: Row(
                   children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.only(right: 4),
+                      padding: const EdgeInsets.only(right: 4),
                       child: Icon(
                         data.icon,
                         color: data.color,
@@ -159,7 +157,7 @@ class PictureItemState extends State<PictureItem> {
                     ),
                     Text(
                       data.text,
-                      style: TextStyle(color: Colors.black54),
+                      style: const TextStyle(color: Colors.black54),
                     ),
                   ],
                 ),
@@ -174,10 +172,13 @@ class PictureItemState extends State<PictureItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         // color: Colors.white,
         border: Border(
-          bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 0),
+          bottom: BorderSide(
+            color: Color.fromRGBO(243, 243, 244, 1),
+            width: 0,
+          ),
         ),
       ),
       child: Stack(
