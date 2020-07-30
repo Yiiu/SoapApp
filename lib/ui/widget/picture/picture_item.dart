@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_fade/image_fade.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
@@ -101,10 +102,12 @@ class PictureItemState extends State<PictureItem> {
                 borderRadius: BorderRadius.circular(4),
                 child: Hero(
                   tag: 'picture-$id',
-                  child: FadeInImage.memoryNetwork(
-                    placeholder: bytes,
-                    fadeInDuration: const Duration(milliseconds: 400),
-                    image: picture.pictureUrl(),
+                  child: ImageFade(
+                    placeholder: Image.memory(
+                      bytes,
+                      fit: BoxFit.cover,
+                    ),
+                    image: NetworkImage(picture.pictureUrl()),
                     fit: BoxFit.cover,
                   ),
                 ),

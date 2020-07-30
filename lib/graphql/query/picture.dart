@@ -1,44 +1,20 @@
-String pictures = '''
-  query Pictures(\$query: PicturesQueryInput!) {
-    pictures(query: \$query) {
-      data {
-        id
-        key
-        hash
-        title
-        bio
-        views
-        originalname
-        mimetype
-        size
-        isLike
-        likedCount
-        color
-        isDark
-        height
-        width
-        make
-        model
-        createTime
-        updateTime
-        blurhash
-        blurhashSrc
-        commentCount
-        user {
-          id
-          username
-          fullName
-          name
-          email
-          avatar
-          bio
-          website
-          likesCount
-          pictureCount
-          createTime
-          updateTime
-        }
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:soap_app/graphql/common/fragments.dart';
+
+class PictureQueries {
+  static final pictures = gql(r'''
+    query Pictures($query: PicturesQueryInput!, $type: PicturesType) {
+      pictures(query: $query, type: $type) {
+        ...PictureListFragment
       }
     }
-  }
-''';
+  ''')
+    ..definitions.addAll(Fragments.getFragments([
+      'PictureListFragment',
+      'PictureFragment',
+      'EXIFFragment',
+      'BadgeFragment',
+      'UserBaseFragment',
+      'UserFragment'
+    ]));
+}

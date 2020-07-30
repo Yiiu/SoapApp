@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql/internal.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/graphql/query/picture.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
@@ -18,6 +21,8 @@ class HomeViewState extends State<HomeView>
     with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
   @override
   bool get wantKeepAlive => true;
+
+  ObservableQuery observableQuery;
 
   final RefreshController _refreshController = RefreshController(
     initialRefresh: false,
@@ -39,7 +44,7 @@ class HomeViewState extends State<HomeView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<HomeProvider>(context, listen: false).getPictureList();
+    Provider.of<HomeProvider>(context, listen: false).init();
   }
 
   void completed() {
@@ -52,8 +57,13 @@ class HomeViewState extends State<HomeView>
 
   // 下拉刷新
   Future<void> _onRefresh() async {
-    await Provider.of<HomeProvider>(context, listen: false).getPictureList();
+    await Provider.of<HomeProvider>(context, listen: false).init();
     _refreshController.refreshCompleted();
+  }
+
+  Future<void> _onLoading() async {
+    await Provider.of<HomeProvider>(context, listen: false).onLoading();
+    _refreshController.loadComplete();
   }
 
   Widget _buildItem(Picture picture) {
@@ -116,30 +126,36 @@ class HomeViewState extends State<HomeView>
           children: <Widget>[
             Expanded(
               child: Consumer<HomeProvider>(
-                builder:
-                    (BuildContext context, HomeProvider home, Widget child) =>
-                        SmartRefresher(
-                  enablePullDown: true,
-                  enablePullUp: false,
-                  controller: _refreshController,
-                  header: refresherHeader,
-                  footer: refresherFooter,
-                  onRefresh: _onRefresh,
-                  child: CustomScrollView(
-                    controller: _controller,
-                    physics: const BouncingScrollPhysics(),
-                    slivers: <Widget>[
-                      const SliverToBoxAdapter(),
-                      SliverList(
-                        delegate: SliverChildListDelegate(
-                          home.pictureList.map((Picture picture) {
-                            return _buildItem(picture);
-                          }).toList(),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                builder: (
+                  BuildContext context,
+                  HomeProvider home,
+                  Widget child,
+                ) =>
+                    home.error == ''
+                        ? SmartRefresher(
+                            enablePullDown: true,
+                            enablePullUp: true,
+                            controller: _refreshController,
+                            header: refresherHeader,
+                            footer: refresherFooter,
+                            onRefresh: _onRefresh,
+                            onLoading: _onLoading,
+                            child: CustomScrollView(
+                              controller: _controller,
+                              physics: const BouncingScrollPhysics(),
+                              slivers: <Widget>[
+                                const SliverToBoxAdapter(),
+                                SliverList(
+                                  delegate: SliverChildListDelegate(
+                                    home.pictureList.map((Picture picture) {
+                                      return _buildItem(picture);
+                                    }).toList(),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        : Text(home.error),
               ),
             ),
           ],

@@ -1,22 +1,28 @@
+import 'package:graphql/internal.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/query/picture.dart';
+import 'package:soap_app/model/picture.dart';
 
 class PictureRepository {
   GraphQLClient client = GraphqlConfig.graphQLClient;
 
-  Future<QueryResult> getPictureList() async {
-    final QueryOptions _options = WatchQueryOptions(
-      documentNode: gql(pictures),
-      pollInterval: 10,
+  Future<QueryResult> getPictureList({
+    String type = 'NEW',
+    int page = 1,
+  }) async {
+    final QueryOptions _options = QueryOptions(
+      documentNode: PictureQueries.pictures,
+      pollInterval: 100,
       variables: {
-        'type': 'NEW',
+        'type': type,
         'query': {
-          'page': 1,
-          'pageSize': 30,
+          'page': page,
+          'pageSize': 5,
         }
-      },
+      } as Map<String, dynamic>,
     );
-    return await client.query(_options);
+
+    return client.query(_options);
   }
 }

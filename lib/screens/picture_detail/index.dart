@@ -6,6 +6,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_fade/image_fade.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
@@ -16,7 +17,7 @@ class OpenContainerWrapper extends StatelessWidget {
     this.picture,
   });
 
-  final OpenContainerBuilder closedBuilder;
+  final CloseContainerBuilder closedBuilder;
   final Picture picture;
 
   @override
@@ -112,11 +113,12 @@ class _PictureDetailState extends State<PictureDetail> {
                               widthFactor: picture.width / picture.height,
                               child: Hero(
                                 tag: 'picture-$id',
-                                child: FadeInImage.memoryNetwork(
-                                  placeholder: bytes,
-                                  fadeInDuration:
-                                      const Duration(milliseconds: 400),
-                                  image: picture.pictureUrl(),
+                                child: ImageFade(
+                                  placeholder: Image.memory(
+                                    bytes,
+                                    fit: BoxFit.cover,
+                                  ),
+                                  image: NetworkImage(picture.pictureUrl()),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -258,9 +260,9 @@ class _PictureDetailState extends State<PictureDetail> {
                             ],
                           ),
                         ),
-                        const SizedBox(
-                          height: 1200,
-                        ),
+                        // const SizedBox(
+                        //   height: 1200,
+                        // ),
                       ],
                     ),
                   ),

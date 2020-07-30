@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:graphql/internal.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 
@@ -7,15 +8,55 @@ class HomeProvider with ChangeNotifier {
   HomeProvider({@required this.repository}) : assert(repository != null);
   final PictureRepository repository;
 
-  List<Picture> _pictureList = [];
-  List<Picture> get pictureList => _pictureList;
+  int page = 1;
 
-  Future<void> getPictureList() async {
-    final QueryResult result = await repository.getPictureList();
-    if (result.data != null) {
-      _pictureList = Picture.fromListJson(
-          result.data['pictures']['data'] as List<dynamic>);
-      notifyListeners();
+  bool loading = true;
+
+  String error = '';
+
+  dynamic data;
+  List<Picture> get pictureList => Picture.fromListJson(
+        data != null ? data['pictures']['data'] as List<dynamic> : <dynamic>[],
+      );
+
+  Future<void> init() async {
+    try {
+      loading = true;
+      final QueryResult result = await repository.getPictureList(page: 1);
+      if (result.data != null) {
+        data = result.data;
+      }
+      if (result.exception != null) {
+        error = result.exception.toString();
+      }
+      loading = false;
+    } on Exception catch (err) {
+      error = err.toString();
+      debugPrint('$err');
+    } finally {
+      loading = false;
+    }
+    notifyListeners();
+  }
+
+  Future<void> onLoading() async {
+    if (!loading) {
+      try {
+        page = page + 1;
+        loading = true;
+        final QueryResult result = await repository.getPictureList(page: page);
+        if (result.data != null) {
+          data['pictures']['data'] = <dynamic>[
+            ...data['pictures']['data'] as List<dynamic>,
+            ...result.data['pictures']['data'] as List<dynamic>
+          ];
+          // data = result.data;
+          notifyListeners();
+          loading = false;
+        }
+      } finally {
+        loading = false;
+      }
     }
   }
 }

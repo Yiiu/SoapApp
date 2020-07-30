@@ -59,7 +59,7 @@ class SoapAppBar extends StatelessWidget {
                     ),
                   ]
                 : null,
-            color: backgroundColor ?? Theme.of(context).primaryColor,
+            color: Colors.white,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
