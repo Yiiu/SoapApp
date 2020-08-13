@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/screens/account/login.dart';
 import 'package:soap_app/screens/animtetest/index.dart';
 import 'package:soap_app/screens/home/search.dart';
 import 'package:soap_app/screens/home/user.dart';
@@ -36,6 +38,7 @@ class _MyHomePageState extends State<HomePage>
   List<Picture> list = [];
   int _selectedIndex = 0;
   final int _addIndex = 1;
+  final int _loginIndex = 2;
 
   static List<SoapBottomNavigationBarItem> get bottomBar => [
         const SoapBottomNavigationBarItem(
@@ -78,28 +81,16 @@ class _MyHomePageState extends State<HomePage>
             },
           ),
         );
-        // showCupertinoModalBottomSheet(
-        //   context: context,
-        //   expand: true,
-        //   builder: (context, scrollController) => Material(
-        //     child: CupertinoPageScaffold(
-        //       navigationBar: CupertinoNavigationBar(
-        //         leading: Container(),
-        //         middle: Text('添加图片'),
-        //       ),
-        //       child: SafeArea(
-        //         child: ListView(
-        //           shrinkWrap: true,
-        //           controller: scrollController,
-        //           physics: BouncingScrollPhysics(),
-        //           children: <Widget>[
-        //             Text('24124'),
-        //           ],
-        //         ),
-        //       ),
-        //     ),
-        //   ),
-        // );
+        return;
+      }
+      if (index == _loginIndex) {
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (BuildContext context) {
+              return const LoginView();
+            },
+          ),
+        );
         return;
       }
       _selectedIndex = index;

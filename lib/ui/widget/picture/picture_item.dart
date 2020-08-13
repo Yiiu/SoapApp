@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:jiffy/jiffy.dart';
+
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
@@ -50,7 +52,7 @@ class PictureItemState extends State<PictureItem> {
             child: Row(
               children: <Widget>[
                 Avatar(
-                  size: 40,
+                  size: 36,
                   image: picture.user.avatarUrl,
                 ),
                 Padding(
@@ -58,8 +60,8 @@ class PictureItemState extends State<PictureItem> {
                   child: Text(
                     picture.user.fullName,
                     style: const TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 17,
                     ),
                   ),
                 )
@@ -72,8 +74,8 @@ class PictureItemState extends State<PictureItem> {
               child: Text(
                 Jiffy(picture.createTime.toString()).fromNow(),
                 style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w400,
                   color: Colors.black38,
                 ),
               ),
@@ -103,11 +105,13 @@ class PictureItemState extends State<PictureItem> {
                 child: Hero(
                   tag: 'picture-$id',
                   child: ImageFade(
+                    fadeDuration: const Duration(milliseconds: 100),
                     placeholder: Image.memory(
-                      bytes,
+                      base64.decode(picture.blurhashSrc.split(',')[1]),
                       fit: BoxFit.cover,
+                      gaplessPlayback: true,
                     ),
-                    image: NetworkImage(picture.pictureUrl()),
+                    image: CachedNetworkImageProvider(picture.pictureUrl()),
                     fit: BoxFit.cover,
                   ),
                 ),

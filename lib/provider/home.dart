@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:graphql/internal.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 
@@ -15,9 +14,16 @@ class HomeProvider with ChangeNotifier {
   String error = '';
 
   dynamic data;
-  List<Picture> get pictureList => Picture.fromListJson(
-        data != null ? data['pictures']['data'] as List<dynamic> : <dynamic>[],
-      );
+
+  List<Picture> get pictureList {
+    return Picture.fromListJson(
+      data != null ? data['pictures']['data'] as List<dynamic> : <dynamic>[],
+    );
+  }
+
+  int get count {
+    return data != null ? data['pictures']['count'] as int : 0;
+  }
 
   Future<void> init() async {
     try {
@@ -50,13 +56,13 @@ class HomeProvider with ChangeNotifier {
             ...data['pictures']['data'] as List<dynamic>,
             ...result.data['pictures']['data'] as List<dynamic>
           ];
-          // data = result.data;
-          notifyListeners();
+          print(data['pictures']['data'].length);
           loading = false;
         }
       } finally {
         loading = false;
       }
     }
+    notifyListeners();
   }
 }

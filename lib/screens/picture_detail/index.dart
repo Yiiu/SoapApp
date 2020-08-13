@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:animations/animations.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -114,11 +115,14 @@ class _PictureDetailState extends State<PictureDetail> {
                               child: Hero(
                                 tag: 'picture-$id',
                                 child: ImageFade(
+                                  fadeDuration:
+                                      const Duration(milliseconds: 100),
                                   placeholder: Image.memory(
                                     bytes,
                                     fit: BoxFit.cover,
                                   ),
-                                  image: NetworkImage(picture.pictureUrl()),
+                                  image: CachedNetworkImageProvider(
+                                      picture.pictureUrl()),
                                   fit: BoxFit.cover,
                                 ),
                               ),
@@ -128,11 +132,14 @@ class _PictureDetailState extends State<PictureDetail> {
                             aspectRatio: picture.width / picture.height,
                             child: Hero(
                               tag: 'picture-$id',
-                              child: FadeInImage.memoryNetwork(
-                                placeholder: bytes,
-                                fadeInDuration:
-                                    const Duration(milliseconds: 400),
-                                image: picture.pictureUrl(),
+                              child: ImageFade(
+                                fadeDuration: const Duration(milliseconds: 100),
+                                placeholder: Image.memory(
+                                  bytes,
+                                  fit: BoxFit.cover,
+                                ),
+                                image: CachedNetworkImageProvider(
+                                    picture.pictureUrl()),
                                 fit: BoxFit.cover,
                               ),
                             ),

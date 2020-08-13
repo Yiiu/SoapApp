@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql/internal.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:soap_app/graphql/query/picture.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
@@ -24,11 +24,9 @@ class HomeViewState extends State<HomeView>
 
   ObservableQuery observableQuery;
 
-  final RefreshController _refreshController = RefreshController(
-    initialRefresh: false,
-    // initialRefreshStatus: RefreshStatus.completed,
-  );
-  final ScrollController _controller = ScrollController();
+  final EasyRefreshController _controller = EasyRefreshController();
+
+  final ScrollController _scrollController = ScrollController();
 
   int page = 1;
 
@@ -58,12 +56,17 @@ class HomeViewState extends State<HomeView>
   // 下拉刷新
   Future<void> _onRefresh() async {
     await Provider.of<HomeProvider>(context, listen: false).init();
-    _refreshController.refreshCompleted();
+    _controller.finishRefresh();
   }
 
   Future<void> _onLoading() async {
-    await Provider.of<HomeProvider>(context, listen: false).onLoading();
-    _refreshController.loadComplete();
+    final HomeProvider home = Provider.of<HomeProvider>(context, listen: false);
+    await home.onLoading();
+
+    _controller.finishLoad(
+      success: true,
+      noMore: home.pictureList.length >= home.count,
+    );
   }
 
   Widget _buildItem(Picture picture) {
@@ -72,38 +75,6 @@ class HomeViewState extends State<HomeView>
 
   @override
   Widget build(BuildContext context) {
-    const Widget refresherHeader = ClassicHeader(
-      refreshStyle: RefreshStyle.UnFollow,
-      idleText: '',
-      idleIcon: CupertinoActivityIndicator(
-        animating: false,
-      ),
-      refreshingText: '',
-      refreshingIcon: CupertinoActivityIndicator(),
-      releaseText: '',
-      releaseIcon: CupertinoActivityIndicator(),
-      completeText: '',
-    );
-    final Widget refresherFooter = CustomFooter(
-      builder: (BuildContext context, LoadStatus mode) {
-        Widget body;
-        if (mode == LoadStatus.idle) {
-          body = const Text('上拉加载');
-        } else if (mode == LoadStatus.loading) {
-          body = const CupertinoActivityIndicator();
-        } else if (mode == LoadStatus.failed) {
-          body = const Text('加载失败！点击重试！');
-        } else if (mode == LoadStatus.canLoading) {
-          body = const Text('松手,加载更多!');
-        } else {
-          body = const Text('没有更多数据了!');
-        }
-        return Container(
-          height: 55.0,
-          child: Center(child: body),
-        );
-      },
-    );
     final ThemeData theme = Theme.of(context);
     return FixedAppBarWrapper(
       appBar: const SoapAppBar(
@@ -132,28 +103,41 @@ class HomeViewState extends State<HomeView>
                   Widget child,
                 ) =>
                     home.error == ''
-                        ? SmartRefresher(
-                            enablePullDown: true,
-                            enablePullUp: true,
-                            controller: _refreshController,
-                            header: refresherHeader,
-                            footer: refresherFooter,
-                            onRefresh: _onRefresh,
-                            onLoading: _onLoading,
-                            child: CustomScrollView(
-                              controller: _controller,
-                              physics: const BouncingScrollPhysics(),
-                              slivers: <Widget>[
-                                const SliverToBoxAdapter(),
-                                SliverList(
-                                  delegate: SliverChildListDelegate(
-                                    home.pictureList.map((Picture picture) {
-                                      return _buildItem(picture);
-                                    }).toList(),
-                                  ),
-                                ),
-                              ],
+                        ? EasyRefresh.custom(
+                            enableControlFinishRefresh: true,
+                            enableControlFinishLoad: true,
+                            header: ClassicalHeader(
+                              refreshedText: '刷新完成！',
+                              refreshingText: '正在加载...',
+                              refreshText: '下拉刷新',
+                              refreshReadyText: '松手刷新',
+                              showInfo: false,
                             ),
+                            footer: ClassicalFooter(
+                              loadedText: '加载完成！',
+                              loadingText: '正在加载...',
+                              loadReadyText: '松手加载',
+                              loadText: '上拉加载',
+                              noMoreText: '我是有底线的！',
+                              showInfo: false,
+                            ),
+                            controller: _controller,
+                            scrollController: _scrollController,
+                            onRefresh: _onRefresh,
+                            onLoad: _onLoading,
+                            slivers: [
+                              const SliverToBoxAdapter(),
+                              SliverList(
+                                delegate: SliverChildBuilderDelegate(
+                                  (BuildContext context, int index) {
+                                    final Picture picture =
+                                        home.pictureList[index];
+                                    return _buildItem(picture);
+                                  },
+                                  childCount: home.pictureList.length,
+                                ),
+                              ),
+                            ],
                           )
                         : Text(home.error),
               ),

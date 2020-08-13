@@ -22,3 +22,4 @@ doc/api/
 *.js.deps
 *.js.map
 android/app/key.jks
+android/key.properties

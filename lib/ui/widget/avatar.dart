@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:image_fade/image_fade.dart';
 import 'package:soap_app/ui/widget/transparent_image.dart';
 
 class Avatar extends StatelessWidget {
@@ -18,13 +20,16 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipOval(
-      child: FadeInImage.memoryNetwork(
+      child: ImageFade(
+        fadeDuration: const Duration(milliseconds: 100),
+        placeholder: Image.memory(
+          placeholder ?? transparentImage,
+          fit: BoxFit.cover,
+        ),
+        image: CachedNetworkImageProvider(image),
+        fit: BoxFit.cover,
         width: size,
         height: size,
-        placeholder: placeholder ?? transparentImage,
-        fadeInDuration: const Duration(milliseconds: 400),
-        image: image,
-        fit: BoxFit.cover,
       ),
     );
   }
