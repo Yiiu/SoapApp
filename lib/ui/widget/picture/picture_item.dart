@@ -88,8 +88,6 @@ class PictureItemState extends State<PictureItem> {
 
   Widget container() {
     final int id = picture.id;
-    final Uint8List bytes = base64
-        .decode(picture.blurhashSrc.replaceAll('data:image/png;base64,', ''));
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: OpenContainerWrapper(

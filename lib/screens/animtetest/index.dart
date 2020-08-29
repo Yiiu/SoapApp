@@ -183,10 +183,10 @@ class _SignInPage extends StatelessWidget {
         return Column(
           children: <Widget>[
             Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 20)),
-            Image.asset(
-              'assets/avatar_logo.png',
-              width: 80,
-            ),
+            // Image.asset(
+            //   'assets/avatar_logo.png',
+            //   width: 80,
+            // ),
             Padding(padding: EdgeInsets.symmetric(vertical: maxHeight / 50)),
             Text(
               'Hi David Park',

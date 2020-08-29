@@ -10,15 +10,17 @@ class PictureRepository {
   Future<QueryResult> getPictureList({
     String type = 'NEW',
     int page = 1,
+    int timestamp,
   }) async {
     final QueryOptions _options = QueryOptions(
+      fetchPolicy: FetchPolicy.networkOnly,
       documentNode: PictureQueries.pictures,
-      pollInterval: 100,
       variables: {
         'type': type,
         'query': {
           'page': page,
-          'pageSize': 5,
+          'pageSize': 30,
+          'timestamp': timestamp,
         }
       } as Map<String, dynamic>,
     );

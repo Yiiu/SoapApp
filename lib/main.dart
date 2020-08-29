@@ -3,10 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
+import 'package:soap_app/utils/storage.dart';
 
 import 'config/const.dart';
 import 'config/graphql.dart';
-import 'config/router.dart';
+import 'config/router.dart' as RouterConfig;
 import 'provider/index.dart';
 
 void main() {
@@ -37,8 +38,8 @@ class SoapApp extends StatelessWidget {
       providers: providers,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        initialRoute: RouteName.home,
-        onGenerateRoute: Router.generateRoute,
+        initialRoute: RouterConfig.RouteName.home,
+        onGenerateRoute: RouterConfig.Router.generateRoute,
         // themeMode: ThemeMode.dark,
         title: Constants.appName,
         theme: Constants.lightTheme,

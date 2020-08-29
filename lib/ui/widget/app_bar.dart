@@ -1,7 +1,9 @@
+import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:soap_app/config/const.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 /// Customized appbar.
 /// 自定义的顶栏。
@@ -11,7 +13,7 @@ class SoapAppBar extends StatelessWidget {
     this.automaticallyImplyLeading = false,
     this.title,
     this.centerTitle = true,
-    this.backgroundColor,
+    this.backgroundColor = Colors.white,
     this.elevation = 2.0,
     this.actions,
     this.actionsPadding,
@@ -59,13 +61,25 @@ class SoapAppBar extends StatelessWidget {
                     ),
                   ]
                 : null,
-            color: Colors.white,
+            color: backgroundColor,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               if (automaticallyImplyLeading && Navigator.of(context).canPop())
-                const BackButton(),
+                Padding(
+                  padding: const EdgeInsets.only(left: 12),
+                  child: TouchableOpacity(
+                    activeOpacity: .6,
+                    child: const Icon(
+                      FeatherIcons.chevronLeft,
+                      size: 32,
+                    ),
+                    onTap: () {
+                      Navigator.maybePop(context);
+                    },
+                  ),
+                ),
               if (_title != null)
                 Expanded(
                   child: Align(

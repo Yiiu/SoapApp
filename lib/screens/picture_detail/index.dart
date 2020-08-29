@@ -8,7 +8,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_fade/image_fade.dart';
+import 'package:provider/provider.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
 
@@ -78,7 +80,8 @@ class _PictureDetailState extends State<PictureDetail> {
     // blurhash
     final double num = picture.width / picture.height;
     final double minFactor = MediaQuery.of(context).size.width / 500;
-    // SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom]);
+    final account = Provider.of<AccountProvider>(context);
+    final account2 = account;
     return FixedAppBarWrapper(
         appBar: SoapAppBar(
           centerTitle: true,
@@ -267,9 +270,10 @@ class _PictureDetailState extends State<PictureDetail> {
                             ],
                           ),
                         ),
-                        // const SizedBox(
-                        //   height: 1200,
-                        // ),
+                        Text('${account2.user?.name ?? ''}'),
+                        const SizedBox(
+                          height: 1200,
+                        ),
                       ],
                     ),
                   ),

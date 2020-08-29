@@ -5,8 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/screens/account/login.dart';
+import 'package:provider/provider.dart';
+import 'package:soap_app/config/router.dart';
+import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/screens/animtetest/index.dart';
 import 'package:soap_app/screens/home/search.dart';
 import 'package:soap_app/screens/home/user.dart';
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<HomePage>
   @override
   void initState() {
     super.initState();
+    Provider.of<AccountProvider>(context, listen: false);
     tabController = TabController(
       length: 4,
       vsync: this,
@@ -72,6 +74,7 @@ class _MyHomePageState extends State<HomePage>
   }
 
   void handleTabChange(int index) {
+    final account = Provider.of<AccountProvider>(context, listen: false);
     setState(() {
       if (index == _addIndex) {
         Navigator.of(context).push(
@@ -83,14 +86,8 @@ class _MyHomePageState extends State<HomePage>
         );
         return;
       }
-      if (index == _loginIndex) {
-        Navigator.of(context).push(
-          MaterialPageRoute<void>(
-            builder: (BuildContext context) {
-              return const LoginView();
-            },
-          ),
-        );
+      if (index == _loginIndex && !account.isAccount) {
+        Navigator.pushNamed(context, RouteName.login);
         return;
       }
       _selectedIndex = index;
@@ -114,7 +111,11 @@ class _MyHomePageState extends State<HomePage>
                   children: <Widget>[
                     HomeView(),
                     const SearchView(),
-                    const ProfileView(),
+                    ProfileView(
+                        controller: tabController,
+                        logout: () {
+                          handleTabChange(0);
+                        }),
                     const Text('4'),
                   ],
                 ),

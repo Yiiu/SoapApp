@@ -1,10 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql/internal.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:soap_app/graphql/query/picture.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
@@ -42,7 +42,8 @@ class HomeViewState extends State<HomeView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Provider.of<HomeProvider>(context, listen: false).init();
+    // _controller.callLoad();
+    // Provider.of<HomeProvider>(context, listen: false).init();
   }
 
   void completed() {
@@ -104,6 +105,8 @@ class HomeViewState extends State<HomeView>
                 ) =>
                     home.error == ''
                         ? EasyRefresh.custom(
+                            key: home.key,
+                            firstRefresh: true,
                             enableControlFinishRefresh: true,
                             enableControlFinishLoad: true,
                             header: ClassicalHeader(

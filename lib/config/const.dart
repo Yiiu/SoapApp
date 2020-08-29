@@ -12,7 +12,7 @@ mixin Constants {
   static Color darkPrimary = Colors.black;
   static Color lightAccent = Colors.blueGrey[900];
   static Color darkAccent = Colors.white;
-  static Color lightBG = const Color(0xfffcfcff);
+  static Color lightBG = const Color(0xffFAFAFA);
   static Color darkBG = Colors.black;
   static Color badgeColor = Colors.red;
 
