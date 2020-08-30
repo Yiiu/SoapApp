@@ -43,6 +43,9 @@ dependencies:
   progressive_image: ^1.0.1
   image_fade: ^0.2.1
 
+  # 消息提示
+  toast: ^0.1.4
+
   # 刷新
   flutter_easyrefresh: ^2.1.4
 

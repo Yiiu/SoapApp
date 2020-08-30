@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
+import 'package:toast/toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class LoginView extends StatefulWidget {
@@ -57,9 +58,15 @@ class _LoginViewState extends State<LoginView> {
       _accountController.text,
       _passwordController.text,
     );
-    Provider.of<HomeProvider>(context, listen: false).reset();
     if (res) {
+      Provider.of<HomeProvider>(context, listen: false).reset();
       Navigator.pop(context);
+      Toast.show(
+        '登录成功',
+        context,
+        gravity: Toast.BOTTOM,
+        duration: Toast.LENGTH_LONG,
+      );
     }
   }
 

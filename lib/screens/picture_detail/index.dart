@@ -106,7 +106,9 @@ class _PictureDetailState extends State<PictureDetail> {
               ListView(
                 padding: EdgeInsets.zero,
                 controller: scrollController,
-                physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
                 children: <Widget>[
                   Container(
                     child: (num < minFactor && num < 1)
@@ -271,9 +273,6 @@ class _PictureDetailState extends State<PictureDetail> {
                           ),
                         ),
                         Text('${account2.user?.name ?? ''}'),
-                        const SizedBox(
-                          height: 1200,
-                        ),
                       ],
                     ),
                   ),

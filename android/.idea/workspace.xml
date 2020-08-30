@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1da811c-124e-4009-a10e-403f8eef9ad3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../lib/config/graphql.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/config/graphql.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/server.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/server.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../lib/utils/picture.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/utils/picture.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/generated_plugin_registrant.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,7 +20,12 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
@@ -47,7 +52,7 @@
         <option name="Android.Gradle.BeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
       <module name="app" />
       <option name="DEPLOY" value="true" />
       <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
@@ -121,9 +126,10 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="465" y="217" width="1202" height="607" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1595991568707" />
-    <state x="746" y="343" key="com.intellij.ide.util.TipDialog" timestamp="1595991505997">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="796" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1598715926986">
+      <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="746" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1595991505997" />
+    <state x="796" y="363" key="com.intellij.ide.util.TipDialog/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1598715926986" />
   </component>
 </project>

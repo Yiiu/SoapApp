@@ -23,7 +23,7 @@ class AccountProvider with ChangeNotifier {
   Future<void> setup() async {
     await StorageUtil.inicializar();
     final String _user = StorageUtil.getString('account.user');
-    if (_user != '') {
+    if (_user != null) {
       user = User.fromJson(json.decode(_user) as Map<String, dynamic>);
     }
     notifyListeners();
