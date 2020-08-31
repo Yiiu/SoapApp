@@ -13,7 +13,6 @@ class AuthLink extends Link {
 
             Future<void> onListen() async {
               try {
-                await StorageUtil.inicializar();
                 final String token = AuthUtil.getToken();
                 print(token);
                 operation.setContext(<String, Map<String, String>>{
