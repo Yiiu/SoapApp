@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:provider/provider.dart';
 import 'package:soap_app/model/picture.dart';
@@ -255,11 +254,9 @@ class _PictureDetailState extends State<PictureDetail> {
                                                 bottom: 6),
                                             child: Text(
                                               picture.user.fullName,
-                                              style: GoogleFonts.rubik(
-                                                textStyle: const TextStyle(
-                                                  fontWeight: FontWeight.w600,
-                                                  fontSize: 16,
-                                                ),
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 16,
                                               ),
                                             ),
                                           ),

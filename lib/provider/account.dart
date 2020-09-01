@@ -1,9 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/account_repository.dart';
+import 'package:soap_app/repository/user_repository.dart';
 import 'package:soap_app/utils/auth.dart';
 import 'package:soap_app/utils/storage.dart';
 
@@ -40,9 +42,18 @@ class AccountProvider with ChangeNotifier {
     final dynamic data = await repository.oauth(params);
     user = User.fromJson(data['user'] as Map<String, dynamic>);
     StorageUtil.setString('account.user', json.encode(data['user']));
-    AuthUtil.setToken(data['accessToken'] as String);
+    await AuthUtil.setToken(data['accessToken'] as String);
+    await getUserInfo();
     notifyListeners();
     return true;
+  }
+
+  Future<void> getUserInfo() async {
+    final QueryResult data = await UserRepository.whoami();
+    if (data.data != null && data.data['whoami'] != null) {
+      user = User.fromJson(data.data['whoami'] as Map<String, dynamic>);
+    }
+    notifyListeners();
   }
 
   void logout() {

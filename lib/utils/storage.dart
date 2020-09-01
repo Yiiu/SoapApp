@@ -11,8 +11,8 @@ mixin StorageUtil {
     return _preferences.getString(key) ?? defValue;
   }
 
-  static void setString(String key, String value) {
-    _preferences.setString(key, value);
+  static Future<bool> setString(String key, String value) {
+    return _preferences.setString(key, value);
   }
 
   static void remove(String key) {

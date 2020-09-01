@@ -42,6 +42,7 @@ class PictureItemState extends State<PictureItem> {
   }
 
   Widget header() {
+    final ThemeData theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
       child: Flex(
@@ -59,9 +60,8 @@ class PictureItemState extends State<PictureItem> {
                   padding: const EdgeInsets.symmetric(horizontal: 12),
                   child: Text(
                     picture.user.fullName,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 17,
+                    style: theme.textTheme.bodyText2.copyWith(
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 )
@@ -73,10 +73,9 @@ class PictureItemState extends State<PictureItem> {
               alignment: FractionalOffset.centerRight,
               child: Text(
                 Jiffy(picture.createTime.toString()).fromNow(),
-                style: const TextStyle(
+                style: theme.textTheme.bodyText2.copyWith(
+                  color: theme.textTheme.bodyText2.color.withOpacity(.6),
                   fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black38,
                 ),
               ),
             ),

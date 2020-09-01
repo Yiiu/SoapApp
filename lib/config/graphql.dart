@@ -14,11 +14,11 @@ class AuthLink extends Link {
             Future<void> onListen() async {
               try {
                 final String token = AuthUtil.getToken();
-                print(token);
                 operation.setContext(<String, Map<String, String>>{
                   'headers': <String, String>{
-                    'Authorization': '''bearer $token'''
-                  }
+                    'accept': 'application/json',
+                    'Authorization': '''Bearer $token'''
+                  },
                 });
               } catch (error) {
                 controller.addError(error);

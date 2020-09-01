@@ -80,15 +80,11 @@ class HomeViewState extends State<HomeView>
     return FixedAppBarWrapper(
       appBar: const SoapAppBar(
         centerTitle: false,
-        elevation: 0.1,
+        elevation: 0.2,
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Home',
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w900,
-            ),
           ),
         ),
       ),
