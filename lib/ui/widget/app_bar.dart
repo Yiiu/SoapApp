@@ -1,9 +1,11 @@
+import 'dart:ui';
+
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:soap_app/config/const.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
+import 'package:soap_app/ui/widget/touchable_opacity.dart';
 
 /// Customized appbar.
 /// 自定义的顶栏。
@@ -44,8 +46,7 @@ class SoapAppBar extends StatelessWidget {
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
-    return Material(
-      type: MaterialType.transparency,
+    return Container(
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: Container(
@@ -70,12 +71,11 @@ class SoapAppBar extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(left: 12),
                   child: TouchableOpacity(
-                    activeOpacity: .6,
                     child: const Icon(
                       FeatherIcons.chevronLeft,
                       size: 32,
                     ),
-                    onTap: () {
+                    onPressed: () {
                       Navigator.maybePop(context);
                     },
                   ),
@@ -88,10 +88,7 @@ class SoapAppBar extends StatelessWidget {
                         : AlignmentDirectional.centerStart,
                     child: DefaultTextStyle(
                       child: _title,
-                      style: Theme.of(context)
-                          .textTheme
-                          .title
-                          .copyWith(fontSize: 23.0),
+                      style: Theme.of(context).textTheme.headline5,
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,

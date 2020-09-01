@@ -124,7 +124,7 @@ class _MyHomePageState extends State<HomePage>
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: theme.backgroundColor,
+              color: Colors.white,
               boxShadow: [
                 BoxShadow(
                   blurRadius: 5,

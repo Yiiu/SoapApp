@@ -3,14 +3,15 @@ import 'package:dio/dio.dart';
 class AccountRepository {
   Future<dynamic> oauth(dynamic data) async {
     try {
+      final Map<String, String> map = {
+        'Authorization':
+            'Basic NTczYjUxNTktNTRjYy00ODg2LWJiMmItMjgxY2U2Y2Q5ZWExOnRlc3Q'
+      };
       final Response response = await Dio().post<dynamic>(
         'https://soapphoto.com/oauth/token',
         data: data,
         options: Options(
-          headers: {
-            'Authorization':
-                'Basic NTczYjUxNTktNTRjYy00ODg2LWJiMmItMjgxY2U2Y2Q5ZWExOnRlc3Q'
-          },
+          headers: map,
           contentType: Headers.formUrlEncodedContentType,
         ),
       );

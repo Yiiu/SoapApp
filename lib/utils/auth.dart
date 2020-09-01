@@ -5,8 +5,8 @@ class AuthUtil {
     return StorageUtil.getString('account.accessToken');
   }
 
-  static void setToken(String value) {
-    StorageUtil.setString('account.accessToken', value);
+  static Future<void> setToken(String value) async {
+    await StorageUtil.setString('account.accessToken', value);
   }
 
   static void clear() {
