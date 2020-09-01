@@ -21,7 +21,6 @@ class AccountProvider with ChangeNotifier {
   bool get isAccount => user != null;
 
   Future<void> setup() async {
-    await StorageUtil.inicializar();
     final String _user = StorageUtil.getString('account.user');
     if (_user != null) {
       user = User.fromJson(json.decode(_user) as Map<String, dynamic>);
@@ -38,7 +37,6 @@ class AccountProvider with ChangeNotifier {
       'password': password,
       'grant_type': 'password',
     };
-    await StorageUtil.inicializar();
     final dynamic data = await repository.oauth(params);
     user = User.fromJson(data['user'] as Map<String, dynamic>);
     StorageUtil.setString('account.user', json.encode(data['user']));

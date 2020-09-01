@@ -6,7 +6,6 @@ class AuthUtil {
   }
 
   static void setToken(String value) {
-    print(value);
     StorageUtil.setString('account.accessToken', value);
   }
 

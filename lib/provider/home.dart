@@ -38,7 +38,6 @@ class HomeProvider with ChangeNotifier {
   }
 
   Future<void> setup() async {
-    // await StorageUtil.inicializar();
     // final String _data = StorageUtil.getString('home.data');
     // if (_data != null) {
     //   data = json.decode(_data);
@@ -100,7 +99,6 @@ class HomeProvider with ChangeNotifier {
   }
 
   Future<void> setCache(dynamic data, int page) async {
-    await StorageUtil.inicializar();
     StorageUtil.setString('home.data', json.encode(data));
     StorageUtil.setString('home.page', json.encode(page));
   }

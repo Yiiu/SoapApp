@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/picture.dart';
 
 import '../utils/picture.dart';
 
@@ -18,10 +19,18 @@ class User {
   String avatar;
   String bio;
   String website;
+  String cover;
   int likedCount;
+  int likesCount;
   int pictureCount;
+  int followerCount;
+  int followedCount;
   DateTime createTime;
   DateTime updateTime;
+
+  List<Picture> pictures;
+
+  int isFollowing;
 
   String get avatarUrl {
     return getPictureUrl(key: avatar, style: PictureStyle.small);

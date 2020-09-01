@@ -10,7 +10,7 @@ import 'package:soap_app/config/router.dart';
 import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/screens/animtetest/index.dart';
 import 'package:soap_app/screens/home/search.dart';
-import 'package:soap_app/screens/home/user.dart';
+import 'package:soap_app/screens/home/user/user.dart';
 
 import '../../model/picture.dart';
 import 'home.dart';

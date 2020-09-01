@@ -10,9 +10,12 @@ import 'config/graphql.dart';
 import 'config/router.dart' as RouterConfig;
 import 'provider/index.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   Jiffy.locale('zh-cn');
+  // Lock orientation to portrait only
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  await StorageUtil.initialize();
   runApp(GraphQLProvider(client: GraphqlConfig.client, child: SoapApp()));
   const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,

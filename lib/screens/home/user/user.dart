@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:soap_app/config/router.dart';
 import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
@@ -116,17 +115,18 @@ class _ProfileViewState extends State<ProfileView> {
             Container(
               decoration: const BoxDecoration(
                 color: Colors.white,
-                border: Border(
-                  top: BorderSide(
-                    width: 0.3,
-                    color: Colors.black12,
-                    style: BorderStyle.solid,
-                  ),
-                ),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(12),
-                child: Text('test'),
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Consumer<AccountProvider>(
+                  builder: (
+                    BuildContext context,
+                    AccountProvider account,
+                    Widget child,
+                  ) {
+                    return Text('test');
+                  },
+                ),
               ),
             ),
             FlatButton(
