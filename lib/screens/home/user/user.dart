@@ -30,14 +30,14 @@ class _ProfileViewState extends State<ProfileView> {
     super.initState();
     controller = widget.controller;
     logoutCb = widget.logout;
+    if (Provider.of<AccountProvider>(context, listen: false).isAccount) {
+      Provider.of<AccountProvider>(context, listen: false).getUserInfo();
+    }
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (Provider.of<AccountProvider>(context, listen: false).isAccount) {
-      Provider.of<AccountProvider>(context, listen: false).getUserInfo();
-    }
   }
 
   void logout() {
@@ -212,7 +212,7 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
             const SizedBox(
-              height: 10,
+              height: 12,
             ),
             Container(
               color: Colors.white,

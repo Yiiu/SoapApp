@@ -67,13 +67,17 @@ class SoapAppBar extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              if (automaticallyImplyLeading && Navigator.of(context).canPop())
+              //  && Navigator.of(context).canPop()
+              if (automaticallyImplyLeading)
                 Padding(
-                  padding: const EdgeInsets.only(left: 12),
+                  padding: const EdgeInsets.only(left: 3),
                   child: TouchableOpacity(
-                    child: const Icon(
-                      FeatherIcons.chevronLeft,
-                      size: 32,
+                    child: Container(
+                      child: const Icon(
+                        // FeatherIcons.arrowLeft,
+                        FeatherIcons.chevronLeft,
+                        size: 26,
+                      ),
                     ),
                     onPressed: () {
                       Navigator.maybePop(context);
@@ -95,9 +99,8 @@ class SoapAppBar extends StatelessWidget {
                     ),
                   ),
                 ),
-              if (automaticallyImplyLeading &&
-                  Navigator.of(context).canPop() &&
-                  (actions?.isEmpty ?? true))
+              //  && Navigator.of(context).canPop()
+              if (automaticallyImplyLeading && (actions?.isEmpty ?? true))
                 const SizedBox(width: 48.0)
               else if (actions?.isNotEmpty ?? false)
                 Padding(

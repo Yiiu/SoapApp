@@ -7,8 +7,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:provider/provider.dart';
 
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/provider/picture_detail.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
 

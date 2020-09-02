@@ -13,7 +13,7 @@ import 'config/router.dart' as RouterConfig;
 import 'provider/index.dart';
 
 Future<void> main() async {
-  Stetho.initialize();
+  // Stetho.initialize();
   WidgetsFlutterBinding.ensureInitialized();
   Jiffy.locale('zh-cn');
   // Lock orientation to portrait only

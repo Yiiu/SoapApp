@@ -28,7 +28,7 @@ User _$UserFromJson(Map<String, dynamic> json) {
     ..updateTime = json['updateTime'] == null
         ? null
         : DateTime.parse(json['updateTime'] as String)
-    ..pictures = (json['pictures'] as List<dynamic>)
+    ..pictures = (json['pictures'] as List)
         ?.map((dynamic e) =>
             e == null ? null : Picture.fromJson(e as Map<String, dynamic>))
         ?.toList()

@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/tag.dart';
 
 import '../utils/picture.dart';
 import './user.dart';
@@ -35,6 +36,8 @@ class Picture {
   DateTime createTime;
   DateTime updateTime;
   User user;
+
+  List<Tag> tags;
 
   String pictureUrl({PictureStyle style = PictureStyle.small}) {
     return getPictureUrl(key: key, style: style);

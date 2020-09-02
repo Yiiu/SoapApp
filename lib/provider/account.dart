@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:soap_app/repository/user_repository.dart';

@@ -18,4 +18,23 @@ class PictureQueries {
       'UserBaseFragment',
       'UserFragment'
     ]));
+
+  static final DocumentNode picture = gql(r'''
+    query Picture($id: Float!) {
+      picture(id: $id) {
+        ...PictureDetailFragment
+      }
+    }
+  ''')
+    ..definitions.addAll(Fragments.getFragments([
+      'PictureDetailFragment',
+      'PictureFragment',
+      'CollectionFragment',
+      'EXIFFragment',
+      'BadgeFragment',
+      'UserBaseFragment',
+      'PictureLocationFragment',
+      'TagFragment',
+      'UserFragment'
+    ]));
 }

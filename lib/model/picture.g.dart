@@ -36,7 +36,11 @@ Picture _$PictureFromJson(Map<String, dynamic> json) {
         : DateTime.parse(json['updateTime'] as String)
     ..user = json['user'] == null
         ? null
-        : User.fromJson(json['user'] as Map<String, dynamic>);
+        : User.fromJson(json['user'] as Map<String, dynamic>)
+    ..tags = (json['tags'] as List)
+        ?.map((dynamic e) =>
+            e == null ? null : Tag.fromJson(e as Map<String, dynamic>))
+        ?.toList();
 }
 
 Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{
@@ -63,4 +67,5 @@ Map<String, dynamic> _$PictureToJson(Picture instance) => <String, dynamic>{
       'createTime': instance.createTime?.toIso8601String(),
       'updateTime': instance.updateTime?.toIso8601String(),
       'user': instance.user,
+      'tags': instance.tags,
     };

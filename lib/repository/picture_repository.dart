@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/query/picture.dart';
@@ -20,6 +21,18 @@ class PictureRepository {
           'pageSize': 30,
           'timestamp': timestamp,
         }
+      } as Map<String, dynamic>,
+    );
+
+    return client.query(_options);
+  }
+
+  Future<QueryResult> getPicture(int id) async {
+    final QueryOptions _options = QueryOptions(
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
+      documentNode: PictureQueries.picture,
+      variables: {
+        'id': id,
       } as Map<String, dynamic>,
     );
 

@@ -29,7 +29,6 @@ mixin Constants {
   static ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: 'Rubik',
-    brightness: Brightness.light,
     backgroundColor: const Color(0xfff5f4f9),
     primaryColorBrightness: Brightness.light,
     primaryColor: lightPrimary,
