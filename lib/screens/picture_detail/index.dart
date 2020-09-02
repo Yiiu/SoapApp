@@ -4,7 +4,9 @@ import 'dart:typed_data';
 import 'package:animations/animations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/provider/picture_detail.dart';
 import 'package:soap_app/screens/picture_detail/comment.dart';
@@ -89,7 +91,7 @@ class _PictureDetailState extends State<PictureDetail> {
         centerTitle: false,
         automaticallyImplyLeading: true,
         actionsPadding: const EdgeInsets.only(
-          right: 12,
+          right: 16,
         ),
         elevation: 0.1,
         title: Padding(
@@ -101,9 +103,18 @@ class _PictureDetailState extends State<PictureDetail> {
                 PictureDetailProvider detail,
                 Widget child,
               ) {
-                return Avatar(
-                  size: 38,
-                  image: detail.picture.user.avatarUrl,
+                return TouchableOpacity(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments: detail.picture.user,
+                    );
+                  },
+                  child: Avatar(
+                    size: 38,
+                    image: detail.picture.user.avatarUrl,
+                  ),
                 );
               }),
               Consumer<PictureDetailProvider>(builder: (
@@ -111,13 +122,22 @@ class _PictureDetailState extends State<PictureDetail> {
                 PictureDetailProvider detail,
                 Widget child,
               ) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    detail.picture.user.fullName,
-                    style: theme.textTheme.bodyText2.copyWith(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 17,
+                return TouchableOpacity(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments: detail.picture.user,
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      detail.picture.user.fullName,
+                      style: theme.textTheme.bodyText2.copyWith(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 17,
+                      ),
                     ),
                   ),
                 );
@@ -128,12 +148,24 @@ class _PictureDetailState extends State<PictureDetail> {
         actions: <Widget>[
           Center(
             child: TouchableOpacity(
-              child: Text(
-                '关注',
-                style: theme.textTheme.bodyText2.copyWith(
-                  color: theme.primaryColor,
-                  fontSize: theme.textTheme.bodyText2.fontSize - 2,
-                ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  SvgPicture.asset(
+                    'assets/feather/plus.svg',
+                    width: 16,
+                    height: 16,
+                    color: theme.primaryColor,
+                  ),
+                  Text(
+                    '关注',
+                    style: theme.textTheme.bodyText2.copyWith(
+                      color: theme.primaryColor,
+                      fontSize: theme.textTheme.bodyText2.fontSize - 2,
+                    ),
+                  ),
+                ],
               ),
               onPressed: () {},
             ),

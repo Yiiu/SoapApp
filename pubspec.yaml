@@ -111,6 +111,8 @@ flutter:
   assets:
     - lib/mock/list.json
     - assets/feather/thumbs-up.svg
+    - assets/feather/chevron-left.svg
+    - assets/feather/plus.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

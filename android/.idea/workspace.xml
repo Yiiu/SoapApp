@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d1da811c-124e-4009-a10e-403f8eef9ad3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/generated_plugin_registrant.dart" afterDir="false" />
     </list>
@@ -40,6 +39,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_2_API_29" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-09-02T15:09:11.214Z" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="http.proxy" />
@@ -122,14 +123,15 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="309" y="158" key="SettingsEditor/0.0.1920.1050@0.0.1920.1050" timestamp="1595993404535" />
-    <state x="465" y="217" width="1202" height="607" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1595991568707">
-      <screen x="0" y="0" width="1920" height="1050" />
+    <state x="496" y="230" width="1283" height="643" key="com.android.tools.idea.avdmanager.AvdListDialog" timestamp="1599059370437">
+      <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="465" y="217" width="1202" height="607" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1595991568707" />
-    <state x="796" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1598715926986">
+    <state x="496" y="230" width="1283" height="643" key="com.android.tools.idea.avdmanager.AvdListDialog/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1599059370437" />
+    <state x="796" y="363" key="com.intellij.ide.util.TipDialog" timestamp="1599059565128">
       <screen x="0" y="0" width="2048" height="1112" />
     </state>
     <state x="746" y="343" key="com.intellij.ide.util.TipDialog/0.0.1920.1050@0.0.1920.1050" timestamp="1595991505997" />
-    <state x="796" y="363" key="com.intellij.ide.util.TipDialog/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1598715926986" />
+    <state x="796" y="363" key="com.intellij.ide.util.TipDialog/0.0.2048.1112/-1920.0.1920.1040@0.0.2048.1112" timestamp="1599059565128" />
   </component>
 </project>

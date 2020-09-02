@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/ui/widget/touchable_opacity.dart';
@@ -70,13 +71,14 @@ class SoapAppBar extends StatelessWidget {
               //  && Navigator.of(context).canPop()
               if (automaticallyImplyLeading)
                 Padding(
-                  padding: const EdgeInsets.only(left: 3),
+                  padding: const EdgeInsets.only(left: 2),
                   child: TouchableOpacity(
                     child: Container(
-                      child: const Icon(
-                        // FeatherIcons.arrowLeft,
-                        FeatherIcons.chevronLeft,
-                        size: 26,
+                      child: SvgPicture.asset(
+                        'assets/feather/chevron-left.svg',
+                        width: 26,
+                        height: 26,
+                        color: theme.textTheme.bodyText2.color,
                       ),
                     ),
                     onPressed: () {
