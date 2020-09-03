@@ -8,9 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/ui/widget/touchable_opacity.dart';
 
-/// Customized appbar.
-/// 自定义的顶栏。
-class SoapAppBar extends StatelessWidget {
+class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
     Key key,
     this.automaticallyImplyLeading = false,
@@ -22,6 +20,7 @@ class SoapAppBar extends StatelessWidget {
     this.actionsPadding,
     this.height,
     this.brightness,
+    this.textColor,
   }) : super(key: key);
 
   final Widget title;
@@ -33,43 +32,65 @@ class SoapAppBar extends StatelessWidget {
   final double elevation;
   final double height;
   final Brightness brightness;
+  final Color textColor;
+
+  @override
+  _SoapAppBarState createState() => _SoapAppBarState();
+}
+
+/// Customized appbar.
+/// 自定义的顶栏。
+class _SoapAppBarState extends State<SoapAppBar>
+    with SingleTickerProviderStateMixin {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    Widget _title = title;
-    if (centerTitle) {
+    Widget _title = widget.title;
+    if (widget.centerTitle) {
       _title = Center(child: _title);
     }
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
-    final Brightness baseBrightness =
-        brightness ?? appBarTheme.brightness ?? theme.primaryColorBrightness;
+    final Brightness baseBrightness = widget.brightness ??
+        appBarTheme.brightness ??
+        theme.primaryColorBrightness;
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
     return Container(
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
-        child: Container(
+        child: AnimatedContainer(
+          duration: Duration(milliseconds: 250),
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          height: height ?? appBarHeight + MediaQuery.of(context).padding.top,
+          height: widget.height ??
+              appBarHeight + MediaQuery.of(context).padding.top,
           decoration: BoxDecoration(
-            boxShadow: elevation > 0
+            boxShadow: widget.elevation > 0
                 ? <BoxShadow>[
                     BoxShadow(
                       color: const Color(0x0d000000),
-                      blurRadius: elevation * 1.0,
-                      offset: Offset(0, elevation * 2.0),
+                      blurRadius: widget.elevation * 1.0,
+                      offset: Offset(0, widget.elevation * 2.0),
                     ),
                   ]
                 : null,
-            color: backgroundColor,
+            color: widget.backgroundColor,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               //  && Navigator.of(context).canPop()
-              if (automaticallyImplyLeading)
+              if (widget.automaticallyImplyLeading)
                 Padding(
                   padding: const EdgeInsets.only(left: 2),
                   child: TouchableOpacity(
@@ -78,7 +99,8 @@ class SoapAppBar extends StatelessWidget {
                         'assets/feather/chevron-left.svg',
                         width: 26,
                         height: 26,
-                        color: theme.textTheme.bodyText2.color,
+                        color:
+                            widget.textColor ?? theme.textTheme.bodyText2.color,
                       ),
                     ),
                     onPressed: () {
@@ -89,7 +111,7 @@ class SoapAppBar extends StatelessWidget {
               if (_title != null)
                 Expanded(
                   child: Align(
-                    alignment: centerTitle
+                    alignment: widget.centerTitle
                         ? Alignment.center
                         : AlignmentDirectional.centerStart,
                     child: DefaultTextStyle(
@@ -102,12 +124,14 @@ class SoapAppBar extends StatelessWidget {
                   ),
                 ),
               //  && Navigator.of(context).canPop()
-              if (automaticallyImplyLeading && (actions?.isEmpty ?? true))
+              if (widget.automaticallyImplyLeading &&
+                  (widget.actions?.isEmpty ?? true))
                 const SizedBox(width: 48.0)
-              else if (actions?.isNotEmpty ?? false)
+              else if (widget.actions?.isNotEmpty ?? false)
                 Padding(
-                  padding: actionsPadding ?? EdgeInsets.zero,
-                  child: Row(mainAxisSize: MainAxisSize.min, children: actions),
+                  padding: widget.actionsPadding ?? EdgeInsets.zero,
+                  child: Row(
+                      mainAxisSize: MainAxisSize.min, children: widget.actions),
                 ),
             ],
           ),

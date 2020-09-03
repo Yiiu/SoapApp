@@ -18,6 +18,11 @@ mixin Constants {
   static Color textColor = const Color(0xff3f3d56);
 
   static final TextTheme _lightTextTheme = TextTheme(
+    headline4: TextStyle(
+      fontSize: 32,
+      color: textColor,
+      fontWeight: FontWeight.w600,
+    ),
     headline5: TextStyle(
       fontSize: 24,
       color: textColor,

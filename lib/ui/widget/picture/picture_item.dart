@@ -8,11 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:image_fade/image_fade.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
+import 'package:soap_app/config/router.dart';
 
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/provider/picture_detail.dart';
 import 'package:soap_app/screens/picture_detail/index.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
+import 'package:soap_app/ui/widget/touchable_opacity.dart';
 
 class PictureInfoWidget {
   PictureInfoWidget({this.icon, this.color, this.text});
@@ -54,19 +55,37 @@ class PictureItemState extends State<PictureItem> {
             flex: 2,
             child: Row(
               children: <Widget>[
-                Avatar(
-                  size: 36,
-                  image: picture.user.avatarUrl,
+                TouchableOpacity(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments: picture.user,
+                    );
+                  },
+                  child: Avatar(
+                    size: 36,
+                    image: picture.user.avatarUrl,
+                  ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    picture.user.fullName,
-                    style: theme.textTheme.bodyText2.copyWith(
-                      fontWeight: FontWeight.w500,
+                TouchableOpacity(
+                  onPressed: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments: picture.user,
+                    );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text(
+                      picture.user.fullName,
+                      style: theme.textTheme.bodyText2.copyWith(
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
