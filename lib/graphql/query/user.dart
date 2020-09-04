@@ -18,4 +18,19 @@ class UserQueries {
       'PicturePreviewFragment',
       'BadgeFragment',
     ]));
+
+  static final DocumentNode user = gql(r'''
+    query User($username: String) {
+      user(username: $username) {
+        ...UserDetailFragment
+      }
+    }
+  ''')
+    // ignore: always_specify_types
+    ..definitions.addAll(Fragments.getFragments([
+      'UserDetailFragment',
+      'UserFragment',
+      'PicturePreviewFragment',
+      'BadgeFragment',
+    ]));
 }

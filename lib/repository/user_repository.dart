@@ -13,4 +13,15 @@ mixin UserRepository {
 
     return client.query(_options);
   }
+
+  static Future<QueryResult> user(String username) async {
+    final Map<String, String> query = {'username': username};
+    final QueryOptions _options = QueryOptions(
+      fetchPolicy: FetchPolicy.networkOnly,
+      documentNode: UserQueries.user,
+      variables: query,
+    );
+
+    return client.query(_options);
+  }
 }

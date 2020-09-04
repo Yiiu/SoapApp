@@ -2,6 +2,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/provider/account.dart';
 import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/toast.dart';
@@ -107,7 +108,18 @@ class _ProfileViewState extends State<ProfileView> {
             Container(
               color: Colors.white,
               child: TouchableOpacity(
-                onPressed: () {},
+                onPressed: () {
+                  if (Provider.of<AccountProvider>(context, listen: false)
+                      .isAccount) {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments:
+                          Provider.of<AccountProvider>(context, listen: false)
+                              .user,
+                    );
+                  }
+                },
                 child: Container(
                   color: Colors.transparent,
                   child: Padding(
