@@ -60,7 +60,6 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
               flex: 1,
               child: Container(
                 height: double.infinity,
-                color: Colors.red,
                 child: Stack(
                   fit: StackFit.loose,
                   children: <Widget>[
@@ -71,6 +70,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                         right: 0,
                         bottom: 0,
                         child: ImageFade(
+                          fadeDuration: const Duration(milliseconds: 200),
                           placeholder: Image.memory(
                             transparentImage,
                             fit: BoxFit.cover,
@@ -86,7 +86,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                         right: 0,
                         bottom: 0,
                         child: Container(
-                          color: Color.fromRGBO(0, 0, 0, 0.65),
+                          color: const Color.fromRGBO(0, 0, 0, 0.65),
                         ),
                       ),
                     ],

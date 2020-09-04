@@ -17,6 +17,7 @@ class TouchableOpacity extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return CupertinoButton(
+      minSize: 20,
       padding: const EdgeInsets.all(0),
       pressedOpacity: activeOpacity,
       borderRadius: const BorderRadius.all(Radius.circular(0)),

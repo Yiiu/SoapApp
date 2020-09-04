@@ -276,7 +276,7 @@ class _UserViewState extends State<UserView>
               extended.NestedScrollViewInnerScrollPositionKeyWidget(
                 Key('Tab0'),
                 EasyRefresh(
-                  onRefresh: () {},
+                  topBouncing: false,
                   child: ListView.builder(
                     padding: EdgeInsets.all(0.0),
                     itemBuilder: (context, index) {
@@ -289,6 +289,7 @@ class _UserViewState extends State<UserView>
               extended.NestedScrollViewInnerScrollPositionKeyWidget(
                 Key('Tab1'),
                 EasyRefresh(
+                  topBouncing: false,
                   child: ListView.builder(
                     padding: EdgeInsets.all(0.0),
                     itemBuilder: (context, index) {
@@ -300,14 +301,12 @@ class _UserViewState extends State<UserView>
               ),
               extended.NestedScrollViewInnerScrollPositionKeyWidget(
                 Key('Tab2'),
-                EasyRefresh(
-                  child: ListView.builder(
-                    padding: EdgeInsets.all(0.0),
-                    itemBuilder: (context, index) {
-                      return Text('3333');
-                    },
-                    itemCount: 30,
-                  ),
+                ListView.builder(
+                  padding: EdgeInsets.all(0.0),
+                  itemBuilder: (context, index) {
+                    return Text('3333');
+                  },
+                  itemCount: 30,
                 ),
               ),
             ],

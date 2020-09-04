@@ -1,6 +1,7 @@
 import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/provider/account.dart';
@@ -87,22 +88,36 @@ class _ProfileViewState extends State<ProfileView> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return FixedAppBarWrapper(
-      appBar: const SoapAppBar(
+      appBar: SoapAppBar(
         centerTitle: false,
         elevation: 0.2,
-        title: Padding(
+        actionsPadding: const EdgeInsets.only(
+          right: 12,
+        ),
+        title: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
             'Profile',
           ),
         ),
+        actions: <Widget>[
+          TouchableOpacity(
+            onPressed: () {
+              Navigator.pushNamed(context, RouteName.setting);
+            },
+            child: SvgPicture.asset(
+              'assets/feather/settings.svg',
+              width: 26,
+              height: 26,
+              color: theme.textTheme.bodyText2.color,
+            ),
+          ),
+        ],
       ),
       body: Container(
         color: theme.backgroundColor,
         child: ListView(
-          physics: const BouncingScrollPhysics(
-            parent: AlwaysScrollableScrollPhysics(),
-          ),
+          physics: const RangeMaintainingScrollPhysics(),
           padding: const EdgeInsets.all(0),
           children: <Widget>[
             Container(

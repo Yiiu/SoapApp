@@ -64,6 +64,10 @@ dependencies:
 
   extended_nested_scroll_view: ^1.0.1
 
+  lite_rolling_switch: ^0.1.1
+
+  flutter_native_splash: ^0.1.5
+
 dev_dependencies:
   build_runner: ^1.10.2
   json_serializable: ^3.4.1
@@ -71,6 +75,11 @@ dev_dependencies:
   shelf_proxy: ^0.1.0+7
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  image: assets/images/splash.gif
+  color: "ffffff"
+  android_disable_fullscreen: true
 
 
 # For information on the generic Dart part of this file, see the
@@ -117,6 +126,8 @@ flutter:
     - assets/feather/thumbs-up.svg
     - assets/feather/chevron-left.svg
     - assets/feather/plus.svg
+    - assets/feather/settings.svg
+    - assets/feather/chevron-right.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

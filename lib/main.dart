@@ -18,6 +18,10 @@ Future<void> main() async {
   Jiffy.locale('zh-cn');
   // Lock orientation to portrait only
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setEnabledSystemUIOverlays([
+    SystemUiOverlay.top,
+    SystemUiOverlay.bottom,
+  ]);
   await StorageUtil.initialize();
   runApp(GraphQLProvider(client: GraphqlConfig.client, child: SoapApp()));
   const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
