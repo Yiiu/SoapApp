@@ -44,13 +44,17 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
 
   @override
   Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    BuildContext context,
+    double shrinkOffset,
+    bool overlapsContent,
+  ) {
     bool shrink = shrinkOffset >= (titleHeight / 3) + 40;
+    final ThemeData theme = Theme.of(context);
     return Container(
-        constraints: BoxConstraints.expand(),
+        constraints: const BoxConstraints.expand(),
         decoration: BoxDecoration(
           // borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
-          color: Colors.white,
+          color: theme.cardColor,
         ),
         child: Flex(
           direction: Axis.vertical,
@@ -105,7 +109,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                       automaticallyImplyLeading: true,
                       textColor: shrink ? null : Colors.white,
                       backgroundColor:
-                          shrink ? Colors.white : Colors.transparent,
+                          shrink ? theme.cardColor : Colors.transparent,
                       centerTitle: barCenterTitle,
                       title: AnimatedOpacity(
                         opacity: shrink ? 1 : 0,

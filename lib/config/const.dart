@@ -15,20 +15,35 @@ mixin Constants {
   static Color lightBG = const Color(0xffFAFAFA);
   static Color darkBG = Colors.black;
   static Color badgeColor = Colors.red;
-  static Color textColor = const Color(0xff3f3d56);
+  static Color lightTextColor = const Color(0xff3f3d56);
+  static Color darkTextColor = const Color(0xffffffff);
 
   static final TextTheme _lightTextTheme = TextTheme(
     headline4: TextStyle(
       fontSize: 32,
-      color: textColor,
+      color: lightTextColor,
       fontWeight: FontWeight.w600,
     ),
     headline5: TextStyle(
       fontSize: 24,
-      color: textColor,
+      color: lightTextColor,
       fontWeight: FontWeight.w600,
     ),
-    bodyText2: TextStyle(fontSize: 16, color: textColor),
+    bodyText2: TextStyle(fontSize: 16, color: lightTextColor),
+  );
+
+  static final TextTheme _darkTextTheme = TextTheme(
+    headline4: TextStyle(
+      fontSize: 32,
+      color: darkTextColor,
+      fontWeight: FontWeight.w600,
+    ),
+    headline5: TextStyle(
+      fontSize: 24,
+      color: darkTextColor,
+      fontWeight: FontWeight.w600,
+    ),
+    bodyText2: TextStyle(fontSize: 16, color: darkTextColor),
   );
 
   static ThemeData lightTheme = ThemeData(
@@ -42,18 +57,20 @@ mixin Constants {
     scaffoldBackgroundColor: lightBG,
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
+    cardColor: const Color(0xffffffff),
   );
 
   static ThemeData darkTheme = ThemeData(
+    primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
-    backgroundColor: const Color.fromRGBO(28, 28, 28, 1),
+    fontFamily: 'Rubik',
+    backgroundColor: const Color(0xff27282a),
     primaryColor: darkPrimary,
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
     cursorColor: darkAccent,
-    appBarTheme: const AppBarTheme(
-      elevation: 0,
-      textTheme: TextTheme(),
-    ),
+    textTheme: _darkTextTheme,
+    errorColor: const Color(0xffff4757),
+    cardColor: const Color(0xff2d3132),
   );
 }

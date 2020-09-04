@@ -12,7 +12,7 @@ class PictureCommentState extends State<PictureDetailComment> {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
-      color: Colors.white,
+      color: theme.cardColor,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 12,

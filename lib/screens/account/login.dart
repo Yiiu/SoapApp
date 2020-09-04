@@ -71,7 +71,7 @@ class _LoginViewState extends State<LoginView> {
     return KeyboardDismissOnTap(
       child: Material(
         child: Container(
-          color: Colors.white,
+          color: theme.cardColor,
           // decoration: BoxDecoration(
           //   image: const DecorationImage(
           //     image: CachedNetworkImageProvider(
@@ -107,7 +107,7 @@ class _LoginViewState extends State<LoginView> {
                     child: Container(
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                        // color: Colors.white,
+                        // color: theme.cardColor,
                         borderRadius: BorderRadius.only(
                           topLeft: Radius.circular(24),
                           topRight: Radius.circular(24),
@@ -201,7 +201,7 @@ class _LoginViewState extends State<LoginView> {
                                       '登录',
                                       style: theme.textTheme.bodyText2.copyWith(
                                         fontSize: 16,
-                                        color: Colors.white,
+                                        color: theme.cardColor,
                                       ),
                                     ),
                                   ),

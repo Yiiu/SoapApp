@@ -130,8 +130,8 @@ class _UserViewState extends State<UserView>
           key: user.cover ?? user.avatar,
           style: user.cover != null ? PictureStyle.small : PictureStyle.blur,
         ),
-        titleTextStyle: const TextStyle(
-          color: Colors.white,
+        titleTextStyle: TextStyle(
+          color: theme.cardColor,
           fontSize: 36,
         ),
         title: Column(
@@ -251,9 +251,10 @@ class _UserViewState extends State<UserView>
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Material(
       child: Container(
-        color: Colors.white,
+        color: theme.cardColor,
         child: extended.NestedScrollView(
           headerSliverBuilder: (context, innerBoxIsScrolled) {
             return <Widget>[

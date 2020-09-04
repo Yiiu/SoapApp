@@ -14,7 +14,7 @@ class SoapAppBar extends StatefulWidget {
     this.automaticallyImplyLeading = false,
     this.title,
     this.centerTitle = true,
-    this.backgroundColor = Colors.white,
+    this.backgroundColor,
     this.elevation = 2.0,
     this.actions,
     this.actionsPadding,
@@ -70,7 +70,7 @@ class _SoapAppBarState extends State<SoapAppBar>
       child: AnnotatedRegion<SystemUiOverlayStyle>(
         value: overlayStyle,
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 250),
+          duration: const Duration(milliseconds: 250),
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
           height: widget.height ??
               appBarHeight + MediaQuery.of(context).padding.top,
@@ -84,21 +84,23 @@ class _SoapAppBarState extends State<SoapAppBar>
                     ),
                   ]
                 : null,
-            color: widget.backgroundColor,
+            color: widget.backgroundColor ?? theme.cardColor,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               //  && Navigator.of(context).canPop()
               if (widget.automaticallyImplyLeading)
-                Padding(
-                  padding: const EdgeInsets.only(left: 2),
+                Container(
+                  width: 48,
+                  padding: const EdgeInsets.only(left: 4),
+                  alignment: Alignment.centerLeft,
                   child: TouchableOpacity(
                     child: Container(
                       child: SvgPicture.asset(
                         'assets/feather/chevron-left.svg',
-                        width: 26,
-                        height: 26,
+                        width: 32,
+                        height: 32,
                         color:
                             widget.textColor ?? theme.textTheme.bodyText2.color,
                       ),

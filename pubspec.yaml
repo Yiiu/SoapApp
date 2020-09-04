@@ -68,6 +68,8 @@ dependencies:
 
   flutter_native_splash: ^0.1.5
 
+  xlive_switch: ^1.0.5
+
 dev_dependencies:
   build_runner: ^1.10.2
   json_serializable: ^3.4.1

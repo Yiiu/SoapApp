@@ -119,7 +119,7 @@ class PictureItemState extends State<PictureItem> {
             child: AspectRatio(
               aspectRatio: picture.width / picture.height,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(8),
                 child: Hero(
                   tag: 'picture-$id',
                   child: ImageFade(
@@ -197,15 +197,6 @@ class PictureItemState extends State<PictureItem> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        // color: Colors.white,
-        border: Border(
-          bottom: BorderSide(
-            color: Color.fromRGBO(243, 243, 244, 1),
-            width: 0,
-          ),
-        ),
-      ),
       child: Stack(
         children: <Widget>[
           Column(

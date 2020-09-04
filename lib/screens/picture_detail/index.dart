@@ -27,8 +27,11 @@ class OpenContainerWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return OpenContainer(
-      transitionType: ContainerTransitionType.fadeThrough,
+      openColor: theme.backgroundColor,
+      closedColor: theme.backgroundColor,
+      transitionType: ContainerTransitionType.fade,
       openBuilder: (BuildContext context, VoidCallback _) {
         return PictureDetail(picture: picture);
       },

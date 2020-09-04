@@ -92,7 +92,7 @@ class _ProfileViewState extends State<ProfileView> {
         centerTitle: false,
         elevation: 0.2,
         actionsPadding: const EdgeInsets.only(
-          right: 12,
+          right: 16,
         ),
         title: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
@@ -107,8 +107,8 @@ class _ProfileViewState extends State<ProfileView> {
             },
             child: SvgPicture.asset(
               'assets/feather/settings.svg',
-              width: 26,
-              height: 26,
+              width: 22,
+              height: 22,
               color: theme.textTheme.bodyText2.color,
             ),
           ),
@@ -121,7 +121,7 @@ class _ProfileViewState extends State<ProfileView> {
           padding: const EdgeInsets.all(0),
           children: <Widget>[
             Container(
-              color: Colors.white,
+              color: theme.cardColor,
               child: TouchableOpacity(
                 onPressed: () {
                   if (Provider.of<AccountProvider>(context, listen: false)
@@ -209,8 +209,8 @@ class _ProfileViewState extends State<ProfileView> {
               ),
             ),
             Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
+              decoration: BoxDecoration(
+                color: theme.cardColor,
               ),
               child: Consumer<AccountProvider>(
                 builder: (
@@ -242,7 +242,7 @@ class _ProfileViewState extends State<ProfileView> {
               height: 12,
             ),
             Container(
-              color: Colors.white,
+              color: theme.cardColor,
               child: TouchableOpacity(
                 onPressed: logout,
                 child: Container(

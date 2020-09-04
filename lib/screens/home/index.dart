@@ -124,13 +124,7 @@ class _MyHomePageState extends State<HomePage>
           ),
           bottomNavigationBar: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: const Color(0xFFE1E7EF).withOpacity(0.6),
-                )
-              ],
+              color: theme.cardColor,
             ),
             child: SafeArea(
               child: Padding(
@@ -139,7 +133,7 @@ class _MyHomePageState extends State<HomePage>
                 ),
                 child: GNav(
                   gap: gap,
-                  activeColor: Colors.white,
+                  activeColor: theme.cardColor,
                   color: Colors.grey[400],
                   iconSize: 18,
                   padding:
@@ -147,18 +141,18 @@ class _MyHomePageState extends State<HomePage>
                   duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Colors.grey[800],
                   tabs: bottomBar
-                      .map<GButton>(
-                          (SoapBottomNavigationBarItem bar) => GButton(
-                                icon: bar.icon,
-                                text: bar.title,
-                                iconActiveColor: Colors.white,
-                                iconColor: Colors.black87,
-                                textStyle: const TextStyle(
-                                  color: Colors.white,
-                                  letterSpacing: 2,
-                                ),
-                                backgroundColor: Colors.black87,
-                              ))
+                      .map<GButton>((SoapBottomNavigationBarItem bar) =>
+                          GButton(
+                            icon: bar.icon,
+                            text: bar.title,
+                            iconActiveColor: theme.cardColor,
+                            iconColor: theme.textTheme.bodyText2.color,
+                            textStyle: TextStyle(
+                              color: theme.cardColor,
+                              letterSpacing: 2,
+                            ),
+                            backgroundColor: theme.textTheme.bodyText2.color,
+                          ))
                       .toList(),
                   selectedIndex: _selectedIndex,
                   onTabChange: handleTabChange,

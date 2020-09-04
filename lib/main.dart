@@ -5,6 +5,7 @@ import 'package:flutter_stetho/flutter_stetho.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:provider/provider.dart';
+import 'package:soap_app/provider/app.dart';
 import 'package:soap_app/utils/storage.dart';
 
 import 'config/const.dart';
@@ -46,17 +47,24 @@ class SoapApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: providers,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: RouterConfig.RouteName.home,
-        onGenerateRoute: RouterConfig.Router.generateRoute,
-        // themeMode: ThemeMode.dark,
-        builder: BotToastInit(),
-        navigatorObservers: [BotToastNavigatorObserver()],
-        title: Constants.appName,
-        theme: Constants.lightTheme,
-        darkTheme: Constants.darkTheme,
-      ),
+      builder: (BuildContext context, _) {
+        return Selector<AppProvider, bool>(
+          selector: (context, provider) => provider.isDarkMode,
+          builder: (context, isDarkMode, _) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              initialRoute: RouterConfig.RouteName.home,
+              onGenerateRoute: RouterConfig.Router.generateRoute,
+              themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              builder: BotToastInit(),
+              navigatorObservers: [BotToastNavigatorObserver()],
+              title: Constants.appName,
+              theme: Constants.lightTheme,
+              darkTheme: Constants.darkTheme,
+            );
+          },
+        );
+      },
     );
   }
 }

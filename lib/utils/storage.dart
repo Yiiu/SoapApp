@@ -15,6 +15,22 @@ mixin StorageUtil {
     return _preferences.setString(key, value);
   }
 
+  static int getInt(String key, {int defValue}) {
+    return _preferences.getInt(key) ?? defValue;
+  }
+
+  static Future<bool> setInt(String key, int value) {
+    return _preferences.setInt(key, value);
+  }
+
+  static bool getBool(String key, {bool defValue}) {
+    return _preferences.getBool(key) ?? defValue;
+  }
+
+  static Future<bool> setBool(String key, bool value) {
+    return _preferences.setBool(key, value);
+  }
+
   static void remove(String key) {
     _preferences.remove(key);
   }

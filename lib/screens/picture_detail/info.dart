@@ -13,7 +13,7 @@ class PictureDetailInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
-      color: Colors.white,
+      color: theme.cardColor,
       padding: const EdgeInsets.symmetric(
         horizontal: 16,
         vertical: 12,
@@ -64,7 +64,7 @@ class PictureDetailInfo extends StatelessWidget {
                                 child: Icon(
                                   FeatherIcons.hash,
                                   size: 11,
-                                  color: Colors.white,
+                                  color: theme.cardColor,
                                 ),
                               ),
                             ),

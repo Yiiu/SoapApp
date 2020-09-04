@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:lite_rolling_switch/lite_rolling_switch.dart';
 import 'package:provider/provider.dart';
 import 'package:soap_app/provider/account.dart';
+import 'package:soap_app/provider/app.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
 import 'package:soap_app/ui/widget/touchable_opacity.dart';
+import 'package:xlive_switch/xlive_switch.dart';
 
 class SettingView extends StatefulWidget {
   @override
@@ -51,13 +54,13 @@ class _SettingViewState extends State<SettingView> {
     if (onPressed == null) {
       return Container(
         height: height,
-        color: Colors.white,
+        color: theme.cardColor,
         child: content,
       );
     }
     return Container(
       height: height,
-      color: Colors.white,
+      color: theme.cardColor,
       child: TouchableOpacity(
         onPressed: onPressed,
         child: content,
@@ -107,6 +110,26 @@ class _SettingViewState extends State<SettingView> {
             const SizedBox(height: 12),
             _itemBuild(
               title: '夜间模式',
+              action: Container(
+                width: 64,
+                height: 32,
+                child: Selector<AppProvider, bool>(
+                  selector: (
+                    BuildContext context,
+                    AppProvider provider,
+                  ) =>
+                      provider.isDarkMode,
+                  builder: (BuildContext context, bool isDarkMode, _) {
+                    return XlivSwitch(
+                      value: isDarkMode,
+                      onChanged: (bool va) {
+                        Provider.of<AppProvider>(context, listen: false)
+                            .changeMode(va);
+                      },
+                    );
+                  },
+                ),
+              ),
             ),
           ],
         ),

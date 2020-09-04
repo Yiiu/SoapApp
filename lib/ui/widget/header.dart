@@ -21,11 +21,12 @@ class Header extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
+    final ThemeData theme = Theme.of(context);
     return Container(
-      // color: Colors.white,
+      // color: theme.cardColor,
       // height: 70 + MediaQuery.of(context).padding.top,
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: theme.cardColor,
         border: Border(
           bottom: BorderSide(color: Color.fromRGBO(243, 243, 244, 1), width: 1),
         ),
@@ -60,7 +61,7 @@ class Header extends SliverPersistentHeaderDelegate {
               child: Container(
                 width: AppBar().preferredSize.height - 8,
                 height: AppBar().preferredSize.height - 8,
-                color: Colors.white,
+                color: theme.cardColor,
                 child: Material(
                   color: Colors.transparent,
                   child: InkWell(
