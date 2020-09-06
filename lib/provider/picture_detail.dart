@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:soap_app/model/pagination.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/repository/comment_repository.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/utils/storage.dart';
 

@@ -119,7 +119,7 @@ class PictureItemState extends State<PictureItem> {
             child: AspectRatio(
               aspectRatio: picture.width / picture.height,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(4),
                 child: Hero(
                   tag: 'picture-$id',
                   child: ImageFade(

@@ -200,7 +200,7 @@ class _UserViewState extends State<UserView>
             indicatorColor: Colors.green,
             tabs: [
               Tab(
-                text: '发布',
+                text: '照片',
               ),
               Tab(
                 text: '喜欢',

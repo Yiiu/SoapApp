@@ -45,7 +45,7 @@ class PictureDetailInfo extends StatelessWidget {
                         decoration: BoxDecoration(
                           color: theme.backgroundColor,
                           borderRadius:
-                              new BorderRadius.all(Radius.elliptical(50, 50)),
+                              const BorderRadius.all(Radius.elliptical(50, 50)),
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,

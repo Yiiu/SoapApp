@@ -151,24 +151,32 @@ class _PictureDetailState extends State<PictureDetail> {
         actions: <Widget>[
           Center(
             child: TouchableOpacity(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  SvgPicture.asset(
-                    'assets/feather/plus.svg',
-                    width: 16,
-                    height: 16,
-                    color: theme.primaryColor,
-                  ),
-                  Text(
-                    '关注',
-                    style: theme.textTheme.bodyText2.copyWith(
+              child: Container(
+                // padding:
+                //     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                decoration: BoxDecoration(
+                  borderRadius:
+                      const BorderRadius.all(Radius.elliptical(50, 50)),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    SvgPicture.asset(
+                      'assets/feather/plus.svg',
+                      width: 16,
+                      height: 16,
                       color: theme.primaryColor,
-                      fontSize: theme.textTheme.bodyText2.fontSize - 2,
                     ),
-                  ),
-                ],
+                    Text(
+                      '关注',
+                      style: theme.textTheme.bodyText2.copyWith(
+                        color: theme.primaryColor,
+                        fontSize: theme.textTheme.bodyText2.fontSize - 4,
+                      ),
+                    ),
+                  ],
+                ),
               ),
               onPressed: () {},
             ),
@@ -192,7 +200,16 @@ class _PictureDetailState extends State<PictureDetail> {
                 const SizedBox(
                   height: 12,
                 ),
-                PictureDetailComment(),
+                Selector<PictureDetailProvider, int>(
+                  selector: (context, provider) =>
+                      provider.picture.commentCount,
+                  builder: (context, commentCount, child) {
+                    return PictureDetailComment(
+                      id: picture.id,
+                      total: commentCount ?? 0,
+                    );
+                  },
+                ),
               ],
             ),
           ],
