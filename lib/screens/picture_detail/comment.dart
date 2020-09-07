@@ -6,6 +6,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/model/comment.dart';
 import 'package:soap_app/model/pagination.dart';
 import 'package:soap_app/repository/comment_repository.dart';
+import 'package:soap_app/screens/picture_detail/comment_item.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
 import 'package:soap_app/utils/storage.dart';
 
@@ -102,77 +103,9 @@ class PictureCommentState extends State<PictureDetailComment> {
               ),
             ],
           ),
-          // Container(
-          //   padding: const EdgeInsets.symmetric(
-          //     vertical: 12,
-          //   ),
-          //   child: Center(
-          //     child: Text(
-          //       '暂无评论',
-          //       style: theme.textTheme.bodyText2.copyWith(fontSize: 14),
-          //     ),
-          //   ),
-          // ),
           ...comments.map((Comment comment) {
-            return Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Avatar(
-                    image: comment.user.avatarUrl,
-                  ),
-                  SizedBox(
-                    width: 8,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        child: Row(
-                          children: <Widget>[
-                            Text(
-                              comment.user.fullName,
-                              style: theme.textTheme.bodyText2.copyWith(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 4),
-                              child: Text(
-                                '·',
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: theme.textTheme.bodyText2.color
-                                      .withOpacity(.6),
-                                ),
-                              ),
-                            ),
-                            Text(
-                              Jiffy(comment.createTime.toString()).fromNow(),
-                              style: theme.textTheme.bodyText2.copyWith(
-                                fontSize: 12,
-                                color: theme.textTheme.bodyText2.color
-                                    .withOpacity(.6),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: 6,
-                      ),
-                      Text(
-                        comment.content,
-                        style: theme.textTheme.bodyText2.copyWith(
-                          fontSize: 14,
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
+            return CommentItem(
+              comment: comment,
             );
           }).toList()
         ],

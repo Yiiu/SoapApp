@@ -2,6 +2,7 @@ import 'package:feather_icons_flutter/feather_icons_flutter.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:provider/provider.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/provider/account.dart';
@@ -9,6 +10,7 @@ import 'package:soap_app/provider/home.dart';
 import 'package:soap_app/ui/toast.dart';
 import 'package:soap_app/ui/widget/app_bar.dart';
 import 'package:soap_app/ui/widget/avatar.dart';
+import 'package:soap_app/ui/widget/follow_modal.dart';
 import 'package:soap_app/ui/widget/touchable_opacity.dart';
 import 'package:soap_app/utils/picture.dart';
 
@@ -57,7 +59,28 @@ class _ProfileViewState extends State<ProfileView> {
     return Expanded(
       flex: 1,
       child: TouchableOpacity(
-        onPressed: () {},
+        onPressed: () {
+          return showCustomModalBottomSheet<dynamic>(
+            containerWidget: (_, animation, child) => Container(
+              decoration: BoxDecoration(
+                color: theme.cardColor,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
+              ),
+              child: child,
+            ),
+            duration: const Duration(milliseconds: 200),
+            context: context,
+            builder: (context, scrollController) => Container(
+              child: SizedBox(
+                height: MediaQuery.of(context).size.height * .8,
+                child: FollowModal(),
+              ),
+            ),
+          );
+        },
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),

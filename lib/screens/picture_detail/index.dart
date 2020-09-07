@@ -200,13 +200,15 @@ class _PictureDetailState extends State<PictureDetail> {
                 const SizedBox(
                   height: 12,
                 ),
-                Selector<PictureDetailProvider, int>(
-                  selector: (context, provider) =>
-                      provider.picture.commentCount,
-                  builder: (context, commentCount, child) {
+                Consumer<PictureDetailProvider>(
+                  builder: (
+                    BuildContext context,
+                    PictureDetailProvider detail,
+                    Widget child,
+                  ) {
                     return PictureDetailComment(
                       id: picture.id,
-                      total: commentCount ?? 0,
+                      total: detail.picture.commentCount ?? 0,
                     );
                   },
                 ),

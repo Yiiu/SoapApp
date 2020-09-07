@@ -33,7 +33,7 @@ Comment _$CommentFromJson(Map<String, dynamic> json) {
         : Comment.fromJson(json['replyComment'] as Map<String, dynamic>)
     ..subCount = json['subCount'] as int
     ..childComments = (json['childComments'] as List)
-        ?.map((e) =>
+        ?.map((dynamic e) =>
             e == null ? null : Comment.fromJson(e as Map<String, dynamic>))
         ?.toList();
 }
