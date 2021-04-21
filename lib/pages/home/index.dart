@@ -10,9 +10,9 @@ import 'new/index.dart';
 
 class SoapBottomNavigationBarItem {
   const SoapBottomNavigationBarItem({
-    @required this.icon,
-    this.title,
-    IconData activeIcon,
+    required this.icon,
+    required this.title,
+    IconData? activeIcon,
   }) : activeIcon = activeIcon ?? icon;
 
   final IconData icon;
@@ -21,7 +21,7 @@ class SoapBottomNavigationBarItem {
 }
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<HomePage>
         ),
       ];
 
-  TabController tabController;
+  late TabController tabController;
 
   @override
   void initState() {
@@ -112,19 +112,19 @@ class _MyHomePageState extends State<HomePage>
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                   duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: Colors.grey[800],
+                  tabBackgroundColor: Colors.grey[800]!,
                   tabs: bottomBar
                       .map<GButton>((SoapBottomNavigationBarItem bar) =>
                           GButton(
                             icon: bar.icon,
                             text: bar.title,
                             iconActiveColor: theme.cardColor,
-                            iconColor: theme.textTheme.bodyText2.color,
+                            iconColor: theme.textTheme.bodyText2!.color,
                             textStyle: TextStyle(
                               color: theme.cardColor,
                               letterSpacing: 2,
                             ),
-                            backgroundColor: theme.textTheme.bodyText2.color,
+                            backgroundColor: theme.textTheme.bodyText2!.color,
                           ))
                       .toList(),
                   selectedIndex: _selectedIndex,

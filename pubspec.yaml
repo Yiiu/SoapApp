@@ -31,6 +31,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   touchable_opacity: ^1.2.0
   flutter_easyrefresh: ^2.2.1
+  jiffy: ^4.1.0
+  cached_network_image: ^3.0.0-nullsafety.2
+  octo_image: ^1.0.0+1
   google_nav_bar:
     git:
       url: https://github.com/Yiiu/google_nav_bar

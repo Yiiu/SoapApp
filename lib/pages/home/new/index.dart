@@ -6,8 +6,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
+import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:soap_app/widget/picture_item.dart';
 
 class NewView extends StatefulWidget {
   @override
@@ -38,7 +40,7 @@ class NewViewState extends State<NewView>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // _controller.callLoad();
+    _controller.callLoad();
     // Provider.of<HomeProvider>(context, listen: false).init();
   }
 
@@ -50,15 +52,16 @@ class NewViewState extends State<NewView>
     }
   }
 
-  Future<void> onRefresh() async {
-    await Future.delayed(Duration(seconds: 2), () {
+  Future<void> Function() onRefresh(Refetch refetch) {
+    return () async {
+      await refetch();
       _controller.resetLoadState();
       _controller.finishRefresh();
-    });
+    };
   }
 
-  Widget _buildItem() {
-    return Text('test');
+  Widget _buildItem(Picture picture) {
+    return PictureItem(picture: picture);
   }
 
   @override
@@ -82,22 +85,26 @@ class NewViewState extends State<NewView>
         options: QueryOptions(
           document: addFragments(
             pictures,
-            [PictureFragment],
+            [...pictureListFragmentDocumentNode],
           ),
           variables: variables,
         ),
-        builder: (QueryResult result,
-            {VoidCallback refetch, FetchMore fetchMore}) {
+        builder: (
+          QueryResult result, {
+          Refetch? refetch,
+          FetchMore? fetchMore,
+        }) {
           if (result.hasException) {
             return Text(result.exception.toString());
           }
 
-          if (result.isLoading) {
+          if (result.isLoading && result.data == null) {
             return Text('Loading');
           }
 
-          // it can be either Map or List
-          List repositories = result.data['pictures']['data'] as List;
+          final List repositories = result.data!['pictures']['data'] as List;
+
+          final List<Picture> pictureList = Picture.fromListJson(repositories);
 
           return Container(
             child: Column(
@@ -108,7 +115,7 @@ class NewViewState extends State<NewView>
                     enableControlFinishLoad: true,
                     header: ClassicalHeader(
                       refreshedText: '刷新完成！',
-                      refreshingText: '正在加载...',
+                      refreshingText: '正在刷新...',
                       refreshText: '下拉刷新',
                       refreshReadyText: '松手刷新',
                       showInfo: false,
@@ -123,14 +130,14 @@ class NewViewState extends State<NewView>
                     ),
                     controller: _controller,
                     scrollController: _scrollController,
-                    onRefresh: onRefresh,
+                    onRefresh: onRefresh(refetch!),
                     slivers: <Widget>[
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) {
-                            return _buildItem();
+                            return _buildItem(pictureList[index]);
                           },
-                          childCount: 10,
+                          childCount: pictureList.length,
                         ),
                       ),
                     ],

@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/utils/picture.dart';
 
 // import '../utils/picture.dart';
 
@@ -11,49 +12,46 @@ class User {
     required this.id,
     required this.username,
     required this.fullName,
-    required this.name,
-    required this.email,
+    this.name,
+    this.email,
     required this.avatar,
-    required this.bio,
-    required this.website,
-    required this.cover,
-    required this.likedCount,
-    required this.likesCount,
-    required this.pictureCount,
-    required this.followerCount,
-    required this.followedCount,
+    this.bio,
+    this.website,
+    this.cover,
     required this.createTime,
     required this.updateTime,
-    required this.pictures,
-    required this.isFollowing,
-  });
+    this.pictures,
+  })  : likedCount = 0,
+        likesCount = 0,
+        pictureCount = 0,
+        followerCount = 0,
+        followedCount = 0,
+        isFollowing = false;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  int id;
-  String username;
-  String fullName;
-  String name;
-  String email;
-  String avatar;
-  String bio;
-  String website;
-  String cover;
-  int likedCount;
-  int likesCount;
-  int pictureCount;
-  int followerCount;
-  int followedCount;
-  DateTime createTime;
-  DateTime updateTime;
+  final int id;
+  final String username;
+  final String fullName;
+  final String? name;
+  final String? email;
+  final String avatar;
+  final String? bio;
+  final String? website;
+  final String? cover;
+  final int? likedCount;
+  final int? likesCount;
+  final int? pictureCount;
+  final int? followerCount;
+  final int? followedCount;
+  final DateTime createTime;
+  final DateTime updateTime;
+  final List<Picture>? pictures;
+  final bool? isFollowing;
 
-  List<Picture> pictures;
-
-  int isFollowing;
-
-  // String get avatarUrl {
-  //   return getPictureUrl(key: avatar, style: PictureStyle.small);
-  // }
+  String get avatarUrl {
+    return getPictureUrl(key: avatar, style: PictureStyle.small);
+  }
 
   static List<User> fromListJson(List<dynamic> list) => list
       .map<User>((dynamic p) => User.fromJson(p as Map<String, dynamic>))

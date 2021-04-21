@@ -9,9 +9,9 @@ const double appBarHeight = 75.0;
 
 class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
-    Key key,
+    Key? key,
     this.automaticallyImplyLeading = false,
-    this.title,
+    required this.title,
     this.centerTitle = true,
     this.backgroundColor,
     this.elevation = 2.0,
@@ -23,15 +23,15 @@ class SoapAppBar extends StatefulWidget {
   }) : super(key: key);
 
   final Widget title;
-  final List<Widget> actions;
-  final EdgeInsetsGeometry actionsPadding;
+  final List<Widget>? actions;
+  final EdgeInsetsGeometry? actionsPadding;
   final bool automaticallyImplyLeading;
   final bool centerTitle;
-  final Color backgroundColor;
+  final Color? backgroundColor;
   final double elevation;
-  final double height;
-  final Brightness brightness;
-  final Color textColor;
+  final double? height;
+  final Brightness? brightness;
+  final Color? textColor;
 
   @override
   _SoapAppBarState createState() => _SoapAppBarState();
@@ -112,7 +112,7 @@ class _SoapAppBarState extends State<SoapAppBar>
                         : AlignmentDirectional.centerStart,
                     child: DefaultTextStyle(
                       child: _title,
-                      style: Theme.of(context).textTheme.headline5,
+                      style: Theme.of(context).textTheme.headline5!,
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,
@@ -127,7 +127,8 @@ class _SoapAppBarState extends State<SoapAppBar>
                 Padding(
                   padding: widget.actionsPadding ?? EdgeInsets.zero,
                   child: Row(
-                      mainAxisSize: MainAxisSize.min, children: widget.actions),
+                      mainAxisSize: MainAxisSize.min,
+                      children: widget.actions!),
                 ),
             ],
           ),
@@ -141,10 +142,10 @@ class _SoapAppBarState extends State<SoapAppBar>
 /// 顶栏封装。防止内容块层级高于顶栏导致遮挡阴影。
 class FixedAppBarWrapper extends StatelessWidget {
   const FixedAppBarWrapper({
-    Key key,
-    @required this.appBar,
-    @required this.body,
-  })  : assert(
+    Key? key,
+    required this.appBar,
+    required this.body,
+  })   : assert(
           appBar != null && body != null,
           'All fields must not be null.',
         ),
