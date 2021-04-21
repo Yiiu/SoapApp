@@ -1,6 +1,10 @@
 name: soap_app
 description: A new Flutter project.
 
+# The following line prevents the package from being accidentally published to
+# pub.dev using `pub publish`. This is preferred for private packages.
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
+
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
 # followed by an optional build number separated by a +.
@@ -14,123 +18,42 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.3.0 <3.0.0"
+  sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-  cached_network_image: ^2.3.1
-  dio: ^3.0.10
-  provider: ^4.3.2
-
-  # bloc
-  bloc: ^6.0.3
-  flutter_bloc: ^6.0.4
-
-  graphql_flutter: ^3.1.0
-  json_annotation: ^3.0.1
-  feather_icons_flutter: ^4.7.4
-  graphql: ^3.1.0
-  google_nav_bar: ^3.0.0
-  flutter_blurhash: ^0.5.0
-  jiffy: ^3.0.1
-  pull_to_refresh: ^1.6.1
-  modal_bottom_sheet: ^0.2.0+1
-  animations: ^1.1.2
-  progressive_image: ^1.0.1
-  image_fade: ^0.2.1
-
-  # 刷新
-  flutter_easyrefresh: ^2.1.5
-
-  # 键盘监听
-  flutter_keyboard_visibility: ^3.2.2
-
-  # 持久化存储
-  shared_preferences: ^0.5.10
-
-  # 消息提示
-  bot_toast: ^3.0.4
-
-  flutter_stetho: ^0.5.2
-
-  flutter_svg: ^0.18.1
-
-  tuple: ^1.0.3
-
-  # tab
-  tab_indicator_styler: ^1.0.0
-
-  extended_nested_scroll_view: ^1.0.1
-
-  lite_rolling_switch: ^0.1.1
-
-  flutter_native_splash: ^0.1.9
-
-  xlive_switch: ^1.0.5
-  flutter_staggered_grid_view: ^0.3.2
+  graphql_flutter: 5.0.0-nullsafety.2
+  gql: 0.13.0-nullsafety.2
+  flutter_feather_icons: 2.0.0+1
+  cupertino_icons: ^1.0.2
+  touchable_opacity: ^1.2.0
+  flutter_easyrefresh: ^2.2.1
+  google_nav_bar:
+    git:
+      url: https://github.com/Yiiu/google_nav_bar
+      path: .
+      ref: master
 
 dev_dependencies:
-  build_runner: ^1.10.2
-  json_serializable: ^3.4.1
-  shelf: ^0.7.7
-  shelf_proxy: ^0.1.0+7
   flutter_test:
     sdk: flutter
-
-flutter_native_splash:
-  image: assets/images/splash.gif
-  color: "ffffff"
-  android_disable_fullscreen: true
-
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-  fonts:
-    - family: Rubik
-      fonts:
-        - asset: assets/fonts/Rubik-Light.ttf
-          weight: 300
-        - asset: assets/fonts/Rubik-LightItalic.ttf
-          style: italic
-          weight: 300
-        - asset: assets/fonts/Rubik-Italic.ttf
-          style: italic
-        - asset: assets/fonts/Rubik-Regular.ttf
-        - asset: assets/fonts/Rubik-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Rubik-MediumItalic.ttf
-          style: italic
-          weight: 500
-        - asset: assets/fonts/Rubik-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/Rubik-BoldItalic.ttf
-          style: italic
-          weight: 700
-        - asset: assets/fonts/Rubik-Black.ttf
-          weight: 900
-        - asset: assets/fonts/Rubik-BlackItalic.ttf
-          style: italic
-          weight: 900
-
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
-  assets:
-    - lib/mock/list.json
-    - assets/feather/thumbs-up.svg
-    - assets/feather/chevron-left.svg
-    - assets/feather/plus.svg
-    - assets/feather/settings.svg
-    - assets/feather/chevron-right.svg
+  # assets:
+  #   - images/a_dot_burr.jpeg
+  #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
