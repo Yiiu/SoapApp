@@ -5,7 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-const double appBarHeight = 75.0;
+const double appBarHeight = 68.0;
 
 class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
@@ -112,7 +112,10 @@ class _SoapAppBarState extends State<SoapAppBar>
                         : AlignmentDirectional.centerStart,
                     child: DefaultTextStyle(
                       child: _title,
-                      style: Theme.of(context).textTheme.headline5!,
+                      style: TextStyle(
+                        fontSize: 26,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
                       maxLines: 1,
                       softWrap: false,
                       overflow: TextOverflow.ellipsis,

@@ -2,8 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:soap_app/pages/account/login.store.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+
+import 'input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,7 +17,8 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final TextEditingController _accountController = TextEditingController();
+  final LoginStore store = LoginStore();
+
   final TextEditingController _passwordController = TextEditingController();
 
   bool _keyboard = false;
@@ -23,6 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
+    store.setupValidations();
     final keyboardVisibilityController = KeyboardVisibilityController();
     keyboardVisibilityController.onChange.listen((bool visible) {
       if (_keyboard != visible && mounted) {
@@ -106,63 +112,21 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                         child: Column(
                           children: <Widget>[
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xfff4f7f8),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                              child: TextField(
-                                cursorColor: Colors.blue,
-                                controller: _accountController,
-                                textInputAction: TextInputAction.newline,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    fontSize: 16,
-                                    color: theme.textTheme.bodyText2!.color!
-                                        .withOpacity(0.5),
-                                  ),
-                                  hintText: '账号',
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 16,
-                                  ),
-                                ),
+                            Observer(
+                              builder: (_) => Input(
+                                label: '用户名',
+                                errorText: store.error.username,
+                                onChanged: store.setUsername,
                               ),
                             ),
                             const SizedBox(
                               height: 18,
                             ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                color: Color(0xfff4f7f8),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(8)),
-                              ),
-                              child: TextField(
-                                controller: _passwordController,
-                                cursorColor: Colors.blue,
-                                obscureText: true,
-                                style: const TextStyle(
-                                  fontSize: 16,
-                                ),
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(
-                                    fontSize: 16,
-                                    color: theme.textTheme.bodyText2!.color!
-                                        .withOpacity(0.5),
-                                  ),
-                                  hintText: '密码',
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: 12,
-                                    vertical: 16,
-                                  ),
-                                ),
+                            Observer(
+                              builder: (_) => Input(
+                                label: '密码',
+                                errorText: store.error.password,
+                                onChanged: store.setPassword,
                               ),
                             ),
                             const SizedBox(
@@ -194,7 +158,6 @@ class _LoginPageState extends State<LoginPage> {
                                   ),
                                 ),
                                 onTap: () {
-                                  print('click');
                                   login();
                                 },
                               ),

@@ -67,7 +67,7 @@ class NewViewState extends State<NewView>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    var variables = {
+    final Map<String, Map<String, int>> variables = {
       'query': {'page': 1, 'pageSize': 30}
     };
     return FixedAppBarWrapper(
@@ -77,7 +77,10 @@ class NewViewState extends State<NewView>
         title: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            'Home',
+            '首页',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+            ),
           ),
         ),
       ),
@@ -99,7 +102,7 @@ class NewViewState extends State<NewView>
           }
 
           if (result.isLoading && result.data == null) {
-            return Text('Loading');
+            return const Text('加载中');
           }
 
           final List repositories = result.data!['pictures']['data'] as List;

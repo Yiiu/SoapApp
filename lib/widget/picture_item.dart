@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/config/router.dart';
@@ -82,8 +83,11 @@ class PictureItemState extends State<PictureItem> {
                     padding: const EdgeInsets.symmetric(horizontal: 12),
                     child: Text(
                       picture.user!.fullName,
-                      style: theme.textTheme.bodyText2!.copyWith(
-                        fontWeight: FontWeight.w500,
+                      style: GoogleFonts.rubik(
+                        textStyle: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                        ),
                       ),
                     ),
                   ),
@@ -96,9 +100,11 @@ class PictureItemState extends State<PictureItem> {
               alignment: FractionalOffset.centerRight,
               child: Text(
                 Jiffy(picture.createTime.toString()).fromNow(),
-                style: theme.textTheme.bodyText2!.copyWith(
-                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                  fontSize: 14,
+                style: GoogleFonts.rubik(
+                  textStyle: TextStyle(
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                    fontSize: 15,
+                  ),
                 ),
               ),
             ),
