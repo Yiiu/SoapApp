@@ -11,7 +11,7 @@ class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
     Key? key,
     this.automaticallyImplyLeading = false,
-    required this.title,
+    this.title,
     this.centerTitle = true,
     this.backgroundColor,
     this.elevation = 2.0,
@@ -22,7 +22,7 @@ class SoapAppBar extends StatefulWidget {
     this.textColor,
   }) : super(key: key);
 
-  final Widget title;
+  final Widget? title;
   final List<Widget>? actions;
   final EdgeInsetsGeometry? actionsPadding;
   final bool automaticallyImplyLeading;
@@ -53,7 +53,7 @@ class _SoapAppBarState extends State<SoapAppBar>
 
   @override
   Widget build(BuildContext context) {
-    Widget _title = widget.title;
+    Widget _title = widget.title ?? Text('');
     if (widget.centerTitle) {
       _title = Center(child: _title);
     }

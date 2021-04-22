@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'config/graphql.dart';
 import 'pages/app.dart';
 
 void main() async {
@@ -16,18 +17,9 @@ void main() async {
     statusBarIconBrightness: Brightness.dark,
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  final HttpLink httpLink = HttpLink(
-    'https://soapphoto.com/graphql',
-  );
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: httpLink,
-      cache: GraphQLCache(store: HiveStore()),
-    ),
-  );
   runApp(
     GraphQLProvider(
-      client: client,
+      client: GraphqlConfig.client,
       child: MyApp(),
     ),
   );
