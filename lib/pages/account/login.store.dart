@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:soap_app/store/index.dart';
 import 'package:validators/validators.dart';
 
 part 'login.store.g.dart';
@@ -27,6 +28,10 @@ abstract class _LoginStoreBase with Store {
     for (final ReactionDisposer d in _disposers) {
       d();
     }
+  }
+
+  Future<void> login() async {
+    await accountStore.login(username, password);
   }
 
   @action

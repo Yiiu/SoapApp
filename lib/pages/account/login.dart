@@ -55,7 +55,10 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  Future<void> login() async {}
+  Future<void> login() async {
+    await store.login();
+    Navigator.pop(context);
+  }
 
   @override
   Widget build(BuildContext context) {

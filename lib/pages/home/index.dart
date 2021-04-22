@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:soap_app/config/router.dart';
+import 'package:soap_app/store/index.dart';
 
 import 'new/index.dart';
 
@@ -67,7 +68,7 @@ class _MyHomePageState extends State<HomePage>
   }
 
   void handleTabChange(int index) {
-    if (index == _loginIndex) {
+    if (index == _loginIndex && !accountStore.isLogin) {
       Navigator.pushNamed(context, RouteName.login);
       return;
     }

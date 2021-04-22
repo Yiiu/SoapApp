@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:mobx/mobx.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/account_repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soap_app/utils/storage.dart';
 
 part 'account_store.g.dart';
 
@@ -10,7 +14,15 @@ abstract class _AccountStoreBase with Store {
   AccountProvider accountProvider = AccountProvider();
 
   @observable
-  late User userInfo;
+  String? accessToken;
+  @observable
+  DateTime? accessTokenExpiresAt;
+
+  @observable
+  User? userInfo;
+
+  @computed
+  bool get isLogin => accessToken != null && userInfo != null;
 
   Future<void> login(
     String username,
@@ -22,8 +34,27 @@ abstract class _AccountStoreBase with Store {
       'grant_type': 'password',
     };
     final dynamic data = await accountProvider.oauth(params);
-    final User user = User.fromJson(data['user'] as Map<String, dynamic>);
-    print(user);
+    await StorageUtil.preferences!
+        .setString('account.accessToken', json.encode(data.data));
+    getLoginInfo(data.data);
     // await getUserInfo();
+  }
+
+  void initialize() {
+    final String? dataString =
+        StorageUtil.preferences!.getString('account.accessToken');
+    if (dataString != null) {
+      final dynamic obj = json.decode(dataString);
+      getLoginInfo(obj);
+    }
+  }
+
+  @action
+  void getLoginInfo(dynamic data) {
+    accessToken = data['accessToken'] as String;
+    accessTokenExpiresAt = DateTime.parse(data['createTime'] as String);
+    print(User.fromJson(data['user'] as Map<String, dynamic>));
+    userInfo = User.fromJson(data['user'] as Map<String, dynamic>);
+    // userInfo = User.fromJson(data['user'] as Map<String, dynamic>);
   }
 }

@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  shared_preferences: ^2.0.5  
   validators: ^3.0.0
   dio: ^4.0.0
   flutter_svg: ^0.22.0
