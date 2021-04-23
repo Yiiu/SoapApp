@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/account/login.dart';
 import 'package:soap_app/pages/home/index.dart';
+import 'package:soap_app/pages/setting/setting.dart';
+import 'package:soap_app/pages/user/user.dart';
 
 class RouteName {
   static const String home = '/';
@@ -24,6 +27,14 @@ class Router {
         return CupertinoPageRoute<void>(
           builder: (_) => LoginPage(),
           settings: settings,
+        );
+      case RouteName.user:
+        return CupertinoPageRoute<void>(
+          builder: (_) => UserPage(user: settings.arguments! as User),
+        );
+      case RouteName.setting:
+        return CupertinoPageRoute<void>(
+          builder: (_) => SettingPage(),
         );
       default:
         return CupertinoPageRoute<void>(

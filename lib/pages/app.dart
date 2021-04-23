@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart' as RouterConfig;
+import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/store/index.dart';
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -7,6 +11,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -26,10 +31,16 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: RouterConfig.RouteName.home,
-      onGenerateRoute: RouterConfig.Router.generateRoute,
+    return Observer(
+      builder: (_) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: RouterConfig.RouteName.home,
+        onGenerateRoute: RouterConfig.Router.generateRoute,
+        themeMode: appStore.themeMode,
+        theme: ThemeConfig.lightTheme,
+        darkTheme: ThemeConfig.darkTheme,
+        title: Constants.appName,
+      ),
     );
   }
 }

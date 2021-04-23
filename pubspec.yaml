@@ -25,6 +25,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  extended_nested_scroll_view: ^3.0.0
+  tab_indicator_styler: ^2.0.0-null-safety
   modal_bottom_sheet: ^2.0.0
 
   shared_preferences: ^2.0.5

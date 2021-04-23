@@ -59,15 +59,15 @@ class _SoapAppBarState extends State<SoapAppBar>
     }
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
-    // final Brightness baseBrightness = widget.brightness ??
-    //     appBarTheme.brightness ??
-    //     theme.primaryColorBrightness;
-    // final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
-    //     ? SystemUiOverlayStyle.light
-    //     : SystemUiOverlayStyle.dark;
+    final Brightness baseBrightness =
+        widget.brightness ?? appBarTheme.brightness ?? Brightness.light;
+    // theme.primaryColorBrightness;
+    final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
+        ? SystemUiOverlayStyle.light
+        : SystemUiOverlayStyle.dark;
     return Container(
       child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: SystemUiOverlayStyle.dark,
+        value: overlayStyle,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 250),
           padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
@@ -97,7 +97,11 @@ class _SoapAppBarState extends State<SoapAppBar>
                   child: TouchableOpacity(
                     activeOpacity: 0.4,
                     child: Container(
-                      child: const Icon(FeatherIcons.arrowLeft),
+                      child: Icon(
+                        FeatherIcons.arrowLeft,
+                        color: widget.textColor ??
+                            theme.textTheme.bodyText2!.color,
+                      ),
                     ),
                     onTap: () {
                       Navigator.maybePop(context);

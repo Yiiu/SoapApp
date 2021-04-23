@@ -142,7 +142,7 @@ class _ProfileViewState extends State<ProfileView> {
                     Navigator.pushNamed(
                       context,
                       RouteName.user,
-                      arguments: accountStore.userInfo!.username,
+                      arguments: accountStore.userInfo,
                     );
                   }
                 },
