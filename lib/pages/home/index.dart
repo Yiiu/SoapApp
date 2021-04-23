@@ -9,6 +9,7 @@ import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 
 import 'new/index.dart';
+import 'profile/profile.dart';
 
 class SoapBottomNavigationBarItem {
   const SoapBottomNavigationBarItem({
@@ -61,7 +62,7 @@ class _MyHomePageState extends State<HomePage>
   void initState() {
     super.initState();
     tabController = TabController(
-      length: 4,
+      length: 3,
       vsync: this,
       initialIndex: _selectedIndex,
     );
@@ -75,6 +76,14 @@ class _MyHomePageState extends State<HomePage>
     setState(() {
       _selectedIndex = index;
       tabController.index = index;
+    });
+  }
+
+  void signup() {
+    tabController.animateTo(0);
+    setState(() {
+      _selectedIndex = 0;
+      tabController.index = 0;
     });
   }
 
@@ -94,8 +103,10 @@ class _MyHomePageState extends State<HomePage>
                   children: <Widget>[
                     NewView(),
                     const Text('4'),
-                    const Text('4'),
-                    const Text('4'),
+                    ProfileView(
+                      controller: tabController,
+                      signupCb: signup,
+                    ),
                   ],
                 ),
               ),

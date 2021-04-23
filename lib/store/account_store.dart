@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:mobx/mobx.dart';
+import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -37,6 +38,7 @@ abstract class _AccountStoreBase with Store {
     await StorageUtil.preferences!
         .setString('account.accessToken', json.encode(data.data));
     getLoginInfo(data.data);
+    await GraphqlConfig.graphQLClient.resetStore();
     // await getUserInfo();
   }
 
@@ -53,8 +55,15 @@ abstract class _AccountStoreBase with Store {
   void getLoginInfo(dynamic data) {
     accessToken = data['accessToken'] as String;
     accessTokenExpiresAt = DateTime.parse(data['createTime'] as String);
-    print(User.fromJson(data['user'] as Map<String, dynamic>));
     userInfo = User.fromJson(data['user'] as Map<String, dynamic>);
-    // userInfo = User.fromJson(data['user'] as Map<String, dynamic>);
+  }
+
+  @action
+  Future<void> signup() async {
+    accessToken = null;
+    accessTokenExpiresAt = null;
+    userInfo = null;
+    await StorageUtil.preferences!.remove('account.accessToken');
+    await GraphqlConfig.graphQLClient.resetStore();
   }
 }

@@ -1,16 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soap_app/config/router.dart' as RouterConfig;
 
-String pictures = '''
-  query Pictures() {
-    pictures(query: {}) {
-      data {
-        ...PictureFragment
-      }
-    }
-  }
-''';
-
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -36,7 +26,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: RouterConfig.RouteName.home,
       onGenerateRoute: RouterConfig.Router.generateRoute,
