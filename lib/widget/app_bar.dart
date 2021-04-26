@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 const double appBarHeight = 68.0;
@@ -95,7 +96,7 @@ class _SoapAppBarState extends State<SoapAppBar>
                   padding: const EdgeInsets.only(left: 4),
                   alignment: Alignment.centerLeft,
                   child: TouchableOpacity(
-                    activeOpacity: 0.4,
+                    activeOpacity: activeOpacity,
                     child: Container(
                       child: Icon(
                         FeatherIcons.arrowLeft,

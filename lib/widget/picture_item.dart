@@ -7,6 +7,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:extended_image/extended_image.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 
 import 'package:soap_app/model/picture.dart';
@@ -59,6 +61,7 @@ class PictureItemState extends State<PictureItem> {
             child: Row(
               children: <Widget>[
                 TouchableOpacity(
+                  activeOpacity: activeOpacity,
                   onTap: () {
                     Navigator.pushNamed(
                       context,
@@ -72,6 +75,7 @@ class PictureItemState extends State<PictureItem> {
                   ),
                 ),
                 TouchableOpacity(
+                  activeOpacity: activeOpacity,
                   onTap: () {
                     Navigator.pushNamed(
                       context,
@@ -129,7 +133,7 @@ class PictureItemState extends State<PictureItem> {
                 placeholderBuilder: OctoPlaceholder.blurHash(
                   picture.blurhash,
                 ),
-                image: CachedNetworkImageProvider(picture.pictureUrl()),
+                image: ExtendedImage.network(picture.pictureUrl()).image,
                 fit: BoxFit.cover,
               ),
             ),

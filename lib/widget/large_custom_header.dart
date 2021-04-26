@@ -49,7 +49,6 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     bool overlapsContent,
   ) {
     bool shrink = shrinkOffset >= (titleHeight / 3) + 40;
-    print(shrink);
     final ThemeData theme = Theme.of(context);
     return Container(
         constraints: const BoxConstraints.expand(),

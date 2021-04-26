@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/pages/account/login.store.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -138,7 +139,7 @@ class _LoginPageState extends State<LoginPage> {
                             SizedBox(
                               width: double.infinity,
                               child: TouchableOpacity(
-                                activeOpacity: 0.8,
+                                activeOpacity: activeOpacity,
                                 child: Container(
                                   width: double.infinity,
                                   padding: const EdgeInsets.symmetric(

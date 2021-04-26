@@ -35,6 +35,9 @@ class NewViewState extends State<NewView>
   @override
   void initState() {
     super.initState();
+    _scrollController.addListener(() {
+      print(_scrollController.offset);
+    });
   }
 
   @override
@@ -66,7 +69,6 @@ class NewViewState extends State<NewView>
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final Map<String, Map<String, int>> variables = {
       'query': {'page': 1, 'pageSize': 30}
     };
@@ -97,7 +99,7 @@ class NewViewState extends State<NewView>
           Refetch? refetch,
           FetchMore? fetchMore,
         }) {
-          if (result.hasException) {
+          if (result.hasException && result.data == null) {
             return Text(result.exception.toString());
           }
 
@@ -110,6 +112,7 @@ class NewViewState extends State<NewView>
           final List<Picture> pictureList = Picture.fromListJson(repositories);
 
           return Container(
+            color: Theme.of(context).backgroundColor,
             child: Column(
               children: <Widget>[
                 Expanded(

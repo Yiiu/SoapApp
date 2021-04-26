@@ -32,13 +32,11 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Observer(
-      builder: (_) => MaterialApp(
+      builder: (context) => MaterialApp(
         debugShowCheckedModeBanner: false,
         initialRoute: RouterConfig.RouteName.home,
         onGenerateRoute: RouterConfig.Router.generateRoute,
-        themeMode: appStore.themeMode,
-        theme: ThemeConfig.lightTheme,
-        darkTheme: ThemeConfig.darkTheme,
+        theme: appStore.themeData,
         title: Constants.appName,
       ),
     );

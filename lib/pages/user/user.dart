@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:graphql/src/core/query_result.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
@@ -82,6 +83,7 @@ class _UserPageState extends State<UserPage>
     return Expanded(
       flex: 1,
       child: TouchableOpacity(
+        activeOpacity: activeOpacity,
         onTap: () {
           print('test');
         },

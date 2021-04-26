@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  extended_image: ^4.0.0
   extended_nested_scroll_view: ^3.0.0
   tab_indicator_styler: ^2.0.0-null-safety
   modal_bottom_sheet: ^2.0.0
@@ -64,6 +65,11 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/empty.png
+    - assets/feather/thumbs-up.svg
+    - assets/feather/chevron-left.svg
+    - assets/feather/plus.svg
+    - assets/feather/settings.svg
+    - assets/feather/chevron-right.svg
 
 flutter_native_splash:
   image: assets/images/splash.gif

@@ -4,7 +4,7 @@ import 'package:soap_app/store/index.dart';
 
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(
-    'http://localhost.com:3000/graphql',
+    'https://soapphoto.com/graphql',
   );
 
   static AuthLink authLink = AuthLink(

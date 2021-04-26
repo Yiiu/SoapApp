@@ -63,12 +63,12 @@ mixin ThemeConfig {
     primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
     fontFamily: 'Rubik',
-    backgroundColor: const Color(0xff27282a),
+    backgroundColor: const Color(0xff141414),
     primaryColor: darkPrimary,
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
     textTheme: _darkTextTheme,
     errorColor: const Color(0xffff4757),
-    cardColor: const Color(0xff2d3132),
+    cardColor: const Color(0xff272729),
   );
 }
