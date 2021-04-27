@@ -131,18 +131,20 @@ class _MyHomePageState extends State<HomePage>
                   duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Colors.grey[800]!,
                   tabs: bottomBar
-                      .map<GButton>((SoapBottomNavigationBarItem bar) =>
-                          GButton(
+                      .map<GButton>(
+                        (SoapBottomNavigationBarItem bar) => GButton(
                             icon: bar.icon,
                             text: bar.title,
-                            iconActiveColor: theme.cardColor,
+                            iconActiveColor: theme.bottomNavigationBarTheme
+                                .selectedLabelStyle!.color,
                             iconColor: theme.textTheme.bodyText2!.color,
                             textStyle: TextStyle(
-                              color: theme.cardColor,
-                              letterSpacing: 2,
+                              color: theme.bottomNavigationBarTheme
+                                  .selectedLabelStyle!.color,
                             ),
-                            backgroundColor: theme.textTheme.bodyText2!.color,
-                          ))
+                            backgroundColor: theme
+                                .bottomNavigationBarTheme.selectedItemColor),
+                      )
                       .toList(),
                   selectedIndex: _selectedIndex,
                   onTabChange: handleTabChange,

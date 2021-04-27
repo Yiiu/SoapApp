@@ -33,7 +33,9 @@ class SettingItem extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
-              child: Text(title),
+              child: Text(
+                title,
+              ),
             ),
           ),
           if (action != null) action!,

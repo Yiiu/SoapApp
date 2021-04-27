@@ -88,68 +88,73 @@ class _SettingPageState extends State<SettingPage> {
                 onPressed: () {
                   showCustomModalBottomSheet<dynamic>(
                     context: context,
-                    containerWidget: (_, animation, child) => Material(
+                    containerWidget: (_, animation, child) => Container(
                       child: child,
-                      borderRadius: const BorderRadius.only(
-                        topRight: Radius.circular(6),
-                        topLeft: Radius.circular(6),
-                      ),
-                      color: Colors.white,
                     ),
                     builder: (_) {
-                      return SafeArea(
-                        top: false,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Text(
-                                '系统模式',
-                                style: TextStyle(
-                                  color: Colors.black45,
-                                  fontSize: 14,
+                      return Material(
+                        color: Theme.of(context).cardColor,
+                        child: SafeArea(
+                          top: false,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  '系统模式',
+                                  style: TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .caption!
+                                        .color,
+                                    fontSize: 14,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 6),
-                              TouchableOpacity(
-                                activeOpacity: activeOpacity,
-                                onTap: () {
-                                  appStore.setLight();
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 12, horizontal: 14),
-                                  child: Text('亮色模式'),
+                                SizedBox(height: 6),
+                                TouchableOpacity(
+                                  activeOpacity: activeOpacity,
+                                  onTap: () {
+                                    appStore.setLight();
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12, horizontal: 14),
+                                    child: Text('亮色模式'),
+                                  ),
                                 ),
-                              ),
-                              TouchableOpacity(
-                                activeOpacity: activeOpacity,
-                                onTap: () {
-                                  appStore.setDark();
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 12),
-                                  child: Text('暗色模式'),
+                                TouchableOpacity(
+                                  activeOpacity: activeOpacity,
+                                  onTap: () {
+                                    appStore.setDark();
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 12),
+                                    child: Text('暗色模式'),
+                                  ),
                                 ),
-                              ),
-                              TouchableOpacity(
-                                activeOpacity: activeOpacity,
-                                onTap: () {
-                                  appStore.setSystem();
-                                },
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 12),
-                                  child: Text('系统自动'),
+                                TouchableOpacity(
+                                  activeOpacity: activeOpacity,
+                                  onTap: () {
+                                    appStore.setSystem();
+                                  },
+                                  child: Container(
+                                    width: double.infinity,
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 6, horizontal: 12),
+                                    child: Text('系统自动'),
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
+                        ),
+                        borderRadius: const BorderRadius.only(
+                          topRight: Radius.circular(6),
+                          topLeft: Radius.circular(6),
                         ),
                       );
                     },

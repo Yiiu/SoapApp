@@ -110,7 +110,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     child: SoapAppBar(
                       height: navBarHeight + 0.2,
                       elevation: 0,
-                      brightness: shrink ? Brightness.light : Brightness.dark,
+                      brightness: shrink ? AppBarTheme.of(context).brightness ?? Brightness.light : Brightness.dark,
                       automaticallyImplyLeading: true,
                       textColor: shrink ? null : Colors.white,
                       backgroundColor:

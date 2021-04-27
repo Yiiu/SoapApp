@@ -56,6 +56,15 @@ mixin ThemeConfig {
     scaffoldBackgroundColor: lightBG,
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
+    appBarTheme: AppBarTheme(
+      brightness: Brightness.light,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedLabelStyle: TextStyle(
+        color: Color(0xffffffff),
+      ),
+      selectedItemColor: lightTextColor,
+    ),
     cardColor: const Color(0xffffffff),
   );
 
@@ -70,5 +79,14 @@ mixin ThemeConfig {
     textTheme: _darkTextTheme,
     errorColor: const Color(0xffff4757),
     cardColor: const Color(0xff272729),
+    appBarTheme: const AppBarTheme(
+      brightness: Brightness.dark,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedLabelStyle: TextStyle(
+        color: darkTextColor,
+      ),
+      selectedItemColor: const Color(0xff141414),
+    ),
   );
 }

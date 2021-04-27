@@ -198,11 +198,7 @@ class _UserPageState extends State<UserPage>
                 decoration: BoxDecoration(
                   border: Border(
                     top: BorderSide(
-                      color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
-                      width: .2,
-                    ),
-                    bottom: BorderSide(
-                      color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
+                      color: theme.textTheme.overline!.color!.withOpacity(.3),
                       width: .2,
                     ),
                   ),
@@ -232,6 +228,7 @@ class _UserPageState extends State<UserPage>
                     topRightRadius: 4,
                     horizontalPadding: 50,
                     tabPosition: TabPosition.bottom,
+                    color: theme.bottomNavigationBarTheme.selectedItemColor!,
                   ),
                 ),
               ),
