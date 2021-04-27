@@ -42,6 +42,11 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
 
   final TextStyle titleTextStyle;
 
+  double makeStickyHeaderBgColor(double shrinkOffset) {
+    double opacity = shrinkOffset / (this.maxExtent - this.minExtent);
+    return opacity > 1 ? 1 : opacity;
+  }
+
   @override
   Widget build(
     BuildContext context,
@@ -51,54 +56,59 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     bool shrink = shrinkOffset >= (titleHeight / 3) + 40;
     final ThemeData theme = Theme.of(context);
     return Container(
-        constraints: const BoxConstraints.expand(),
-        decoration: BoxDecoration(
-          // borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
-          color: theme.cardColor,
-        ),
-        child: Flex(
-          direction: Axis.vertical,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 1,
-              child: Container(
-                height: double.infinity,
-                child: Stack(
-                  fit: StackFit.loose,
-                  children: <Widget>[
-                    if (this.backgroundImage != null) ...[
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: OctoImage(
-                          image:
-                              CachedNetworkImageProvider(this.backgroundImage),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: Container(
-                          color: const Color.fromRGBO(0, 0, 0, 0.65),
-                        ),
-                      ),
-                    ],
+      constraints: const BoxConstraints.expand(),
+      decoration: BoxDecoration(
+        // borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
+        color: theme.cardColor,
+      ),
+      child: Flex(
+        direction: Axis.vertical,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Flexible(
+            flex: 1,
+            child: Container(
+              color: Colors.white,
+              height: double.infinity,
+              child: Stack(
+                fit: StackFit.loose,
+                children: <Widget>[
+                  if (this.backgroundImage != null) ...[
                     Positioned(
-                      bottom: 0,
+                      top: 0,
                       left: 0,
                       right: 0,
-                      // top: navBarHeight,
-                      child: Container(
-                        child: title,
+                      bottom: 0,
+                      child: OctoImage(
+                        image: CachedNetworkImageProvider(this.backgroundImage),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    SoapAppBar(
+                    Positioned(
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      child: Container(
+                        color: const Color.fromRGBO(0, 0, 0, 0.65),
+                      ),
+                    ),
+                  ],
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    // top: navBarHeight,
+                    child: Container(
+                      child: title,
+                    ),
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    child: SoapAppBar(
+                      height: navBarHeight + 0.2,
                       elevation: 0,
                       brightness: shrink ? Brightness.light : Brightness.dark,
                       automaticallyImplyLeading: true,
@@ -107,21 +117,23 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                           shrink ? theme.cardColor : Colors.transparent,
                       centerTitle: barCenterTitle,
                       title: AnimatedOpacity(
-                        opacity: shrink ? 1 : 0,
+                        opacity: makeStickyHeaderBgColor(shrinkOffset),
                         duration: Duration(milliseconds: _fadeDuration),
                         child: bar,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-            Container(
-              height: tabBarHeight,
-              child: tabBar,
-            ),
-          ],
-        ));
+          ),
+          Container(
+            height: tabBarHeight,
+            child: tabBar,
+          ),
+        ],
+      ),
+    );
   }
 
   @override

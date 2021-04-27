@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  adaptive_theme: ^2.0.0
   extended_image: ^4.0.0
   extended_nested_scroll_view: ^3.0.0
   tab_indicator_styler: ^2.0.0-null-safety
@@ -54,6 +55,11 @@ dependencies:
       url: https://github.com/Yiiu/google_nav_bar
       path: .
       ref: master
+  pull_to_refresh:
+    git:
+      url: https://github.com/peng8350/flutter_pulltorefresh
+      path: .
+      ref: nullsafety
 
 dev_dependencies:
   flutter_test:

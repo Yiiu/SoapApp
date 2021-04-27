@@ -8,6 +8,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "21.0.0"
+  adaptive_theme:
+    dependency: "direct main"
+    description:
+      name: adaptive_theme
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.2.0"
   analyzer:
     dependency: transitive
     description:
@@ -711,6 +718,15 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  pull_to_refresh:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: nullsafety
+      resolved-ref: ab6f0cce3d6a0020e75083b54079495266a667e6
+      url: "https://github.com/peng8350/flutter_pulltorefresh"
+    source: git
+    version: "1.6.4-nullsafety.1"
   rxdart:
     dependency: transitive
     description:

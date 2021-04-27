@@ -74,45 +74,49 @@ class PictureItemState extends State<PictureItem> {
                     image: picture.user!.avatarUrl,
                   ),
                 ),
-                TouchableOpacity(
-                  activeOpacity: activeOpacity,
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.user,
-                      arguments: picture.user,
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Text(
-                      picture.user!.fullName,
-                      style: GoogleFonts.rubik(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
+                Column(
+                  children: [
+                    TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      onTap: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteName.user,
+                          arguments: picture.user,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          picture.user!.fullName,
+                          textAlign: TextAlign.left,
+                          style: GoogleFonts.rubik(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
+                    Container(
+                      child: Text(
+                        Jiffy(picture.createTime.toString()).fromNow(),
+                        textAlign: TextAlign.left,
+                        style: GoogleFonts.rubik(
+                          textStyle: TextStyle(
+                            color: theme.textTheme.bodyText2!.color!
+                                .withOpacity(.6),
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
-          Expanded(
-            child: Align(
-              alignment: FractionalOffset.centerRight,
-              child: Text(
-                Jiffy(picture.createTime.toString()).fromNow(),
-                style: GoogleFonts.rubik(
-                  textStyle: TextStyle(
-                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                    fontSize: 15,
-                  ),
-                ),
-              ),
-            ),
-          )
         ],
       ),
     );

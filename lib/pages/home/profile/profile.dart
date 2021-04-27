@@ -73,7 +73,7 @@ class _ProfileViewState extends State<ProfileView> {
         ],
       ),
       body: Container(
-        color: Color(0xffF5F5F5),
+        color: Theme.of(context).backgroundColor,
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(0),
@@ -104,6 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ),
             ),
+            SizedBox(height: 1000),
           ],
         ),
       ),

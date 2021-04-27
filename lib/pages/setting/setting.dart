@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -52,7 +53,7 @@ class _SettingPageState extends State<SettingPage> {
           ),
         ),
         body: Container(
-          color: Color(0xffF5F5F5),
+          color: Theme.of(context).backgroundColor,
           child: ListView(
             physics: const RangeMaintainingScrollPhysics(),
             padding: const EdgeInsets.all(0),

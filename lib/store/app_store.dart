@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/utils/storage.dart';
 
 part 'app_store.g.dart';
 
@@ -10,14 +11,20 @@ abstract class _AppStoreBase with Store {
   @observable
   int _mode = 2;
 
-  @action
-  void setDark() => _mode = 1;
+  void setDark() => _setMode(1);
+  void setLight() => _setMode(0);
+  void setSystem() => _setMode(2);
 
   @action
-  void setLight() => _mode = 0;
+  void _setMode(int value) {
+    StorageUtil.preferences!.setInt('app.mode', value);
+    _mode = value;
+  }
 
-  @action
-  void setSystem() => _mode = 2;
+  void initialize() {
+    final int mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
+    _setMode(mode);
+  }
 
   @computed
   ThemeMode get themeMode {

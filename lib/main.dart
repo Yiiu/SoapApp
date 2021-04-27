@@ -14,6 +14,7 @@ void main() async {
   await Jiffy.locale('zh_cn');
   await initHiveForFlutter();
   accountStore.initialize();
+  appStore.initialize();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIOverlays([
     SystemUiOverlay.top,

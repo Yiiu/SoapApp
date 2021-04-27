@@ -1,8 +1,11 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql/src/core/query_result.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/store/index.dart';
@@ -33,6 +36,9 @@ class _UserPageState extends State<UserPage>
   late User user;
   late TabController tabController;
   final int _selectedIndex = 0;
+
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   int _tabIndex = 0;
 
@@ -183,43 +189,54 @@ class _UserPageState extends State<UserPage>
             )
           ],
         ),
-        tabBar: Container(
-          decoration: BoxDecoration(
-            border: Border(
-              bottom: BorderSide(
-                color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
-                width: .5,
+        tabBar: Column(
+          children: <Widget>[
+            Expanded(
+              child: Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
+                      width: .2,
+                    ),
+                    bottom: BorderSide(
+                      color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
+                      width: .2,
+                    ),
+                  ),
+                ),
+                child: TabBar(
+                  controller: tabController,
+                  tabs: [
+                    Tab(
+                      text: '照片',
+                    ),
+                    Tab(
+                      text: '喜欢',
+                    ),
+                    Tab(
+                      text: '收藏夹',
+                    ),
+                  ],
+                  onTap: (index) {
+                    setState(() {
+                      _tabIndex = index;
+                    });
+                  },
+                  labelColor: theme.textTheme.bodyText2!.color,
+                  indicator: MaterialIndicator(
+                    height: 2,
+                    topLeftRadius: 4,
+                    topRightRadius: 4,
+                    horizontalPadding: 50,
+                    tabPosition: TabPosition.bottom,
+                  ),
+                ),
               ),
             ),
-          ),
-          child: TabBar(
-            controller: tabController,
-            indicatorColor: Colors.green,
-            tabs: [
-              Tab(
-                text: '照片',
-              ),
-              Tab(
-                text: '喜欢',
-              ),
-              Tab(
-                text: '收藏夹',
-              ),
-            ],
-            onTap: (index) {
-              setState(() {
-                _tabIndex = index;
-              });
-            },
-            labelColor: theme.textTheme.bodyText2!.color,
-            indicator: MaterialIndicator(
-              height: 2,
-              topLeftRadius: 4,
-              topRightRadius: 4,
-              horizontalPadding: 50,
-              tabPosition: TabPosition.bottom,
-            ),
-          ),
+          ],
         ),
         bar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -276,11 +293,20 @@ class _UserPageState extends State<UserPage>
                   children: <Widget>[
                     extended.NestedScrollViewInnerScrollPositionKeyWidget(
                       Key('Tab0'),
-                      EasyRefresh(
-                        enableControlFinishRefresh: true,
-                        enableControlFinishLoad: true,
-                        topBouncing: false,
-                        onRefresh: () async {},
+                      SmartRefresher(
+                        controller: _refreshController,
+                        physics: const BouncingScrollPhysics(),
+                        header: const ClassicHeader(
+                          releaseText: '松开刷新',
+                          idleText: '下拉刷新',
+                          refreshingText: '刷新中',
+                          completeText: '刷新成功',
+                          failedText: '刷新失败',
+                          refreshingIcon: CupertinoActivityIndicator(),
+                          idleIcon: Icon(FeatherIcons.arrowDown),
+                          releaseIcon: Icon(FeatherIcons.arrowDown),
+                          refreshStyle: RefreshStyle.UnFollow,
+                        ),
                         child: ListView.builder(
                           padding: EdgeInsets.all(0.0),
                           itemBuilder: (context, index) {
