@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/utils/picture.dart';
 
 import 'app_bar.dart';
 
@@ -61,75 +63,79 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
         // borderRadius: BorderRadius.vertical(bottom: Radius.circular(35.0)),
         color: theme.cardColor,
       ),
-      child: Flex(
-        direction: Axis.vertical,
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Flexible(
-            flex: 1,
-            child: Container(
-              color: Colors.white,
-              height: double.infinity,
-              child: Stack(
-                fit: StackFit.loose,
-                children: <Widget>[
-                  if (this.backgroundImage != null) ...[
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: OctoImage(
-                        image: CachedNetworkImageProvider(this.backgroundImage),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    Positioned(
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      child: Container(
-                        color: const Color.fromRGBO(0, 0, 0, 0.65),
-                      ),
-                    ),
-                  ],
+          Container(
+            color: theme.cardColor,
+            height: double.infinity,
+            padding: EdgeInsets.only(bottom: tabBarHeight),
+            child: Stack(
+              fit: StackFit.expand,
+              children: <Widget>[
+                if (this.backgroundImage != null) ...[
                   Positioned(
-                    bottom: 0,
+                    top: 0,
                     left: 0,
                     right: 0,
-                    // top: navBarHeight,
-                    child: Container(
-                      child: title,
+                    bottom: 0,
+                    child: OctoImage(
+                      image: ExtendedImage.network(this.backgroundImage).image,
+                      fit: BoxFit.cover,
                     ),
                   ),
                   Positioned(
+                    top: 0,
                     left: 0,
                     right: 0,
-                    top: 0,
-                    child: SoapAppBar(
-                      height: navBarHeight + 0.2,
-                      elevation: 0,
-                      brightness: shrink ? AppBarTheme.of(context).brightness ?? Brightness.light : Brightness.dark,
-                      automaticallyImplyLeading: true,
-                      textColor: shrink ? null : Colors.white,
-                      backgroundColor:
-                          shrink ? theme.cardColor : Colors.transparent,
-                      centerTitle: barCenterTitle,
-                      title: AnimatedOpacity(
-                        opacity: makeStickyHeaderBgColor(shrinkOffset),
-                        duration: Duration(milliseconds: _fadeDuration),
-                        child: bar,
-                      ),
+                    bottom: 0,
+                    child: Container(
+                      color: const Color.fromRGBO(0, 0, 0, 0.65),
                     ),
                   ),
                 ],
-              ),
+                Positioned(
+                  bottom: 0,
+                  left: 0,
+                  right: 0,
+                  // top: navBarHeight,
+                  child: Container(
+                    child: title,
+                  ),
+                ),
+                Positioned(
+                  left: 0,
+                  right: 0,
+                  top: 0,
+                  child: SoapAppBar(
+                    height: navBarHeight,
+                    elevation: 0,
+                    brightness: shrink
+                        ? AppBarTheme.of(context).brightness ?? Brightness.light
+                        : Brightness.dark,
+                    automaticallyImplyLeading: true,
+                    textColor: shrink ? null : Colors.white,
+                    backgroundColor:
+                        shrink ? theme.cardColor : Colors.transparent,
+                    centerTitle: barCenterTitle,
+                    title: AnimatedOpacity(
+                      opacity: makeStickyHeaderBgColor(shrinkOffset),
+                      duration: Duration(milliseconds: _fadeDuration),
+                      child: bar,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          Container(
-            height: tabBarHeight,
-            child: tabBar,
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: tabBarHeight + 1,
+              color: theme.cardColor,
+              child: tabBar,
+            ),
           ),
         ],
       ),

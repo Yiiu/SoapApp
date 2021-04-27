@@ -6,7 +6,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-const double appBarHeight = 68.0;
+const double appBarHeight = 58.0;
 
 class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
@@ -118,7 +118,8 @@ class _SoapAppBarState extends State<SoapAppBar>
                     child: DefaultTextStyle(
                       child: _title,
                       style: TextStyle(
-                        fontSize: 26,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w700,
                         color: Theme.of(context).textTheme.bodyText1!.color,
                       ),
                       maxLines: 1,

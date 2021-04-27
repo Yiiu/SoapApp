@@ -74,33 +74,34 @@ class PictureItemState extends State<PictureItem> {
                     image: picture.user!.avatarUrl,
                   ),
                 ),
-                Column(
-                  children: [
-                    TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      onTap: () {
-                        Navigator.pushNamed(
-                          context,
-                          RouteName.user,
-                          arguments: picture.user,
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12),
-                        child: Text(
-                          picture.user!.fullName,
-                          textAlign: TextAlign.left,
-                          style: GoogleFonts.rubik(
-                            textStyle: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TouchableOpacity(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.user,
+                            arguments: picture.user,
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 2),
+                          child: Text(
+                            picture.user!.fullName,
+                            style: GoogleFonts.rubik(
+                              textStyle: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 16,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                    Container(
-                      child: Text(
+                      Text(
                         Jiffy(picture.createTime.toString()).fromNow(),
                         textAlign: TextAlign.left,
                         style: GoogleFonts.rubik(
@@ -111,9 +112,9 @@ class PictureItemState extends State<PictureItem> {
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                )
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

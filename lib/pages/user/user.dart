@@ -131,7 +131,7 @@ class _UserPageState extends State<UserPage>
         barCenterTitle: false,
         backgroundImage: getPictureUrl(
           key: user.cover ?? user.avatar,
-          style: user.cover != null ? PictureStyle.small : PictureStyle.blur,
+          style: user.cover != null ? PictureStyle.blur : PictureStyle.blur,
         ),
         titleTextStyle: TextStyle(
           color: theme.cardColor,
@@ -189,51 +189,45 @@ class _UserPageState extends State<UserPage>
             )
           ],
         ),
-        tabBar: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                height: double.infinity,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border(
-                    top: BorderSide(
-                      color: theme.textTheme.overline!.color!.withOpacity(.3),
-                      width: .2,
-                    ),
-                  ),
-                ),
-                child: TabBar(
-                  controller: tabController,
-                  tabs: [
-                    Tab(
-                      text: '照片',
-                    ),
-                    Tab(
-                      text: '喜欢',
-                    ),
-                    Tab(
-                      text: '收藏夹',
-                    ),
-                  ],
-                  onTap: (index) {
-                    setState(() {
-                      _tabIndex = index;
-                    });
-                  },
-                  labelColor: theme.textTheme.bodyText2!.color,
-                  indicator: MaterialIndicator(
-                    height: 2,
-                    topLeftRadius: 4,
-                    topRightRadius: 4,
-                    horizontalPadding: 50,
-                    tabPosition: TabPosition.bottom,
-                    color: theme.bottomNavigationBarTheme.selectedItemColor!,
-                  ),
-                ),
+        tabBar: Container(
+          height: double.infinity,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: theme.textTheme.overline!.color!.withOpacity(.1),
+                width: .3,
               ),
             ),
-          ],
+          ),
+          child: TabBar(
+            controller: tabController,
+            tabs: [
+              Tab(
+                text: '照片',
+              ),
+              Tab(
+                text: '喜欢',
+              ),
+              Tab(
+                text: '收藏夹',
+              ),
+            ],
+            onTap: (index) {
+              setState(() {
+                _tabIndex = index;
+              });
+            },
+            labelColor: theme.textTheme.bodyText2!.color,
+            indicator: MaterialIndicator(
+              height: 2,
+              topLeftRadius: 4,
+              topRightRadius: 4,
+              horizontalPadding: 50,
+              tabPosition: TabPosition.bottom,
+              color: theme.bottomNavigationBarTheme.selectedItemColor!,
+            ),
+          ),
         ),
         bar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0),
@@ -281,65 +275,57 @@ class _UserPageState extends State<UserPage>
             final String index = 'Tab${tabController.index.toString()}';
             return Key(index);
           },
-          body: Column(
-            children: <Widget>[
-              Expanded(
-                child: TabBarView(
-                  physics: const BouncingScrollPhysics(),
-                  controller: tabController,
-                  children: <Widget>[
-                    extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                      Key('Tab0'),
-                      SmartRefresher(
-                        controller: _refreshController,
-                        physics: const BouncingScrollPhysics(),
-                        header: const ClassicHeader(
-                          releaseText: '松开刷新',
-                          idleText: '下拉刷新',
-                          refreshingText: '刷新中',
-                          completeText: '刷新成功',
-                          failedText: '刷新失败',
-                          refreshingIcon: CupertinoActivityIndicator(),
-                          idleIcon: Icon(FeatherIcons.arrowDown),
-                          releaseIcon: Icon(FeatherIcons.arrowDown),
-                          refreshStyle: RefreshStyle.UnFollow,
+          body: Container(
+            color: theme.backgroundColor,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: TabBarView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: tabController,
+                    children: <Widget>[
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                        Key('Tab0'),
+                        SmartRefresher(
+                          controller: _refreshController,
+                          physics: const BouncingScrollPhysics(),
+                          child: ListView.builder(
+                            padding: EdgeInsets.all(0.0),
+                            itemBuilder: (context, index) {
+                              return Text('123123');
+                            },
+                            itemCount: 10,
+                          ),
                         ),
-                        child: ListView.builder(
+                      ),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                        Key('Tab1'),
+                        EasyRefresh(
+                          topBouncing: false,
+                          child: ListView.builder(
+                            padding: EdgeInsets.all(0.0),
+                            itemBuilder: (context, index) {
+                              return Text('111');
+                            },
+                            itemCount: 20,
+                          ),
+                        ),
+                      ),
+                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                        Key('Tab2'),
+                        ListView.builder(
                           padding: EdgeInsets.all(0.0),
                           itemBuilder: (context, index) {
-                            return Text('123123');
+                            return Text('3333');
                           },
-                          itemCount: 10,
+                          itemCount: 30,
                         ),
                       ),
-                    ),
-                    extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                      Key('Tab1'),
-                      EasyRefresh(
-                        topBouncing: false,
-                        child: ListView.builder(
-                          padding: EdgeInsets.all(0.0),
-                          itemBuilder: (context, index) {
-                            return Text('111');
-                          },
-                          itemCount: 20,
-                        ),
-                      ),
-                    ),
-                    extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                      Key('Tab2'),
-                      ListView.builder(
-                        padding: EdgeInsets.all(0.0),
-                        itemBuilder: (context, index) {
-                          return Text('3333');
-                        },
-                        itemCount: 30,
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

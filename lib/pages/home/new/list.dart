@@ -11,18 +11,24 @@ class NewList extends StatefulWidget {
   NewList({
     Key? key,
     required this.refetch,
+    required this.loading,
     required this.pictureList,
+    required this.morePage,
+    required this.page,
   }) : super(key: key);
 
-  Refetch refetch;
+  Future<void> Function() refetch;
+  Future<void> Function(int) loading;
   List<Picture> pictureList;
+  int morePage;
+  int page;
 
   @override
   _NewListState createState() => _NewListState();
 }
 
 class _NewListState extends State<NewList> {
-  RefreshController _refreshController =
+  final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   @override
@@ -35,8 +41,18 @@ class _NewListState extends State<NewList> {
     super.didChangeDependencies();
   }
 
-  Future<void> onRefresh() async {
+  Future<void> _onRefresh() async {
     await widget.refetch();
+    _refreshController.refreshCompleted();
+  }
+
+  Future<void> _onLoading() async {
+    if (widget.page + 1 >= widget.morePage) {
+      _refreshController.loadNoData();
+      return;
+    }
+    await widget.loading(widget.page + 1);
+    _refreshController.loadComplete();
   }
 
   @override
@@ -47,8 +63,12 @@ class _NewListState extends State<NewList> {
         children: <Widget>[
           Expanded(
             child: SmartRefresher(
+              enablePullUp: true,
+              enablePullDown: true,
               controller: _refreshController,
               physics: const BouncingScrollPhysics(),
+              onRefresh: _onRefresh,
+              onLoading: _onLoading,
               child: ListView.builder(
                 itemBuilder: (c, i) => PictureItem(
                   picture: widget.pictureList[i],

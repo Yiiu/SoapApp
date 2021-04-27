@@ -24,8 +24,12 @@ class NewViewState extends State<NewView>
 
   @override
   Widget build(BuildContext context) {
-    final Map<String, Map<String, int>> variables = {
-      'query': {'page': 1, 'pageSize': 30}
+    final variables = {
+      'query': {
+        'page': 1,
+        'pageSize': 30,
+      },
+      'type': 'NEW'
     };
     return FixedAppBarWrapper(
       appBar: const SoapAppBar(
@@ -36,7 +40,7 @@ class NewViewState extends State<NewView>
           child: Text(
             '首页',
             style: TextStyle(
-              fontWeight: FontWeight.w600,
+              fontWeight: FontWeight.w700,
             ),
           ),
         ),
@@ -63,12 +67,38 @@ class NewViewState extends State<NewView>
           }
 
           final List repositories = result.data!['pictures']['data'] as List;
+          final int page = result.data!['pictures']['page'] as int;
+          final int pageSize = result.data!['pictures']['pageSize'] as int;
+          final int count = result.data!['pictures']['count'] as int;
+          final int morePage = (count / pageSize).ceil();
 
           final List<Picture> pictureList = Picture.fromListJson(repositories);
 
           return NewList(
             refetch: refetch!,
             pictureList: pictureList,
+            page: page,
+            morePage: morePage,
+            loading: (int page) async {
+              final fetchMoreVariables = {
+                'query': {'page': page, 'pageSize': 30},
+                'type': 'NEW'
+              };
+              final FetchMoreOptions opts = FetchMoreOptions(
+                variables: fetchMoreVariables,
+                updateQuery: (Map<String, dynamic>? previousResultData,
+                    Map<String, dynamic>? fetchMoreResultData) {
+                  final List<dynamic> repos = <dynamic>[
+                    ...previousResultData!['pictures']['data'] as List<dynamic>,
+                    ...fetchMoreResultData!['pictures']['data'] as List<dynamic>
+                  ];
+                  fetchMoreResultData['pictures']['data'] = repos;
+
+                  return fetchMoreResultData;
+                },
+              );
+              await fetchMore!(opts);
+            },
           );
         },
       ),
