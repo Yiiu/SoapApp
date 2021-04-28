@@ -154,12 +154,22 @@ class PictureItemState extends State<PictureItem> {
       padding: EdgeInsets.symmetric(horizontal: widget.crossAxisSpacing),
       child: TouchableOpacity(
         activeOpacity: activeOpacity,
+        onTap: () {
+          print(heroLabel);
+          Navigator.of(context).pushNamed(
+            RouteName.picture_detail,
+            arguments: {
+              'picture': picture,
+              'heroLabel': heroLabel,
+            },
+          );
+        },
         child: AspectRatio(
           aspectRatio: picture.width / picture.height,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Hero(
-              tag: 'picture$heroLabel-$id',
+              tag: 'picture-$heroLabel-$id',
               child: OctoImage(
                 placeholderBuilder: OctoPlaceholder.blurHash(
                   picture.blurhash,

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-const double appBarHeight = 75.0;
+const double appBarHeight = 58.0;
 
 mixin ThemeConfig {
   static String appName = 'Soap';

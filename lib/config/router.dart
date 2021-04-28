@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/account/login.dart';
 import 'package:soap_app/pages/home/index.dart';
+import 'package:soap_app/pages/picture_detail/picture_detail.dart';
 import 'package:soap_app/pages/setting/setting.dart';
 import 'package:soap_app/pages/user/user.dart';
 
@@ -33,6 +35,13 @@ class Router {
           builder: (_) => UserPage(
             user: (settings.arguments! as dynamic)['user'] as User,
             heroId: (settings.arguments! as dynamic)['heroId'] as String,
+          ),
+        );
+      case RouteName.picture_detail:
+        return CupertinoPageRoute<void>(
+          builder: (_) => PictureDetailPage(
+            picture: (settings.arguments! as dynamic)['picture'] as Picture,
+            heroLabel: (settings.arguments! as dynamic)['heroLabel'] as String?,
           ),
         );
       case RouteName.setting:
