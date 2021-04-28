@@ -8,15 +8,16 @@ import 'package:soap_app/utils/storage.dart';
 import 'config/graphql.dart';
 import 'pages/app.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await StorageUtil.initialize();
   await Jiffy.locale('zh_cn');
   await initHiveForFlutter();
   accountStore.initialize();
   appStore.initialize();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIOverlays([
+  SystemChrome.setPreferredOrientations(
+      <DeviceOrientation>[DeviceOrientation.portraitUp]);
+  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[
     SystemUiOverlay.top,
     SystemUiOverlay.bottom,
   ]);
@@ -28,7 +29,7 @@ void main() async {
   runApp(
     GraphQLProvider(
       client: GraphqlConfig.client,
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
 }

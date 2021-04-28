@@ -27,8 +27,7 @@ dependencies:
 
   waterfall_flow: ^3.0.1
   extended_list: ^3.0.0
-  adaptive_theme: ^2.0.0
-  extended_image: ^4.0.0
+  extended_image: ^4.0.1
   extended_nested_scroll_view: ^3.0.0
   tab_indicator_styler: ^2.0.0-null-safety
   modal_bottom_sheet: ^2.0.0
@@ -46,7 +45,6 @@ dependencies:
   touchable_opacity: ^1.2.0
   flutter_easyrefresh: ^2.2.1
   jiffy: ^4.1.0
-  cached_network_image: ^3.0.0-nullsafety.2
   flutter_keyboard_visibility: ^5.0.1
   octo_image: ^1.0.0+1
   flutter_mobx: ^2.0.0

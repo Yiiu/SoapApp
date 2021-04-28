@@ -56,11 +56,11 @@ mixin ThemeConfig {
     scaffoldBackgroundColor: lightBG,
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       brightness: Brightness.light,
     ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-      selectedLabelStyle: TextStyle(
+      selectedLabelStyle: const TextStyle(
         color: Color(0xffffffff),
       ),
       selectedItemColor: lightTextColor,

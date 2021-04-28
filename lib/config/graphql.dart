@@ -21,7 +21,7 @@ class GraphqlConfig {
     cache: GraphQLCache(store: HiveStore()),
   );
 
-  static ValueNotifier<GraphQLClient> client = ValueNotifier(
+  static ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
     graphQLClient,
   );
 

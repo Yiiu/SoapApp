@@ -1,11 +1,8 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/pages/setting/item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';

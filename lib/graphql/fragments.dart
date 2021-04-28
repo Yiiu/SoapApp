@@ -1,7 +1,5 @@
-import 'package:gql/src/ast/ast.dart';
+import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
-import "package:gql/operation.dart";
 
 DocumentNode pictureFragment = gql(r'''
   fragment PictureFragment on Picture {
@@ -103,7 +101,7 @@ DocumentNode exifFragment = gql(r'''
   }
 ''');
 
-List<DocumentNode> pictureListFragmentDocumentNode = [
+List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
   pictureBaseFragment,
   pictureListFragment,

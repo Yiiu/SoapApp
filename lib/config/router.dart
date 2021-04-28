@@ -20,12 +20,12 @@ class Router {
     switch (settings.name) {
       case RouteName.home:
         return CupertinoPageRoute<void>(
-          builder: (_) => HomePage(),
+          builder: (_) => const HomePage(),
           settings: settings,
         );
       case RouteName.login:
         return CupertinoPageRoute<void>(
-          builder: (_) => LoginPage(),
+          builder: (_) => const LoginPage(),
           settings: settings,
         );
       case RouteName.user:
