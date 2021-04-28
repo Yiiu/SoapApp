@@ -29,9 +29,20 @@ class PictureInfoWidget {
 }
 
 class PictureItem extends StatefulWidget {
-  const PictureItem({required this.picture});
+  PictureItem({
+    Key? key,
+    required this.picture,
+    this.heroLabel = 'list',
+    this.header = true,
+    this.crossAxisSpacing = 16,
+    this.mainAxisSpacing = 20,
+  }) : super(key: key);
 
   final Picture picture;
+  bool header;
+  String heroLabel;
+  double crossAxisSpacing;
+  double mainAxisSpacing;
 
   @override
   PictureItemState createState() => PictureItemState();
@@ -41,18 +52,23 @@ class PictureItemState extends State<PictureItem> {
   PictureItemState();
 
   late Picture picture;
+  late String heroLabel;
   late Uint8List imageDataBytes;
 
   @override
   void initState() {
     super.initState();
     picture = widget.picture;
+    heroLabel = widget.heroLabel;
   }
 
   Widget header() {
     final ThemeData theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
+      padding: EdgeInsets.symmetric(
+        vertical: widget.crossAxisSpacing,
+        horizontal: widget.mainAxisSpacing,
+      ),
       child: Flex(
         direction: Axis.horizontal,
         children: <Widget>[
@@ -66,12 +82,19 @@ class PictureItemState extends State<PictureItem> {
                     Navigator.pushNamed(
                       context,
                       RouteName.user,
-                      arguments: picture.user,
+                      arguments: {
+                        'user': picture.user,
+                        'heroId': picture.id.toString(),
+                      },
                     );
                   },
-                  child: Avatar(
-                    size: 36,
-                    image: picture.user!.avatarUrl,
+                  child: Hero(
+                    tag:
+                        'user-${picture.user!.username}-${picture.id.toString()}',
+                    child: Avatar(
+                      size: 36,
+                      image: picture.user!.avatarUrl,
+                    ),
                   ),
                 ),
                 Padding(
@@ -85,7 +108,10 @@ class PictureItemState extends State<PictureItem> {
                           Navigator.pushNamed(
                             context,
                             RouteName.user,
-                            arguments: picture.user,
+                            arguments: {
+                              'user': picture.user,
+                              'heroId': picture.id.toString(),
+                            },
                           );
                         },
                         child: Padding(
@@ -126,14 +152,15 @@ class PictureItemState extends State<PictureItem> {
   Widget container() {
     final int id = picture.id;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: GestureDetector(
+      padding: EdgeInsets.symmetric(horizontal: widget.crossAxisSpacing),
+      child: TouchableOpacity(
+        activeOpacity: activeOpacity,
         child: AspectRatio(
           aspectRatio: picture.width / picture.height,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: Hero(
-              tag: 'picture-$id',
+              tag: 'picture$heroLabel-$id',
               child: OctoImage(
                 placeholderBuilder: OctoPlaceholder.blurHash(
                   picture.blurhash,
@@ -208,7 +235,7 @@ class PictureItemState extends State<PictureItem> {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              header(),
+              if (widget.header) header(),
               container(),
               // bottom(),
             ],

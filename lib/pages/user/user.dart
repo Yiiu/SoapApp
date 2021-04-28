@@ -8,6 +8,7 @@ import 'package:graphql/src/core/query_result.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/user.dart';
+import 'package:soap_app/pages/user/picture_list.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/storage.dart';
@@ -20,12 +21,15 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
 
 class UserPage extends StatefulWidget {
-  const UserPage({
+  UserPage({
     Key? key,
     required this.user,
+    this.heroId,
   }) : super(key: key);
 
   final User user;
+
+  String? heroId;
 
   @override
   _UserPageState createState() => _UserPageState();
@@ -145,10 +149,19 @@ class _UserPageState extends State<UserPage>
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Row(
                   children: <Widget>[
-                    Avatar(
-                      size: 68,
-                      image: getPictureUrl(key: user.avatar),
-                    ),
+                    if (widget.heroId == null)
+                      Avatar(
+                        size: 68,
+                        image: getPictureUrl(key: user.avatar),
+                      )
+                    else
+                      Hero(
+                        tag: 'user-${user.username}-${widget.heroId}',
+                        child: Avatar(
+                          size: 68,
+                          image: getPictureUrl(key: user.avatar),
+                        ),
+                      ),
                   ],
                 ),
               ),
@@ -286,17 +299,7 @@ class _UserPageState extends State<UserPage>
                     children: <Widget>[
                       extended.NestedScrollViewInnerScrollPositionKeyWidget(
                         Key('Tab0'),
-                        SmartRefresher(
-                          controller: _refreshController,
-                          physics: const BouncingScrollPhysics(),
-                          child: ListView.builder(
-                            padding: EdgeInsets.all(0.0),
-                            itemBuilder: (context, index) {
-                              return Text('123123');
-                            },
-                            itemCount: 10,
-                          ),
-                        ),
+                        UserPictureList(username: user.username),
                       ),
                       extended.NestedScrollViewInnerScrollPositionKeyWidget(
                         Key('Tab1'),

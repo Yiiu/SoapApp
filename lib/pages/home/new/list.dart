@@ -1,3 +1,4 @@
+import 'package:extended_list/extended_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
@@ -69,7 +70,8 @@ class _NewListState extends State<NewList> {
               physics: const BouncingScrollPhysics(),
               onRefresh: _onRefresh,
               onLoading: _onLoading,
-              child: ListView.builder(
+              child: ExtendedListView.builder(
+                extendedListDelegate: ExtendedListDelegate(),
                 itemBuilder: (c, i) => PictureItem(
                   picture: widget.pictureList[i],
                 ),

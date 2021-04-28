@@ -25,6 +25,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  waterfall_flow: ^3.0.1
+  extended_list: ^3.0.0
   adaptive_theme: ^2.0.0
   extended_image: ^4.0.0
   extended_nested_scroll_view: ^3.0.0

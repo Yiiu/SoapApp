@@ -30,7 +30,10 @@ class Router {
         );
       case RouteName.user:
         return CupertinoPageRoute<void>(
-          builder: (_) => UserPage(user: settings.arguments! as User),
+          builder: (_) => UserPage(
+            user: (settings.arguments! as dynamic)['user'] as User,
+            heroId: (settings.arguments! as dynamic)['heroId'] as String,
+          ),
         );
       case RouteName.setting:
         return CupertinoPageRoute<void>(

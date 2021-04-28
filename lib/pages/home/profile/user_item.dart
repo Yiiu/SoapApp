@@ -24,7 +24,10 @@ class ProfileUserItem extends StatelessWidget {
             Navigator.pushNamed(
               context,
               RouteName.user,
-              arguments: accountStore.userInfo,
+              arguments: {
+                'user': accountStore.userInfo,
+                'heroId': 'profile',
+              },
             );
           }
         },
@@ -38,10 +41,14 @@ class ProfileUserItem extends StatelessWidget {
                   child: Observer(
                     builder: (_) {
                       if (accountStore.isLogin) {
-                        return Avatar(
-                          size: 64,
-                          image:
-                              getPictureUrl(key: accountStore.userInfo!.avatar),
+                        return Hero(
+                          tag:
+                              'user-${accountStore.userInfo!.username}-profile',
+                          child: Avatar(
+                            size: 64,
+                            image: getPictureUrl(
+                                key: accountStore.userInfo!.avatar),
+                          ),
                         );
                       }
                       return const SizedBox(
