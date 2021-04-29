@@ -5,77 +5,58 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/utils/list.dart';
+import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
-class UserPictureList extends StatefulWidget {
+class UserPictureList extends StatelessWidget {
   UserPictureList({
     Key? key,
     required this.username,
   }) : super(key: key);
-
   String username;
 
-  @override
-  _UserPictureListState createState() => _UserPictureListState();
-}
-
-class _UserPictureListState extends State<UserPictureList> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   int page = 1;
   int pageSize = 30;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
   Future<void> _onRefresh(Refetch refetch) async {
     await refetch();
     _refreshController.refreshCompleted();
   }
 
-  Future<void> _onLoading(int count, FetchMore fetchMore) async {
+  Future<void> _onLoading(
+    ListData<Picture> listData,
+    FetchMore fetchMore,
+  ) async {
     final Map<String, Object> fetchMoreVariables = {
+      'username': username,
       'query': {
-        'page': page,
-        'pageSize': pageSize,
+        'page': listData.page,
+        'pageSize': listData.pageSize,
       }
     };
-    final int morePage = (count / pageSize).ceil();
-    final FetchMoreOptions opts = FetchMoreOptions(
-      variables: fetchMoreVariables,
-      updateQuery: (Map<String, dynamic>? previousResultData,
-          Map<String, dynamic>? fetchMoreResultData) {
-        final List<dynamic> repos = <dynamic>[
-          ...previousResultData!['userPicturesByName']['data'] as List<dynamic>,
-          ...fetchMoreResultData!['userPicturesByName']['data'] as List<dynamic>
-        ];
-        fetchMoreResultData['userPicturesByName']['data'] = repos;
-
-        return fetchMoreResultData;
-      },
-    );
-    if (page + 1 >= morePage) {
+    if (listData.noMore) {
       _refreshController.loadNoData();
       return;
     }
-    await fetchMore(opts);
+    await fetchMore(
+      listFetchMoreOptions(
+        variables: fetchMoreVariables,
+        label: 'userPicturesByName',
+      ),
+    );
     _refreshController.loadComplete();
   }
 
   @override
   Widget build(BuildContext context) {
     const double padding = 16;
-    final variables = {
-      'username': widget.username,
+    final Map<String, Object> variables = {
+      'username': username,
       'query': {
         'page': page,
         'pageSize': pageSize,
@@ -102,15 +83,10 @@ class _UserPictureListState extends State<UserPictureList> {
           if (result.isLoading && result.data == null) {
             return const Text('加载中');
           }
-
-          final List repositories =
-              result.data!['userPicturesByName']['data'] as List;
-          final int page = result.data!['userPicturesByName']['page'] as int;
-          final int pageSize =
-              result.data!['userPicturesByName']['pageSize'] as int;
-          final int count = result.data!['userPicturesByName']['count'] as int;
-
-          final List<Picture> pictureList = Picture.fromListJson(repositories);
+          final ListData<Picture> listData = pictureListDataFormat(
+            result.data!,
+            label: 'userPicturesByName',
+          );
 
           return SmartRefresher(
             enablePullUp: true,
@@ -125,11 +101,11 @@ class _UserPictureListState extends State<UserPictureList> {
                 crossAxisSpacing: padding,
                 mainAxisSpacing: padding,
               ),
-              itemCount: pictureList.length,
+              itemCount: listData.list.length,
               itemBuilder: (_, i) => PictureItem(
                 heroLabel: 'user-list',
                 crossAxisSpacing: 0,
-                picture: pictureList[i],
+                picture: listData.list[i],
                 header: false,
               ),
             ),
@@ -137,7 +113,7 @@ class _UserPictureListState extends State<UserPictureList> {
               _onRefresh(refetch!);
             },
             onLoading: () {
-              _onLoading(count, fetchMore!);
+              _onLoading(listData, fetchMore!);
             },
             // onLoading: _onLoading,
             // child: ExtendedListView.builder(

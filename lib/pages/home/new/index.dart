@@ -1,11 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/home/new/list.dart';
+import 'package:soap_app/utils/list.dart';
+import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
 
 class NewView extends StatefulWidget {
@@ -20,19 +25,24 @@ class NewViewState extends State<NewView>
   @override
   bool get wantKeepAlive => true;
 
+  Map<String, int> query = {
+    'page': 1,
+    'pageSize': 30,
+  };
+
+  String type = 'NEW';
+
   static List<String> get tabs => ['最新', '热门'];
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
-    final variables = {
-      'query': {
-        'page': 1,
-        'pageSize': 30,
-      },
-      'type': 'NEW'
-    };
+    final variables = {'query': query, 'type': type};
     return FixedAppBarWrapper(
+      backdropBar: true,
       appBar: const SoapAppBar(
+        backdrop: true,
         centerTitle: false,
         elevation: 0.2,
         title: Padding(
@@ -59,45 +69,98 @@ class NewViewState extends State<NewView>
           FetchMore? fetchMore,
         }) {
           if (result.hasException && result.data == null) {
-            return Text(result.exception.toString());
+            return Container(
+              color: Theme.of(context).backgroundColor,
+              child: SmartRefresher(
+                enablePullUp: false,
+                enablePullDown: true,
+                controller: _refreshController,
+                physics: const BouncingScrollPhysics(),
+                child: SizedBox(
+                  height: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        children: const <Widget>[
+                          Icon(
+                            FeatherIcons.alertCircle,
+                            size: 42,
+                            color: Colors.red,
+                          ),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '服务器挂掉惹,请重试',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
           }
 
           if (result.isLoading && result.data == null) {
-            return const Text('加载中');
+            return Container(
+              color: Theme.of(context).backgroundColor,
+              child: SmartRefresher(
+                enablePullUp: false,
+                enablePullDown: true,
+                controller: _refreshController,
+                physics: const BouncingScrollPhysics(),
+                child: SizedBox(
+                  height: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Column(
+                        children: const <Widget>[
+                          CupertinoActivityIndicator(),
+                          SizedBox(
+                            height: 4,
+                          ),
+                          Text(
+                            '加载中...',
+                            style: TextStyle(
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
           }
 
-          final List repositories = result.data!['pictures']['data'] as List;
-          final int page = result.data!['pictures']['page'] as int;
-          final int pageSize = result.data!['pictures']['pageSize'] as int;
-          final int count = result.data!['pictures']['count'] as int;
-          final int morePage = (count / pageSize).ceil();
-
-          final List<Picture> pictureList = Picture.fromListJson(repositories);
+          final ListData<Picture> listData = pictureListDataFormat(
+            result.data!,
+            label: 'pictures',
+          );
 
           return NewList(
+            listData: listData,
             refetch: refetch!,
-            pictureList: pictureList,
-            page: page,
-            morePage: morePage,
             loading: (int page) async {
-              final fetchMoreVariables = {
-                'query': {'page': page, 'pageSize': 30},
-                'type': 'NEW'
+              final Map<String, Object> fetchMoreVariables = {
+                'query': {...query, 'page': page},
+                'type': type
               };
-              final FetchMoreOptions opts = FetchMoreOptions(
-                variables: fetchMoreVariables,
-                updateQuery: (Map<String, dynamic>? previousResultData,
-                    Map<String, dynamic>? fetchMoreResultData) {
-                  final List<dynamic> repos = <dynamic>[
-                    ...previousResultData!['pictures']['data'] as List<dynamic>,
-                    ...fetchMoreResultData!['pictures']['data'] as List<dynamic>
-                  ];
-                  fetchMoreResultData['pictures']['data'] = repos;
-
-                  return fetchMoreResultData;
-                },
+              await fetchMore!(
+                listFetchMoreOptions(
+                  variables: fetchMoreVariables,
+                  label: 'pictures',
+                ),
               );
-              await fetchMore!(opts);
             },
           );
         },

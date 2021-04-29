@@ -42,10 +42,6 @@ class _MyHomePageState extends State<HomePage>
           icon: FeatherIcons.home,
           title: 'Home',
         ),
-        // SoapBottomNavigationBarItem(
-        //   icon: FeatherIcons.search,
-        //   title: 'Search',
-        // ),
         const SoapBottomNavigationBarItem(
           icon: FeatherIcons.plus,
           title: 'Add',
@@ -69,6 +65,12 @@ class _MyHomePageState extends State<HomePage>
   }
 
   void handleTabChange(int index) {
+    if (index == _addIndex) {
+      if (!accountStore.isLogin) {
+        Navigator.pushNamed(context, RouteName.login);
+        return;
+      }
+    }
     if (index == _loginIndex && !accountStore.isLogin) {
       Navigator.pushNamed(context, RouteName.login);
       return;
@@ -92,9 +94,9 @@ class _MyHomePageState extends State<HomePage>
     const double gap = 8.5;
     final ThemeData theme = Theme.of(context);
     return Material(
-      child: CupertinoPageScaffold(
-        child: Scaffold(
-          body: Column(
+      child: Stack(
+        children: [
+          Column(
             children: <Widget>[
               Expanded(
                 child: TabBarView(
@@ -102,7 +104,7 @@ class _MyHomePageState extends State<HomePage>
                   controller: tabController,
                   children: <Widget>[
                     NewView(),
-                    const Text('4'),
+                    const Text(''),
                     ProfileView(
                       controller: tabController,
                       signupCb: signup,
@@ -112,48 +114,61 @@ class _MyHomePageState extends State<HomePage>
               ),
             ],
           ),
-          bottomNavigationBar: Container(
-            decoration: BoxDecoration(
-              color: theme.cardColor,
-            ),
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(10).add(
-                  const EdgeInsets.only(top: 5),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: ClipRect(
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                  sigmaX: 12,
+                  sigmaY: 12,
                 ),
-                child: GNav(
-                  gap: gap,
-                  activeColor: theme.cardColor,
-                  color: Colors.grey[400],
-                  iconSize: 18,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                  duration: const Duration(milliseconds: 400),
-                  tabBackgroundColor: Colors.grey[800]!,
-                  tabs: bottomBar
-                      .map<GButton>(
-                        (SoapBottomNavigationBarItem bar) => GButton(
-                            icon: bar.icon,
-                            text: bar.title,
-                            iconActiveColor: theme.bottomNavigationBarTheme
-                                .selectedLabelStyle!.color,
-                            iconColor: theme.textTheme.bodyText2!.color,
-                            textStyle: TextStyle(
-                              color: theme.bottomNavigationBarTheme
-                                  .selectedLabelStyle!.color,
+                child: Container(
+                  color: Colors.white.withOpacity(.85),
+                  height: 64,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: bottomBar
+                        .map<Widget>(
+                          (SoapBottomNavigationBarItem bar) => GestureDetector(
+                            behavior: HitTestBehavior.opaque,
+                            onTap: () {
+                              handleTabChange(bottomBar.indexOf(bar));
+                            },
+                            child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 22),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    bar.icon,
+                                    size: 28,
+                                    color:
+                                        _selectedIndex == bottomBar.indexOf(bar)
+                                            ? theme.primaryColor
+                                            : theme.textTheme.bodyText1!.color!
+                                                .withOpacity(.4),
+                                  ),
+                                ],
+                              ),
                             ),
-                            backgroundColor: theme
-                                .bottomNavigationBarTheme.selectedItemColor),
-                      )
-                      .toList(),
-                  selectedIndex: _selectedIndex,
-                  onTabChange: handleTabChange,
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
+      // bottomNavigationBar: SafeArea(
+      //   top: false,
+      //   child: ,
+      // ),
     );
   }
 }

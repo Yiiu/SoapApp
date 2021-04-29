@@ -11,6 +11,7 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
     Key? key,
+    this.backdrop = false,
     this.automaticallyImplyLeading = false,
     this.title,
     this.centerTitle = true,
@@ -33,6 +34,7 @@ class SoapAppBar extends StatefulWidget {
   final double? height;
   final Brightness? brightness;
   final Color? textColor;
+  final bool backdrop;
 
   @override
   _SoapAppBarState createState() => _SoapAppBarState();
@@ -66,84 +68,96 @@ class _SoapAppBarState extends State<SoapAppBar>
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light
         : SystemUiOverlayStyle.dark;
-    return Container(
-      child: AnnotatedRegion<SystemUiOverlayStyle>(
-        value: overlayStyle,
-        child: AnimatedContainer(
-          duration: const Duration(milliseconds: 250),
-          padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-          height: widget.height ??
-              appBarHeight + MediaQuery.of(context).padding.top,
-          decoration: BoxDecoration(
-            boxShadow: widget.elevation > 0
-                ? <BoxShadow>[
-                    BoxShadow(
-                      color: const Color(0x0d000000),
-                      blurRadius: widget.elevation * 1.0,
-                      offset: Offset(0, widget.elevation * 2.0),
-                    ),
-                  ]
-                : null,
-            color: widget.backgroundColor ?? theme.cardColor,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              //  && Navigator.of(context).canPop()
-              if (widget.automaticallyImplyLeading)
-                Container(
-                  width: 48,
-                  padding: const EdgeInsets.only(left: 4),
-                  alignment: Alignment.centerLeft,
-                  child: TouchableOpacity(
-                    activeOpacity: activeOpacity,
-                    child: Container(
-                      child: Icon(
-                        FeatherIcons.arrowLeft,
-                        color: widget.textColor ??
-                            theme.textTheme.bodyText2!.color,
-                      ),
-                    ),
-                    onTap: () {
-                      Navigator.maybePop(context);
-                    },
+    final Color barBg = widget.backgroundColor ?? theme.cardColor;
+    final Widget content = AnnotatedRegion<SystemUiOverlayStyle>(
+      value: overlayStyle,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 250),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
+        height:
+            widget.height ?? appBarHeight + MediaQuery.of(context).padding.top,
+        decoration: BoxDecoration(
+          boxShadow: widget.elevation > 0
+              ? <BoxShadow>[
+                  BoxShadow(
+                    color: const Color(0x0d000000),
+                    blurRadius: widget.elevation * 1.0,
+                    offset: Offset(0, widget.elevation * 2.0),
                   ),
-                ),
-              if (_title != null)
-                Expanded(
-                  child: Align(
-                    alignment: widget.centerTitle
-                        ? Alignment.center
-                        : AlignmentDirectional.centerStart,
-                    child: DefaultTextStyle(
-                      child: _title,
-                      style: GoogleFonts.rubik(
-                        textStyle: TextStyle(
-                          fontSize: 20,
-                          color: Theme.of(context).textTheme.bodyText1!.color,
-                        ),
-                      ),
-                      maxLines: 1,
-                      softWrap: false,
-                      overflow: TextOverflow.ellipsis,
+                ]
+              : null,
+          color: widget.backdrop ? barBg.withOpacity(.85) : barBg,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            //  && Navigator.of(context).canPop()
+            if (widget.automaticallyImplyLeading)
+              Container(
+                width: 48,
+                padding: const EdgeInsets.only(left: 4),
+                alignment: Alignment.centerLeft,
+                child: TouchableOpacity(
+                  activeOpacity: activeOpacity,
+                  child: Container(
+                    child: Icon(
+                      FeatherIcons.arrowLeft,
+                      color:
+                          widget.textColor ?? theme.textTheme.bodyText2!.color,
                     ),
                   ),
+                  onTap: () {
+                    Navigator.maybePop(context);
+                  },
                 ),
-              //  && Navigator.of(context).canPop()
-              if (widget.automaticallyImplyLeading &&
-                  (widget.actions?.isEmpty ?? true))
-                const SizedBox(width: 48.0)
-              else if (widget.actions?.isNotEmpty ?? false)
-                Padding(
-                  padding: widget.actionsPadding ?? EdgeInsets.zero,
-                  child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: widget.actions!),
+              ),
+            if (_title != null)
+              Expanded(
+                child: Align(
+                  alignment: widget.centerTitle
+                      ? Alignment.center
+                      : AlignmentDirectional.centerStart,
+                  child: DefaultTextStyle(
+                    child: _title,
+                    style: GoogleFonts.rubik(
+                      textStyle: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).textTheme.bodyText1!.color,
+                      ),
+                    ),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
-            ],
-          ),
+              ),
+            //  && Navigator.of(context).canPop()
+            if (widget.automaticallyImplyLeading &&
+                (widget.actions?.isEmpty ?? true))
+              const SizedBox(width: 48.0)
+            else if (widget.actions?.isNotEmpty ?? false)
+              Padding(
+                padding: widget.actionsPadding ?? EdgeInsets.zero,
+                child: Row(
+                    mainAxisSize: MainAxisSize.min, children: widget.actions!),
+              ),
+          ],
         ),
       ),
+    );
+    if (widget.backdrop) {
+      return ClipRect(
+        child: BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 2,
+            sigmaY: 2,
+          ),
+          child: Container(child: content),
+        ),
+      );
+    }
+    return Container(
+      child: content,
     );
   }
 }
@@ -155,7 +169,8 @@ class FixedAppBarWrapper extends StatelessWidget {
     Key? key,
     required this.appBar,
     required this.body,
-  })   : assert(
+    this.backdropBar = false,
+  })  : assert(
           appBar != null && body != null,
           'All fields must not be null.',
         ),
@@ -163,6 +178,7 @@ class FixedAppBarWrapper extends StatelessWidget {
 
   final SoapAppBar appBar;
   final Widget body;
+  final bool backdropBar;
 
   @override
   Widget build(BuildContext context) {
@@ -171,7 +187,9 @@ class FixedAppBarWrapper extends StatelessWidget {
       child: Stack(
         children: <Widget>[
           Positioned(
-            top: appBarHeight + MediaQuery.of(context).padding.top,
+            top: backdropBar
+                ? 0
+                : appBarHeight + MediaQuery.of(context).padding.top,
             left: 0.0,
             right: 0.0,
             bottom: 0.0,
