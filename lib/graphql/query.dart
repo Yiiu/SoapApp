@@ -20,3 +20,11 @@ DocumentNode userPictures = gql(r'''
     }
   }
 ''');
+
+DocumentNode picture = gql(r'''
+  query Picture($id: Float!) {
+    picture(id: $id) {
+      ...PictureDetailFragment
+    }
+  }
+''');

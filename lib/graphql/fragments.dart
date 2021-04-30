@@ -1,6 +1,36 @@
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+DocumentNode pictureDetailFragment = gql(r'''
+  fragment PictureDetailFragment on Picture {
+    ...PictureFragment
+    isPrivate
+    commentCount
+    currentCollections {
+      ...CollectionFragment
+    }
+    # relatedCollections(limit: 3) {
+    #   ...RelatedCollectionFragment
+    # }
+    user {
+      ...UserBaseFragment
+      isFollowing
+    }
+    tags {
+      ...TagFragment
+    }
+    exif {
+      ...EXIFFragment
+    }
+    badge {
+      ...BadgeFragment
+    }
+    location {
+      ...PictureLocationFragment
+    }
+  }
+''');
+
 DocumentNode pictureFragment = gql(r'''
   fragment PictureFragment on Picture {
     ...PictureBaseFragment
@@ -100,6 +130,48 @@ DocumentNode exifFragment = gql(r'''
     location
   }
 ''');
+DocumentNode collectionFragment = gql(r'''
+  fragment CollectionFragment on Collection {
+    id
+    name
+    bio
+    isPrivate
+    createTime
+    updateTime
+    pictureCount
+  }
+''');
+DocumentNode tagFragment = gql(r'''
+  fragment TagFragment on Tag {
+    id
+    name
+    createTime
+    updateTime
+    pictureCount
+  }
+''');
+DocumentNode pictureLocationFragment = gql(r'''
+  fragment PictureLocationFragment on PictureLocation {
+    formatted_address
+    business
+    country
+    country_code
+    province
+    city
+    district
+    town
+    location {
+      lat
+      lng
+    }
+    pois(limit: 3) {
+      addr
+      name
+      poiType
+      tag
+    }
+  }
+''');
 
 List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
@@ -109,4 +181,17 @@ List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   userBaseFragment,
   userFragment,
   exifFragment,
+];
+
+List<DocumentNode> pictureDetailFragmentDocumentNode = <DocumentNode>[
+  pictureDetailFragment,
+  pictureFragment,
+  pictureBaseFragment,
+  badgeFragment,
+  userBaseFragment,
+  userFragment,
+  exifFragment,
+  collectionFragment,
+  tagFragment,
+  pictureLocationFragment,
 ];
