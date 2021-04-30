@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
@@ -91,6 +92,7 @@ class PictureDetailPage extends StatelessWidget {
                         height: appBarHeight,
                       ),
                       TouchableOpacity(
+                        activeOpacity: activeOpacity,
                         onTap: () {
                           Navigator.of(context).push<dynamic>(
                             TransparentRoute(
@@ -99,7 +101,7 @@ class PictureDetailPage extends StatelessWidget {
                                 heroLabel: heroLabel,
                                 image: getPictureUrl(
                                   key: data.key,
-                                  style: PictureStyle.full,
+                                  style: PictureStyle.regular,
                                 ),
                               ),
                             ),

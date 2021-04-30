@@ -27,7 +27,7 @@ class TagItem extends StatelessWidget {
           borderRadius: const BorderRadius.all(
             Radius.circular(100),
           ),
-          color: const Color(0xFF5789d1).withOpacity(.2),
+          color: const Color(0xFF5789d1).withOpacity(.15),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,

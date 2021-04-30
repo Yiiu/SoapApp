@@ -126,7 +126,7 @@ class _MyHomePageState extends State<HomePage>
                 ),
                 child: Container(
                   color: theme.cardColor.withOpacity(.85),
-                  height: 64,
+                  height: 52,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -145,7 +145,7 @@ class _MyHomePageState extends State<HomePage>
                                 children: [
                                   Icon(
                                     bar.icon,
-                                    size: 28,
+                                    size: 24,
                                     color:
                                         _selectedIndex == bottomBar.indexOf(bar)
                                             ? theme.primaryColor
