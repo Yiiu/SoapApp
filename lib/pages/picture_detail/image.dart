@@ -32,7 +32,7 @@ class PictureDetailImage extends StatelessWidget {
     final double num = picture.width / picture.height;
     if (num < minFactor && num < 1) {
       return Container(
-        color: const Color(0xFFF8FAFC),
+        color: Theme.of(context).cardColor,
         height: imgMaxHeight,
         child: FractionallySizedBox(
           widthFactor: picture.width / picture.height,

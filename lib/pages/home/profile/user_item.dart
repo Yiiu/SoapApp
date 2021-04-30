@@ -87,7 +87,7 @@ class ProfileUserItem extends StatelessWidget {
                 Container(
                   child: Icon(
                     FeatherIcons.chevronRight,
-                    color: theme.textTheme.bodyText1!.color!.withOpacity(.6),
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
                   ),
                 ),
               ],

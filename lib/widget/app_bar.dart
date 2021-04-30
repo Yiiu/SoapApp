@@ -22,6 +22,7 @@ class SoapAppBar extends StatefulWidget {
     this.height,
     this.brightness,
     this.textColor,
+    this.border = false,
   }) : super(key: key);
 
   final Widget? title;
@@ -31,6 +32,7 @@ class SoapAppBar extends StatefulWidget {
   final bool centerTitle;
   final Color? backgroundColor;
   final double elevation;
+  final bool border;
   final double? height;
   final Brightness? brightness;
   final Color? textColor;
@@ -77,6 +79,14 @@ class _SoapAppBarState extends State<SoapAppBar>
         height:
             widget.height ?? appBarHeight + MediaQuery.of(context).padding.top,
         decoration: BoxDecoration(
+          border: widget.border
+              ? Border(
+                  bottom: BorderSide(
+                    color: theme.textTheme.overline!.color!.withOpacity(.2),
+                    width: .3,
+                  ),
+                )
+              : null,
           boxShadow: widget.elevation > 0
               ? <BoxShadow>[
                   BoxShadow(
@@ -122,7 +132,7 @@ class _SoapAppBarState extends State<SoapAppBar>
                     style: GoogleFonts.rubik(
                       textStyle: TextStyle(
                         fontSize: 20,
-                        color: Theme.of(context).textTheme.bodyText1!.color,
+                        color: Theme.of(context).textTheme.bodyText2!.color,
                       ),
                     ),
                     maxLines: 1,
@@ -152,7 +162,17 @@ class _SoapAppBarState extends State<SoapAppBar>
             sigmaX: 16,
             sigmaY: 16,
           ),
-          child: Container(child: content),
+          child: Container(
+            // decoration: BoxDecoration(
+            //   border: Border(
+            //     bottom: BorderSide(
+            //       color: theme.textTheme.overline!.color!.withOpacity(1),
+            //       width: 2,
+            //     ),
+            //   ),
+            // ),
+            child: content,
+          ),
         ),
       );
     }

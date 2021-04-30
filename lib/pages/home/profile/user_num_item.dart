@@ -58,7 +58,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               Text(
                 count != null ? count.toString() : '--',
                 style: theme.textTheme.bodyText2!.copyWith(
-                  color: theme.textTheme.bodyText1!.color,
+                  color: theme.textTheme.bodyText2!.color,
                   fontSize: 18,
                   fontWeight: FontWeight.w600,
                 ),

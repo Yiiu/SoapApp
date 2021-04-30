@@ -9,7 +9,7 @@ mixin ThemeConfig {
 
   //Colors for theme
   static Color lightPrimary = const Color(0xff1A5CFF);
-  static Color darkPrimary = Colors.black;
+  static Color darkPrimary = const Color(0xff1A5CFF);
   static Color lightAccent = Colors.blueGrey[900]!;
   static Color darkAccent = Colors.white;
   static Color lightBG = const Color(0xffFAFAFA);
@@ -59,6 +59,7 @@ mixin ThemeConfig {
     appBarTheme: const AppBarTheme(
       brightness: Brightness.light,
     ),
+    dialogBackgroundColor: const Color(0xff000000),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedLabelStyle: const TextStyle(
         color: Color(0xffffffff),
@@ -82,6 +83,7 @@ mixin ThemeConfig {
     appBarTheme: const AppBarTheme(
       brightness: Brightness.dark,
     ),
+    dialogBackgroundColor: const Color(0xff000000),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedLabelStyle: TextStyle(
         color: darkTextColor,

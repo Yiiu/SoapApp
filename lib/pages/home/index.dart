@@ -121,11 +121,11 @@ class _MyHomePageState extends State<HomePage>
             child: ClipRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(
-                  sigmaX: 12,
-                  sigmaY: 12,
+                  sigmaX: 16,
+                  sigmaY: 16,
                 ),
                 child: Container(
-                  color: Colors.white.withOpacity(.85),
+                  color: theme.cardColor.withOpacity(.85),
                   height: 64,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -149,8 +149,8 @@ class _MyHomePageState extends State<HomePage>
                                     color:
                                         _selectedIndex == bottomBar.indexOf(bar)
                                             ? theme.primaryColor
-                                            : theme.textTheme.bodyText1!.color!
-                                                .withOpacity(.4),
+                                            : theme.textTheme.bodyText2!.color!
+                                                .withOpacity(.5),
                                   ),
                                 ],
                               ),
