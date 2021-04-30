@@ -149,8 +149,8 @@ class _SoapAppBarState extends State<SoapAppBar>
       return ClipRect(
         child: BackdropFilter(
           filter: ImageFilter.blur(
-            sigmaX: 2,
-            sigmaY: 2,
+            sigmaX: 16,
+            sigmaY: 16,
           ),
           child: Container(child: content),
         ),

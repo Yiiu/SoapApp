@@ -2,6 +2,7 @@ import 'package:extended_list/extended_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/widget/picture_item.dart';
@@ -42,22 +43,31 @@ class NewList extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Expanded(
-            child: SmartRefresher(
-              // header: SizedBox(
-              //   height: 10,
-              // ),
-              enablePullUp: true,
-              enablePullDown: true,
-              controller: _refreshController,
-              physics: const BouncingScrollPhysics(),
-              onRefresh: _onRefresh,
-              onLoading: _onLoading,
-              child: ExtendedListView.builder(
-                extendedListDelegate: const ExtendedListDelegate(),
-                itemBuilder: (BuildContext _, int i) => PictureItem(
-                  picture: listData.list[i],
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) {
+                return <Widget>[
+                  SliverAppBar(
+                    backgroundColor: Theme.of(context).backgroundColor,
+                    title: Text(''),
+                    toolbarHeight: appBarHeight,
+                  )
+                ];
+              },
+              body: SmartRefresher(
+                enablePullUp: true,
+                enablePullDown: true,
+                controller: _refreshController,
+                physics: const BouncingScrollPhysics(),
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: ExtendedListView.builder(
+                  extendedListDelegate: const ExtendedListDelegate(),
+                  itemBuilder: (BuildContext _, int i) => PictureItem(
+                    picture: listData.list[i],
+                  ),
+                  itemCount: listData.list.length,
                 ),
-                itemCount: listData.list.length,
               ),
             ),
           ),
