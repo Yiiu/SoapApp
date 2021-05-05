@@ -25,7 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  photo_view: ^0.11.1 
+  photo_view: ^0.11.1
   waterfall_flow: ^3.0.1
   extended_list: ^3.0.0
   extended_image: ^4.0.1
@@ -51,11 +51,6 @@ dependencies:
   flutter_mobx: ^2.0.0
   mobx: ^2.0.1
   shelf_proxy: ^1.0.0
-  google_nav_bar:
-    git:
-      url: https://github.com/Yiiu/google_nav_bar
-      path: .
-      ref: master
   pull_to_refresh:
     git:
       url: https://github.com/peng8350/flutter_pulltorefresh
@@ -77,6 +72,13 @@ flutter:
     - assets/feather/plus.svg
     - assets/feather/settings.svg
     - assets/feather/chevron-right.svg
+    - assets/feather/camera.svg
+    - assets/remix/home-2.svg
+    - assets/remix/add-circle.svg
+    - assets/remix/user.svg
+    - assets/remix/camera-3-line.svg
+    - assets/remix/camera-lens-line.svg
+    - assets/remix/heart-3-line.svg
 
 flutter_native_splash:
   image: assets/images/splash.gif

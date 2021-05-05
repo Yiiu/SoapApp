@@ -31,13 +31,9 @@ class PictureDetailImage extends StatelessWidget {
         ));
     final double num = picture.width / picture.height;
     if (num < minFactor && num < 1) {
-      return Container(
-        color: Theme.of(context).cardColor,
-        height: imgMaxHeight,
-        child: FractionallySizedBox(
-          widthFactor: picture.width / picture.height,
-          child: _content,
-        ),
+      return FractionallySizedBox(
+        widthFactor: picture.width / picture.height,
+        child: _content,
       );
     } else {
       return AspectRatio(

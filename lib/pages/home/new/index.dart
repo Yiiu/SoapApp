@@ -57,6 +57,7 @@ class NewViewState extends State<NewView>
       ),
       body: Query(
         options: QueryOptions(
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
           document: addFragments(
             pictures,
             [...pictureListFragmentDocumentNode],

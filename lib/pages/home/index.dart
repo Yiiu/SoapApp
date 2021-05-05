@@ -4,9 +4,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'new/index.dart';
 import 'profile/profile.dart';
@@ -15,12 +15,10 @@ class SoapBottomNavigationBarItem {
   const SoapBottomNavigationBarItem({
     required this.icon,
     required this.title,
-    IconData? activeIcon,
-  }) : activeIcon = activeIcon ?? icon;
+  });
 
-  final IconData icon;
+  final String icon;
   final String title;
-  final IconData activeIcon;
 }
 
 class HomePage extends StatefulWidget {
@@ -39,15 +37,15 @@ class _MyHomePageState extends State<HomePage>
 
   static List<SoapBottomNavigationBarItem> get bottomBar => [
         const SoapBottomNavigationBarItem(
-          icon: FeatherIcons.home,
+          icon: 'assets/remix/home-2.svg',
           title: 'Home',
         ),
         const SoapBottomNavigationBarItem(
-          icon: FeatherIcons.plus,
+          icon: 'assets/remix/add-circle.svg',
           title: 'Add',
         ),
         const SoapBottomNavigationBarItem(
-          icon: FeatherIcons.user,
+          icon: 'assets/remix/user.svg',
           title: 'Profile',
         ),
       ];
@@ -126,7 +124,7 @@ class _MyHomePageState extends State<HomePage>
                 ),
                 child: Container(
                   color: theme.cardColor.withOpacity(.85),
-                  height: 52,
+                  height: 56,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -143,15 +141,18 @@ class _MyHomePageState extends State<HomePage>
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Icon(
-                                    bar.icon,
-                                    size: 24,
-                                    color:
-                                        _selectedIndex == bottomBar.indexOf(bar)
-                                            ? theme.primaryColor
-                                            : theme.textTheme.bodyText2!.color!
-                                                .withOpacity(.5),
-                                  ),
+                                  SizedBox(
+                                    height: 26,
+                                    width: 26,
+                                    child: SvgPicture.asset(
+                                      bar.icon,
+                                      color: _selectedIndex ==
+                                              bottomBar.indexOf(bar)
+                                          ? theme.primaryColor
+                                          : theme.textTheme.bodyText2!.color!
+                                              .withOpacity(.5),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),

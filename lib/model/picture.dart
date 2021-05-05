@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/exif.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/utils/picture.dart';
 
@@ -34,6 +35,7 @@ class Picture {
     required this.updateTime,
     this.user,
     this.tags,
+    this.exif,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) =>
@@ -63,6 +65,7 @@ class Picture {
   final DateTime updateTime;
   final User? user;
   final List<Tag>? tags;
+  final Exif? exif;
 
   String pictureUrl({PictureStyle style = PictureStyle.small}) {
     return getPictureUrl(key: key, style: style);
