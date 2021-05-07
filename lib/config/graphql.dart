@@ -5,9 +5,13 @@ import 'package:soap_app/store/index.dart';
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(
     'https://soapphoto.com/graphql',
+    defaultHeaders: {
+      'accept': 'application/json',
+    },
   );
 
   static AuthLink authLink = AuthLink(
+    headerKey: 'Authorization',
     getToken: () async {
       if (accountStore.accessToken != null) {
         return 'Bearer ${accountStore.accessToken}';

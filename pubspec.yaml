@@ -79,6 +79,7 @@ flutter:
     - assets/remix/camera-3-line.svg
     - assets/remix/camera-lens-line.svg
     - assets/remix/heart-3-line.svg
+    - assets/remix/heart-3-fill.svg
 
 flutter_native_splash:
   image: assets/images/splash.gif

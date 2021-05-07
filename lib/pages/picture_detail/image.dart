@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,7 @@ class PictureDetailImage extends StatelessWidget {
         MediaQuery.of(context).padding.top -
         appBarHeight;
     final double minFactor = MediaQuery.of(context).size.width / imgMaxHeight;
+
     final _content = Hero(
         tag: 'picture-$heroLabel-${picture.id}',
         child: OctoImage(
@@ -31,9 +33,14 @@ class PictureDetailImage extends StatelessWidget {
         ));
     final double num = picture.width / picture.height;
     if (num < minFactor && num < 1) {
-      return FractionallySizedBox(
-        widthFactor: picture.width / picture.height,
-        child: _content,
+      return Container(
+        color: Theme.of(context).cardColor,
+        height: imgMaxHeight,
+        child: FractionallySizedBox(
+          widthFactor: num / minFactor,
+          heightFactor: 1,
+          child: _content,
+        ),
       );
     } else {
       return AspectRatio(

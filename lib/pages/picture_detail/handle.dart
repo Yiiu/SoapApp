@@ -4,27 +4,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/handle_store.dart';
+import 'package:soap_app/repository/picture_repository.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-const double pictureDetailHandleHeight = 54;
+const double pictureDetailHandleHeight = 62;
 
-class PictureDetailHandle extends StatelessWidget {
+class PictureDetailHandle extends StatefulWidget {
   PictureDetailHandle({
+    Key? key,
     required this.picture,
-  });
+  }) : super(key: key);
   final Picture picture;
+
+  @override
+  _PictureDetailHandleState createState() => _PictureDetailHandleState();
+}
+
+class _PictureDetailHandleState extends State<PictureDetailHandle> {
   final FocusNode focusNode = FocusNode();
 
-  final HandleStore _store = HandleStore();
+  late HandleStore _store;
+  @override
+  void initState() {
+    super.initState();
+    _store = HandleStore();
+  }
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Observer(
       builder: (_) => Positioned(
+        // curve: Curves.ease,
+        // duration: const Duration(milliseconds: 250),
         bottom: MediaQuery.of(context).viewInsets.bottom,
         left: 0,
         right: 0,
@@ -58,7 +74,7 @@ class PictureDetailHandle extends StatelessWidget {
                       sigmaY: 16,
                     ),
                     child: Container(
-                      color: theme.cardColor.withOpacity(.9),
+                      color: theme.cardColor,
                       width: double.infinity,
                       height: pictureDetailHandleHeight,
                       padding: const EdgeInsets.symmetric(
@@ -76,9 +92,9 @@ class PictureDetailHandle extends StatelessWidget {
                             child: PictureDetailHandleBasic(
                               focusNode: focusNode,
                               store: _store,
-                              picture: picture,
+                              picture: widget.picture,
                             ),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -101,6 +117,8 @@ class PictureDetailHandleBasic extends StatelessWidget {
     required this.picture,
   }) : super(key: key);
 
+  PictureRepository pictureRepository = PictureRepository();
+
   HandleStore store;
   FocusNode focusNode;
   Picture picture;
@@ -110,7 +128,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return GestureDetector(
       child: Container(
-        color: Colors.transparent,
         child: Flex(
           direction: Axis.horizontal,
           children: <Widget>[
@@ -154,26 +171,56 @@ class PictureDetailHandleBasic extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            SizedBox(
-              height: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  SizedBox(
-                    height: 26,
-                    width: 26,
-                    child: SvgPicture.asset(
-                      'assets/remix/heart-3-line.svg',
-                      color: theme.errorColor,
+            TouchableOpacity(
+              activeOpacity: activeOpacity,
+              onTap: () {
+                if (!picture.isLike) {
+                  pictureRepository.liked(picture.id);
+                } else {
+                  pictureRepository.unLike(picture.id);
+                }
+              },
+              child: SizedBox(
+                height: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    if (!picture.isLike)
+                      SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: SvgPicture.asset(
+                          'assets/remix/heart-3-line.svg',
+                          color:
+                              theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                        ),
+                      ),
+                    if (picture.isLike)
+                      SizedBox(
+                        height: 26,
+                        width: 26,
+                        child: SvgPicture.asset(
+                          'assets/remix/heart-3-fill.svg',
+                          color: const Color(0xfffe2341),
+                        ),
+                      ),
+                    const SizedBox(
+                      width: 4,
                     ),
-                  ),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  Text(picture.likedCount.toString()),
-                ],
+                    Text(
+                      picture.likedCount.toString(),
+                      style: GoogleFonts.rubik(
+                        textStyle: TextStyle(
+                          color: theme.textTheme.bodyText2!.color,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -204,7 +251,7 @@ class _PictureDetailHandleCommentState
   void initState() {
     super.initState();
     _inputController.addListener(() {
-      widget.store.setComment(_inputController.value.text.trim());
+      widget.store.setComment(_inputController.text.trim());
       setState(() {});
     });
   }
@@ -226,7 +273,16 @@ class _PictureDetailHandleCommentState
               // },
               focusNode: widget.focusNode,
               cursorColor: theme.primaryColor,
-              textInputAction: TextInputAction.newline,
+              textInputAction: TextInputAction.send,
+              onSubmitted: (String value) {
+                if (value.trim().isEmpty) {
+                  FocusScope.of(context).requestFocus(widget.focusNode);
+                } else {
+                  widget.store.closeComment();
+                  _inputController.text = '';
+                  FocusScope.of(context).unfocus();
+                }
+              },
               style: const TextStyle(
                 fontSize: 16,
                 height: 1,
@@ -272,6 +328,11 @@ class _PictureDetailHandleCommentState
                       top: 0,
                       child: TouchableOpacity(
                         activeOpacity: activeOpacity,
+                        onTap: () {
+                          widget.store.closeComment();
+                          _inputController.text = '';
+                          FocusScope.of(context).unfocus();
+                        },
                         child: Container(
                           margin: const EdgeInsets.only(left: 12),
                           width: 40,

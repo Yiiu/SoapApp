@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -41,84 +42,100 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
           Refetch? refetch,
           FetchMore? fetchMore,
         }) {
-          Widget content = Text('加载中');
+          Widget content = Center(
+            child: CupertinoActivityIndicator(radius: 8),
+          );
           if (result.data != null) {
             final List<Comment> data =
                 Comment.fromListJson(result.data!['comments']['data'] as List);
-            content = Column(
-              children: data
-                  .map(
-                    (comment) => Container(
-                      margin: const EdgeInsets.only(bottom: 12),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Avatar(
-                            image: getPictureUrl(key: comment.user!.avatar),
-                          ),
-                          const SizedBox(width: 6),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    comment.user!.fullName,
-                                    style: GoogleFonts.rubik(
-                                      textStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: theme.textTheme.bodyText2!.color!
-                                            .withOpacity(.8),
+            if (data.isNotEmpty) {
+              content = Column(
+                children: data
+                    .map(
+                      (comment) => Container(
+                        margin: const EdgeInsets.only(bottom: 12),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Avatar(
+                              image: getPictureUrl(key: comment.user!.avatar),
+                            ),
+                            const SizedBox(width: 6),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      comment.user!.fullName,
+                                      style: GoogleFonts.rubik(
+                                        textStyle: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: theme
+                                              .textTheme.bodyText2!.color!
+                                              .withOpacity(.8),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Center(
-                                    widthFactor: 6,
-                                    child: ClipOval(
-                                      child: Container(
-                                        width: 3,
-                                        height: 3,
-                                        color: theme.textTheme.bodyText2!.color!
-                                            .withOpacity(.6),
+                                    Center(
+                                      widthFactor: 6,
+                                      child: ClipOval(
+                                        child: Container(
+                                          width: 3,
+                                          height: 3,
+                                          color: theme
+                                              .textTheme.bodyText2!.color!
+                                              .withOpacity(.6),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  Text(
-                                    Jiffy(comment.createTime.toString())
-                                        .fromNow(),
-                                    textAlign: TextAlign.left,
-                                    style: GoogleFonts.rubik(
-                                      textStyle: TextStyle(
-                                        color: theme.textTheme.bodyText2!.color!
-                                            .withOpacity(.6),
-                                        fontSize: 12,
+                                    Text(
+                                      Jiffy(comment.createTime.toString())
+                                          .fromNow(),
+                                      textAlign: TextAlign.left,
+                                      style: GoogleFonts.rubik(
+                                        textStyle: TextStyle(
+                                          color: theme
+                                              .textTheme.bodyText2!.color!
+                                              .withOpacity(.6),
+                                          fontSize: 12,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 4),
-                              Text(
-                                comment.content,
-                                style: GoogleFonts.rubik(
-                                  textStyle: TextStyle(
-                                    color: theme.textTheme.bodyText2!.color!,
-                                    fontSize: 16,
+                                  ],
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  comment.content,
+                                  style: GoogleFonts.rubik(
+                                    textStyle: TextStyle(
+                                      color: theme.textTheme.bodyText2!.color!,
+                                      fontSize: 16,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
-                        ],
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                  .toList(),
-            );
-            print(data);
+                    )
+                    .toList(),
+              );
+            } else {
+              content = Center(
+                child: Text(
+                  '暂无评论',
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                  ),
+                ),
+              );
+            }
           }
           return Container(
             padding: const EdgeInsets.symmetric(
@@ -130,13 +147,14 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  (widget.picture.commentCount ?? 0).toString() + '条评论',
-                  style: const TextStyle(
+                  (widget.picture.commentCount ?? 0).toString() + ' 条评论',
+                  style: TextStyle(
                     fontSize: 14,
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
                   ),
                 ),
                 SizedBox(
-                  height: 24,
+                  height: 6,
                 ),
                 content,
               ],

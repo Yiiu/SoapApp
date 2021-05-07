@@ -140,7 +140,6 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
               }
 
               animationListener = () {
-                //print(_animation.value);
                 state.handleDoubleTap(
                     scale: _animation?.value,
                     doubleTapPosition: pointerDownPosition);

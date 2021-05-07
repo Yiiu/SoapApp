@@ -155,7 +155,6 @@ class PictureItemState extends State<PictureItem> {
       child: TouchableOpacity(
         activeOpacity: activeOpacity,
         onTap: () {
-          print(heroLabel);
           Navigator.of(context).pushNamed(
             RouteName.picture_detail,
             arguments: {

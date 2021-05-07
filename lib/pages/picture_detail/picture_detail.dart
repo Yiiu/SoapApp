@@ -31,7 +31,6 @@ class PictureDetailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    print(picture.isDark);
     final Map<String, int> variables = {
       'id': picture.id,
     };
@@ -156,8 +155,22 @@ class PictureDetailPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  PictureDetailInfo(picture: data),
-                  PictureDetailComment(picture: data),
+                  Container(
+                    color: theme.cardColor,
+                    child: Column(
+                      children: [
+                        PictureDetailInfo(picture: data),
+                        Center(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width - 160,
+                            height: .5,
+                            color: theme.backgroundColor,
+                          ),
+                        ),
+                        PictureDetailComment(picture: data),
+                      ],
+                    ),
+                  ),
                   const SizedBox(
                     height: pictureDetailHandleHeight,
                   ),

@@ -244,6 +244,13 @@ DocumentNode commentListFragment = gql(r'''
   }
 ''');
 
+DocumentNode pictureLikeFragment = gql(r'''
+  fragment PictureLikeFragment on LikePictureReq {
+    count
+    isLike
+  }
+''');
+
 List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
   pictureBaseFragment,
