@@ -28,3 +28,11 @@ DocumentNode picture = gql(r'''
     }
   }
 ''');
+
+DocumentNode comments = gql(r'''
+  query Comments($id: Float!, $query: CommentsQueryInput) {
+    comments(id: $id, query: $query) {
+      ...CommentListFragment
+    }
+  }
+''');

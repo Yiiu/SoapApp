@@ -8,6 +8,9 @@ abstract class _HandleStoreBase with Store {
   @observable
   bool isComment = false;
 
+  @observable
+  String comment = 'sss';
+
   @action
   void openComment() {
     isComment = true;
@@ -16,5 +19,10 @@ abstract class _HandleStoreBase with Store {
   @action
   void closeComment() {
     isComment = false;
+  }
+
+  @action
+  void setComment(String value) {
+    comment = value;
   }
 }

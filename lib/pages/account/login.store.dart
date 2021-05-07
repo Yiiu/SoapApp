@@ -1,5 +1,4 @@
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:validators/validators.dart';
 

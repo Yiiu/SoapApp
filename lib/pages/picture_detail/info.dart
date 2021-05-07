@@ -16,7 +16,7 @@ class PictureDetailInfo extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     if (picture.make == null && picture.model == null) return Container();
     return Container(
-      margin: const EdgeInsets.only(bottom: 8),
+      // margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(
         vertical: 16,
         horizontal: 16,

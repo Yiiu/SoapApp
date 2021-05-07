@@ -9,6 +9,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
+import 'package:soap_app/pages/picture_detail/comment.dart';
 import 'package:soap_app/pages/picture_detail/handle.dart';
 import 'package:soap_app/pages/picture_detail/image.dart';
 import 'package:soap_app/pages/picture_detail/info.dart';
@@ -156,9 +157,10 @@ class PictureDetailPage extends StatelessWidget {
                     ),
                   ),
                   PictureDetailInfo(picture: data),
+                  PictureDetailComment(picture: data),
                   const SizedBox(
                     height: pictureDetailHandleHeight,
-                  )
+                  ),
                 ],
               ),
             ),

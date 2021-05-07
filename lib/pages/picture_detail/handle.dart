@@ -1,23 +1,22 @@
-import 'dart:ffi';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/handle_store.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 const double pictureDetailHandleHeight = 54;
 
 class PictureDetailHandle extends StatelessWidget {
   PictureDetailHandle({
-    Key? key,
     required this.picture,
   });
-  Picture picture;
-  FocusNode focusNode = FocusNode();
+  final Picture picture;
+  final FocusNode focusNode = FocusNode();
 
   final HandleStore _store = HandleStore();
 
@@ -34,7 +33,7 @@ class PictureDetailHandle extends StatelessWidget {
           height: _store.isComment ? null : pictureDetailHandleHeight,
           child: Stack(
             fit: StackFit.expand,
-            children: [
+            children: <Widget>[
               Positioned(
                 top: 0,
                 left: 0,
@@ -59,13 +58,15 @@ class PictureDetailHandle extends StatelessWidget {
                       sigmaY: 16,
                     ),
                     child: Container(
-                      color: theme.cardColor.withOpacity(.85),
+                      color: theme.cardColor.withOpacity(.9),
                       width: double.infinity,
                       height: pictureDetailHandleHeight,
                       padding: const EdgeInsets.symmetric(
-                          vertical: 8, horizontal: 16),
+                        vertical: 10,
+                        horizontal: 16,
+                      ),
                       child: Stack(
-                        children: [
+                        children: <Widget>[
                           PictureDetailHandleComment(
                             focusNode: focusNode,
                             store: _store,
@@ -75,6 +76,7 @@ class PictureDetailHandle extends StatelessWidget {
                             child: PictureDetailHandleBasic(
                               focusNode: focusNode,
                               store: _store,
+                              picture: picture,
                             ),
                           )
                         ],
@@ -96,11 +98,12 @@ class PictureDetailHandleBasic extends StatelessWidget {
     Key? key,
     required this.focusNode,
     required this.store,
+    required this.picture,
   }) : super(key: key);
 
-  final HandleStore store;
-
+  HandleStore store;
   FocusNode focusNode;
+  Picture picture;
 
   @override
   Widget build(BuildContext context) {
@@ -136,9 +139,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         color:
                             theme.textTheme.bodyText2!.color!.withOpacity(.7),
                       ),
-                      SizedBox(
-                        width: 4,
-                      ),
+                      const SizedBox(width: 4),
                       Text(
                         '说点什么吧',
                         style: TextStyle(
@@ -152,12 +153,12 @@ class PictureDetailHandleBasic extends StatelessWidget {
                 ),
               ),
             ),
-            SizedBox(width: 12),
-            Container(
+            const SizedBox(width: 12),
+            SizedBox(
               height: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   SizedBox(
                     height: 26,
                     width: 26,
@@ -169,7 +170,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  // Text(picture.likedCount.toString())
+                  Text(picture.likedCount.toString()),
                 ],
               ),
             )
@@ -180,7 +181,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
   }
 }
 
-class PictureDetailHandleComment extends StatelessWidget {
+class PictureDetailHandleComment extends StatefulWidget {
   PictureDetailHandleComment({
     Key? key,
     required this.focusNode,
@@ -188,22 +189,108 @@ class PictureDetailHandleComment extends StatelessWidget {
   }) : super(key: key);
 
   HandleStore store;
-
-  final _controller = TextEditingController();
-
   FocusNode focusNode;
 
   @override
+  _PictureDetailHandleCommentState createState() =>
+      _PictureDetailHandleCommentState();
+}
+
+class _PictureDetailHandleCommentState
+    extends State<PictureDetailHandleComment> {
+  final TextEditingController _inputController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _inputController.addListener(() {
+      widget.store.setComment(_inputController.value.text.trim());
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    print(key);
     final ThemeData theme = Theme.of(context);
-    return Observer(
-      builder: (_) => Opacity(
-        opacity: store.isComment ? 1 : 0,
-        child: TextField(
-          // controller: _controller,
-          focusNode: focusNode,
-        ),
+    return Opacity(
+      opacity: widget.store.isComment ? 1 : 0,
+      child: Flex(
+        direction: Axis.horizontal,
+        children: [
+          Expanded(
+            child: TextField(
+              controller: _inputController,
+              // onChanged: (String value) {
+              //   // widget.store.setComment(value);
+              //   // setState(() {});
+              // },
+              focusNode: widget.focusNode,
+              cursorColor: theme.primaryColor,
+              textInputAction: TextInputAction.newline,
+              style: const TextStyle(
+                fontSize: 16,
+                height: 1,
+              ),
+              decoration: InputDecoration(
+                fillColor: theme.backgroundColor,
+                filled: true,
+                border: const OutlineInputBorder(
+                  borderSide: BorderSide.none,
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(100),
+                  ),
+                ),
+                hintStyle: TextStyle(
+                  fontSize: 16,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .color!
+                      .withOpacity(0.5),
+                ),
+                contentPadding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 0,
+                ),
+              ),
+            ),
+          ),
+          if (widget.store.isComment)
+            AnimatedOpacity(
+              curve: Curves.ease,
+              opacity: widget.store.comment.trim().isEmpty ? 0 : 1,
+              duration: const Duration(milliseconds: 250),
+              child: AnimatedContainer(
+                curve: Curves.ease,
+                width: widget.store.comment.trim().isEmpty ? 0 : 52,
+                duration: const Duration(milliseconds: 250),
+                child: Stack(
+                  children: <Widget>[
+                    Positioned(
+                      left: 0,
+                      bottom: 0,
+                      top: 0,
+                      child: TouchableOpacity(
+                        activeOpacity: activeOpacity,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 12),
+                          width: 40,
+                          child: Center(
+                            child: Text(
+                              '评论',
+                              style: TextStyle(
+                                color: theme.primaryColor,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+        ],
       ),
     );
   }

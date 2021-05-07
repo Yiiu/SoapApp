@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class Input extends StatelessWidget {
-  Input({
+  const Input({
     Key? key,
     this.errorText,
     this.label,
     required this.onChanged,
   }) : super(key: key);
 
-  String? errorText;
-  void Function(String) onChanged;
-  String? label;
+  final String? errorText;
+  final void Function(String) onChanged;
+  final String? label;
 
   @override
   Widget build(BuildContext context) {

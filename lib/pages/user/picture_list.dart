@@ -10,13 +10,18 @@ import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
-class UserPictureList extends StatelessWidget {
+class UserPictureList extends StatefulWidget {
   UserPictureList({
     Key? key,
     required this.username,
   }) : super(key: key);
   String username;
 
+  @override
+  _UserPictureListState createState() => _UserPictureListState();
+}
+
+class _UserPictureListState extends State<UserPictureList> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -29,20 +34,27 @@ class UserPictureList extends StatelessWidget {
   }
 
   Future<void> _onLoading(
-    ListData<Picture> listData,
     FetchMore fetchMore,
+    int count,
   ) async {
-    final Map<String, Object> fetchMoreVariables = {
-      'username': username,
-      'query': {
-        'page': listData.page,
-        'pageSize': listData.pageSize,
-      }
-    };
-    if (listData.noMore) {
+    final int morePage = (count / pageSize).ceil();
+
+    final bool noMore = page + 1 >= morePage;
+
+    if (noMore) {
       _refreshController.loadNoData();
       return;
     }
+    setState(() {
+      page++;
+    });
+    final Map<String, Object> fetchMoreVariables = {
+      'username': widget.username,
+      'query': {
+        'page': page + 1,
+        'pageSize': pageSize,
+      }
+    };
     await fetchMore(
       listFetchMoreOptions(
         variables: fetchMoreVariables,
@@ -56,9 +68,9 @@ class UserPictureList extends StatelessWidget {
   Widget build(BuildContext context) {
     const double padding = 16;
     final Map<String, Object> variables = {
-      'username': username,
+      'username': widget.username,
       'query': {
-        'page': page,
+        'page': 1,
         'pageSize': pageSize,
       }
     };
@@ -112,17 +124,7 @@ class UserPictureList extends StatelessWidget {
             onRefresh: () {
               _onRefresh(refetch!);
             },
-            onLoading: () {
-              _onLoading(listData, fetchMore!);
-            },
-            // onLoading: _onLoading,
-            // child: ExtendedListView.builder(
-            //   extendedListDelegate: ExtendedListDelegate(),
-            //   itemBuilder: (c, i) => PictureItem(
-            //     picture: widget.pictureList[i],
-            //   ),
-            //   itemCount: widget.pictureList.length,
-            // ),
+            onLoading: () => _onLoading(fetchMore!, listData.count),
           );
         },
       ),

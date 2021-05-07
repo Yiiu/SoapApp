@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
@@ -14,6 +13,7 @@ import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
 
 class NewView extends StatefulWidget {
+  const NewView({Key? key}) : super(key: key);
   @override
   NewViewState createState() {
     return NewViewState();
@@ -32,13 +32,13 @@ class NewViewState extends State<NewView>
 
   String type = 'NEW';
 
-  static List<String> get tabs => ['最新', '热门'];
+  static List<String> get tabs => <String>['最新', '热门'];
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
-    final variables = {'query': query, 'type': type};
+    final Map<String, Object> variables = {'query': query, 'type': type};
     return FixedAppBarWrapper(
       backdropBar: true,
       appBar: const SoapAppBar(

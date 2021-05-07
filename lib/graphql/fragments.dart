@@ -173,6 +173,77 @@ DocumentNode pictureLocationFragment = gql(r'''
   }
 ''');
 
+DocumentNode commentBaseFragment = gql(r'''
+  fragment CommentBaseFragment on Comment {
+    id
+    content
+    createTime
+    updateTime
+    subCount
+  }
+''');
+DocumentNode commentChildFragment = gql(r'''
+  fragment CommentChildFragment on Comment {
+    ...CommentBaseFragment
+    replyComment {
+      ...CommentBaseFragment
+    }
+    parentComment {
+      ...CommentBaseFragment
+    }
+    user {
+      ...UserBaseFragment
+    }
+    replyUser {
+      ...UserFragment
+    }
+  }
+''');
+DocumentNode commentFragment = gql(r'''
+  fragment CommentFragment on Comment {
+    ...CommentBaseFragment
+    replyComment {
+      ...CommentBaseFragment
+    }
+    parentComment {
+      ...CommentBaseFragment
+    }
+    childComments(limit: 3) {
+      ...CommentChildFragment
+    }
+    user {
+      ...UserBaseFragment
+    }
+    replyUser {
+      ...UserFragment
+    }
+  }
+
+''');
+DocumentNode childCommentListFragment = gql(r'''
+  fragment ChildCommentListFragment on Comments {
+      count
+      page
+      pageSize
+      timestamp
+      data {
+        ...CommentChildFragment
+      }
+  }
+''');
+
+DocumentNode commentListFragment = gql(r'''
+  fragment CommentListFragment on Comments {
+      count
+      page
+      pageSize
+      timestamp
+      data {
+        ...CommentFragment
+      }
+  }
+''');
+
 List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
   pictureBaseFragment,
@@ -194,4 +265,14 @@ List<DocumentNode> pictureDetailFragmentDocumentNode = <DocumentNode>[
   collectionFragment,
   tagFragment,
   pictureLocationFragment,
+];
+
+List<DocumentNode> commentListFragmentDocumentNode = <DocumentNode>[
+  commentListFragment,
+  commentFragment,
+  commentBaseFragment,
+  commentChildFragment,
+  userBaseFragment,
+  userFragment,
+  badgeFragment,
 ];

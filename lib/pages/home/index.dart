@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -30,12 +29,13 @@ class HomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
-  List<Picture> list = [];
+  List<Picture> list = <Picture>[];
   int _selectedIndex = 0;
   final int _addIndex = 1;
   final int _loginIndex = 2;
 
-  static List<SoapBottomNavigationBarItem> get bottomBar => [
+  static List<SoapBottomNavigationBarItem> get bottomBar =>
+      <SoapBottomNavigationBarItem>[
         const SoapBottomNavigationBarItem(
           icon: 'assets/remix/home-2.svg',
           title: 'Home',
@@ -89,11 +89,10 @@ class _MyHomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    const double gap = 8.5;
     final ThemeData theme = Theme.of(context);
     return Material(
       child: Stack(
-        children: [
+        children: <Widget>[
           Column(
             children: <Widget>[
               Expanded(
@@ -136,11 +135,12 @@ class _MyHomePageState extends State<HomePage>
                               handleTabChange(bottomBar.indexOf(bar));
                             },
                             child: Container(
-                              padding: EdgeInsets.symmetric(horizontal: 22),
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 22),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
+                                children: <Widget>[
                                   SizedBox(
                                     height: 26,
                                     width: 26,

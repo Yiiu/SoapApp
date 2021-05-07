@@ -55,7 +55,6 @@ class _MyAppState extends State<MyApp> {
       child: Observer(
         builder: (_) => MaterialApp(
           localizationsDelegates: [
-            // 这行是关键
             RefreshLocalizations.delegate,
           ],
           debugShowCheckedModeBanner: false,

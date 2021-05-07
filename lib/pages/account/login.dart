@@ -20,8 +20,6 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginStore store = LoginStore();
 
-  final TextEditingController _passwordController = TextEditingController();
-
   bool _keyboard = false;
 
   double _height = 280;
@@ -30,7 +28,8 @@ class _LoginPageState extends State<LoginPage> {
   void initState() {
     super.initState();
     store.setupValidations();
-    final keyboardVisibilityController = KeyboardVisibilityController();
+    final KeyboardVisibilityController keyboardVisibilityController =
+        KeyboardVisibilityController();
     keyboardVisibilityController.onChange.listen((bool visible) {
       if (_keyboard != visible && mounted) {
         setState(() {
