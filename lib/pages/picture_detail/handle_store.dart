@@ -12,4 +12,9 @@ abstract class _HandleStoreBase with Store {
   void openComment() {
     isComment = true;
   }
+
+  @action
+  void closeComment() {
+    isComment = false;
+  }
 }

@@ -190,6 +190,7 @@ class FixedAppBarWrapper extends StatelessWidget {
     required this.appBar,
     required this.body,
     this.backdropBar = false,
+    this.position,
   })  : assert(
           appBar != null && body != null,
           'All fields must not be null.',
@@ -198,6 +199,7 @@ class FixedAppBarWrapper extends StatelessWidget {
 
   final SoapAppBar appBar;
   final Widget body;
+  final Widget? position;
   final bool backdropBar;
 
   @override
@@ -221,6 +223,7 @@ class FixedAppBarWrapper extends StatelessWidget {
             right: 0.0,
             child: appBar,
           ),
+          if (position != null) position!,
         ],
       ),
     );

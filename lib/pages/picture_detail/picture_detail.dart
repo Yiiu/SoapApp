@@ -35,140 +35,136 @@ class PictureDetailPage extends StatelessWidget {
       'id': picture.id,
     };
     return Material(
-      child: FixedAppBarWrapper(
-        backdropBar: true,
-        appBar: SoapAppBar(
-          backdrop: true,
-          border: true,
-          automaticallyImplyLeading: true,
-          elevation: 0,
-          title: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 0),
-            child: Row(
-              children: <Widget>[
-                Avatar(
-                  size: 38,
-                  image: picture.user!.avatarUrl,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 12),
-                  child: Text(
-                    picture.user!.fullName,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 15,
-                    ),
-                  ),
-                )
-              ],
-            ),
+      child: Query(
+        options: QueryOptions(
+          document: addFragments(
+            query.picture,
+            [...pictureDetailFragmentDocumentNode],
           ),
+          variables: variables,
         ),
-        body: Query(
-          options: QueryOptions(
-            document: addFragments(
-              query.picture,
-              [...pictureDetailFragmentDocumentNode],
+        builder: (
+          QueryResult result, {
+          Refetch? refetch,
+          FetchMore? fetchMore,
+        }) {
+          Picture data = picture;
+          if (result.data != null) {
+            data = Picture.fromJson(
+                result.data!['picture'] as Map<String, dynamic>);
+          }
+          return FixedAppBarWrapper(
+            backdropBar: true,
+            appBar: SoapAppBar(
+              backdrop: true,
+              border: true,
+              automaticallyImplyLeading: true,
+              elevation: 0,
+              title: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Row(
+                  children: <Widget>[
+                    Avatar(
+                      size: 38,
+                      image: picture.user!.avatarUrl,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Text(
+                        picture.user!.fullName,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
             ),
-            variables: variables,
-          ),
-          builder: (
-            QueryResult result, {
-            Refetch? refetch,
-            FetchMore? fetchMore,
-          }) {
-            Picture data = picture;
-            if (result.data != null) {
-              data = Picture.fromJson(
-                  result.data!['picture'] as Map<String, dynamic>);
-            }
-            return Stack(
-              children: [
-                Container(
-                  color: theme.backgroundColor,
-                  child: ListView(
-                    physics: const BouncingScrollPhysics(),
-                    children: <Widget>[
-                      SizedBox(
-                        height: appBarHeight,
-                      ),
-                      Container(
-                        child: TouchableOpacity(
-                          activeOpacity: activeOpacity,
-                          onTap: () {
-                            Navigator.of(context).push<dynamic>(
-                              TransparentRoute(
-                                builder: (context) => HeroPhotoView(
-                                  id: data.id,
-                                  heroLabel: heroLabel,
-                                  image: getPictureUrl(
-                                    key: data.key,
-                                    style: PictureStyle.regular,
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                          child: PictureDetailImage(
-                            picture: data,
-                            heroLabel: heroLabel,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(bottom: 8),
-                        color: theme.cardColor,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 16,
-                          horizontal: 16,
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              picture.title,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w700,
-                                fontSize: 20,
-                                color: theme.textTheme.bodyText2!.color,
+            body: Container(
+              color: theme.backgroundColor,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: <Widget>[
+                  SizedBox(
+                    height: appBarHeight,
+                  ),
+                  Container(
+                    child: TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      onTap: () {
+                        Navigator.of(context).push<dynamic>(
+                          TransparentRoute(
+                            builder: (context) => HeroPhotoView(
+                              id: data.id,
+                              heroLabel: heroLabel,
+                              image: getPictureUrl(
+                                key: data.key,
+                                style: PictureStyle.regular,
                               ),
                             ),
-                            if (data.tags != null && data.tags!.isNotEmpty) ...[
-                              const SizedBox(height: 12),
-                              Row(
-                                children: data.tags!
-                                    .map(
-                                      (Tag tag) => TagItem(
-                                        tag: tag,
-                                      ),
-                                    )
-                                    .toList(),
-                              )
-                            ],
-                            const SizedBox(height: 6),
-                            Text(
-                              '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
-                              style: TextStyle(
-                                color: theme.textTheme.bodyText2!.color!
-                                    .withOpacity(.6),
-                                fontSize: 13,
-                              ),
-                            )
-                          ],
-                        ),
+                          ),
+                        );
+                      },
+                      child: PictureDetailImage(
+                        picture: data,
+                        heroLabel: heroLabel,
                       ),
-                      PictureDetailInfo(picture: data),
-                      const SizedBox(
-                        height: pictureDetailHandleHeight,
-                      )
-                    ],
+                    ),
                   ),
-                ),
-                PictureDetailHandle(picture: data),
-              ],
-            );
-          },
-        ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 8),
+                    color: theme.cardColor,
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 16,
+                      horizontal: 16,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          picture.title,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            color: theme.textTheme.bodyText2!.color,
+                          ),
+                        ),
+                        if (data.tags != null && data.tags!.isNotEmpty) ...[
+                          const SizedBox(height: 12),
+                          Row(
+                            children: data.tags!
+                                .map(
+                                  (Tag tag) => TagItem(
+                                    tag: tag,
+                                  ),
+                                )
+                                .toList(),
+                          )
+                        ],
+                        const SizedBox(height: 6),
+                        Text(
+                          '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
+                          style: TextStyle(
+                            color: theme.textTheme.bodyText2!.color!
+                                .withOpacity(.6),
+                            fontSize: 13,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  PictureDetailInfo(picture: data),
+                  const SizedBox(
+                    height: pictureDetailHandleHeight,
+                  )
+                ],
+              ),
+            ),
+            position: PictureDetailHandle(picture: data),
+          );
+        },
       ),
     );
   }
