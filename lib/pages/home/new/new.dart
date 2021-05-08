@@ -7,7 +7,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/home/new/list.dart';
+import 'package:soap_app/pages/home/new/widgets/list.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';

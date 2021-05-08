@@ -4,8 +4,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
-import 'package:soap_app/pages/home/profile/user_item.dart';
-import 'package:soap_app/pages/home/profile/user_num_item.dart';
+import 'package:soap_app/pages/home/profile/widgets/user_item.dart';
+import 'package:soap_app/pages/home/profile/widgets/user_num_item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';

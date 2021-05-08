@@ -7,7 +7,7 @@ import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'new/index.dart';
+import 'new/new.dart';
 import 'profile/profile.dart';
 
 class SoapBottomNavigationBarItem {

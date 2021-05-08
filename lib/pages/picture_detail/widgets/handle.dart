@@ -7,7 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/picture_detail/handle_store.dart';
+import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 

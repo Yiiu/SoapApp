@@ -9,7 +9,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/model/user.dart';
-import 'package:soap_app/pages/user/picture_list.dart';
+import 'package:soap_app/pages/user/widgets/picture_list.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/storage.dart';

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
-import 'package:soap_app/pages/setting/item.dart';
+import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
 import 'package:soap_app/widget/app_bar.dart';

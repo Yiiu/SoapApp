@@ -3,12 +3,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:soap_app/config/const.dart';
-import 'package:soap_app/pages/account/login.store.dart';
+import 'package:soap_app/pages/account/stores/login.store.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
-import 'input.dart';
+import 'widgets/input.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
