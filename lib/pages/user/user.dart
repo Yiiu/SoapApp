@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql/src/core/query_result.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/user/widgets/picture_list.dart';
 import 'package:soap_app/store/index.dart';
@@ -274,63 +276,78 @@ class _UserPageState extends State<UserPage>
     return Material(
       child: Container(
         color: theme.cardColor,
-        child: extended.NestedScrollView(
-          headerSliverBuilder: (context, innerBoxIsScrolled) {
-            return <Widget>[
-              _buildSliverHead(),
-            ];
-          },
-          pinnedHeaderSliverHeightBuilder: () {
-            return MediaQuery.of(context).padding.top +
-                appBarHeight +
-                _tabBarHeight;
-          },
-          innerScrollPositionKeyBuilder: () {
-            final String index = 'Tab${tabController.index.toString()}';
-            return Key(index);
-          },
-          body: Container(
-            color: theme.backgroundColor,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: TabBarView(
-                    physics: const BouncingScrollPhysics(),
-                    controller: tabController,
-                    children: <Widget>[
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                        Key('Tab0'),
-                        UserPictureList(username: user.username),
-                      ),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                        Key('Tab1'),
-                        EasyRefresh(
-                          topBouncing: false,
-                          child: ListView.builder(
-                            padding: EdgeInsets.all(0.0),
-                            itemBuilder: (context, index) {
-                              return Text('111');
-                            },
-                            itemCount: 20,
-                          ),
-                        ),
-                      ),
-                      extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                        Key('Tab2'),
-                        ListView.builder(
-                          padding: EdgeInsets.all(0.0),
-                          itemBuilder: (context, index) {
-                            return Text('3333');
-                          },
-                          itemCount: 30,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+        child: Query(
+          options: QueryOptions(
+            document: addFragments(
+              query.picture,
+              [...pictureDetailFragmentDocumentNode],
             ),
+            variables: variables,
           ),
+          builder: (
+            QueryResult result, {
+            Refetch? refetch,
+            FetchMore? fetchMore,
+          }) {
+            return extended.NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return <Widget>[
+                  _buildSliverHead(),
+                ];
+              },
+              pinnedHeaderSliverHeightBuilder: () {
+                return MediaQuery.of(context).padding.top +
+                    appBarHeight +
+                    _tabBarHeight;
+              },
+              innerScrollPositionKeyBuilder: () {
+                final String index = 'Tab${tabController.index.toString()}';
+                return Key(index);
+              },
+              body: Container(
+                color: theme.backgroundColor,
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                      child: TabBarView(
+                        physics: const BouncingScrollPhysics(),
+                        controller: tabController,
+                        children: <Widget>[
+                          extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                            Key('Tab0'),
+                            UserPictureList(username: user.username),
+                          ),
+                          extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                            Key('Tab1'),
+                            EasyRefresh(
+                              topBouncing: false,
+                              child: ListView.builder(
+                                padding: EdgeInsets.all(0.0),
+                                itemBuilder: (context, index) {
+                                  return Text('111');
+                                },
+                                itemCount: 20,
+                              ),
+                            ),
+                          ),
+                          extended.NestedScrollViewInnerScrollPositionKeyWidget(
+                            Key('Tab2'),
+                            ListView.builder(
+                              padding: EdgeInsets.all(0.0),
+                              itemBuilder: (context, index) {
+                                return Text('3333');
+                              },
+                              itemCount: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          },
         ),
       ),
     );
