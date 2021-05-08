@@ -1,23 +1,22 @@
-import 'dart:convert';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:graphql/src/core/query_result.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
+import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/user/widgets/picture_list.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/utils/storage.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
@@ -44,9 +43,6 @@ class _UserPageState extends State<UserPage>
   late TabController tabController;
   final int _selectedIndex = 0;
 
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
   int _tabIndex = 0;
 
   final double _tabBarHeight = 55;
@@ -60,73 +56,57 @@ class _UserPageState extends State<UserPage>
       initialIndex: _selectedIndex,
     );
     super.initState();
-    getDetail();
-  }
-
-  bool get isMe {
-    if (accountStore.userInfo?.username == user.username) {
-      return true;
-    }
-    return false;
-  }
-
-  Future<void> getDetail() async {
-    // final String _cacheUser =
-    //     StorageUtil.getString('user.${widget.user.username}');
-    // if (_cacheUser != null) {
-    //   user = User.fromJson(json.decode(_cacheUser) as Map<String, dynamic>);
-    // }
-    // final QueryResult data = await UserRepository.user(widget.user.username);
-    // final Map<String, dynamic> userMap =
-    //     data.data['user'] as Map<String, dynamic>;
-    // setState(() {});
-    // if (userMap != null) {
-    //   user = User.fromJson(userMap);
-    //   StorageUtil.setString(
-    //       'user.${widget.user.username}', json.encode(userMap));
-    // }
-    setState(() {});
   }
 
   Widget _userCount({
     int? count,
     required String title,
+    Function? onTap,
   }) {
     final ThemeData theme = Theme.of(context);
+    final Widget content = Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+      child: Column(
+        children: <Widget>[
+          Text(
+            count != null ? count.toString() : '--',
+            style: theme.textTheme.bodyText2!.copyWith(
+              color: Colors.white,
+              fontSize: 18,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            title,
+            style: theme.textTheme.bodyText2!.copyWith(
+              color: Colors.white.withOpacity(.8),
+              fontSize: 16,
+            ),
+          ),
+        ],
+      ),
+    );
+    if (onTap == null) {
+      return Expanded(
+        flex: 1,
+        child: content,
+      );
+    }
     return Expanded(
       flex: 1,
       child: TouchableOpacity(
         activeOpacity: activeOpacity,
+        behavior: HitTestBehavior.translucent,
         onTap: () {
-          print('test');
+          onTap();
         },
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
-          child: Column(
-            children: <Widget>[
-              Text(
-                count != null ? count.toString() : '--',
-                style: theme.textTheme.bodyText2!.copyWith(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              Text(
-                title,
-                style: theme.textTheme.bodyText2!.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
+        child: content,
       ),
     );
   }
 
-  Widget _buildSliverHead() {
+  Widget _buildSliverHead(User user) {
     final ThemeData theme = Theme.of(context);
     return SliverPersistentHeader(
       // floating: true,
@@ -181,17 +161,56 @@ class _UserPageState extends State<UserPage>
               ),
             ),
             const SizedBox(height: 20),
-            Container(
+            SizedBox(
               child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
-                  _userCount(
-                    title: '照片',
-                    count: user.pictureCount,
-                  ),
+                  _userCount(title: '赞', count: user.likesCount),
                   _userCount(
                     title: '关注',
                     count: user.followedCount,
+                    onTap: () {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => SizedBox(
+                          height: MediaQuery.of(context).size.height * .75,
+                          child: FixedAppBarWrapper(
+                            backdropBar: true,
+                            appBar: SoapAppBar(
+                              topPadding: false,
+                              backdrop: true,
+                              border: true,
+                              elevation: 0,
+                              title: Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 16.0),
+                                child: Text(
+                                  '关注',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                ),
+                              ),
+                              centerTitle: false,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(12),
+                                topRight: Radius.circular(12),
+                              ),
+                            ),
+                            body: SizedBox(
+                              child: MediaQuery.removePadding(
+                                removeTop: true,
+                                context: context,
+                                child: ListView(
+                                  physics: const BouncingScrollPhysics(),
+                                  children: [],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                   _userCount(
                     title: '粉丝',
@@ -218,7 +237,7 @@ class _UserPageState extends State<UserPage>
           ),
           child: TabBar(
             controller: tabController,
-            tabs: [
+            tabs: const <Widget>[
               Tab(
                 text: '照片',
               ),
@@ -229,7 +248,7 @@ class _UserPageState extends State<UserPage>
                 text: '收藏夹',
               ),
             ],
-            onTap: (index) {
+            onTap: (int index) {
               setState(() {
                 _tabIndex = index;
               });
@@ -257,7 +276,8 @@ class _UserPageState extends State<UserPage>
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
                   user.fullName,
-                  style: theme.textTheme.bodyText2!.copyWith(
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontWeight: FontWeight.w500,
                     fontSize: 17,
                   ),
@@ -273,14 +293,17 @@ class _UserPageState extends State<UserPage>
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Map<String, String> variables = {
+      'username': user.username,
+    };
     return Material(
       child: Container(
         color: theme.cardColor,
         child: Query(
           options: QueryOptions(
             document: addFragments(
-              query.picture,
-              [...pictureDetailFragmentDocumentNode],
+              userInfo,
+              [...userDetailFragmentDocumentNode],
             ),
             variables: variables,
           ),
@@ -289,10 +312,17 @@ class _UserPageState extends State<UserPage>
             Refetch? refetch,
             FetchMore? fetchMore,
           }) {
+            User data = user;
+            if (result.data != null && result.data!['user'] != null) {
+              data =
+                  User.fromJson(result.data!['user'] as Map<String, dynamic>);
+            }
+            print(data);
             return extended.NestedScrollView(
-              headerSliverBuilder: (context, innerBoxIsScrolled) {
+              headerSliverBuilder:
+                  (BuildContext context, bool? innerBoxIsScrolled) {
                 return <Widget>[
-                  _buildSliverHead(),
+                  _buildSliverHead(data),
                 ];
               },
               pinnedHeaderSliverHeightBuilder: () {
@@ -314,28 +344,28 @@ class _UserPageState extends State<UserPage>
                         controller: tabController,
                         children: <Widget>[
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                            Key('Tab0'),
+                            const Key('Tab0'),
                             UserPictureList(username: user.username),
                           ),
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                            Key('Tab1'),
+                            const Key('Tab1'),
                             EasyRefresh(
                               topBouncing: false,
                               child: ListView.builder(
-                                padding: EdgeInsets.all(0.0),
-                                itemBuilder: (context, index) {
-                                  return Text('111');
+                                padding: const EdgeInsets.all(0.0),
+                                itemBuilder: (BuildContext context, int index) {
+                                  return const Text('111');
                                 },
                                 itemCount: 20,
                               ),
                             ),
                           ),
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                            Key('Tab2'),
+                            const Key('Tab2'),
                             ListView.builder(
-                              padding: EdgeInsets.all(0.0),
-                              itemBuilder: (context, index) {
-                                return Text('3333');
+                              padding: const EdgeInsets.all(0.0),
+                              itemBuilder: (BuildContext context, int index) {
+                                return const Text('3333');
                               },
                               itemCount: 30,
                             ),

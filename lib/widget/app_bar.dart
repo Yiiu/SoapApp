@@ -23,6 +23,8 @@ class SoapAppBar extends StatefulWidget {
     this.brightness,
     this.textColor,
     this.border = false,
+    this.topPadding = true,
+    this.borderRadius,
   }) : super(key: key);
 
   final Widget? title;
@@ -37,6 +39,8 @@ class SoapAppBar extends StatefulWidget {
   final Brightness? brightness;
   final Color? textColor;
   final bool backdrop;
+  final bool topPadding;
+  final BorderRadius? borderRadius;
 
   @override
   _SoapAppBarState createState() => _SoapAppBarState();
@@ -75,9 +79,11 @@ class _SoapAppBarState extends State<SoapAppBar>
       value: overlayStyle,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
-        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-        height:
-            widget.height ?? appBarHeight + MediaQuery.of(context).padding.top,
+        padding: EdgeInsets.only(
+            top: widget.topPadding ? MediaQuery.of(context).padding.top : 0),
+        height: widget.height ??
+            appBarHeight +
+                (widget.topPadding ? MediaQuery.of(context).padding.top : 0),
         decoration: BoxDecoration(
           border: widget.border
               ? Border(
@@ -156,27 +162,29 @@ class _SoapAppBarState extends State<SoapAppBar>
       ),
     );
     if (widget.backdrop) {
-      return ClipRect(
+      if (widget.borderRadius == null) {
+        return ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(
+              sigmaX: 16,
+              sigmaY: 16,
+            ),
+            child: content,
+          ),
+        );
+      }
+      return ClipRRect(
+        borderRadius: widget.borderRadius,
         child: BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: 16,
             sigmaY: 16,
           ),
-          child: Container(
-            // decoration: BoxDecoration(
-            //   border: Border(
-            //     bottom: BorderSide(
-            //       color: theme.textTheme.overline!.color!.withOpacity(1),
-            //       width: 2,
-            //     ),
-            //   ),
-            // ),
-            child: content,
-          ),
+          child: content,
         ),
       );
     }
-    return Container(
+    return SizedBox(
       child: content,
     );
   }

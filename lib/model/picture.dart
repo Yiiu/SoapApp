@@ -13,26 +13,25 @@ class Picture {
   Picture({
     required this.id,
     required this.key,
-    this.hash,
     required this.title,
     required this.bio,
     required this.views,
-    this.originalname,
-    this.mimetype,
     required this.size,
-    this.isLike = false,
-    this.likedCount = 0,
-    this.commentCount = 0,
     required this.color,
     required this.isDark,
     required this.height,
     required this.width,
-    this.make,
     required this.model,
     required this.blurhash,
-    this.blurhashSrc,
     required this.createTime,
     required this.updateTime,
+    this.hash,
+    this.originalname,
+    this.mimetype,
+    this.isLike = false,
+    this.likedCount = 0,
+    this.commentCount = 0,
+    this.make,
     this.user,
     this.tags,
     this.exif,
@@ -41,31 +40,18 @@ class Picture {
   factory Picture.fromJson(Map<String, dynamic> json) =>
       _$PictureFromJson(json);
 
-  final int id;
-  final String key;
-  final String? hash;
-  final String title;
-  final String bio;
-  final int views;
-  final String? originalname;
-  final String? mimetype;
-  final int size;
-  final bool isLike;
-  final int likedCount;
-  final int? commentCount;
-  final String color;
-  final bool isDark;
-  final int height;
-  final int width;
-  final String? make;
-  final String? model;
-  final String blurhash;
-  final String? blurhashSrc;
-  final DateTime createTime;
-  final DateTime updateTime;
-  final User? user;
-  final List<Tag>? tags;
-  final Exif? exif;
+  int id;
+  String key, title, bio, blurhash, color;
+  String? hash, originalname, mimetype, make, model;
+  int views, size, height, width;
+  int? commentCount, likedCount;
+  bool? isLike;
+  bool isDark;
+  DateTime createTime, updateTime;
+
+  User? user;
+  List<Tag>? tags;
+  Exif? exif;
 
   String pictureUrl({PictureStyle? style = PictureStyle.small}) {
     return getPictureUrl(key: key, style: style!);

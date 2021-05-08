@@ -124,7 +124,7 @@ DocumentNode userFragment = gql(r'''
 
 DocumentNode userDetailFragment = gql(r'''
   fragment UserDetailFragment on User {
-    ...UserFragment
+    ...UserBaseFragment
     likedCount
     pictureCount
     isFollowing
@@ -137,9 +137,6 @@ DocumentNode userDetailFragment = gql(r'''
     status
     pictures(limit: 3) {
       ...PictureBaseFragment
-    }
-    badge {
-      ...BadgeFragment
     }
   }
 ''');
@@ -256,13 +253,13 @@ DocumentNode childCommentListFragment = gql(r'''
 
 DocumentNode commentListFragment = gql(r'''
   fragment CommentListFragment on Comments {
-      count
-      page
-      pageSize
-      timestamp
-      data {
-        ...CommentFragment
-      }
+    count
+    page
+    pageSize
+    timestamp
+    data {
+      ...CommentFragment
+    }
   }
 ''');
 
@@ -315,8 +312,9 @@ List<DocumentNode> commentFragmentDocumentNode = <DocumentNode>[
 ];
 
 List<DocumentNode> userDetailFragmentDocumentNode = <DocumentNode>[
-  pictureBaseFragment,
   userFragment,
   userBaseFragment,
+  userDetailFragment,
+  pictureBaseFragment,
   badgeFragment,
 ];

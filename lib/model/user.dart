@@ -12,42 +12,36 @@ class User {
     required this.id,
     required this.username,
     required this.fullName,
+    required this.avatar,
+    required this.createTime,
+    required this.updateTime,
     this.name,
     this.email,
-    required this.avatar,
     this.bio,
     this.website,
     this.cover,
-    required this.createTime,
-    required this.updateTime,
     this.pictures,
-  })  : likedCount = 0,
-        likesCount = 0,
-        pictureCount = 0,
-        followerCount = 0,
-        followedCount = 0,
-        isFollowing = false;
+    this.isFollowing = 0,
+    this.likedCount = 0,
+    this.likesCount = 0,
+    this.pictureCount = 0,
+    this.followerCount = 0,
+    this.followedCount = 0,
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  final int id;
-  final String username;
-  final String fullName;
-  final String? name;
-  final String? email;
-  final String avatar;
-  final String? bio;
-  final String? website;
-  final String? cover;
-  final int? likedCount;
-  final int? likesCount;
-  final int? pictureCount;
-  final int? followerCount;
-  final int? followedCount;
-  final DateTime createTime;
-  final DateTime updateTime;
-  final List<Picture>? pictures;
-  final bool? isFollowing;
+  int id;
+  String username, fullName, avatar;
+  String? name, email, bio, website, cover;
+  int? likedCount,
+      likesCount,
+      pictureCount,
+      followerCount,
+      followedCount,
+      isFollowing;
+  DateTime createTime, updateTime;
+  List<Picture>? pictures;
 
   String get avatarUrl {
     return getPictureUrl(key: avatar, style: PictureStyle.itemprop);

@@ -178,7 +178,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
             TouchableOpacity(
               activeOpacity: activeOpacity,
               onTap: () {
-                if (!picture.isLike) {
+                if (!picture.isLike!) {
                   pictureRepository.liked(picture.id);
                 } else {
                   pictureRepository.unLike(picture.id);
@@ -189,7 +189,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    if (!picture.isLike)
+                    if (!picture.isLike!)
                       SizedBox(
                         height: 26,
                         width: 26,
@@ -199,7 +199,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                               theme.textTheme.bodyText2!.color!.withOpacity(.6),
                         ),
                       ),
-                    if (picture.isLike)
+                    if (picture.isLike!)
                       SizedBox(
                         height: 26,
                         width: 26,

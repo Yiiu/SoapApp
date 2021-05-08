@@ -47,13 +47,18 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     return opacity > 1 ? 1 : opacity;
   }
 
+  double makeStickyTitleBgColor(double shrinkOffset) {
+    double opacity = shrinkOffset / (this.maxExtent - this.minExtent);
+    return opacity > 1 ? 1 : opacity;
+  }
+
   @override
   Widget build(
     BuildContext context,
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    bool shrink = shrinkOffset >= (titleHeight / 3) + 40;
+    bool shrink = shrinkOffset >= titleHeight - 30;
     final ThemeData theme = Theme.of(context);
     return Container(
       constraints: const BoxConstraints.expand(),
@@ -96,8 +101,12 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                   left: 0,
                   right: 0,
                   // top: navBarHeight,
-                  child: Container(
-                    child: title,
+                  child: AnimatedOpacity(
+                    opacity: 1 - makeStickyHeaderBgColor(shrinkOffset),
+                    duration: Duration(milliseconds: _fadeDuration),
+                    child: Container(
+                      child: title,
+                    ),
                   ),
                 ),
                 Positioned(
@@ -106,14 +115,12 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                   top: 0,
                   child: SoapAppBar(
                     height: navBarHeight,
+                    // backdrop: shrink,
                     elevation: 0,
-                    brightness: shrink
-                        ? AppBarTheme.of(context).brightness ?? Brightness.light
-                        : Brightness.dark,
+                    brightness: Brightness.dark,
                     automaticallyImplyLeading: true,
-                    textColor: shrink ? null : Colors.white,
-                    backgroundColor:
-                        shrink ? theme.cardColor : Colors.transparent,
+                    textColor: Colors.white,
+                    backgroundColor: Colors.transparent,
                     centerTitle: barCenterTitle,
                     title: AnimatedOpacity(
                       opacity: makeStickyHeaderBgColor(shrinkOffset),
