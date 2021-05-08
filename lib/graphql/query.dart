@@ -36,3 +36,10 @@ DocumentNode comments = gql(r'''
     }
   }
 ''');
+DocumentNode userInfo = gql(r'''
+  query UserInfo($username: String) {
+    user(username: $username) {
+      ...UserDetailFragment
+    }
+  }
+''');

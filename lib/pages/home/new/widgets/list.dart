@@ -5,7 +5,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/list.dart';
-import 'package:soap_app/widget/picture_item.dart';
+import 'package:soap_app/widget/picture_item/picture_item.dart';
 
 class NewList extends StatelessWidget {
   NewList({

@@ -6,8 +6,9 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/list.dart';
+import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/query.dart';
-import 'package:soap_app/widget/picture_item.dart';
+import 'package:soap_app/widget/picture_item/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
 class UserPictureList extends StatefulWidget {
@@ -119,6 +120,7 @@ class _UserPictureListState extends State<UserPictureList> {
                 crossAxisSpacing: 0,
                 picture: listData.list[i],
                 header: false,
+                pictureStyle: PictureStyle.thumb,
               ),
             ),
             onRefresh: () {

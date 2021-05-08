@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
@@ -64,20 +64,44 @@ class PictureDetailPage extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Row(
                   children: <Widget>[
-                    Avatar(
-                      size: 38,
-                      image: picture.user!.avatarUrl,
+                    TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      onTap: () => Navigator.of(context).pushNamed(
+                        RouteName.user,
+                        arguments: {
+                          'user': picture.user,
+                          'heroId': '',
+                        },
+                      ),
+                      child: Avatar(
+                        size: 38,
+                        image: picture.user!.avatarUrl,
+                      ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Text(
-                        picture.user!.fullName,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
+                    TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => Navigator.of(context).pushNamed(
+                        RouteName.user,
+                        arguments: {
+                          'user': picture.user,
+                          'heroId': '',
+                        },
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
+                        child: Text(
+                          picture.user!.fullName,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -87,16 +111,14 @@ class PictureDetailPage extends StatelessWidget {
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
+                  const SizedBox(height: appBarHeight),
                   SizedBox(
-                    height: appBarHeight,
-                  ),
-                  Container(
                     child: TouchableOpacity(
                       activeOpacity: activeOpacity,
                       onTap: () {
                         Navigator.of(context).push<dynamic>(
                           TransparentRoute(
-                            builder: (context) => HeroPhotoView(
+                            builder: (_) => HeroPhotoView(
                               id: data.id,
                               heroLabel: heroLabel,
                               image: getPictureUrl(
@@ -122,7 +144,7 @@ class PictureDetailPage extends StatelessWidget {
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
                           picture.title,
                           style: TextStyle(

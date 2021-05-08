@@ -18,14 +18,16 @@ Map<PictureStyle, String> pictureStyleData = {
   PictureStyle.thumbSmall: '@!thumbnailSmall',
 };
 
-String getPictureUrl(
-    {required String key, PictureStyle style = PictureStyle.regular}) {
+String getPictureUrl({
+  required String key,
+  PictureStyle style = PictureStyle.regular,
+}) {
   final String styleName = pictureStyleData[style]!;
   if (RegExp(r'default.svg$').hasMatch(key)) {
     return key;
   }
   if (RegExp(r'^\/\/cdn').hasMatch(key)) {
-    return '$key$styleName';
+    return '$key${styleName}_webp';
   }
   if (RegExp(r'^blob:').hasMatch(key)) {
     return key;
@@ -34,7 +36,7 @@ String getPictureUrl(
     return key;
   }
   if (RegExp(r'^photo\/').hasMatch(key)) {
-    return 'https://cdn-oss.soapphoto.com/$key$styleName';
+    return 'https://cdn-oss.soapphoto.com/$key${styleName}_webp';
   }
-  return 'https://cdn-oss.soapphoto.com/photo/$key$styleName';
+  return 'https://cdn-oss.soapphoto.com/photo/$key${styleName}_webp';
 }

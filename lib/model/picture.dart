@@ -67,8 +67,8 @@ class Picture {
   final List<Tag>? tags;
   final Exif? exif;
 
-  String pictureUrl({PictureStyle style = PictureStyle.small}) {
-    return getPictureUrl(key: key, style: style);
+  String pictureUrl({PictureStyle? style = PictureStyle.small}) {
+    return getPictureUrl(key: key, style: style!);
   }
 
   static List<Picture> fromListJson(List<dynamic> list) => list

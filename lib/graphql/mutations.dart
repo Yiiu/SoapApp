@@ -16,3 +16,10 @@ DocumentNode unLikePicture = gql(r'''
     }
   }
 ''');
+DocumentNode addComment = gql(r'''
+  mutation AddComment($id: Float!, $commentId: Float, $data: AddCommentInput!) {
+    addComment(id: $id, commentId: $commentId, data: $data) {
+      ...CommentChildFragment
+    }
+  }
+''');

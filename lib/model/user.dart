@@ -50,7 +50,7 @@ class User {
   final bool? isFollowing;
 
   String get avatarUrl {
-    return getPictureUrl(key: avatar, style: PictureStyle.small);
+    return getPictureUrl(key: avatar, style: PictureStyle.itemprop);
   }
 
   static List<User> fromListJson(List<dynamic> list) => list

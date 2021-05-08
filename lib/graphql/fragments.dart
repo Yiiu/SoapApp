@@ -121,6 +121,28 @@ DocumentNode userFragment = gql(r'''
     cover
   }
 ''');
+
+DocumentNode userDetailFragment = gql(r'''
+  fragment UserDetailFragment on User {
+    ...UserFragment
+    likedCount
+    pictureCount
+    isFollowing
+    likesCount
+    followerCount
+    followedCount
+    isEmailVerified
+    isPassword
+    signupType
+    status
+    pictures(limit: 3) {
+      ...PictureBaseFragment
+    }
+    badge {
+      ...BadgeFragment
+    }
+  }
+''');
 DocumentNode exifFragment = gql(r'''
   fragment EXIFFragment on EXIF {
     aperture
@@ -281,5 +303,20 @@ List<DocumentNode> commentListFragmentDocumentNode = <DocumentNode>[
   commentChildFragment,
   userBaseFragment,
   userFragment,
+  badgeFragment,
+];
+
+List<DocumentNode> commentFragmentDocumentNode = <DocumentNode>[
+  commentBaseFragment,
+  commentChildFragment,
+  userBaseFragment,
+  userFragment,
+  badgeFragment,
+];
+
+List<DocumentNode> userDetailFragmentDocumentNode = <DocumentNode>[
+  pictureBaseFragment,
+  userFragment,
+  userBaseFragment,
   badgeFragment,
 ];

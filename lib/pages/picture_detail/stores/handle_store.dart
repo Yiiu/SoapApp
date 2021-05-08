@@ -1,10 +1,18 @@
 import 'package:mobx/mobx.dart';
+import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/repository/comment_repository.dart';
 
 part 'handle_store.g.dart';
 
 class HandleStore = _HandleStoreBase with _$HandleStore;
 
 abstract class _HandleStoreBase with Store {
+  _HandleStoreBase({
+    required this.picture,
+  });
+  Picture picture;
+
+  final CommentRepository _commentRepository = CommentRepository();
   @observable
   bool isComment = false;
 
@@ -19,6 +27,13 @@ abstract class _HandleStoreBase with Store {
   @action
   void closeComment() {
     isComment = false;
+  }
+
+  Future<void> addComment() async {
+    await _commentRepository.addComment(
+      id: picture.id,
+      content: comment,
+    );
   }
 
   @action

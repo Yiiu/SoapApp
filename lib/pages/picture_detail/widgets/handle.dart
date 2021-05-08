@@ -6,8 +6,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:soap_app/config/const.dart';
+import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
+import 'package:soap_app/repository/comment_repository.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -31,7 +33,8 @@ class _PictureDetailHandleState extends State<PictureDetailHandle> {
   @override
   void initState() {
     super.initState();
-    _store = HandleStore();
+    print(widget.picture);
+    _store = HandleStore(picture: widget.picture);
   }
 
   @override
@@ -127,6 +130,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       child: Container(
         child: Flex(
           direction: Axis.horizontal,
@@ -267,10 +271,6 @@ class _PictureDetailHandleCommentState
           Expanded(
             child: TextField(
               controller: _inputController,
-              // onChanged: (String value) {
-              //   // widget.store.setComment(value);
-              //   // setState(() {});
-              // },
               focusNode: widget.focusNode,
               cursorColor: theme.primaryColor,
               textInputAction: TextInputAction.send,
@@ -278,6 +278,7 @@ class _PictureDetailHandleCommentState
                 if (value.trim().isEmpty) {
                   FocusScope.of(context).requestFocus(widget.focusNode);
                 } else {
+                  widget.store.addComment();
                   widget.store.closeComment();
                   _inputController.text = '';
                   FocusScope.of(context).unfocus();
@@ -329,6 +330,7 @@ class _PictureDetailHandleCommentState
                       child: TouchableOpacity(
                         activeOpacity: activeOpacity,
                         onTap: () {
+                          widget.store.addComment();
                           widget.store.closeComment();
                           _inputController.text = '';
                           FocusScope.of(context).unfocus();
