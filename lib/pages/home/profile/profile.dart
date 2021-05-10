@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
@@ -67,7 +68,7 @@ class _ProfileViewState extends State<ProfileView> {
             onTap: () {
               Navigator.pushNamed(context, RouteName.setting);
             },
-            child: Icon(
+            child: const Icon(
               FeatherIcons.settings,
             ),
           ),
@@ -84,22 +85,27 @@ class _ProfileViewState extends State<ProfileView> {
             const SizedBox(
               height: 12,
             ),
-            Container(
-              color: theme.cardColor,
-              child: TouchableOpacity(
-                activeOpacity: activeOpacity,
-                onTap: signup,
-                behavior: HitTestBehavior.opaque,
+            Observer(
+              builder: (_) => Visibility(
+                visible: accountStore.isLogin,
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                    vertical: 12,
-                    horizontal: 12,
-                  ),
-                  child: Text(
-                    '退出登录',
-                    style: TextStyle(
-                      color: theme.errorColor,
-                      fontSize: 16,
+                  color: theme.cardColor,
+                  child: TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    onTap: signup,
+                    behavior: HitTestBehavior.opaque,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 12,
+                      ),
+                      child: Text(
+                        '退出登录',
+                        style: TextStyle(
+                          color: theme.errorColor,
+                          fontSize: 16,
+                        ),
+                      ),
                     ),
                   ),
                 ),

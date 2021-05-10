@@ -69,10 +69,10 @@ class _MyHomePageState extends State<HomePage>
         return;
       }
     }
-    if (index == _loginIndex && !accountStore.isLogin) {
-      Navigator.pushNamed(context, RouteName.login);
-      return;
-    }
+    // if (index == _loginIndex && !accountStore.isLogin) {
+    //   Navigator.pushNamed(context, RouteName.login);
+    //   return;
+    // }
     setState(() {
       _selectedIndex = index;
       tabController.index = index;

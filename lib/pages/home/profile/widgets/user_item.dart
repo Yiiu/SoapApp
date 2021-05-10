@@ -21,14 +21,15 @@ class ProfileUserItem extends StatelessWidget {
         behavior: HitTestBehavior.opaque,
         onTap: () {
           if (accountStore.isLogin) {
-            Navigator.pushNamed(
-              context,
+            Navigator.of(context).pushNamed(
               RouteName.user,
               arguments: {
                 'user': accountStore.userInfo,
                 'heroId': 'profile',
               },
             );
+          } else {
+            Navigator.of(context).pushNamed(RouteName.login);
           }
         },
         child: Container(
@@ -51,26 +52,23 @@ class ProfileUserItem extends StatelessWidget {
                           ),
                         );
                       }
-                      return const SizedBox(
-                        height: 64,
-                        width: 64,
-                      );
+                      return const SizedBox();
                     },
                   ),
                 ),
                 Expanded(
                   flex: 1,
-                  child: Container(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 12),
-                      child: Observer(
-                        builder: (_) => Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(
-                              accountStore.userInfo?.fullName ?? '',
-                              style: theme.textTheme.headline5,
-                            ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 12),
+                    child: Observer(
+                      builder: (_) => Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            accountStore.userInfo?.fullName ?? '登录',
+                            style: theme.textTheme.headline5,
+                          ),
+                          if (accountStore.isLogin) ...[
                             const SizedBox(
                               height: 8,
                             ),
@@ -78,8 +76,8 @@ class ProfileUserItem extends StatelessWidget {
                               accountStore.userInfo?.bio ?? '未填写简介',
                               style: theme.textTheme.bodyText2,
                             ),
-                          ],
-                        ),
+                          ]
+                        ],
                       ),
                     ),
                   ),

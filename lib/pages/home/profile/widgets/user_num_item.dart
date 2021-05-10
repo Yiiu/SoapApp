@@ -3,6 +3,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/widget/follow_modal.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class ProfileUserNumItem extends StatefulWidget {
@@ -16,6 +18,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
   Widget _userCount({
     int? count,
     required String title,
+    void Function()? onTap,
   }) {
     final ThemeData theme = Theme.of(context);
     return Expanded(
@@ -23,33 +26,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
       child: TouchableOpacity(
         activeOpacity: activeOpacity,
         behavior: HitTestBehavior.opaque,
-        onTap: () async {
-          return showCustomModalBottomSheet<dynamic>(
-            containerWidget: (
-              BuildContext _,
-              Animation<double> animation,
-              Widget child,
-            ) =>
-                Container(
-              decoration: BoxDecoration(
-                color: theme.cardColor,
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(12),
-                  topRight: Radius.circular(12),
-                ),
-              ),
-              child: child,
-            ),
-            duration: const Duration(milliseconds: 200),
-            context: context,
-            builder: (BuildContext context) => Container(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * .8,
-                child: Text('Follow'),
-              ),
-            ),
-          );
-        },
+        onTap: onTap,
         child: Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
@@ -90,10 +67,34 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
             _userCount(
               title: '关注',
               count: accountStore.userInfo?.followedCount,
+              onTap: accountStore.isLogin
+                  ? () {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => FollowModal(
+                          type: FollowModalType.followed,
+                          scrollController: ModalScrollController.of(context),
+                          id: accountStore.userInfo!.id,
+                        ),
+                      );
+                    }
+                  : null,
             ),
             _userCount(
               title: '粉丝',
               count: accountStore.userInfo?.followerCount,
+              onTap: accountStore.isLogin
+                  ? () {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => FollowModal(
+                          type: FollowModalType.follower,
+                          scrollController: ModalScrollController.of(context),
+                          id: accountStore.userInfo!.id,
+                        ),
+                      );
+                    }
+                  : null,
             ),
             _userCount(
               title: '喜欢',

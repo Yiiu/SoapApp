@@ -9,6 +9,7 @@ void showBasicModalBottomSheet({
 }) {
   final ThemeData theme = Theme.of(context);
   showCustomModalBottomSheet<dynamic>(
+    enableDrag: false,
     containerWidget: (
       BuildContext _,
       Animation<double> animation,

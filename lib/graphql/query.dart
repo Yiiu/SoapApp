@@ -36,9 +36,35 @@ DocumentNode comments = gql(r'''
     }
   }
 ''');
+
 DocumentNode userInfo = gql(r'''
   query UserInfo($username: String) {
     user(username: $username) {
+      ...UserDetailFragment
+    }
+  }
+''');
+
+DocumentNode whoami = gql(r'''
+  query Whoami {
+    whoami {
+      ...UserDetailFragment
+    }
+  }
+''');
+
+DocumentNode followedUsers = gql(r'''
+query FollowedUsers($id: Float!, $limit: Float!, $offset: Float!) {
+  followedUsers(id: $id, limit: $limit, offset: $offset) {
+    ...UserDetailFragment
+  }
+}
+
+''');
+
+DocumentNode followerUsers = gql(r'''
+  query FollowerUsers($id: Float!, $limit: Float!, $offset: Float!) {
+    followerUsers(id: $id, limit: $limit, offset: $offset) {
       ...UserDetailFragment
     }
   }

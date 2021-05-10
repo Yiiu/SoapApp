@@ -55,17 +55,21 @@ class _SettingPageState extends State<SettingPage> {
             physics: const RangeMaintainingScrollPhysics(),
             padding: const EdgeInsets.all(0),
             children: <Widget>[
-              const SizedBox(height: 12),
-              SettingItem(
-                title: '个人资料',
-                actionIcon: false,
-                action: Observer(
-                  builder: (_) => Avatar(
-                    image: accountStore.userInfo!.avatarUrl,
-                    size: 32,
-                  ),
-                ),
-                onPressed: () {},
+              Observer(
+                builder: (_) => accountStore.isLogin
+                    ? Container(
+                        margin: const EdgeInsets.only(top: 12),
+                        child: SettingItem(
+                          title: '个人资料',
+                          actionIcon: false,
+                          action: Avatar(
+                            image: accountStore.userInfo!.avatarUrl,
+                            size: 32,
+                          ),
+                          onPressed: () {},
+                        ),
+                      )
+                    : SizedBox(),
               ),
               const SizedBox(height: 12),
               SettingItem(

@@ -11,6 +11,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
+import 'package:soap_app/widget/follow_modal.dart';
 import 'package:soap_app/pages/user/widgets/picture_list.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
@@ -172,42 +173,11 @@ class _UserPageState extends State<UserPage>
                     onTap: () {
                       showBasicModalBottomSheet(
                         context: context,
-                        builder: (BuildContext context) => SizedBox(
-                          height: MediaQuery.of(context).size.height * .75,
-                          child: FixedAppBarWrapper(
-                            backdropBar: true,
-                            appBar: SoapAppBar(
-                              topPadding: false,
-                              backdrop: true,
-                              border: true,
-                              elevation: 0,
-                              title: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                                child: Text(
-                                  '关注',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                              ),
-                              centerTitle: false,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(12),
-                                topRight: Radius.circular(12),
-                              ),
-                            ),
-                            body: SizedBox(
-                              child: MediaQuery.removePadding(
-                                removeTop: true,
-                                context: context,
-                                child: ListView(
-                                  physics: const BouncingScrollPhysics(),
-                                  children: [],
-                                ),
-                              ),
-                            ),
-                          ),
+                        builder: (BuildContext context) => FollowModal(
+                          key: ValueKey('followedModal'),
+                          type: FollowModalType.followed,
+                          scrollController: ModalScrollController.of(context),
+                          id: user.id,
                         ),
                       );
                     },
@@ -215,6 +185,17 @@ class _UserPageState extends State<UserPage>
                   _userCount(
                     title: '粉丝',
                     count: user.followerCount,
+                    onTap: () {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => FollowModal(
+                          key: ValueKey('followerModal'),
+                          scrollController: ModalScrollController.of(context),
+                          id: user.id,
+                          type: FollowModalType.follower,
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

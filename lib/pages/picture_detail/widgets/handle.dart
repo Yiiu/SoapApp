@@ -5,6 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
@@ -175,44 +176,47 @@ class PictureDetailHandleBasic extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 12),
-            TouchableOpacity(
-              activeOpacity: activeOpacity,
-              onTap: () {
-                if (!picture.isLike!) {
-                  pictureRepository.liked(picture.id);
-                } else {
-                  pictureRepository.unLike(picture.id);
-                }
-              },
-              child: SizedBox(
-                height: double.infinity,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    if (!picture.isLike!)
-                      SizedBox(
-                        height: 26,
-                        width: 26,
-                        child: SvgPicture.asset(
-                          'assets/remix/heart-3-line.svg',
-                          color:
-                              theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                        ),
-                      ),
-                    if (picture.isLike!)
-                      SizedBox(
-                        height: 26,
-                        width: 26,
-                        child: SvgPicture.asset(
+            SizedBox(
+              height: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  LikeButton(
+                    isLiked: picture.isLike,
+                    size: 28,
+                    onTap: (bool like) async {
+                      if (!like) {
+                        pictureRepository.liked(picture.id);
+                      } else {
+                        pictureRepository.unLike(picture.id);
+                      }
+                      return !like;
+                    },
+                    animationDuration: const Duration(milliseconds: 800),
+                    likeCountAnimationDuration:
+                        const Duration(milliseconds: 250),
+                    circleColor: const CircleColor(
+                        start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                    bubblesColor: const BubblesColor(
+                      dotPrimaryColor: Color(0xff33b5e5),
+                      dotSecondaryColor: Color(0xff0099cc),
+                    ),
+                    likeBuilder: (bool isLiked) {
+                      if (isLiked) {
+                        return SvgPicture.asset(
                           'assets/remix/heart-3-fill.svg',
                           color: const Color(0xfffe2341),
-                        ),
-                      ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                      picture.likedCount.toString(),
+                        );
+                      }
+                      return SvgPicture.asset(
+                        'assets/remix/heart-3-line.svg',
+                        color:
+                            theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                      );
+                    },
+                    countBuilder: (int? count, bool isLiked, String text) =>
+                        Text(
+                      text,
                       style: GoogleFonts.rubik(
                         textStyle: TextStyle(
                           color: theme.textTheme.bodyText2!.color,
@@ -221,8 +225,9 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         ),
                       ),
                     ),
-                  ],
-                ),
+                    likeCount: picture.likedCount,
+                  ),
+                ],
               ),
             ),
           ],
