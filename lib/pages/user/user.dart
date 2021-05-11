@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
@@ -11,6 +12,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
+import 'package:soap_app/pages/user/widgets/collection_list.dart';
 import 'package:soap_app/widget/follow_modal.dart';
 import 'package:soap_app/pages/user/widgets/picture_list.dart';
 import 'package:soap_app/utils/picture.dart';
@@ -52,7 +54,7 @@ class _UserPageState extends State<UserPage>
   void initState() {
     user = widget.user;
     tabController = TabController(
-      length: 3,
+      length: 2,
       vsync: this,
       initialIndex: _selectedIndex,
     );
@@ -72,17 +74,21 @@ class _UserPageState extends State<UserPage>
         children: <Widget>[
           Text(
             count != null ? count.toString() : '--',
-            style: theme.textTheme.bodyText2!.copyWith(
-              color: Colors.white,
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
+            style: GoogleFonts.rubik(
+              textStyle: const TextStyle(
+                color: Colors.white,
+                fontSize: 16,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           Text(
             title,
-            style: theme.textTheme.bodyText2!.copyWith(
-              color: Colors.white.withOpacity(.8),
-              fontSize: 16,
+            style: GoogleFonts.rubik(
+              textStyle: TextStyle(
+                color: Colors.white.withOpacity(.8),
+                fontSize: 14,
+              ),
             ),
           ),
         ],
@@ -114,7 +120,7 @@ class _UserPageState extends State<UserPage>
       pinned: true,
       delegate: LargeCustomHeader(
         navBarHeight: appBarHeight + MediaQuery.of(context).padding.top,
-        titleHeight: 220,
+        titleHeight: 150,
         tabBarHeight: _tabBarHeight,
         barCenterTitle: false,
         backgroundImage: getPictureUrl(
@@ -135,33 +141,35 @@ class _UserPageState extends State<UserPage>
                   children: <Widget>[
                     if (widget.heroId == null)
                       Avatar(
-                        size: 68,
+                        size: 56,
                         image: getPictureUrl(key: user.avatar),
                       )
                     else
                       Hero(
                         tag: 'user-${user.username}-${widget.heroId}',
                         child: Avatar(
-                          size: 68,
+                          size: 56,
                           image: getPictureUrl(key: user.avatar),
                         ),
                       ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        user.fullName,
+                        style: GoogleFonts.rubik(
+                          textStyle: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Text(
-                user.fullName,
-                style: theme.textTheme.headline4!.copyWith(
-                  color: Colors.white,
-                ),
-              ),
-            ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             SizedBox(
               child: Flex(
                 direction: Axis.horizontal,
@@ -223,9 +231,6 @@ class _UserPageState extends State<UserPage>
                 text: '照片',
               ),
               Tab(
-                text: '喜欢',
-              ),
-              Tab(
                 text: '收藏夹',
               ),
             ],
@@ -239,7 +244,7 @@ class _UserPageState extends State<UserPage>
               height: 2,
               topLeftRadius: 4,
               topRightRadius: 4,
-              horizontalPadding: 50,
+              horizontalPadding: 80,
               tabPosition: TabPosition.bottom,
               color: theme.bottomNavigationBarTheme.selectedItemColor!,
             ),
@@ -298,7 +303,6 @@ class _UserPageState extends State<UserPage>
               data =
                   User.fromJson(result.data!['user'] as Map<String, dynamic>);
             }
-            print(data);
             return extended.NestedScrollView(
               headerSliverBuilder:
                   (BuildContext context, bool? innerBoxIsScrolled) {
@@ -330,26 +334,7 @@ class _UserPageState extends State<UserPage>
                           ),
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
                             const Key('Tab1'),
-                            EasyRefresh(
-                              topBouncing: false,
-                              child: ListView.builder(
-                                padding: const EdgeInsets.all(0.0),
-                                itemBuilder: (BuildContext context, int index) {
-                                  return const Text('111');
-                                },
-                                itemCount: 20,
-                              ),
-                            ),
-                          ),
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                            const Key('Tab2'),
-                            ListView.builder(
-                              padding: const EdgeInsets.all(0.0),
-                              itemBuilder: (BuildContext context, int index) {
-                                return const Text('3333');
-                              },
-                              itemCount: 30,
-                            ),
+                            UserCollectionList(username: user.username),
                           ),
                         ],
                       ),

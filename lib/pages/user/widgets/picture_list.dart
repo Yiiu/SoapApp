@@ -22,7 +22,11 @@ class UserPictureList extends StatefulWidget {
   _UserPictureListState createState() => _UserPictureListState();
 }
 
-class _UserPictureListState extends State<UserPictureList> {
+class _UserPictureListState extends State<UserPictureList>
+    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
+  @override
+  bool get wantKeepAlive => true;
+
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -75,61 +79,59 @@ class _UserPictureListState extends State<UserPictureList> {
         'pageSize': pageSize,
       }
     };
-    return Container(
-      child: Query(
-        options: QueryOptions(
-          document: addFragments(
-            userPictures,
-            [...pictureListFragmentDocumentNode],
-          ),
-          variables: variables,
+    return Query(
+      options: QueryOptions(
+        document: addFragments(
+          userPictures,
+          [...pictureListFragmentDocumentNode],
         ),
-        builder: (
-          QueryResult result, {
-          Refetch? refetch,
-          FetchMore? fetchMore,
-        }) {
-          if (result.hasException && result.data == null) {
-            return Text(result.exception.toString());
-          }
-
-          if (result.isLoading && result.data == null) {
-            return const Text('加载中');
-          }
-          final ListData<Picture> listData = pictureListDataFormat(
-            result.data!,
-            label: 'userPicturesByName',
-          );
-
-          return SmartRefresher(
-            enablePullUp: true,
-            enablePullDown: true,
-            controller: _refreshController,
-            physics: const BouncingScrollPhysics(),
-            child: WaterfallFlow.builder(
-              padding: const EdgeInsets.all(padding),
-              gridDelegate:
-                  const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: padding,
-                mainAxisSpacing: padding,
-              ),
-              itemCount: listData.list.length,
-              itemBuilder: (_, i) => PictureItem(
-                heroLabel: 'user-list',
-                crossAxisSpacing: 0,
-                picture: listData.list[i],
-                header: false,
-                pictureStyle: PictureStyle.thumb,
-              ),
-            ),
-            onRefresh: () {
-              _onRefresh(refetch!);
-            },
-            onLoading: () => _onLoading(fetchMore!, listData.count),
-          );
-        },
+        variables: variables,
       ),
+      builder: (
+        QueryResult result, {
+        Refetch? refetch,
+        FetchMore? fetchMore,
+      }) {
+        if (result.hasException && result.data == null) {
+          return Text(result.exception.toString());
+        }
+
+        if (result.isLoading && result.data == null) {
+          return const Text('加载中');
+        }
+        final ListData<Picture> listData = pictureListDataFormat(
+          result.data!,
+          label: 'userPicturesByName',
+        );
+
+        return SmartRefresher(
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: _refreshController,
+          physics: const BouncingScrollPhysics(),
+          child: WaterfallFlow.builder(
+            padding: const EdgeInsets.all(padding),
+            gridDelegate:
+                const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: padding,
+              mainAxisSpacing: padding,
+            ),
+            itemCount: listData.list.length,
+            itemBuilder: (_, i) => PictureItem(
+              heroLabel: 'user-list',
+              crossAxisSpacing: 0,
+              picture: listData.list[i],
+              header: false,
+              pictureStyle: PictureStyle.thumb,
+            ),
+          ),
+          onRefresh: () {
+            _onRefresh(refetch!);
+          },
+          onLoading: () => _onLoading(fetchMore!, listData.count),
+        );
+      },
     );
   }
 }

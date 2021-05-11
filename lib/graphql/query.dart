@@ -69,3 +69,14 @@ DocumentNode followerUsers = gql(r'''
     }
   }
 ''');
+
+DocumentNode userCollectionsByName = gql(r'''
+  query UserCollectionsByName(
+    $username: String!,
+    $query: CollectionsQueryInput
+  ) {
+    userCollectionsByName(username: $username, query: $query) {
+      ...CollectionListFragment
+    }
+  }
+''');

@@ -149,17 +149,6 @@ DocumentNode exifFragment = gql(r'''
     location
   }
 ''');
-DocumentNode collectionFragment = gql(r'''
-  fragment CollectionFragment on Collection {
-    id
-    name
-    bio
-    isPrivate
-    createTime
-    updateTime
-    pictureCount
-  }
-''');
 DocumentNode tagFragment = gql(r'''
   fragment TagFragment on Tag {
     id
@@ -270,6 +259,49 @@ DocumentNode pictureLikeFragment = gql(r'''
   }
 ''');
 
+DocumentNode collectionFragment = gql(r'''
+  fragment CollectionFragment on Collection {
+    id
+    name
+    bio
+    isPrivate
+    createTime
+    updateTime
+    pictureCount
+  }
+''');
+
+DocumentNode collectionDetailFragment = gql(r'''
+  fragment CollectionDetailFragment on Collection {
+    pictureCount
+    ...CollectionFragment
+    user {
+      ...UserFragment
+    }
+    preview {
+      ...PicturePreviewFragment
+    }
+  }
+''');
+
+DocumentNode collectionListFragment = gql(r'''
+  fragment CollectionListFragment on Collections {
+    count
+    page
+    pageSize
+    data {
+      ...CollectionFragment
+      pictureCount
+      user {
+        ...UserFragment
+      }
+      preview {
+        ...PictureBaseFragment
+      }
+    }
+  }
+''');
+
 List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
   pictureBaseFragment,
@@ -293,16 +325,6 @@ List<DocumentNode> pictureDetailFragmentDocumentNode = <DocumentNode>[
   pictureLocationFragment,
 ];
 
-List<DocumentNode> commentListFragmentDocumentNode = <DocumentNode>[
-  commentListFragment,
-  commentFragment,
-  commentBaseFragment,
-  commentChildFragment,
-  userBaseFragment,
-  userFragment,
-  badgeFragment,
-];
-
 List<DocumentNode> commentFragmentDocumentNode = <DocumentNode>[
   commentBaseFragment,
   commentChildFragment,
@@ -311,10 +333,27 @@ List<DocumentNode> commentFragmentDocumentNode = <DocumentNode>[
   badgeFragment,
 ];
 
+List<DocumentNode> commentListFragmentDocumentNode = <DocumentNode>[
+  commentListFragment,
+  commentFragment,
+  ...commentFragmentDocumentNode,
+];
+
 List<DocumentNode> userDetailFragmentDocumentNode = <DocumentNode>[
   userFragment,
   userBaseFragment,
   userDetailFragment,
   pictureBaseFragment,
   badgeFragment,
+];
+
+List<DocumentNode> collectionFragmentDocumentNode = <DocumentNode>[
+  collectionFragment,
+  userFragment,
+  pictureBaseFragment,
+];
+
+List<DocumentNode> collectionListFragmentDocumentNode = <DocumentNode>[
+  collectionListFragment,
+  ...collectionFragmentDocumentNode
 ];

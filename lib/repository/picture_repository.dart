@@ -55,7 +55,6 @@ class PictureRepository {
         variables: variables,
         update: (GraphQLDataProxy cache, QueryResult? result) async {
           if (result?.data?['unlikePicture'] != null) {
-            print('test');
             final Map<String, Object> updated = {
               'likedCount': result?.data!['unlikePicture']['count'] as int,
               'id': id,

@@ -7,7 +7,7 @@ import 'app_bar.dart';
 
 class LargeCustomHeader extends SliverPersistentHeaderDelegate {
   LargeCustomHeader({
-    required this.tabBar,
+    this.tabBar,
     this.tabBarHeight = 0,
     required this.title,
     required this.backgroundImage,
@@ -28,7 +28,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
   final Widget bar;
   final bool barCenterTitle;
 
-  final Widget tabBar;
+  final Widget? tabBar;
   final double tabBarHeight;
   final Widget title;
 
@@ -132,16 +132,17 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
               ],
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: tabBarHeight + 1,
-              color: theme.cardColor,
-              child: tabBar,
+          if (tabBar != null)
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                height: tabBarHeight + 1,
+                color: theme.cardColor,
+                child: tabBar,
+              ),
             ),
-          ),
         ],
       ),
     );

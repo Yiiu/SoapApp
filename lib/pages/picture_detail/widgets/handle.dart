@@ -34,7 +34,6 @@ class _PictureDetailHandleState extends State<PictureDetailHandle> {
   @override
   void initState() {
     super.initState();
-    print(widget.picture);
     _store = HandleStore(picture: widget.picture);
   }
 

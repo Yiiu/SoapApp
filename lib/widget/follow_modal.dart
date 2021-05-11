@@ -4,6 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
@@ -11,6 +13,7 @@ import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 enum FollowModalType {
   follower,
@@ -122,9 +125,21 @@ class _FollowModalState extends State<FollowModal> {
                           children: [
                             Row(
                               children: [
-                                Avatar(
-                                  image: user.avatarUrl,
-                                  size: 42,
+                                TouchableOpacity(
+                                  activeOpacity: activeOpacity,
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                      RouteName.user,
+                                      arguments: {
+                                        'user': user,
+                                        'heroId': '',
+                                      },
+                                    );
+                                  },
+                                  child: Avatar(
+                                    image: user.avatarUrl,
+                                    size: 42,
+                                  ),
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -134,12 +149,24 @@ class _FollowModalState extends State<FollowModal> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        user.fullName,
-                                        style: GoogleFonts.rubik(
-                                          textStyle: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w600,
+                                      TouchableOpacity(
+                                        activeOpacity: activeOpacity,
+                                        onTap: () {
+                                          Navigator.of(context).pushNamed(
+                                            RouteName.user,
+                                            arguments: {
+                                              'user': user,
+                                              'heroId': '',
+                                            },
+                                          );
+                                        },
+                                        child: Text(
+                                          user.fullName,
+                                          style: GoogleFonts.rubik(
+                                            textStyle: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600,
+                                            ),
                                           ),
                                         ),
                                       ),

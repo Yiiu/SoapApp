@@ -44,7 +44,6 @@ class _LoginPageState extends State<LoginPage> {
             _height = 280;
           });
         }
-        print('Keyboard visibility update. Is visible: $visible');
       }
     });
   }
