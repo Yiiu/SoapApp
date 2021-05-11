@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/account/login.dart';
+import 'package:soap_app/pages/collection_detail/collection_detail.dart';
 import 'package:soap_app/pages/home/index.dart';
 import 'package:soap_app/pages/picture_detail/picture_detail.dart';
 import 'package:soap_app/pages/setting/setting.dart';
@@ -15,6 +17,7 @@ class RouteName {
   static const String login = 'login';
   static const String user = 'user';
   static const String setting = 'setting';
+  static const String collection_detail = 'collection_detail';
 }
 
 class Router {
@@ -47,6 +50,13 @@ class Router {
       case RouteName.setting:
         return CupertinoPageRoute<void>(
           builder: (_) => SettingPage(),
+        );
+      case RouteName.collection_detail:
+        return CupertinoPageRoute<void>(
+          builder: (_) => CollectionDetailPage(
+            collection:
+                (settings.arguments! as dynamic)['collection'] as Collection,
+          ),
         );
       default:
         return CupertinoPageRoute<void>(

@@ -20,6 +20,7 @@ import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/widget/picture_list.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
@@ -246,7 +247,7 @@ class _UserPageState extends State<UserPage>
               topRightRadius: 4,
               horizontalPadding: 80,
               tabPosition: TabPosition.bottom,
-              color: theme.bottomNavigationBarTheme.selectedItemColor!,
+              color: theme.primaryColor.withOpacity(.8),
             ),
           ),
         ),
@@ -330,7 +331,16 @@ class _UserPageState extends State<UserPage>
                         children: <Widget>[
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
                             const Key('Tab0'),
-                            UserPictureList(username: user.username),
+                            PictureList(
+                              document: addFragments(
+                                userPictures,
+                                [...pictureListFragmentDocumentNode],
+                              ),
+                              label: 'userPicturesByName',
+                              variables: {
+                                'username': user.username,
+                              },
+                            ),
                           ),
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
                             const Key('Tab1'),

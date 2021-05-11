@@ -80,3 +80,10 @@ DocumentNode userCollectionsByName = gql(r'''
     }
   }
 ''');
+DocumentNode collectionPictures = gql(r'''
+  query CollectionPictures($id: Float!, $query: PicturesQueryInput!) {
+    collectionPictures(id: $id, query: $query) {
+      ...PictureListFragment
+    }
+  }
+''');

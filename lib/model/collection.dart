@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/model/user.dart';
 
 part 'collection.g.dart';
 
@@ -10,6 +11,7 @@ class Collection {
     required this.name,
     required this.createTime,
     required this.updateTime,
+    required this.user,
     this.bio,
     this.isPrivate,
     this.pictureCount = 0,
@@ -33,4 +35,5 @@ class Collection {
   DateTime createTime, updateTime;
   int? pictureCount;
   List<Picture>? preview;
+  User user;
 }

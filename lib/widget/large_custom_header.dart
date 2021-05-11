@@ -10,7 +10,9 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     this.tabBar,
     this.tabBarHeight = 0,
     required this.title,
-    required this.backgroundImage,
+    this.backgroundImage,
+    this.backgroundImageMaskColor,
+    this.backgroundImageWidget,
     this.titleHeight = 44,
     this.titleMaxLines = 1,
     this.navBarHeight = 75,
@@ -34,7 +36,9 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
 
   final double navBarHeight;
 
-  final String backgroundImage;
+  final String? backgroundImage;
+  final Widget? backgroundImageWidget;
+  final Color? backgroundImageMaskColor;
 
   final int _fadeDuration = 250;
   final double titleHeight;
@@ -75,14 +79,35 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
-                if (this.backgroundImage != null) ...[
+                if (backgroundImageWidget != null &&
+                    backgroundImage == null) ...[
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: backgroundImageWidget!,
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Container(
+                      color: backgroundImageMaskColor ??
+                          const Color.fromRGBO(0, 0, 0, 0.65),
+                    ),
+                  ),
+                ],
+                if (backgroundImageWidget == null &&
+                    backgroundImage != null) ...[
                   Positioned(
                     top: 0,
                     left: 0,
                     right: 0,
                     bottom: 0,
                     child: OctoImage(
-                      image: ExtendedImage.network(this.backgroundImage).image,
+                      image: ExtendedImage.network(backgroundImage!).image,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -92,7 +117,8 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     right: 0,
                     bottom: 0,
                     child: Container(
-                      color: const Color.fromRGBO(0, 0, 0, 0.65),
+                      color: backgroundImageMaskColor ??
+                          const Color.fromRGBO(0, 0, 0, 0.65),
                     ),
                   ),
                 ],

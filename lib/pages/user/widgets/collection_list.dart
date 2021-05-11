@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/widget/collection_item/collection_item.dart';
-import 'package:waterfall_flow/waterfall_flow.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 class UserCollectionList extends StatefulWidget {
   UserCollectionList({
@@ -35,6 +37,7 @@ class UserCollectionListState extends State<UserCollectionList>
     };
     return Query(
       options: QueryOptions(
+        fetchPolicy: FetchPolicy.cacheAndNetwork,
         document: addFragments(
           userCollectionsByName,
           [...collectionListFragmentDocumentNode],
@@ -52,23 +55,26 @@ class UserCollectionListState extends State<UserCollectionList>
             result.data!['userCollectionsByName']['data'] as List,
           );
         }
-        print(list);
         return SmartRefresher(
-          enablePullUp: true,
-          enablePullDown: true,
+          enablePullUp: false,
+          enablePullDown: false,
           controller: _refreshController,
           physics: const BouncingScrollPhysics(),
-          child: WaterfallFlow.builder(
-            padding: const EdgeInsets.all(12),
-            gridDelegate:
-                const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
-            ),
+          child: ListView.builder(
             itemCount: list.length,
-            itemBuilder: (_, i) => CollectionItem(
-              collection: list[i],
+            itemBuilder: (_, i) => TouchableOpacity(
+              activeOpacity: activeOpacity,
+              onTap: () {
+                Navigator.of(context).pushNamed(
+                  RouteName.collection_detail,
+                  arguments: {
+                    'collection': list[i],
+                  },
+                );
+              },
+              child: CollectionItem(
+                collection: list[i],
+              ),
             ),
           ),
         );
