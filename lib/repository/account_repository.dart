@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 class AccountProvider {
   AccountProvider() {
     httpClient = Dio()
-      ..options.baseUrl = 'https://soapphoto.com'
+      ..options.baseUrl = 'https://app.soapphoto.com'
       ..options.connectTimeout = 5000;
   }
 

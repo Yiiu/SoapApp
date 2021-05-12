@@ -1,20 +1,13 @@
-# soap_app
+# 📷 SoapApp (processing...)
 
 A new Flutter project.
 
-## Getting Started
+### 👽 Online Demo
 
-This project is a starting point for a Flutter application.
+**[在线例子](https://app.soapphoto.com/#/)** (Web 效果可能有偏差,真实效果请以手机端为准,第一次加载可能会很久)
 
-A few resources to get you started if this is your first Flutter project:
+### 👻 preview
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-```
-flutter packages pub run build_runner watch
-```
+| ![Home](doc/img/home.jpg)                     | ![Profile](doc/img/profile.jpg)       | ![Setting](doc/img/setting.jpg) |
+| --------------------------------------------- | ------------------------------------- | ------------------------------- |
+| ![picture_detail](doc/img/picture_detail.jpg) | ![Collection](doc/img/Collection.jpg) | ![User](doc/img/user.jpg)       |
