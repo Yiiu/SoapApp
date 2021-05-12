@@ -10,15 +10,19 @@ import 'package:soap_app/widget/picture_item/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
 class PictureList extends StatefulWidget {
-  PictureList({
+  const PictureList({
     Key? key,
     required this.document,
     required this.label,
     required this.variables,
+    this.enablePullUp = true,
+    this.enablePullDown = true,
   }) : super(key: key);
-  DocumentNode document;
-  String label;
-  Map<String, Object> variables;
+  final DocumentNode document;
+  final String label;
+  final Map<String, Object> variables;
+  final bool enablePullUp;
+  final bool enablePullDown;
 
   @override
   _PictureListState createState() => _PictureListState();
@@ -105,8 +109,8 @@ class _PictureListState extends State<PictureList>
         );
 
         return SmartRefresher(
-          enablePullUp: true,
-          enablePullDown: true,
+          enablePullUp: widget.enablePullUp,
+          enablePullDown: widget.enablePullDown,
           controller: _refreshController,
           physics: const BouncingScrollPhysics(),
           child: WaterfallFlow.builder(
@@ -118,7 +122,7 @@ class _PictureListState extends State<PictureList>
               mainAxisSpacing: padding,
             ),
             itemCount: listData.list.length,
-            itemBuilder: (_, i) => PictureItem(
+            itemBuilder: (_, int i) => PictureItem(
               heroLabel: 'user-list',
               crossAxisSpacing: 0,
               picture: listData.list[i],

@@ -12,11 +12,11 @@ import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 
 class PictureDetailComment extends StatefulWidget {
-  PictureDetailComment({
+  const PictureDetailComment({
     Key? key,
     required this.picture,
   }) : super(key: key);
-  Picture picture;
+  final Picture picture;
 
   @override
   _PictureDetailCommentState createState() => _PictureDetailCommentState();
@@ -42,32 +42,32 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
         Refetch? refetch,
         FetchMore? fetchMore,
       }) {
-        Widget content = Center(
+        Widget content = const Center(
           child: CupertinoActivityIndicator(radius: 8),
         );
         if (result.data != null) {
-          final List<Comment> data =
-              Comment.fromListJson(result.data!['comments']['data'] as List);
+          final List<Comment> data = Comment.fromListJson(
+              result.data!['comments']['data'] as List<dynamic>);
           if (data.isNotEmpty) {
             content = Column(
               children: data
                   .map(
-                    (comment) => Container(
+                    (Comment comment) => Container(
                       margin: const EdgeInsets.only(bottom: 12),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
+                        children: <Widget>[
                           Avatar(
                             image: getPictureUrl(key: comment.user!.avatar),
                           ),
                           const SizedBox(width: 6),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                            children: <Widget>[
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
+                                children: <Widget>[
                                   Text(
                                     comment.user!.fullName,
                                     style: GoogleFonts.rubik(

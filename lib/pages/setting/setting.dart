@@ -11,6 +11,9 @@ import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class SettingPage extends StatefulWidget {
+  const SettingPage({
+    Key? key,
+  }) : super(key: key);
   @override
   _SettingPageState createState() => _SettingPageState();
 }
@@ -25,7 +28,7 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   Future<void> getImageCached() async {
-    String data = filesize(await getCachedSizeBytes());
+    final String data = filesize(await getCachedSizeBytes());
     setState(() {
       cached = data;
     });
@@ -69,7 +72,7 @@ class _SettingPageState extends State<SettingPage> {
                           onPressed: () {},
                         ),
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
               ),
               const SizedBox(height: 12),
               SettingItem(
@@ -78,18 +81,20 @@ class _SettingPageState extends State<SettingPage> {
                 action: Observer(
                   builder: (_) {
                     if (appStore.themeMode == ThemeMode.dark)
-                      return Text(
+                      return const Text(
                         '黑暗模式',
                       );
                     if (appStore.themeMode == ThemeMode.system)
-                      return Text('系统设置');
-                    return Text('亮色设置');
+                      return const Text('系统设置');
+                    return const Text('亮色设置');
                   },
                 ),
                 onPressed: () {
                   showCustomModalBottomSheet<dynamic>(
                     context: context,
-                    containerWidget: (_, animation, child) => Container(
+                    containerWidget:
+                        (_, Animation<double> animation, Widget child) =>
+                            Container(
                       child: child,
                     ),
                     builder: (_) {
@@ -101,7 +106,7 @@ class _SettingPageState extends State<SettingPage> {
                             padding: const EdgeInsets.symmetric(vertical: 6),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
-                              children: [
+                              children: <Widget>[
                                 Text(
                                   '系统模式',
                                   style: TextStyle(
@@ -112,7 +117,7 @@ class _SettingPageState extends State<SettingPage> {
                                     fontSize: 14,
                                   ),
                                 ),
-                                SizedBox(height: 6),
+                                const SizedBox(height: 6),
                                 TouchableOpacity(
                                   activeOpacity: activeOpacity,
                                   onTap: () {
@@ -122,7 +127,7 @@ class _SettingPageState extends State<SettingPage> {
                                     width: double.infinity,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 12, horizontal: 14),
-                                    child: Text('亮色模式'),
+                                    child: const Text('亮色模式'),
                                   ),
                                 ),
                                 TouchableOpacity(
@@ -134,7 +139,7 @@ class _SettingPageState extends State<SettingPage> {
                                     width: double.infinity,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 12),
-                                    child: Text('暗色模式'),
+                                    child: const Text('暗色模式'),
                                   ),
                                 ),
                                 TouchableOpacity(
@@ -146,7 +151,7 @@ class _SettingPageState extends State<SettingPage> {
                                     width: double.infinity,
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 6, horizontal: 12),
-                                    child: Text('系统自动'),
+                                    child: const Text('系统自动'),
                                   ),
                                 ),
                               ],

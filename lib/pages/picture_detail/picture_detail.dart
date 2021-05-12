@@ -22,12 +22,14 @@ import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class PictureDetailPage extends StatelessWidget {
-  PictureDetailPage({
+  const PictureDetailPage({
+    Key? key,
     required this.picture,
     this.heroLabel,
-  });
-  Picture picture;
-  String? heroLabel;
+  }) : super(key: key);
+  final Picture picture;
+  final String? heroLabel;
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -153,7 +155,8 @@ class PictureDetailPage extends StatelessWidget {
                             color: theme.textTheme.bodyText2!.color,
                           ),
                         ),
-                        if (data.tags != null && data.tags!.isNotEmpty) ...[
+                        if (data.tags != null &&
+                            data.tags!.isNotEmpty) ...<Widget>[
                           const SizedBox(height: 12),
                           Row(
                             children: data.tags!
@@ -180,7 +183,7 @@ class PictureDetailPage extends StatelessWidget {
                   Container(
                     color: theme.cardColor,
                     child: Column(
-                      children: [
+                      children: <Widget>[
                         PictureDetailInfo(picture: data),
                         Center(
                           child: Container(

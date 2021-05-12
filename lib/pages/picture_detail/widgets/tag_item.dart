@@ -32,7 +32,7 @@ class TagItem extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Container(
               height: height - 8,
               width: height - 8,

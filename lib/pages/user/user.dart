@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -14,9 +13,7 @@ import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/user/widgets/collection_list.dart';
 import 'package:soap_app/widget/follow_modal.dart';
-import 'package:soap_app/pages/user/widgets/picture_list.dart';
 import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
@@ -218,12 +215,17 @@ class _UserPageState extends State<UserPage>
           height: double.infinity,
           width: double.infinity,
           decoration: BoxDecoration(
-            border: Border(
-              top: BorderSide(
-                color: theme.textTheme.overline!.color!.withOpacity(.1),
-                width: .3,
-              ),
+            color: theme.cardColor,
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
             ),
+            // border: Border(
+            //   top: BorderSide(
+            //     color: theme.textTheme.overline!.color!.withOpacity(.1),
+            //     width: .3,
+            //   ),
+            // ),
           ),
           child: TabBar(
             controller: tabController,

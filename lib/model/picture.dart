@@ -40,18 +40,18 @@ class Picture {
   factory Picture.fromJson(Map<String, dynamic> json) =>
       _$PictureFromJson(json);
 
-  int id;
-  String key, title, bio, blurhash, color;
-  String? hash, originalname, mimetype, make, model;
-  int views, size, height, width;
-  int? commentCount, likedCount;
-  bool? isLike;
-  bool isDark;
-  DateTime createTime, updateTime;
+  final int id;
+  final String key, title, bio, blurhash, color;
+  final String? hash, originalname, mimetype, make, model;
+  final int views, size, height, width;
+  final int? commentCount, likedCount;
+  final bool? isLike;
+  final bool isDark;
+  final DateTime createTime, updateTime;
 
-  User? user;
-  List<Tag>? tags;
-  Exif? exif;
+  final User? user;
+  final List<Tag>? tags;
+  final Exif? exif;
 
   String pictureUrl({PictureStyle? style = PictureStyle.small}) {
     return getPictureUrl(key: key, style: style!);

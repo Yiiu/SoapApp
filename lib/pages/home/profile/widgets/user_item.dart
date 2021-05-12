@@ -38,7 +38,7 @@ class ProfileUserItem extends StatelessWidget {
             padding: const EdgeInsets.all(16),
             child: Row(
               children: <Widget>[
-                Container(
+                SizedBox(
                   child: Observer(
                     builder: (_) {
                       if (accountStore.isLogin) {
@@ -68,7 +68,7 @@ class ProfileUserItem extends StatelessWidget {
                             accountStore.userInfo?.fullName ?? '登录',
                             style: theme.textTheme.headline5,
                           ),
-                          if (accountStore.isLogin) ...[
+                          if (accountStore.isLogin) ...<Widget>[
                             const SizedBox(
                               height: 8,
                             ),
@@ -82,7 +82,7 @@ class ProfileUserItem extends StatelessWidget {
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   child: Icon(
                     FeatherIcons.chevronRight,
                     color: theme.textTheme.bodyText2!.color!.withOpacity(.6),

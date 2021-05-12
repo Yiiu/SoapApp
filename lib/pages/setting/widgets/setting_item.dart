@@ -4,7 +4,7 @@ import 'package:soap_app/config/const.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class SettingItem extends StatelessWidget {
-  SettingItem({
+  const SettingItem({
     Key? key,
     required this.title,
     this.actionIcon = true,
@@ -13,11 +13,11 @@ class SettingItem extends StatelessWidget {
     this.height = 62,
   }) : super(key: key);
 
-  String title;
-  Widget? action;
-  Function()? onPressed;
-  double height = 62;
-  bool actionIcon;
+  final String title;
+  final Widget? action;
+  final Function()? onPressed;
+  final double height;
+  final bool actionIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,7 @@ class SettingItem extends StatelessWidget {
         children: <Widget>[
           Expanded(
             flex: 1,
-            child: Container(
+            child: SizedBox(
               child: Text(
                 title,
               ),
@@ -40,8 +40,8 @@ class SettingItem extends StatelessWidget {
           ),
           if (action != null) action!,
           const SizedBox(width: 6),
-          if (onPressed != null && actionIcon) ...[
-            Container(
+          if (onPressed != null && actionIcon) ...<Widget>[
+            SizedBox(
               child: SvgPicture.asset(
                 'assets/feather/chevron-right.svg',
                 width: 26,

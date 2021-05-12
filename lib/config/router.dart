@@ -49,7 +49,7 @@ class Router {
         );
       case RouteName.setting:
         return CupertinoPageRoute<void>(
-          builder: (_) => SettingPage(),
+          builder: (_) => const SettingPage(),
         );
       case RouteName.collection_detail:
         return CupertinoPageRoute<void>(

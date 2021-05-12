@@ -13,12 +13,12 @@ import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:soap_app/widget/picture_list.dart';
 
 class CollectionDetailPage extends StatefulWidget {
-  CollectionDetailPage({
+  const CollectionDetailPage({
     Key? key,
     required this.collection,
   }) : super(key: key);
 
-  Collection collection;
+  final Collection collection;
 
   @override
   _CollectionDetailPageState createState() => _CollectionDetailPageState();
@@ -57,7 +57,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            children: <Widget>[
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -73,7 +73,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                   Padding(
                     padding: const EdgeInsets.only(top: 4),
                     child: Row(
-                      children: [
+                      children: <Widget>[
                         Avatar(
                           image: collection.user.avatarUrl,
                           size: 22,
@@ -130,7 +130,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
             children: <Widget>[
               Text(
                 collection.name,
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.white,
                 ),
               ),
@@ -155,10 +155,11 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           return MediaQuery.of(context).padding.top + appBarHeight;
         },
         innerScrollPositionKeyBuilder: () {
-          final String index = 'Tab';
-          return Key(index);
+          const String index = 'Tab';
+          return const Key(index);
         },
         body: PictureList(
+          enablePullDown: false,
           document: addFragments(
             collectionPictures,
             [...pictureListFragmentDocumentNode],

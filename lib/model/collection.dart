@@ -28,12 +28,12 @@ class Collection {
           (dynamic p) => Collection.fromJson(p as Map<String, dynamic>))
       .toList();
 
-  int id;
-  String name;
-  String? bio;
-  bool? isPrivate;
-  DateTime createTime, updateTime;
-  int? pictureCount;
-  List<Picture>? preview;
-  User user;
+  final int id;
+  final String name;
+  final String? bio;
+  final bool? isPrivate;
+  final DateTime createTime, updateTime;
+  final int? pictureCount;
+  final List<Picture>? preview;
+  final User user;
 }

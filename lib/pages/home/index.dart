@@ -100,7 +100,7 @@ class _MyHomePageState extends State<HomePage>
                   physics: const NeverScrollableScrollPhysics(),
                   controller: tabController,
                   children: <Widget>[
-                    NewView(),
+                    const NewView(),
                     const Text(''),
                     ProfileView(
                       controller: tabController,

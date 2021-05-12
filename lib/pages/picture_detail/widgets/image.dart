@@ -1,6 +1,3 @@
-import 'dart:convert';
-import 'dart:io';
-
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
@@ -8,10 +5,14 @@ import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/model/picture.dart';
 
 class PictureDetailImage extends StatelessWidget {
-  PictureDetailImage({required this.picture, this.heroLabel});
+  const PictureDetailImage({
+    Key? key,
+    required this.picture,
+    this.heroLabel,
+  }) : super(key: key);
 
-  Picture picture;
-  String? heroLabel;
+  final Picture picture;
+  final String? heroLabel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class PictureDetailImage extends StatelessWidget {
         appBarHeight;
     final double minFactor = MediaQuery.of(context).size.width / imgMaxHeight;
 
-    final _content = Hero(
+    final Hero _content = Hero(
         tag: 'picture-$heroLabel-${picture.id}',
         child: OctoImage(
           placeholderBuilder: OctoPlaceholder.blurHash(

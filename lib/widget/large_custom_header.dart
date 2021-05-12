@@ -75,7 +75,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
           Container(
             color: theme.cardColor,
             height: double.infinity,
-            padding: EdgeInsets.only(bottom: tabBarHeight),
+            // padding: EdgeInsets.only(bottom: tabBarHeight),
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -123,7 +123,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                   ),
                 ],
                 Positioned(
-                  bottom: 0,
+                  bottom: tabBarHeight,
                   left: 0,
                   right: 0,
                   // top: navBarHeight,
@@ -163,9 +163,9 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Container(
+              child: SizedBox(
                 height: tabBarHeight + 1,
-                color: theme.cardColor,
+                // color: theme.cardColor,
                 child: tabBar,
               ),
             ),

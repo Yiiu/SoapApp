@@ -7,17 +7,15 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/const.dart';
-import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
-import 'package:soap_app/repository/comment_repository.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 const double pictureDetailHandleHeight = 62;
 
 class PictureDetailHandle extends StatefulWidget {
-  PictureDetailHandle({
+  const PictureDetailHandle({
     Key? key,
     required this.picture,
   }) : super(key: key);
@@ -120,18 +118,18 @@ class PictureDetailHandleBasic extends StatelessWidget {
     required this.picture,
   }) : super(key: key);
 
-  PictureRepository pictureRepository = PictureRepository();
+  final PictureRepository pictureRepository = PictureRepository();
 
-  HandleStore store;
-  FocusNode focusNode;
-  Picture picture;
+  final HandleStore store;
+  final FocusNode focusNode;
+  final Picture picture;
 
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
-      child: Container(
+      child: SizedBox(
         child: Flex(
           direction: Axis.horizontal,
           children: <Widget>[
@@ -153,7 +151,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                     ),
                   ),
                   child: Row(
-                    children: [
+                    children: <Widget>[
                       Icon(
                         FeatherIcons.edit3,
                         size: 16,
@@ -237,14 +235,14 @@ class PictureDetailHandleBasic extends StatelessWidget {
 }
 
 class PictureDetailHandleComment extends StatefulWidget {
-  PictureDetailHandleComment({
+  const PictureDetailHandleComment({
     Key? key,
     required this.focusNode,
     required this.store,
   }) : super(key: key);
 
-  HandleStore store;
-  FocusNode focusNode;
+  final HandleStore store;
+  final FocusNode focusNode;
 
   @override
   _PictureDetailHandleCommentState createState() =>
@@ -271,7 +269,7 @@ class _PictureDetailHandleCommentState
       opacity: widget.store.isComment ? 1 : 0,
       child: Flex(
         direction: Axis.horizontal,
-        children: [
+        children: <Widget>[
           Expanded(
             child: TextField(
               controller: _inputController,

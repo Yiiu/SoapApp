@@ -12,9 +12,9 @@ class Tag {
 
   factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
 
-  int id;
-  String name;
-  int pictureCount;
+  final int id;
+  final String name;
+  final int pictureCount;
 
   static List<Tag> fromListJson(List<dynamic> list) => list
       .map<Tag>((dynamic p) => Tag.fromJson(p as Map<String, dynamic>))

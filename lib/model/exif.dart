@@ -28,15 +28,15 @@ class Exif {
   // int? meteringMode;
   // int? exposureMode;
   // int? exposureBias;
-  String? date;
-  String? software;
-  List<double>? location;
-  String? make;
-  String? model;
-  double? focalLength;
-  double? aperture;
-  String? exposureTime;
-  int? ISO;
+  final String? date;
+  final String? software;
+  final List<double>? location;
+  final String? make;
+  final String? model;
+  final double? focalLength;
+  final double? aperture;
+  final String? exposureTime;
+  final int? ISO;
   // String? lensModel;
   // String? whiteBalance;
 }

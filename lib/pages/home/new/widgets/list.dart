@@ -15,9 +15,9 @@ class NewList extends StatelessWidget {
     required this.listData,
   }) : super(key: key);
 
-  Future<void> Function() refetch;
-  Future<void> Function(int) loading;
-  ListData<Picture> listData;
+  final Future<void> Function() refetch;
+  final Future<void> Function(int) loading;
+  final ListData<Picture> listData;
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -49,7 +49,7 @@ class NewList extends StatelessWidget {
                 return <Widget>[
                   SliverAppBar(
                     backgroundColor: Theme.of(context).backgroundColor,
-                    title: Text(''),
+                    title: const Text(''),
                     toolbarHeight: appBarHeight,
                   )
                 ];

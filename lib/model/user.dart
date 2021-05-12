@@ -31,17 +31,17 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  int id;
-  String username, fullName, avatar;
-  String? name, email, bio, website, cover;
-  int? likedCount,
+  final int id;
+  final String username, fullName, avatar;
+  final String? name, email, bio, website, cover;
+  final int? likedCount,
       likesCount,
       pictureCount,
       followerCount,
       followedCount,
       isFollowing;
-  DateTime createTime, updateTime;
-  List<Picture>? pictures;
+  final DateTime createTime, updateTime;
+  final List<Picture>? pictures;
 
   String get avatarUrl {
     return getPictureUrl(key: avatar, style: PictureStyle.itemprop);
