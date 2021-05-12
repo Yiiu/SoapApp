@@ -89,7 +89,7 @@ class _SoapAppBarState extends State<SoapAppBar>
               ? Border(
                   bottom: BorderSide(
                     color: theme.textTheme.overline!.color!.withOpacity(.2),
-                    width: .3,
+                    width: .2,
                   ),
                 )
               : null,
@@ -111,11 +111,11 @@ class _SoapAppBarState extends State<SoapAppBar>
             if (widget.automaticallyImplyLeading)
               Container(
                 width: 48,
-                padding: const EdgeInsets.only(left: 4),
+                padding: const EdgeInsets.only(left: 12),
                 alignment: Alignment.centerLeft,
                 child: TouchableOpacity(
                   activeOpacity: activeOpacity,
-                  child: Container(
+                  child: SizedBox(
                     child: Icon(
                       FeatherIcons.arrowLeft,
                       color:

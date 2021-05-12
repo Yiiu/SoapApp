@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
@@ -57,6 +58,8 @@ class _MyAppState extends State<MyApp> {
           localizationsDelegates: [
             RefreshLocalizations.delegate,
           ],
+          builder: BotToastInit(),
+          navigatorObservers: [BotToastNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           initialRoute: RouterConfig.RouteName.home,
           onGenerateRoute: RouterConfig.Router.generateRoute,

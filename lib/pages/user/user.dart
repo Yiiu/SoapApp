@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
@@ -12,11 +11,10 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/user/widgets/collection_list.dart';
-import 'package:soap_app/widget/follow_modal.dart';
+import 'package:soap_app/pages/user/widgets/user_header_content.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/picture_list.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
@@ -129,88 +127,7 @@ class _UserPageState extends State<UserPage>
           color: theme.cardColor,
           fontSize: 36,
         ),
-        title: Column(
-          children: <Widget>[
-            TouchableOpacity(
-              onTap: () {},
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Row(
-                  children: <Widget>[
-                    if (widget.heroId == null)
-                      Avatar(
-                        size: 56,
-                        image: getPictureUrl(key: user.avatar),
-                      )
-                    else
-                      Hero(
-                        tag: 'user-${user.username}-${widget.heroId}',
-                        child: Avatar(
-                          size: 56,
-                          image: getPictureUrl(key: user.avatar),
-                        ),
-                      ),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Text(
-                        user.fullName,
-                        style: GoogleFonts.rubik(
-                          textStyle: TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              child: Flex(
-                direction: Axis.horizontal,
-                children: <Widget>[
-                  _userCount(title: '赞', count: user.likesCount),
-                  _userCount(
-                    title: '关注',
-                    count: user.followedCount,
-                    onTap: () {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => FollowModal(
-                          key: ValueKey('followedModal'),
-                          type: FollowModalType.followed,
-                          scrollController: ModalScrollController.of(context),
-                          id: user.id,
-                        ),
-                      );
-                    },
-                  ),
-                  _userCount(
-                    title: '粉丝',
-                    count: user.followerCount,
-                    onTap: () {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => FollowModal(
-                          key: ValueKey('followerModal'),
-                          scrollController: ModalScrollController.of(context),
-                          id: user.id,
-                          type: FollowModalType.follower,
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 10,
-            )
-          ],
-        ),
+        title: UserHeaderContent(user: user),
         tabBar: Container(
           height: double.infinity,
           width: double.infinity,
@@ -220,12 +137,6 @@ class _UserPageState extends State<UserPage>
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
             ),
-            // border: Border(
-            //   top: BorderSide(
-            //     color: theme.textTheme.overline!.color!.withOpacity(.1),
-            //     width: .3,
-            //   ),
-            // ),
           ),
           child: TabBar(
             controller: tabController,

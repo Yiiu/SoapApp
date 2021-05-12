@@ -87,3 +87,19 @@ DocumentNode collectionPictures = gql(r'''
     }
   }
 ''');
+
+DocumentNode tag = gql(r'''
+  query Tag($name: String!) {
+    tag(name: $name) {
+      ...TagFragment
+    }
+  }
+''');
+
+DocumentNode tagPictures = gql(r'''
+  query TagPictures($name: String!, $query: PicturesQueryInput!) {
+    tagPictures(name: $name, query: $query) {
+      ...PictureListFragment
+    }
+  }
+''');

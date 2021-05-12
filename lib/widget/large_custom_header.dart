@@ -75,7 +75,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
           Container(
             color: theme.cardColor,
             height: double.infinity,
-            // padding: EdgeInsets.only(bottom: tabBarHeight),
+            padding: const EdgeInsets.only(bottom: 1),
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
@@ -85,14 +85,14 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    bottom: 1,
                     child: backgroundImageWidget!,
                   ),
                   Positioned(
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    bottom: 1,
                     child: Container(
                       color: backgroundImageMaskColor ??
                           const Color.fromRGBO(0, 0, 0, 0.65),
@@ -105,7 +105,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    bottom: 1,
                     child: OctoImage(
                       image: ExtendedImage.network(backgroundImage!).image,
                       fit: BoxFit.cover,
@@ -115,7 +115,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    bottom: 1,
                     child: Container(
                       color: backgroundImageMaskColor ??
                           const Color.fromRGBO(0, 0, 0, 0.65),

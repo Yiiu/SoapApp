@@ -3,18 +3,22 @@ import 'package:flutter/material.dart';
 class Input extends StatelessWidget {
   const Input({
     Key? key,
+    required this.onChanged,
     this.errorText,
     this.label,
-    required this.onChanged,
+    this.password = false,
   }) : super(key: key);
 
   final String? errorText;
   final void Function(String) onChanged;
   final String? label;
+  final bool password;
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return TextField(
+      obscureText: password,
       onChanged: onChanged,
       cursorColor: Colors.blue,
       textInputAction: TextInputAction.newline,
@@ -22,7 +26,7 @@ class Input extends StatelessWidget {
         fontSize: 16,
       ),
       decoration: InputDecoration(
-        fillColor: const Color(0xfff4f7f8),
+        fillColor: theme.backgroundColor,
         filled: true,
         border: const OutlineInputBorder(
           borderSide: BorderSide.none,
@@ -32,7 +36,7 @@ class Input extends StatelessWidget {
         ),
         hintStyle: TextStyle(
           fontSize: 16,
-          color: Theme.of(context).textTheme.bodyText2!.color!.withOpacity(0.5),
+          color: Theme.of(context).textTheme.bodyText2!.color!.withOpacity(0.6),
         ),
         hintText: label,
         contentPadding: const EdgeInsets.symmetric(

@@ -1,13 +1,16 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/pages/account/stores/login.store.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
+import 'constants.dart';
 import 'widgets/input.dart';
 
 class LoginPage extends StatefulWidget {
@@ -54,8 +57,23 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future<void> login() async {
-    await store.login();
-    Navigator.pop(context);
+    if (store.username.isEmpty) {
+      SoapToast.error('请输入用户名');
+      return;
+    }
+    if (store.password.isEmpty) {
+      SoapToast.error('请输入密码');
+      return;
+    }
+    try {
+      await store.login();
+      SoapToast.success('登录成功');
+      Navigator.pop(context);
+    } on DioError catch (e) {
+      if (e.response?.data['message'] != null) {
+        SoapToast.error(errorMap[e.response?.data['message']] ?? '出错啦');
+      }
+    }
   }
 
   @override
@@ -126,6 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                             Observer(
                               builder: (_) => Input(
                                 label: '密码',
+                                password: true,
                                 errorText: store.error.password,
                                 onChanged: store.setPassword,
                               ),
@@ -153,7 +172,7 @@ class _LoginPageState extends State<LoginPage> {
                                       style:
                                           theme.textTheme.bodyText2!.copyWith(
                                         fontSize: 16,
-                                        color: theme.cardColor,
+                                        color: Colors.white,
                                       ),
                                     ),
                                   ),

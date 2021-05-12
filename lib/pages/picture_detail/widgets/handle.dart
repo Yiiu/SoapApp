@@ -10,6 +10,8 @@ import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
 import 'package:soap_app/repository/picture_repository.dart';
+import 'package:soap_app/store/index.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 const double pictureDetailHandleHeight = 62;
@@ -138,6 +140,10 @@ class PictureDetailHandleBasic extends StatelessWidget {
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
+                  if (!accountStore.isLogin) {
+                    SoapToast.error('请登录后再操作！');
+                    return;
+                  }
                   FocusScope.of(context).requestFocus(focusNode);
                   store.openComment();
                 },
@@ -182,10 +188,14 @@ class PictureDetailHandleBasic extends StatelessWidget {
                     isLiked: picture.isLike,
                     size: 28,
                     onTap: (bool like) async {
+                      if (!accountStore.isLogin) {
+                        SoapToast.error('请登录后再操作！');
+                        return like;
+                      }
                       if (!like) {
-                        pictureRepository.liked(picture.id);
+                        await pictureRepository.liked(picture.id);
                       } else {
-                        pictureRepository.unLike(picture.id);
+                        await pictureRepository.unLike(picture.id);
                       }
                       return !like;
                     },
