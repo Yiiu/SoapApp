@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.soap_app">
+    package="com.soapphoto.soap">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="soap_app"
+        android:label="Soap"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -39,7 +39,7 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.soap_app"
+        applicationId "com.soapphoto.soap"
         minSdkVersion 17
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
