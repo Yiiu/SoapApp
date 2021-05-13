@@ -6,6 +6,8 @@ import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/query.dart';
+import 'package:soap_app/widget/list/error.dart';
+import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/picture_item/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
@@ -96,13 +98,26 @@ class _PictureListState extends State<PictureList>
         Refetch? refetch,
         FetchMore? fetchMore,
       }) {
+        // if (result.hasException && result.data == null) {
+        //   return Text(result.exception.toString());
+        // }
         if (result.hasException && result.data == null) {
-          return Text(result.exception.toString());
+          return SoapListError(
+            notScrollView: true,
+            controller: _refreshController,
+            onRefresh: () async {
+              _onRefresh(refetch!);
+            },
+          );
         }
 
         if (result.isLoading && result.data == null) {
-          return const Text('加载中');
+          return SoapListLoading(
+            notScrollView: true,
+            controller: _refreshController,
+          );
         }
+
         final ListData<Picture> listData = pictureListDataFormat(
           result.data!,
           label: widget.label,

@@ -74,9 +74,12 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await store.login();
       SoapToast.success('登录成功');
-      Navigator.of(context).restorablePopAndPushNamed(
-        RouteName.home,
-      );
+      Navigator.of(context).popUntil((route) {
+        if (route.settings.name == 'login') {
+          return false;
+        }
+        return true;
+      });
     } on DioError catch (e) {
       if (e.response?.data['message'] != null) {
         SoapToast.error(errorMap[e.response?.data['message']] ?? '出错啦');

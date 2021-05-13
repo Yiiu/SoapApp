@@ -80,9 +80,9 @@ class _MyHomePageState extends State<HomePage>
   }
 
   void signup() {
-    Navigator.of(context).restorablePopAndPushNamed(
-      RouteName.home,
-    );
+    // Navigator.of(context).restorablePopAndPushNamed(
+    //   RouteName.home,
+    // );
   }
 
   @override

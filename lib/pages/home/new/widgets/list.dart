@@ -10,68 +10,53 @@ import 'package:soap_app/widget/picture_item/picture_item.dart';
 class NewList extends StatelessWidget {
   NewList({
     Key? key,
-    required this.refetch,
     required this.loading,
     required this.listData,
+    required this.controller,
+    required this.onRefresh,
   }) : super(key: key);
 
-  final Future<void> Function() refetch;
+  final RefreshController controller;
+  final Future<void> Function() onRefresh;
+
   final Future<void> Function(int) loading;
   final ListData<Picture> listData;
 
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
-
-  Future<void> _onRefresh() async {
-    await refetch();
-    _refreshController.refreshCompleted();
-  }
-
   Future<void> _onLoading() async {
     if (listData.noMore) {
-      _refreshController.loadNoData();
+      controller.loadNoData();
       return;
     }
     await loading(listData.page + 1);
-    _refreshController.loadComplete();
+    controller.loadComplete();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Theme.of(context).backgroundColor,
-      child: Column(
-        children: <Widget>[
-          Expanded(
-            child: NestedScrollView(
-              headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return <Widget>[
-                  SliverAppBar(
-                    backgroundColor: Theme.of(context).backgroundColor,
-                    title: const Text(''),
-                    toolbarHeight: appBarHeight,
-                  )
-                ];
-              },
-              body: SmartRefresher(
-                enablePullUp: true,
-                enablePullDown: true,
-                controller: _refreshController,
-                physics: const BouncingScrollPhysics(),
-                onRefresh: _onRefresh,
-                onLoading: _onLoading,
-                child: ExtendedListView.builder(
-                  extendedListDelegate: const ExtendedListDelegate(),
-                  itemBuilder: (BuildContext _, int i) => PictureItem(
-                    picture: listData.list[i],
-                  ),
-                  itemCount: listData.list.length,
-                ),
-              ),
-            ),
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            backgroundColor: Theme.of(context).backgroundColor,
+            title: const Text(''),
+            toolbarHeight: appBarHeight,
+          )
+        ];
+      },
+      body: SmartRefresher(
+        enablePullUp: true,
+        enablePullDown: true,
+        controller: controller,
+        physics: const BouncingScrollPhysics(),
+        onRefresh: onRefresh,
+        onLoading: _onLoading,
+        child: ExtendedListView.builder(
+          extendedListDelegate: const ExtendedListDelegate(),
+          itemBuilder: (BuildContext _, int i) => PictureItem(
+            picture: listData.list[i],
           ),
-        ],
+          itemCount: listData.list.length,
+        ),
       ),
     );
   }

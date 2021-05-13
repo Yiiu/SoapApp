@@ -13,7 +13,7 @@ mixin ThemeConfig {
   static Color lightAccent = Colors.blueGrey[900]!;
   static Color darkAccent = Colors.white;
   static Color lightBG = const Color(0xffFAFAFA);
-  static Color darkBG = Colors.black;
+  static Color darkBG = Color(0xff0d0d0f);
   static Color badgeColor = Colors.red;
   static Color lightTextColor = const Color(0xff3f3d56);
   static Color darkTextColor = const Color(0xffffffff);
@@ -73,13 +73,13 @@ mixin ThemeConfig {
     primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
     fontFamily: 'Rubik',
-    backgroundColor: const Color(0xff141414),
+    backgroundColor: darkBG,
     primaryColor: darkPrimary,
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
     textTheme: _darkTextTheme,
     errorColor: const Color(0xffff4757),
-    cardColor: const Color(0xff272729),
+    cardColor: const Color(0xff19181e),
     appBarTheme: const AppBarTheme(
       brightness: Brightness.dark,
     ),

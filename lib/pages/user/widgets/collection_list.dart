@@ -8,6 +8,8 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/widget/collection_item/collection_item.dart';
+import 'package:soap_app/widget/list/error.dart';
+import 'package:soap_app/widget/list/loading.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class UserCollectionList extends StatefulWidget {
@@ -50,11 +52,29 @@ class UserCollectionListState extends State<UserCollectionList>
         FetchMore? fetchMore,
       }) {
         List<Collection> list = [];
-        if (result.data != null) {
-          list = Collection.fromListJson(
-            result.data!['userCollectionsByName']['data'] as List,
+        Future<void> onRefresh() async {
+          await refetch!();
+          _refreshController.refreshCompleted();
+        }
+
+        if (result.hasException && result.data == null) {
+          return SoapListError(
+            notScrollView: true,
+            controller: _refreshController,
+            onRefresh: onRefresh,
           );
         }
+
+        if (result.isLoading && result.data == null) {
+          return SoapListLoading(
+            notScrollView: true,
+            controller: _refreshController,
+          );
+        }
+        list = Collection.fromListJson(
+          result.data!['userCollectionsByName']['data'] as List,
+        );
+
         return SmartRefresher(
           enablePullUp: false,
           enablePullDown: false,
