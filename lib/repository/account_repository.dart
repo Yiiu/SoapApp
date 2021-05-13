@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class AccountProvider {
   AccountProvider() {
@@ -11,11 +12,24 @@ class AccountProvider {
 
   Future<Response> oauth(dynamic data) {
     final Map<String, String> map = {
-      'Authorization':
-          'Basic NTczYjUxNTktNTRjYy00ODg2LWJiMmItMjgxY2U2Y2Q5ZWExOnRlc3Q'
+      'Authorization': 'Basic ${env['BASIC_TOKEN']}'
     };
     return httpClient.post<dynamic>(
       '/oauth/token',
+      data: data,
+      options: Options(
+        headers: map,
+        contentType: Headers.formUrlEncodedContentType,
+      ),
+    );
+  }
+
+  Future<Response> oauthToken(String type, dynamic data) {
+    final Map<String, String> map = {
+      'Authorization': 'Basic ${env['BASIC_TOKEN']}'
+    };
+    return httpClient.post<dynamic>(
+      '/oauth/$type/token',
       data: data,
       options: Options(
         headers: map,

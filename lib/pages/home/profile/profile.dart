@@ -40,8 +40,8 @@ class _ProfileViewState extends State<ProfileView> {
   }
 
   Future<void> signup() async {
-    await accountStore.signup();
     widget.signupCb();
+    await accountStore.signup();
     // controller.animateTo(0);
   }
 

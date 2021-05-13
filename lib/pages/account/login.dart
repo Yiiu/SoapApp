@@ -1,10 +1,16 @@
 import 'dart:async';
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/account/stores/login.store.dart';
+import 'package:soap_app/utils/oauth.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -68,13 +74,48 @@ class _LoginPageState extends State<LoginPage> {
     try {
       await store.login();
       SoapToast.success('登录成功');
-      Navigator.pop(context);
+      Navigator.of(context).restorablePopAndPushNamed(
+        RouteName.home,
+      );
     } on DioError catch (e) {
       if (e.response?.data['message'] != null) {
         SoapToast.error(errorMap[e.response?.data['message']] ?? '出错啦');
       }
     }
   }
+
+  Widget _oauthBtn({
+    required String svg,
+    required OauthType type,
+    required Color background,
+    required Color color,
+  }) =>
+      TouchableOpacity(
+        activeOpacity: activeOpacity,
+        child: Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: background,
+            borderRadius: BorderRadius.circular(100),
+          ),
+          child: Center(
+            child: SizedBox(
+              height: 26,
+              width: 26,
+              child: SvgPicture.asset(
+                svg,
+                color: color,
+              ),
+            ),
+          ),
+        ),
+        onTap: () {
+          Navigator.of(context).pushNamed(RouteName.oauth_webview, arguments: {
+            'type': type,
+          });
+        },
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -181,7 +222,7 @@ class _LoginPageState extends State<LoginPage> {
                                   login();
                                 },
                               ),
-                            )
+                            ),
                           ],
                         ),
                       ),
@@ -212,6 +253,30 @@ class _LoginPageState extends State<LoginPage> {
                   // ],
                 ),
               ),
+              Positioned(
+                bottom: 24,
+                left: 0,
+                right: 0,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _oauthBtn(
+                      svg: 'assets/remix/github-line.svg',
+                      background:
+                          theme.textTheme.bodyText2!.color!.withOpacity(.95),
+                      color: theme.backgroundColor,
+                      type: OauthType.github,
+                    ),
+                    _oauthBtn(
+                      svg: 'assets/remix/weibo-line.svg',
+                      background: Color(0xffffda5d),
+                      color: Color(0xffe71f19),
+                      type: OauthType.weibo,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

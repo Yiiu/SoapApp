@@ -4,12 +4,14 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/storage.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
 
 import 'config/graphql.dart';
 import 'pages/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await DotEnv.load(fileName: '.env');
   await StorageUtil.initialize();
   await Jiffy.locale('zh_cn');
   await initHiveForFlutter();

@@ -80,11 +80,9 @@ class _MyHomePageState extends State<HomePage>
   }
 
   void signup() {
-    tabController.animateTo(0);
-    setState(() {
-      _selectedIndex = 0;
-      tabController.index = 0;
-    });
+    Navigator.of(context).restorablePopAndPushNamed(
+      RouteName.home,
+    );
   }
 
   @override

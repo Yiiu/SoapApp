@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/graphql.dart';
@@ -9,6 +10,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:soap_app/utils/storage.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 
 part 'account_store.g.dart';
 
@@ -96,5 +98,46 @@ abstract class _AccountStoreBase with Store {
     await StorageUtil.preferences!.remove('account.accessToken');
     await StorageUtil.preferences!.remove('account.userInfo');
     await GraphqlConfig.graphQLClient.resetStore();
+  }
+
+  @action
+  Future<bool> oauthCallback(Uri uri) async {
+    final Map<String, String> query = Uri.splitQueryString(uri.query);
+    print(query['action']);
+    if (query['action'] != null && query['action'] == 'active') {
+      print('teststs');
+      SoapToast.error('此账户没有绑定账号!');
+      return false;
+    }
+    if (query['code'] != null) {
+      try {
+        await codeLogin(
+          code: query['code']!,
+          type: query['type']!,
+        );
+        return true;
+      } on DioError catch (e) {
+        if (e.response?.data['message'] != null) {
+          print(e.response?.data['message']);
+        }
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  @action
+  Future<void> codeLogin({required String code, required String type}) async {
+    final Map<String, String> params = {
+      'code': code,
+      'grant_type': 'authorization_code',
+    };
+    final dynamic data = await accountProvider.oauthToken(type, params);
+    await GraphqlConfig.graphQLClient.resetStore();
+    await StorageUtil.preferences!
+        .setString('account.accessToken', json.encode(data.data));
+    setLoginInfo(data.data);
+    await getUserInfo(data.data['user']['username'] as String);
   }
 }

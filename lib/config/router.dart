@@ -11,6 +11,8 @@ import 'package:soap_app/pages/picture_detail/picture_detail.dart';
 import 'package:soap_app/pages/setting/setting.dart';
 import 'package:soap_app/pages/tag_detail/tag_detail.dart';
 import 'package:soap_app/pages/user/user.dart';
+import 'package:soap_app/pages/webview/oauth_webview.dart';
+import 'package:soap_app/utils/oauth.dart';
 
 class RouteName {
   static const String home = '/';
@@ -21,6 +23,8 @@ class RouteName {
   static const String setting = 'setting';
   static const String collection_detail = 'collection_detail';
   static const String tag_detail = 'tag_detail';
+  static const String webview = 'webview';
+  static const String oauth_webview = 'oauth_webview';
 }
 
 class Router {
@@ -65,6 +69,18 @@ class Router {
         return CupertinoPageRoute<void>(
           builder: (_) => TagDetailPage(
             tag: (settings.arguments! as dynamic)['tag'] as Tag,
+          ),
+        );
+      // case RouteName.webview:
+      //   return MaterialPageRoute<void>(
+      //     builder: (_) => WebViewPage(
+      //         // tag: (settings.arguments!   as dynamic)['tag'] as Tag,
+      //         ),
+      //   );
+      case RouteName.oauth_webview:
+        return MaterialPageRoute<void>(
+          builder: (_) => OauthWebViewPage(
+            type: (settings.arguments! as dynamic)['type'] as OauthType,
           ),
         );
       default:

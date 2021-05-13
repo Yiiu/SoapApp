@@ -25,6 +25,10 @@ dependencies:
   flutter:
     sdk: flutter
 
+  url_launcher: ^6.0.3
+  enum_to_string: ^2.0.1
+  flutter_dotenv: ^4.0.0-nullsafety.1
+  flutter_inappwebview: ^5.3.2
   bot_toast: ^4.0.1
   photo_view: ^0.11.1
   waterfall_flow: ^3.0.1
@@ -68,6 +72,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - .env
     - assets/images/empty.png
     - assets/feather/thumbs-up.svg
     - assets/feather/chevron-left.svg
@@ -83,6 +88,9 @@ flutter:
     - assets/remix/heart-3-line.svg
     - assets/remix/heart-3-fill.svg
     - assets/remix/tag.svg
+    - assets/remix/weibo-line.svg
+    - assets/remix/github-line.svg
+    - assets/weibo.svg
 
 flutter_native_splash:
   image: assets/images/splash.gif
