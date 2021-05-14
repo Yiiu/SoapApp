@@ -225,20 +225,27 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  exif:
+    dependency: "direct main"
+    description:
+      name: exif
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
   extended_image:
     dependency: "direct main"
     description:
       name: extended_image
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.1"
+    version: "4.1.0"
   extended_image_library:
     dependency: transitive
     description:
       name: extended_image_library
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "3.1.0"
   extended_list:
     dependency: "direct main"
     description:
@@ -363,6 +370,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.8+4"
+  flutter_plugin_android_lifecycle:
+    dependency: transitive
+    description:
+      name: flutter_plugin_android_lifecycle
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -506,6 +520,34 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
+  image_picker:
+    dependency: "direct main"
+    description:
+      name: image_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.7.5"
+  image_picker_for_web:
+    dependency: transitive
+    description:
+      name: image_picker_for_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
+  image_picker_platform_interface:
+    dependency: transitive
+    description:
+      name: image_picker_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.0"
+  images_picker:
+    dependency: "direct main"
+    description:
+      name: images_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.4"
   intl:
     dependency: transitive
     description:
@@ -604,6 +646,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  nested:
+    dependency: transitive
+    description:
+      name: nested
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   normalize:
     dependency: transitive
     description:
@@ -695,6 +744,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.0"
+  photo_manager:
+    dependency: transitive
+    description:
+      name: photo_manager
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.6"
   photo_view:
     dependency: "direct main"
     description:
@@ -730,6 +786,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.2.1"
+  provider:
+    dependency: transitive
+    description:
+      name: provider
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.0.0"
   pub_semver:
     dependency: transitive
     description:
@@ -842,6 +905,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.8.0"
+  sprintf:
+    dependency: transitive
+    description:
+      name: sprintf
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "6.0.0"
   stack_trace:
     dependency: transitive
     description:
@@ -982,6 +1052,27 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.1.0"
+  video_player:
+    dependency: transitive
+    description:
+      name: video_player
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.1"
+  video_player_platform_interface:
+    dependency: transitive
+    description:
+      name: video_player_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "4.1.0"
+  video_player_web:
+    dependency: transitive
+    description:
+      name: video_player_web
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   watcher:
     dependency: transitive
     description:
@@ -1003,6 +1094,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  wechat_assets_picker:
+    dependency: "direct main"
+    description:
+      name: wechat_assets_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.5.1"
   win32:
     dependency: transitive
     description:

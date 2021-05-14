@@ -4,12 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 
 class SoapToast {
-  static void error(String title) {
+  static void error(String title, {bool closeButton = true}) {
     BotToast.showSimpleNotification(
       title: title,
       backgroundColor: Colors.red,
       titleStyle: const TextStyle(color: Colors.white),
       subTitleStyle: const TextStyle(color: Colors.white),
+      hideCloseButton: closeButton,
       closeIcon: const Icon(
         FeatherIcons.x,
         color: Colors.white,
@@ -17,24 +18,26 @@ class SoapToast {
     );
   }
 
-  static void toast(String title) {
+  static void toast(String title, {bool closeButton = true}) {
     BotToast.showSimpleNotification(
       title: title,
       backgroundColor: const Color(0xff1890ff),
       titleStyle: const TextStyle(color: Colors.white),
       subTitleStyle: const TextStyle(color: Colors.white),
+      hideCloseButton: closeButton,
       closeIcon: const Icon(
         FeatherIcons.x,
       ),
     );
   }
 
-  static void success(String title) {
+  static void success(String title, {bool closeButton = true}) {
     BotToast.showSimpleNotification(
       title: title,
       backgroundColor: const Color(0xff52c41a),
       titleStyle: const TextStyle(color: Colors.white),
       subTitleStyle: const TextStyle(color: Colors.white),
+      hideCloseButton: closeButton,
       closeIcon: const Icon(
         FeatherIcons.x,
       ),

@@ -6,12 +6,12 @@ import 'package:soap_app/widget/list/widget.dart';
 class SoapListLoading extends StatelessWidget {
   const SoapListLoading({
     Key? key,
-    this.notScrollView,
+    this.notScrollView = false,
     required this.controller,
   }) : super(key: key);
 
   final RefreshController controller;
-  final bool? notScrollView;
+  final bool notScrollView;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class SoapListLoading extends StatelessWidget {
       controller: controller,
       notScrollView: notScrollView,
       child: Container(
-        padding: EdgeInsets.only(top: 16),
+        padding: const EdgeInsets.only(top: 16),
         height: double.infinity,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,

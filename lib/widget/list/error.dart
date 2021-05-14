@@ -10,14 +10,14 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 class SoapListError extends StatelessWidget {
   const SoapListError({
     Key? key,
-    this.notScrollView,
+    this.notScrollView = false,
     required this.onRefresh,
     required this.controller,
   }) : super(key: key);
 
   final RefreshController controller;
   final Future<void> Function() onRefresh;
-  final bool? notScrollView;
+  final bool notScrollView;
 
   @override
   Widget build(BuildContext context) {

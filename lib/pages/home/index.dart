@@ -1,11 +1,16 @@
+import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+// import 'package:image_picker/image_picker.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:exif/exif.dart';
+// import 'package:images_picker/images_picker.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import 'new/new.dart';
 import 'profile/profile.dart';
@@ -33,6 +38,9 @@ class _MyHomePageState extends State<HomePage>
   int _selectedIndex = 0;
   final int _addIndex = 1;
   final int _loginIndex = 2;
+
+  late File _image;
+  // final ImagePicker picker = ImagePicker();
 
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
@@ -62,10 +70,63 @@ class _MyHomePageState extends State<HomePage>
     );
   }
 
-  void handleTabChange(int index) {
+  Future<void> printExifOf(String path) async {
+    final Map<String?, IfdTag>? data =
+        await readExifFromBytes(await File(path).readAsBytes());
+
+    if (data == null || data.isEmpty) {
+      print('No EXIF information found\n');
+      return;
+    }
+
+    if (data.containsKey('JPEGThumbnail')) {
+      print('File has JPEG thumbnail');
+      data.remove('JPEGThumbnail');
+    }
+    if (data.containsKey('TIFFThumbnail')) {
+      print('File has TIFF thumbnail');
+      data.remove('TIFFThumbnail');
+    }
+
+    for (String? key in data.keys) {
+      print('$key: ${data[key]}');
+    }
+  }
+
+  Future<void> handleTabChange(int index) async {
     if (index == _addIndex) {
       if (!accountStore.isLogin) {
         Navigator.pushNamed(context, RouteName.login);
+        return;
+      } else {
+        final List<AssetEntity>? assets = await AssetPicker.pickAssets(
+          context,
+          maxAssets: 1,
+        );
+        if (assets != null && assets.isNotEmpty) {
+          Navigator.of(context).pushNamed(RouteName.add, arguments: {
+            'assets': assets,
+          });
+        }
+        // final List<Media>? res = await ImagesPicker.pick(
+        //   count: 1,
+        //   pickType: PickType.image,
+        //   language: Language.System,
+        // );
+        // if (res != null && res.isNotEmpty) {
+        //   Navigator.of(context).pushNamed(RouteName.add, arguments: {
+        //     'media': res[0],
+        //   });
+        // }
+        // final PickedFile? pickedFile =
+        //     await picker.getImage(source: ImageSource.gallery);
+        // // print(pickedFile);
+        // if (pickedFile != null) {
+        //   Navigator.of(context).pushNamed(RouteName.add, arguments: {
+        //     'pickedFile': pickedFile,
+        //   });
+        //   // printExifOf(pickedFile.path);
+        // }
         return;
       }
     }

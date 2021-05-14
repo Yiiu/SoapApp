@@ -15,11 +15,11 @@ class SoapListWidget extends StatelessWidget {
   final RefreshController controller;
   final Future<void> Function()? onRefresh;
   final Widget child;
-  final bool? notScrollView;
+  final bool notScrollView;
 
   @override
   Widget build(BuildContext context) {
-    if (notScrollView!) {
+    if (notScrollView) {
       return SmartRefresher(
         enablePullUp: false,
         enablePullDown: onRefresh != null,

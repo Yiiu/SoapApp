@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:images_picker/images_picker.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/account/login.dart';
+import 'package:soap_app/pages/add/add.dart';
 import 'package:soap_app/pages/collection_detail/collection_detail.dart';
 import 'package:soap_app/pages/home/index.dart';
 import 'package:soap_app/pages/picture_detail/picture_detail.dart';
@@ -13,6 +16,7 @@ import 'package:soap_app/pages/tag_detail/tag_detail.dart';
 import 'package:soap_app/pages/user/user.dart';
 import 'package:soap_app/pages/webview/oauth_webview.dart';
 import 'package:soap_app/utils/oauth.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class RouteName {
   static const String home = '/';
@@ -25,6 +29,7 @@ class RouteName {
   static const String tag_detail = 'tag_detail';
   static const String webview = 'webview';
   static const String oauth_webview = 'oauth_webview';
+  static const String add = 'add';
 }
 
 class Router {
@@ -81,6 +86,13 @@ class Router {
         return MaterialPageRoute<void>(
           builder: (_) => OauthWebViewPage(
             type: (settings.arguments! as dynamic)['type'] as OauthType,
+          ),
+        );
+      case RouteName.add:
+        return MaterialPageRoute<void>(
+          builder: (_) => AddPage(
+            assets:
+                (settings.arguments! as dynamic)['assets'] as List<AssetEntity>,
           ),
         );
       default:
