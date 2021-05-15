@@ -1,9 +1,6 @@
-import 'dart:io';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:images_picker/images_picker.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/pages/add/widgets/input.dart';
 import 'package:soap_app/widget/app_bar.dart';

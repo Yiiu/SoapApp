@@ -1,7 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:images_picker/images_picker.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
