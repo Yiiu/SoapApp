@@ -43,5 +43,12 @@
 		<false/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+		</dict>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>获取相册上传图片</string>
 	</dict>
 </plist>

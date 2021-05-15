@@ -140,7 +140,10 @@ class _MyHomePageState extends State<HomePage>
                 ),
                 child: Container(
                   color: theme.cardColor.withOpacity(.85),
-                  height: 56,
+                  height: 56 + MediaQuery.of(context).padding.bottom,
+                  padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).padding.bottom,
+                  ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     crossAxisAlignment: CrossAxisAlignment.center,

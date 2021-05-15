@@ -49,14 +49,18 @@ class _PictureDetailHandleState extends State<PictureDetailHandle> {
         right: 0,
         top: _store.isComment ? 0 : null,
         child: SizedBox(
-          height: _store.isComment ? null : pictureDetailHandleHeight,
+          height: _store.isComment
+              ? null
+              : pictureDetailHandleHeight +
+                  MediaQuery.of(context).padding.bottom,
           child: Stack(
             fit: StackFit.expand,
             children: <Widget>[
               Positioned(
                 top: 0,
                 left: 0,
-                bottom: pictureDetailHandleHeight,
+                bottom: pictureDetailHandleHeight +
+                    MediaQuery.of(context).padding.bottom,
                 right: 0,
                 child: GestureDetector(
                   child: Container(color: Colors.black.withOpacity(.2)),
@@ -79,26 +83,32 @@ class _PictureDetailHandleState extends State<PictureDetailHandle> {
                     child: Container(
                       color: theme.cardColor,
                       width: double.infinity,
-                      height: pictureDetailHandleHeight,
+                      height: pictureDetailHandleHeight +
+                          MediaQuery.of(context).padding.bottom,
                       padding: const EdgeInsets.symmetric(
                         vertical: 10,
                         horizontal: 16,
                       ),
-                      child: Stack(
-                        children: <Widget>[
-                          PictureDetailHandleComment(
-                            focusNode: focusNode,
-                            store: _store,
-                          ),
-                          Offstage(
-                            offstage: _store.isComment,
-                            child: PictureDetailHandleBasic(
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          bottom: MediaQuery.of(context).padding.bottom,
+                        ),
+                        child: Stack(
+                          children: <Widget>[
+                            PictureDetailHandleComment(
                               focusNode: focusNode,
                               store: _store,
-                              picture: widget.picture,
                             ),
-                          ),
-                        ],
+                            Offstage(
+                              offstage: _store.isComment,
+                              child: PictureDetailHandleBasic(
+                                focusNode: focusNode,
+                                store: _store,
+                                picture: widget.picture,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
