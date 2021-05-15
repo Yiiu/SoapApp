@@ -39,22 +39,22 @@ class _LoginPageState extends State<LoginPage> {
     store.setupValidations();
     final KeyboardVisibilityController keyboardVisibilityController =
         KeyboardVisibilityController();
-    keyboardVisibilityController.onChange.listen((bool visible) {
-      if (_keyboard != visible && mounted) {
-        setState(() {
-          _keyboard = visible;
-        });
-        if (visible) {
-          setState(() {
-            _height = 180;
-          });
-        } else {
-          setState(() {
-            _height = 280;
-          });
-        }
-      }
-    });
+    // keyboardVisibilityController.onChange.listen((bool visible) {
+    //   if (_keyboard != visible && mounted) {
+    //     setState(() {
+    //       _keyboard = visible;
+    //     });
+    //     if (visible) {
+    //       setState(() {
+    //         _height = 180;
+    //       });
+    //     } else {
+    //       setState(() {
+    //         _height = 280;
+    //       });
+    //     }
+    //   }
+    // });
   }
 
   @override

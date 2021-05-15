@@ -1,5 +1,7 @@
+import 'dart:io';
 import 'dart:ui';
 
+import 'package:exif/exif.dart';
 import 'package:flutter/material.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/pages/add/widgets/input.dart';
@@ -14,6 +16,38 @@ class AddPage extends StatelessWidget {
   }) : super(key: key);
 
   final List<AssetEntity> assets;
+
+  Future<void> printExifOf(String path) async {
+    final Map<String?, IfdTag>? data = await readExifFromBytes(
+      await File(path).readAsBytes(),
+    );
+
+    if (data == null || data.isEmpty) {
+      print('No EXIF information found\n');
+      return;
+    }
+
+    if (data.containsKey('JPEGThumbnail')) {
+      print('File has JPEG thumbnail');
+      data.remove('JPEGThumbnail');
+    }
+    if (data.containsKey('TIFFThumbnail')) {
+      print('File has TIFF thumbnail');
+      data.remove('TIFFThumbnail');
+    }
+
+    for (String? key in data.keys) {
+      print('$key: ${data[key]}');
+    }
+  }
+
+  Future<void> _onOk() async {
+    final File? file = await assets[0].loadFile();
+    if (file != null) {
+      print(file.path);
+      printExifOf(file.path);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,6 +121,7 @@ class AddPage extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               child: TouchableOpacity(
                 activeOpacity: activeOpacity,
+                onTap: _onOk,
                 child: Container(
                   height: 40,
                   decoration: BoxDecoration(

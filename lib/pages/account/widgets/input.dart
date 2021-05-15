@@ -21,10 +21,10 @@ class Input extends StatelessWidget {
       obscureText: password,
       onChanged: onChanged,
       cursorColor: Colors.blue,
-      textInputAction: TextInputAction.newline,
       style: const TextStyle(
         fontSize: 16,
       ),
+      textInputAction: password ? TextInputAction.done : TextInputAction.next,
       decoration: InputDecoration(
         fillColor: theme.backgroundColor,
         filled: true,
