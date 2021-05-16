@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class AddInput extends StatelessWidget {
   const AddInput({
     Key? key,
-    required this.label,
     this.isBio = false,
+    required this.label,
+    required this.controller,
   }) : super(key: key);
 
+  final TextEditingController controller;
   final String label;
   final bool isBio;
   @override
@@ -14,6 +16,7 @@ class AddInput extends StatelessWidget {
     return TextField(
       keyboardType: isBio ? TextInputType.multiline : null,
       maxLines: isBio ? 4 : 1,
+      controller: controller,
       textInputAction: isBio ? TextInputAction.done : TextInputAction.next,
       decoration: InputDecoration(
         hintText: label,

@@ -54,7 +54,10 @@ class Picture {
   final Exif? exif;
 
   String pictureUrl({PictureStyle? style = PictureStyle.small}) {
-    return getPictureUrl(key: key, style: style!);
+    if (RegExp('^photo\/').hasMatch(key)) {
+      return getPictureUrl(key: key, style: style!);
+    }
+    return getPictureUrl(key: 'photo/' + key, style: style!);
   }
 
   static List<Picture> fromListJson(List<dynamic> list) => list

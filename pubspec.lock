@@ -8,6 +8,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "21.0.0"
+  aliyun_oss:
+    dependency: "direct main"
+    description:
+      name: aliyun_oss
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   analyzer:
     dependency: transitive
     description:
@@ -36,6 +43,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.5.0"
+  blurhash:
+    dependency: "direct main"
+    description:
+      name: blurhash
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0-nullsafety.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -191,7 +205,7 @@ packages:
     source: hosted
     version: "3.0.0"
   crypto:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: crypto
       url: "https://pub.flutter-io.cn"
@@ -211,6 +225,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.1"
+  decimal:
+    dependency: "direct main"
+    description:
+      name: decimal
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   dio:
     dependency: "direct main"
     description:
@@ -307,6 +328,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.0"
+  flutter_color:
+    dependency: "direct main"
+    description:
+      name: flutter_color
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -500,7 +528,7 @@ packages:
     source: hosted
     version: "3.0.1"
   http_parser:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: http_parser
       url: "https://pub.flutter-io.cn"
@@ -514,7 +542,7 @@ packages:
     source: hosted
     version: "3.0.2"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       url: "https://pub.flutter-io.cn"
@@ -639,6 +667,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0"
+  palette_generator:
+    dependency: "direct main"
+    description:
+      name: palette_generator
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.3.0"
   path:
     dependency: transitive
     description:
@@ -781,6 +816,13 @@ packages:
       url: "https://github.com/peng8350/flutter_pulltorefresh"
     source: git
     version: "1.6.4-nullsafety.1"
+  rational:
+    dependency: transitive
+    description:
+      name: rational
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0+1"
   rxdart:
     dependency: transitive
     description:
@@ -997,7 +1039,7 @@ packages:
     source: hosted
     version: "2.0.0"
   uuid:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: uuid
       url: "https://pub.flutter-io.cn"
