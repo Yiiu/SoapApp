@@ -49,7 +49,7 @@ class SignUtil {
 class OssProvider {
   OssProvider() {
     httpClient = Dio()
-      ..options.baseUrl = 'https://soapphoto.com'
+      ..options.baseUrl = env['API_URL']!
       ..options.connectTimeout = 5000;
   }
   String bucketName = 'soapphoto';

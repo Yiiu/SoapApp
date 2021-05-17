@@ -5,7 +5,6 @@ import 'dart:ui';
 
 import 'package:blurhash/blurhash.dart';
 import 'package:dio/dio.dart';
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:palette_generator/palette_generator.dart';
@@ -22,14 +21,15 @@ import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart'
+    as WechatAssetsPicker;
 
 class AddPage extends StatefulWidget {
   const AddPage({
     Key? key,
     required this.assets,
   }) : super(key: key);
-  final List<AssetEntity> assets;
+  final List<WechatAssetsPicker.AssetEntity> assets;
 
   @override
   _AddPageState createState() => _AddPageState();
@@ -211,8 +211,9 @@ class _AddPageState extends State<AddPage> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
                                       child: Image(
-                                        image: AssetEntityImageProvider(
-                                            widget.assets[0]),
+                                        image: WechatAssetsPicker
+                                            .AssetEntityImageProvider(
+                                                widget.assets[0]),
                                         fit: BoxFit.cover,
                                       ),
                                     ),
