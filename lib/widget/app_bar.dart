@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -135,11 +134,9 @@ class _SoapAppBarState extends State<SoapAppBar>
                       : AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
                     child: _title,
-                    style: GoogleFonts.rubik(
-                      textStyle: TextStyle(
-                        fontSize: 20,
-                        color: Theme.of(context).textTheme.bodyText2!.color,
-                      ),
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).textTheme.bodyText2!.color,
                     ),
                     maxLines: 1,
                     softWrap: false,

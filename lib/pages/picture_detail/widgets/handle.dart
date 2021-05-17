@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
@@ -234,12 +233,10 @@ class PictureDetailHandleBasic extends StatelessWidget {
                     countBuilder: (int? count, bool isLiked, String text) =>
                         Text(
                       text,
-                      style: GoogleFonts.rubik(
-                        textStyle: TextStyle(
-                          color: theme.textTheme.bodyText2!.color,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w600,
-                        ),
+                      style: TextStyle(
+                        color: theme.textTheme.bodyText2!.color,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                     likeCount: picture.likedCount,

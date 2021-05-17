@@ -3,20 +3,11 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:octo_image/octo_image.dart';
-import 'package:extended_image/extended_image.dart';
-import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/router.dart';
 
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/picture_item/content.dart';
 import 'package:soap_app/widget/picture_item/header.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
-
-import '../avatar.dart';
 
 class PictureInfoWidget {
   PictureInfoWidget({

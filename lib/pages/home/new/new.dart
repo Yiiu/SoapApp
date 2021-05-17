@@ -75,7 +75,11 @@ class NewViewState extends State<NewView>
             FetchMore? fetchMore,
           }) {
             Future<void> onRefresh() async {
-              await refetch!();
+              final QueryResult? data = await refetch!();
+              if (data != null && data.hasException) {
+                _refreshController.refreshFailed();
+                return;
+              }
               _refreshController.refreshCompleted();
             }
 
@@ -83,6 +87,7 @@ class NewViewState extends State<NewView>
               return SoapListError(
                 controller: _refreshController,
                 onRefresh: onRefresh,
+                // message: result.exception.toString(),
               );
             }
 

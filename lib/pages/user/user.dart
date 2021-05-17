@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
@@ -70,21 +69,17 @@ class _UserPageState extends State<UserPage>
         children: <Widget>[
           Text(
             count != null ? count.toString() : '--',
-            style: GoogleFonts.rubik(
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             title,
-            style: GoogleFonts.rubik(
-              textStyle: TextStyle(
-                color: Colors.white.withOpacity(.8),
-                fontSize: 14,
-              ),
+            style: TextStyle(
+              color: Colors.white.withOpacity(.8),
+              fontSize: 14,
             ),
           ),
         ],

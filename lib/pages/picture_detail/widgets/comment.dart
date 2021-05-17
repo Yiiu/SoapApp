@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/graphql/fragments.dart';
@@ -70,13 +69,11 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
                                 children: <Widget>[
                                   Text(
                                     comment.user!.fullName,
-                                    style: GoogleFonts.rubik(
-                                      textStyle: TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w600,
-                                        color: theme.textTheme.bodyText2!.color!
-                                            .withOpacity(.8),
-                                      ),
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      color: theme.textTheme.bodyText2!.color!
+                                          .withOpacity(.8),
                                     ),
                                   ),
                                   Center(
@@ -94,12 +91,10 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
                                     Jiffy(comment.createTime.toString())
                                         .fromNow(),
                                     textAlign: TextAlign.left,
-                                    style: GoogleFonts.rubik(
-                                      textStyle: TextStyle(
-                                        color: theme.textTheme.bodyText2!.color!
-                                            .withOpacity(.6),
-                                        fontSize: 12,
-                                      ),
+                                    style: TextStyle(
+                                      color: theme.textTheme.bodyText2!.color!
+                                          .withOpacity(.6),
+                                      fontSize: 12,
                                     ),
                                   ),
                                 ],
@@ -107,11 +102,9 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
                               const SizedBox(height: 4),
                               Text(
                                 comment.content,
-                                style: GoogleFonts.rubik(
-                                  textStyle: TextStyle(
-                                    color: theme.textTheme.bodyText2!.color!,
-                                    fontSize: 16,
-                                  ),
+                                style: TextStyle(
+                                  color: theme.textTheme.bodyText2!.color!,
+                                  fontSize: 16,
                                 ),
                               ),
                             ],

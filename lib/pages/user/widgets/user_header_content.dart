@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/user.dart';
@@ -32,21 +31,17 @@ class UserHeaderContent extends StatelessWidget {
         children: <Widget>[
           Text(
             count != null ? count.toString() : '--',
-            style: GoogleFonts.rubik(
-              textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             title,
-            style: GoogleFonts.rubik(
-              textStyle: TextStyle(
-                color: Colors.white.withOpacity(.8),
-                fontSize: 14,
-              ),
+            style: TextStyle(
+              color: Colors.white.withOpacity(.8),
+              fontSize: 14,
             ),
           ),
         ],
@@ -94,12 +89,10 @@ class UserHeaderContent extends StatelessWidget {
                     children: [
                       Text(
                         user.fullName,
-                        style: GoogleFonts.rubik(
-                          textStyle: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                       if (user.bio != null && user.bio!.isNotEmpty)
@@ -107,12 +100,10 @@ class UserHeaderContent extends StatelessWidget {
                           padding: const EdgeInsets.only(top: 4),
                           child: Text(
                             user.bio!,
-                            style: GoogleFonts.rubik(
-                              textStyle: TextStyle(
-                                color: Colors.white.withOpacity(.6),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                              ),
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(.6),
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
                             ),
                           ),
                         ),
@@ -130,11 +121,6 @@ class UserHeaderContent extends StatelessWidget {
           ),
           child: Row(
             children: <Widget>[
-              _userCount(
-                title: '赞',
-                count: user.likesCount,
-                context: context,
-              ),
               _userCount(
                 title: '关注',
                 count: user.followedCount,
@@ -166,6 +152,11 @@ class UserHeaderContent extends StatelessWidget {
                     ),
                   );
                 },
+              ),
+              _userCount(
+                title: '人气',
+                count: user.likesCount,
+                context: context,
               ),
             ],
           ),

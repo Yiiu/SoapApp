@@ -81,7 +81,9 @@ class _LoginPageState extends State<LoginPage> {
         return true;
       });
     } on DioError catch (e) {
-      if (e.response?.data['message'] != null) {
+      if (e.response != null && e.response!.statusCode! >= 500) {
+        SoapToast.error('服务器坏掉啦，请重试！');
+      } else if (e.response?.data != null && e.response!.data is Map) {
         SoapToast.error(errorMap[e.response?.data['message']] ?? '出错啦');
       }
     }

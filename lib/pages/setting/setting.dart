@@ -64,6 +64,7 @@ class _SettingPageState extends State<SettingPage> {
                         margin: const EdgeInsets.only(top: 12),
                         child: SettingItem(
                           title: '个人资料',
+                          border: false,
                           actionIcon: false,
                           action: Avatar(
                             image: accountStore.userInfo!.avatarUrl,
@@ -170,6 +171,7 @@ class _SettingPageState extends State<SettingPage> {
               SettingItem(
                 title: '图片缓存',
                 actionIcon: false,
+                border: false,
                 action: Text(cached),
                 onPressed: () async {
                   await clearDiskCachedImages();

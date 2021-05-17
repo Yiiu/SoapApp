@@ -42,7 +42,11 @@ class _PictureListState extends State<PictureList>
   int pageSize = 30;
 
   Future<void> _onRefresh(Refetch refetch) async {
-    await refetch();
+    final QueryResult? data = await refetch();
+    if (data != null && data.hasException) {
+      _refreshController.refreshFailed();
+      return;
+    }
     _refreshController.refreshCompleted();
   }
 
@@ -98,14 +102,9 @@ class _PictureListState extends State<PictureList>
         Refetch? refetch,
         FetchMore? fetchMore,
       }) {
-        // if (result.hasException && result.data == null) {
-        //   return Text(result.exception.toString());
-        // }
         if (result.hasException && result.data == null) {
           return SoapListError(
             notScrollView: true,
-            message: result.exception?.graphqlErrors[0].message ??
-                result.exception.toString(),
             controller: _refreshController,
             onRefresh: () async {
               _onRefresh(refetch!);
