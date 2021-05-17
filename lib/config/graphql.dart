@@ -4,7 +4,7 @@ import 'package:soap_app/store/index.dart';
 
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(
-    'https://app.soapphoto.com/graphql',
+    'https://soapphoto.com/graphql',
     defaultHeaders: {
       'accept': 'application/json',
     },

@@ -17,12 +17,19 @@ class AddInput extends StatelessWidget {
       keyboardType: isBio ? TextInputType.multiline : null,
       maxLines: isBio ? 4 : 1,
       controller: controller,
+      style: isBio
+          ? const TextStyle(
+              fontSize: 14,
+            )
+          : const TextStyle(
+              fontSize: 16,
+            ),
       textInputAction: isBio ? TextInputAction.done : TextInputAction.next,
       decoration: InputDecoration(
         hintText: label,
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            width: .5,
+            width: 1,
             color:
                 Theme.of(context).textTheme.bodyText2!.color!.withOpacity(.1),
           ),

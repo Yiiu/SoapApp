@@ -104,6 +104,8 @@ class _PictureListState extends State<PictureList>
         if (result.hasException && result.data == null) {
           return SoapListError(
             notScrollView: true,
+            message: result.exception?.graphqlErrors[0].message ??
+                result.exception.toString(),
             controller: _refreshController,
             onRefresh: () async {
               _onRefresh(refetch!);

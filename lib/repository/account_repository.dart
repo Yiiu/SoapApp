@@ -4,7 +4,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AccountProvider {
   AccountProvider() {
     httpClient = Dio()
-      ..options.baseUrl = 'https://app.soapphoto.com'
+      ..options.baseUrl = 'https://soapphoto.com'
       ..options.connectTimeout = 5000;
   }
 

@@ -5,6 +5,8 @@ import 'dart:ui';
 
 import 'package:blurhash/blurhash.dart';
 import 'package:dio/dio.dart';
+import 'package:extended_image/extended_image.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:flutter/material.dart';
 import 'package:soap_app/config/const.dart';
@@ -14,6 +16,7 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/colors.dart';
 import 'package:soap_app/utils/image.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -38,6 +41,10 @@ class _AddPageState extends State<AddPage> {
   Future<void> _onOk() async {
     final File? file = await widget.assets[0].loadFile();
     if (file != null) {
+      if (_titleController.text.isEmpty) {
+        SoapToast.error('请填写标题！');
+        return;
+      }
       final Uint8List? thumb = await widget.assets[0].thumbData;
       final Map<String, Object?> info = {};
       final List<Future> futures = <Future>[];
@@ -58,30 +65,30 @@ class _AddPageState extends State<AddPage> {
       info['make'] = exif?['make'];
       info['model'] = exif?['model'];
       info['blurhash'] = blurHash;
-      print(_titleController.text);
-      print(_bioController.text);
-      // final Response sts = await _ossProvider.sts();
-      // final Response ossData = await _ossProvider.putObject(
-      //   widget.assets[0],
-      //   accessKeyID: sts.data['AccessKeyId'] as String,
-      //   accessKeySecret: sts.data['AccessKeySecret'] as String,
-      //   stsToken: sts.data['SecurityToken'] as String,
-      //   userId: accountStore.userInfo!.id.toString(),
-      //   onSendProgress: (progress) => setState(() {
-      //     print(progress);
-      //     progressValue = progress;
-      //   }),
-      // );
+      info['title'] = _titleController.text;
+      info['bio'] = _bioController.text;
+      final Response sts = await _ossProvider.sts();
+      final Response ossData = await _ossProvider.putObject(
+        widget.assets[0],
+        accessKeyID: sts.data['AccessKeyId'] as String,
+        accessKeySecret: sts.data['AccessKeySecret'] as String,
+        stsToken: sts.data['SecurityToken'] as String,
+        userId: accountStore.userInfo!.id.toString(),
+        onSendProgress: (progress) => setState(() {
+          print(progress);
+          progressValue = progress;
+        }),
+      );
 
-      // final List<dynamic> tags = List<dynamic>.empty();
-      // await _ossProvider.addPicture({
-      //   'info': info,
-      //   'key': jsonDecode(ossData.data as String)['key'],
-      //   'tags': tags,
-      //   'title': '',
-      //   'isPrivate': false,
-      //   'bio': '',
-      // });
+      final List<dynamic> tags = List<dynamic>.empty();
+      await _ossProvider.addPicture({
+        'info': info,
+        'key': jsonDecode(ossData.data as String)['key'],
+        'tags': tags,
+        'title': '',
+        'isPrivate': false,
+        'bio': '',
+      });
     }
   }
 
@@ -133,18 +140,120 @@ class _AddPageState extends State<AddPage> {
                                       height: 40,
                                       width: double.infinity,
                                       child: AddInput(
-                                        label: '标题',
+                                        label: '给你的照片起个标题吧！',
                                         controller: _titleController,
                                       ),
                                     ),
-                                    SizedBox(height: 16),
+                                    const SizedBox(height: 16),
                                     SizedBox(
                                       height: 80,
                                       width: double.infinity,
                                       child: AddInput(
                                         controller: _bioController,
-                                        label: '简介',
+                                        label: '随便说点什么',
                                         isBio: true,
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 56,
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                        bottom: BorderSide(
+                                          width: .8,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .color!
+                                              .withOpacity(.1),
+                                        ),
+                                      )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                FeatherIcons.hash,
+                                                size: 16,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2!
+                                                    .color!
+                                                    .withOpacity(.4),
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              const Text(
+                                                '添加标签',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Icon(
+                                            FeatherIcons.chevronRight,
+                                            size: 22,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .color!
+                                                .withOpacity(.5),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 56,
+                                      decoration: BoxDecoration(
+                                          border: Border(
+                                        bottom: BorderSide(
+                                          width: .8,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .color!
+                                              .withOpacity(.1),
+                                        ),
+                                      )),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(
+                                                FeatherIcons.settings,
+                                                size: 16,
+                                                color: Theme.of(context)
+                                                    .textTheme
+                                                    .bodyText2!
+                                                    .color!
+                                                    .withOpacity(.5),
+                                              ),
+                                              const SizedBox(
+                                                width: 8,
+                                              ),
+                                              const Text(
+                                                '更多设置',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          Icon(
+                                            FeatherIcons.chevronRight,
+                                            size: 22,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .color!
+                                                .withOpacity(.4),
+                                          )
+                                        ],
                                       ),
                                     ),
                                   ],

@@ -13,11 +13,13 @@ class SoapListError extends StatelessWidget {
     this.notScrollView = false,
     required this.onRefresh,
     required this.controller,
+    this.message,
   }) : super(key: key);
 
   final RefreshController controller;
   final Future<void> Function() onRefresh;
   final bool notScrollView;
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
@@ -40,16 +42,23 @@ class SoapListError extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Column(
-                children: const <Widget>[
-                  Icon(
+                children: <Widget>[
+                  const Icon(
                     FeatherIcons.alertCircle,
                     size: 42,
                     color: Colors.red,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 12,
                   ),
-                  Text(
+                  if (message != null)
+                    Text(
+                      message!,
+                      style: const TextStyle(
+                        fontSize: 14,
+                      ),
+                    ),
+                  const Text(
                     '出错惹, 点击重试',
                     style: TextStyle(
                       fontSize: 14,
