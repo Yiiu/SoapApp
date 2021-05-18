@@ -236,8 +236,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     _oauthBtn(
                       svg: 'assets/remix/weibo-line.svg',
-                      background: Color(0xffffda5d),
-                      color: Color(0xffe71f19),
+                      background: const Color(0xffffda5d),
+                      color: const Color(0xffe71f19),
                       type: OauthType.weibo,
                     ),
                   ],

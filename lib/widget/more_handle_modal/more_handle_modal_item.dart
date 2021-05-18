@@ -6,14 +6,16 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 class MoreHandleModalItem extends StatelessWidget {
   const MoreHandleModalItem({
     Key? key,
+    this.color,
+    this.onTap,
     required this.svg,
     required this.title,
-    this.color,
   }) : super(key: key);
 
   final String svg;
   final String title;
   final Color? color;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +23,7 @@ class MoreHandleModalItem extends StatelessWidget {
     final Color baseColor = color ?? theme.textTheme.bodyText2!.color!;
     return TouchableOpacity(
       activeOpacity: activeOpacity,
+      onTap: onTap,
       child: Column(
         children: <Widget>[
           Container(

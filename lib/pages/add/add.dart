@@ -81,8 +81,6 @@ class _AddPageState extends State<AddPage> {
       info['make'] = exif?['make'];
       info['model'] = exif?['model'];
       info['blurhash'] = blurHash;
-      info['title'] = _titleController.text;
-      info['bio'] = _bioController.text;
       _addStore.setLoading(true);
       try {
         final Response sts = await _ossProvider.sts();
@@ -102,9 +100,9 @@ class _AddPageState extends State<AddPage> {
           'tags': _addStore.tags
               .map((String e) => <String, String>{'name': e})
               .toList(),
-          'title': '',
+          'title': _titleController.text,
           'isPrivate': _addStore.isPrivate,
-          'bio': '',
+          'bio': _bioController.text,
         });
         SoapToast.error('上传成功！');
         Navigator.of(context).pop();

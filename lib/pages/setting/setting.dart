@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
@@ -8,6 +11,8 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class SettingPage extends StatefulWidget {
@@ -91,77 +96,50 @@ class _SettingPageState extends State<SettingPage> {
                   },
                 ),
                 onPressed: () {
-                  showCustomModalBottomSheet<dynamic>(
+                  showBasicModalBottomSheet(
                     context: context,
-                    containerWidget:
-                        (_, Animation<double> animation, Widget child) =>
-                            Container(
-                      child: child,
-                    ),
                     builder: (_) {
-                      return Material(
-                        color: Theme.of(context).cardColor,
-                        child: SafeArea(
-                          top: false,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 6),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                Text(
-                                  '系统模式',
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .caption!
-                                        .color,
-                                    fontSize: 14,
-                                  ),
+                      return SafeArea(
+                        top: false,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              Text(
+                                '系统模式',
+                                style: TextStyle(
+                                  color: Theme.of(context)
+                                      .textTheme
+                                      .caption!
+                                      .color,
+                                  fontSize: 14,
                                 ),
-                                const SizedBox(height: 6),
-                                TouchableOpacity(
-                                  activeOpacity: activeOpacity,
-                                  onTap: () {
-                                    appStore.setLight();
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 14),
-                                    child: const Text('亮色模式'),
-                                  ),
-                                ),
-                                TouchableOpacity(
-                                  activeOpacity: activeOpacity,
-                                  onTap: () {
-                                    appStore.setDark();
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 12),
-                                    child: const Text('暗色模式'),
-                                  ),
-                                ),
-                                TouchableOpacity(
-                                  activeOpacity: activeOpacity,
-                                  onTap: () {
-                                    appStore.setSystem();
-                                  },
-                                  child: Container(
-                                    width: double.infinity,
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 6, horizontal: 12),
-                                    child: const Text('系统自动'),
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(height: 6),
+                              ListTile(
+                                title: const Text('亮色模式'),
+                                onTap: () {
+                                  appStore.setLight();
+                                  setState(() {});
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('暗色模式'),
+                                onTap: () {
+                                  appStore.setDark();
+                                  setState(() {});
+                                },
+                              ),
+                              ListTile(
+                                title: const Text('系统自动'),
+                                onTap: () {
+                                  appStore.setSystem();
+                                  setState(() {});
+                                },
+                              ),
+                            ],
                           ),
-                        ),
-                        borderRadius: const BorderRadius.only(
-                          topRight: Radius.circular(6),
-                          topLeft: Radius.circular(6),
                         ),
                       );
                     },
@@ -178,6 +156,66 @@ class _SettingPageState extends State<SettingPage> {
                   getImageCached();
                 },
               ),
+              const SizedBox(height: 12),
+              if (Platform.isAndroid)
+                Observer(
+                  builder: (_) => SettingItem(
+                    title: '刷新率选择',
+                    actionIcon: false,
+                    border: false,
+                    action: appStore.displayMode != null
+                        ? Text(
+                            appStore.modeList[appStore.displayMode!].toString())
+                        : Text(''),
+                    onPressed: () async {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (_) => MoreHandleModal(
+                          title: '刷新率和分辨率选择',
+                          child: SafeArea(
+                            top: false,
+                            child: SizedBox(
+                              height: 420,
+                              child: Observer(
+                                builder: (_) {
+                                  return MediaQuery.removePadding(
+                                    removeTop: true,
+                                    context: context,
+                                    child: ListView.builder(
+                                      controller:
+                                          ModalScrollController.of(context),
+                                      itemCount: appStore.modeList.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return ListTile(
+                                          title: Text(
+                                            appStore.modeList[index]
+                                                    .toString() +
+                                                (index == 14
+                                                    ? '     Color OS 选这个'
+                                                    : ''),
+                                          ),
+                                          onTap: () async {
+                                            await FlutterDisplayMode
+                                                .setPreferredMode(
+                                              appStore.modeList[index],
+                                            );
+                                            appStore.setDisplayMode(index);
+                                            Navigator.of(context).pop();
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                ),
             ],
           ),
         ),

@@ -9,7 +9,6 @@ void showBasicModalBottomSheet({
   required BuildContext context,
   required Widget Function(BuildContext) builder,
 }) {
-  final ThemeData theme = Theme.of(context);
   showCustomModalBottomSheet<dynamic>(
     enableDrag: enableDrag,
     containerWidget: (
@@ -24,7 +23,7 @@ void showBasicModalBottomSheet({
           filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
           child: Container(
             decoration: BoxDecoration(
-              color: theme.cardColor.withOpacity(.9),
+              color: Theme.of(_).cardColor.withOpacity(.9),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
@@ -35,7 +34,6 @@ void showBasicModalBottomSheet({
         ),
       ),
     ),
-    duration: const Duration(milliseconds: 150),
     context: context,
     builder: builder,
   );

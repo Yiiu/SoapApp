@@ -3,6 +3,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:share/share.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
@@ -126,9 +127,12 @@ class PictureDetailPage extends StatelessWidget {
                               horizontal: 24, vertical: 14),
                           child: Row(
                             children: [
-                              const MoreHandleModalItem(
+                              MoreHandleModalItem(
                                 svg: 'assets/remix/share-line.svg',
                                 title: '分享',
+                                onTap: () {
+                                  Share.shareFiles([picture.pictureUrl()]);
+                                },
                               ),
                               const SizedBox(width: 24),
                               const MoreHandleModalItem(
@@ -206,17 +210,24 @@ class PictureDetailPage extends StatelessWidget {
                         if (data.tags != null &&
                             data.tags!.isNotEmpty) ...<Widget>[
                           const SizedBox(height: 12),
-                          Row(
-                            children: data.tags!
-                                .map(
-                                  (Tag tag) => TagItem(
-                                    tag: tag,
-                                  ),
-                                )
-                                .toList(),
-                          )
+                          SizedBox(
+                            width: double.infinity,
+                            child: Wrap(
+                              spacing: 6,
+                              runSpacing: 6,
+                              alignment: WrapAlignment.start,
+                              runAlignment: WrapAlignment.end,
+                              children: data.tags!
+                                  .map(
+                                    (Tag tag) => TagItem(
+                                      tag: tag,
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
+                          ),
                         ],
-                        const SizedBox(height: 6),
+                        const SizedBox(height: 12),
                         Row(
                           children: [
                             if (picture.isPrivate != null && picture.isPrivate!)
