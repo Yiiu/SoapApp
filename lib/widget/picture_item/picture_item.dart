@@ -1,8 +1,10 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
@@ -93,7 +95,7 @@ class PictureItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       child: Stack(
         children: <Widget>[
           Column(
@@ -114,6 +116,48 @@ class PictureItem extends StatelessWidget {
               // bottom(),
             ],
           ),
+          if (picture.isPrivate != null && picture.isPrivate!)
+            Positioned(
+              bottom: 8,
+              right: 8,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(4),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 6,
+                    sigmaY: 6,
+                  ),
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(.3),
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          height: 10,
+                          width: 10,
+                          child: SvgPicture.asset(
+                            'assets/remix/lock-fill.svg',
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(width: 4),
+                        const Text(
+                          '私密',
+                          style: TextStyle(
+                            fontSize: 10,
+                            height: 1.2,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

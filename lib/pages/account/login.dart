@@ -12,6 +12,7 @@ import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/account/stores/login.store.dart';
 import 'package:soap_app/utils/oauth.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/button.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -29,32 +30,10 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final LoginStore store = LoginStore();
 
-  bool _keyboard = false;
-
-  double _height = 280;
-
   @override
   void initState() {
     super.initState();
     store.setupValidations();
-    final KeyboardVisibilityController keyboardVisibilityController =
-        KeyboardVisibilityController();
-    // keyboardVisibilityController.onChange.listen((bool visible) {
-    //   if (_keyboard != visible && mounted) {
-    //     setState(() {
-    //       _keyboard = visible;
-    //     });
-    //     if (visible) {
-    //       setState(() {
-    //         _height = 180;
-    //       });
-    //     } else {
-    //       setState(() {
-    //         _height = 280;
-    //       });
-    //     }
-    //   }
-    // });
   }
 
   @override
@@ -72,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
     try {
+      store.setLoading(true);
       await store.login();
       SoapToast.success('登录成功');
       Navigator.of(context).popUntil((route) {
@@ -81,6 +61,7 @@ class _LoginPageState extends State<LoginPage> {
         return true;
       });
     } on DioError catch (e) {
+      store.setLoading(false);
       if (e.response != null && e.response!.statusCode! >= 500) {
         SoapToast.error('服务器坏掉啦，请重试！');
       } else if (e.response?.data != null && e.response!.data is Map) {
@@ -147,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                 children: <Widget>[
                   AnimatedContainer(
                     duration: const Duration(milliseconds: 200),
-                    height: _height,
+                    height: 280,
                     alignment: Alignment.center,
                     curve: Curves.easeInOut,
                     child: Text(
@@ -198,31 +179,11 @@ class _LoginPageState extends State<LoginPage> {
                             const SizedBox(
                               height: 18,
                             ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: TouchableOpacity(
-                                activeOpacity: activeOpacity,
-                                child: Container(
-                                  width: double.infinity,
-                                  padding: const EdgeInsets.symmetric(
-                                    vertical: 12,
-                                    horizontal: 24,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: theme.primaryColor,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      '登录',
-                                      style:
-                                          theme.textTheme.bodyText2!.copyWith(
-                                        fontSize: 16,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                            Observer(
+                              builder: (_) => SoapButton(
+                                title: '登录',
+                                loading: store.loading,
+                                borderRadius: 8,
                                 onTap: () {
                                   login();
                                 },

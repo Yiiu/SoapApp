@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_tag_editor/tag_editor.dart';
+import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
 
 class EditTag extends StatefulWidget {
   const EditTag({
@@ -48,48 +49,40 @@ class _EditTagState extends State<EditTag> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding:
-          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+    return MoreHandleModal(
+      title: '标签',
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-        height: 220,
-        child: Column(
-          children: [
-            Text(
-              '添加标签',
-              style: TextStyle(
-                color: Theme.of(context).textTheme.caption!.color,
-                fontSize: 14,
-              ),
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
+          height: 200,
+          child: TagEditor(
+            autofocus: true,
+            focusNode: focusNode,
+            controller: _controller,
+            textInputAction: TextInputAction.done,
+            keyboardType: TextInputType.text,
+            length: values.length,
+            delimiters: [',', ' '],
+            hasAddButton: false,
+            inputDecoration: const InputDecoration(
+              border: InputBorder.none,
+              hintText: '空格或者逗号添加标签',
             ),
-            TagEditor(
-              autofocus: true,
-              focusNode: focusNode,
-              controller: _controller,
-              textInputAction: TextInputAction.done,
-              keyboardType: TextInputType.text,
-              length: values.length,
-              delimiters: [',', ' '],
-              hasAddButton: false,
-              inputDecoration: const InputDecoration(
-                border: InputBorder.none,
-                hintText: '空格或者逗号添加标签',
-              ),
-              onTagChanged: _onAdd,
-              onSubmitted: (String title) {
-                widget.onOk(values);
-                Navigator.of(context).pop();
-                // _onAdd(title);
-                // FocusScope.of(context).requestFocus(focusNode);
-              },
-              tagBuilder: (context, index) => _Chip(
-                index: index,
-                label: values[index],
-                onDeleted: _onDelete,
-              ),
-            )
-          ],
+            onTagChanged: _onAdd,
+            onSubmitted: (String title) {
+              widget.onOk(values);
+              Navigator.of(context).pop();
+              // _onAdd(title);
+              // FocusScope.of(context).requestFocus(focusNode);
+            },
+            tagBuilder: (context, index) => _Chip(
+              index: index,
+              label: values[index],
+              onDeleted: _onDelete,
+            ),
+          ),
         ),
       ),
     );

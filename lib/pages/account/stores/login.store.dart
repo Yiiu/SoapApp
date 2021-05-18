@@ -17,6 +17,9 @@ abstract class _LoginStoreBase with Store {
   @observable
   String password = '';
 
+  @observable
+  bool loading = false;
+
   void setupValidations() {
     _disposers = <ReactionDisposer>[
       reaction((_) => username, validateUsername),
@@ -32,6 +35,12 @@ abstract class _LoginStoreBase with Store {
 
   Future<void> login() async {
     await accountStore.login(username, password);
+  }
+
+  @action
+  void setLoading(bool value) {
+    print(value);
+    loading = value;
   }
 
   @action

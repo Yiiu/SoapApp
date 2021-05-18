@@ -3,10 +3,35 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/widget/app_bar.dart';
 
-class MoreSettingPages extends StatelessWidget {
-  MoreSettingPages({Key? key}) : super(key: key);
+class MoreSettingPages extends StatefulWidget {
+  const MoreSettingPages({
+    Key? key,
+    this.onChange,
+    required this.isPrivate,
+  }) : super(key: key);
 
-  final _controller = AdvancedSwitchController();
+  final bool isPrivate;
+  final void Function(bool)? onChange;
+
+  @override
+  _MoreSettingPagesState createState() => _MoreSettingPagesState();
+}
+
+class _MoreSettingPagesState extends State<MoreSettingPages> {
+  final AdvancedSwitchController _controller = AdvancedSwitchController();
+  @override
+  void initState() {
+    _controller.value = widget.isPrivate;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    if (widget.onChange != null) {
+      widget.onChange!(_controller.value);
+    }
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +55,13 @@ class MoreSettingPages extends StatelessWidget {
               title: '仅自己可见',
               actionIcon: false,
               border: false,
-              // action: Text('ss'),
               action: AdvancedSwitch(
                 controller: _controller,
-                // activeColor: Theme.of(context).primaryColor,
-                // inactiveColor: Theme.of(context).backgroundColor,
                 width: 50.0,
                 height: 30.0,
               ),
               onPressed: () async {
                 _controller.value = !_controller.value;
-                // await clearDiskCachedImages();
-                // getImageCached();
               },
             ),
           ],

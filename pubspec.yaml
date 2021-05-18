@@ -100,6 +100,10 @@ flutter:
     - assets/remix/tag.svg
     - assets/remix/weibo-line.svg
     - assets/remix/github-line.svg
+    - assets/remix/image-edit-line.svg
+    - assets/remix/delete-bin-5-line.svg
+    - assets/remix/lock-fill.svg
+    - assets/remix/share-line.svg
     - assets/weibo.svg
   fonts:
     - family: Rubik

@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
 void showBasicModalBottomSheet({
+  bool enableDrag = false,
+  String? title,
   required BuildContext context,
   required Widget Function(BuildContext) builder,
 }) {
   final ThemeData theme = Theme.of(context);
   showCustomModalBottomSheet<dynamic>(
-    enableDrag: false,
+    enableDrag: enableDrag,
     containerWidget: (
       BuildContext _,
       Animation<double> animation,
@@ -33,7 +35,7 @@ void showBasicModalBottomSheet({
         ),
       ),
     ),
-    duration: const Duration(milliseconds: 200),
+    duration: const Duration(milliseconds: 150),
     context: context,
     builder: builder,
   );

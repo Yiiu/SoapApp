@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/const.dart';
@@ -18,6 +20,9 @@ import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/hero_photo_view.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import 'package:soap_app/widget/more_handle_modal/more_handle_modal_item.dart';
 import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -107,6 +112,49 @@ class PictureDetailPage extends StatelessWidget {
                   ],
                 ),
               ),
+              actions: [
+                TouchableOpacity(
+                  activeOpacity: activeOpacity,
+                  onTap: () {
+                    showBasicModalBottomSheet(
+                      enableDrag: true,
+                      context: context,
+                      builder: (BuildContext context) => MoreHandleModal(
+                        title: '更多操作',
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 24, vertical: 14),
+                          child: Row(
+                            children: [
+                              const MoreHandleModalItem(
+                                svg: 'assets/remix/share-line.svg',
+                                title: '分享',
+                              ),
+                              const SizedBox(width: 24),
+                              const MoreHandleModalItem(
+                                svg: 'assets/remix/image-edit-line.svg',
+                                title: '编辑图片',
+                              ),
+                              const SizedBox(width: 24),
+                              MoreHandleModalItem(
+                                svg: 'assets/remix/delete-bin-5-line.svg',
+                                title: '删除图片',
+                                color: theme.errorColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Padding(
+                    padding: EdgeInsets.only(right: 12),
+                    child: Icon(
+                      FeatherIcons.moreHorizontal,
+                    ),
+                  ),
+                ),
+              ],
             ),
             body: Container(
               color: theme.backgroundColor,
@@ -169,13 +217,42 @@ class PictureDetailPage extends StatelessWidget {
                           )
                         ],
                         const SizedBox(height: 6),
-                        Text(
-                          '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
-                          style: TextStyle(
-                            color: theme.textTheme.bodyText2!.color!
-                                .withOpacity(.6),
-                            fontSize: 13,
-                          ),
+                        Row(
+                          children: [
+                            if (picture.isPrivate != null && picture.isPrivate!)
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  SizedBox(
+                                    height: 14,
+                                    width: 14,
+                                    child: SvgPicture.asset(
+                                      'assets/remix/lock-fill.svg',
+                                      color: theme.textTheme.bodyText2!.color!
+                                          .withOpacity(.6),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 4),
+                                  Text(
+                                    '私密',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      color: theme.textTheme.bodyText2!.color!
+                                          .withOpacity(.6),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            const SizedBox(width: 12),
+                            Text(
+                              '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
+                              style: TextStyle(
+                                color: theme.textTheme.bodyText2!.color!
+                                    .withOpacity(.6),
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),

@@ -7,9 +7,10 @@ import 'package:blurhash/blurhash.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/pages/add/stores/add_store.dart';
 import 'package:soap_app/pages/add/edit_tag.dart';
 import 'package:soap_app/pages/add/more_setting.dart';
 import 'package:soap_app/pages/add/widgets/input.dart';
@@ -18,9 +19,9 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/colors.dart';
 import 'package:soap_app/utils/image.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/button.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/soap_toast.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     as WechatAssetsPicker;
 
@@ -38,11 +39,12 @@ class AddPage extends StatefulWidget {
 class _AddPageState extends State<AddPage> {
   late FocusNode _titleFocusNode;
   late FocusNode _bioFocusNode;
+
+  final AddStore _addStore = AddStore();
+
   final OssProvider _ossProvider = OssProvider();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
-
-  List<String> tags = [];
 
   double progressValue = 1;
   @override
@@ -81,28 +83,35 @@ class _AddPageState extends State<AddPage> {
       info['blurhash'] = blurHash;
       info['title'] = _titleController.text;
       info['bio'] = _bioController.text;
-      final Response sts = await _ossProvider.sts();
-      final Response ossData = await _ossProvider.putObject(
-        widget.assets[0],
-        accessKeyID: sts.data['AccessKeyId'] as String,
-        accessKeySecret: sts.data['AccessKeySecret'] as String,
-        stsToken: sts.data['SecurityToken'] as String,
-        userId: accountStore.userInfo!.id.toString(),
-        onSendProgress: (progress) => setState(() {
-          print(progress);
-          progressValue = progress;
-        }),
-      );
-
-      final List<dynamic> tags = List<dynamic>.empty();
-      await _ossProvider.addPicture({
-        'info': info,
-        'key': jsonDecode(ossData.data as String)['key'],
-        'tags': tags,
-        'title': '',
-        'isPrivate': false,
-        'bio': '',
-      });
+      _addStore.setLoading(true);
+      try {
+        final Response sts = await _ossProvider.sts();
+        final Response ossData = await _ossProvider.putObject(
+          widget.assets[0],
+          accessKeyID: sts.data['AccessKeyId'] as String,
+          accessKeySecret: sts.data['AccessKeySecret'] as String,
+          stsToken: sts.data['SecurityToken'] as String,
+          userId: accountStore.userInfo!.id.toString(),
+          onSendProgress: (double progress) => setState(() {
+            progressValue = progress;
+          }),
+        );
+        final Response res = await _ossProvider.addPicture({
+          'info': info,
+          'key': jsonDecode(ossData.data as String)['key'],
+          'tags': _addStore.tags
+              .map((String e) => <String, String>{'name': e})
+              .toList(),
+          'title': '',
+          'isPrivate': _addStore.isPrivate,
+          'bio': '',
+        });
+        SoapToast.error('上传成功！');
+        Navigator.of(context).pop();
+      } catch (e) {
+        _addStore.setLoading(false);
+        SoapToast.error('上传失败，请重试！');
+      }
     }
   }
 
@@ -191,7 +200,7 @@ class _AddPageState extends State<AddPage> {
               },
               child: Flex(
                 direction: Axis.vertical,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: SizedBox(
@@ -242,38 +251,39 @@ class _AddPageState extends State<AddPage> {
                                           isBio: true,
                                         ),
                                       ),
-                                      _itemBuild(
-                                        iconColor: tags.isNotEmpty
-                                            ? const Color(0xff1890ff)
-                                            : null,
-                                        title: tags.isNotEmpty
-                                            ? Text(
-                                                tags.join('   '),
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                  color: Color(0xff1890ff),
+                                      Observer(
+                                        builder: (_) => _itemBuild(
+                                          iconColor: _addStore.tags.isNotEmpty
+                                              ? const Color(0xff1890ff)
+                                              : null,
+                                          title: _addStore.tags.isNotEmpty
+                                              ? Text(
+                                                  _addStore.tags.join('   '),
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    color: Color(0xff1890ff),
+                                                  ),
+                                                )
+                                              : const Text(
+                                                  '添加标签',
                                                 ),
-                                              )
-                                            : const Text(
-                                                '添加标签',
+                                          icon: FeatherIcons.hash,
+                                          onTap: () {
+                                            showBasicModalBottomSheet(
+                                              context: context,
+                                              builder: (BuildContext context) =>
+                                                  EditTag(
+                                                onOk: (List<String> _tags) {
+                                                  _unfocus();
+                                                  _addStore.setTags(_tags);
+                                                },
+                                                tags: _addStore.tags,
                                               ),
-                                        icon: FeatherIcons.hash,
-                                        onTap: () {
-                                          showBasicModalBottomSheet(
-                                            context: context,
-                                            builder: (BuildContext context) =>
-                                                EditTag(
-                                              onOk: (List<String> _tags) {
-                                                _unfocus();
-                                                setState(() {
-                                                  tags = _tags;
-                                                });
-                                              },
-                                              tags: tags,
-                                            ),
-                                          );
-                                        },
+                                            );
+                                          },
+                                        ),
                                       ),
                                       _itemBuild(
                                           title: const Text(
@@ -285,7 +295,14 @@ class _AddPageState extends State<AddPage> {
                                             Navigator.of(context).push(
                                               CupertinoPageRoute<void>(
                                                 builder: (_) =>
-                                                    MoreSettingPages(),
+                                                    MoreSettingPages(
+                                                  isPrivate:
+                                                      _addStore.isPrivate,
+                                                  onChange: (bool _isPrivate) {
+                                                    _addStore
+                                                        .setPrivate(_isPrivate);
+                                                  },
+                                                ),
                                               ),
                                             );
                                           }),
@@ -301,25 +318,12 @@ class _AddPageState extends State<AddPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16),
-                    child: TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      onTap: _onOk,
-                      child: Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
-                          borderRadius: BorderRadius.circular(1000),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            '发布',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
+                    child: Observer(
+                        builder: (_) => SoapButton(
+                              loading: _addStore.loading,
+                              title: '发布',
+                              onTap: () => _onOk(),
+                            )),
                   ),
                 ],
               ),

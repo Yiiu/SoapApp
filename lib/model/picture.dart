@@ -25,6 +25,7 @@ class Picture {
     required this.blurhash,
     required this.createTime,
     required this.updateTime,
+    this.isPrivate,
     this.hash,
     this.originalname,
     this.mimetype,
@@ -45,7 +46,7 @@ class Picture {
   final String? hash, originalname, mimetype, make, model;
   final int views, size, height, width;
   final int? commentCount, likedCount;
-  final bool? isLike;
+  final bool? isLike, isPrivate;
   final bool isDark;
   final DateTime createTime, updateTime;
 
