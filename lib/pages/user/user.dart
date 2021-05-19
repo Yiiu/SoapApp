@@ -41,8 +41,6 @@ class _UserPageState extends State<UserPage>
   late TabController tabController;
   final int _selectedIndex = 0;
 
-  int _tabIndex = 0;
-
   final double _tabBarHeight = 55;
 
   @override
@@ -144,9 +142,9 @@ class _UserPageState extends State<UserPage>
               ),
             ],
             onTap: (int index) {
-              setState(() {
-                _tabIndex = index;
-              });
+              // setState(() {
+              //   _tabIndex = index;
+              // });
             },
             labelColor: theme.textTheme.bodyText2!.color,
             indicator: MaterialIndicator(

@@ -23,3 +23,19 @@ DocumentNode addComment = gql(r'''
     }
   }
 ''');
+
+DocumentNode updatePicture = gql(r'''
+  mutation UpdatePicture($data: UpdatePictureInput!, $id: Float!) {
+    updatePicture(data: $data, id: $id) {
+      ...UpdatePictureFragment
+    }
+  }
+''');
+
+DocumentNode deletePicture = gql(r'''
+  mutation DeletePicture($id: Float!) {
+    deletePicture(id: $id) {
+      done
+    }
+  }
+''');

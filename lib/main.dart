@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/store/index.dart';
@@ -12,13 +11,17 @@ import 'pages/app.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDisplayMode.setHighRefreshRate();
-  await DotEnv.load(fileName: '.env');
-  await StorageUtil.initialize();
-  await Jiffy.locale('zh_cn');
-  await initHiveForFlutter();
+  await Future.wait<dynamic>({
+    initHiveForFlutter(),
+    DotEnv.load(fileName: '.env'),
+    StorageUtil.initialize(),
+    Jiffy.locale('zh_cn'),
+  });
   accountStore.initialize();
-  await appStore.initialize();
+  await Future.wait<dynamic>({
+    pictureCachedStore.initialize(),
+    appStore.initialize(),
+  });
   SystemChrome.setPreferredOrientations(
       <DeviceOrientation>[DeviceOrientation.portraitUp]);
   SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[

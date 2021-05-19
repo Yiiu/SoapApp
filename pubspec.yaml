@@ -15,7 +15,7 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: ">=2.12.0 < 3.0.0"
@@ -37,7 +37,7 @@ dependencies:
   intl: ^0.17.0
   palette_generator: ^0.3.0
   decimal: ^1.1.0
-  wechat_assets_picker: ^5.5.1
+  wechat_assets_picker: ^5.5.2
   exif: ^2.1.0
   url_launcher: ^6.0.3
   enum_to_string: ^2.0.1
@@ -46,7 +46,7 @@ dependencies:
   bot_toast: ^4.0.1
   waterfall_flow: ^3.0.1
   extended_list: ^3.0.0
-  extended_image: ^4.0.1
+  extended_image: ^4.1.0
   extended_nested_scroll_view: ^3.0.0
   tab_indicator_styler: ^2.0.0-null-safety
   modal_bottom_sheet: ^2.0.0
@@ -59,11 +59,10 @@ dependencies:
   graphql_flutter: 5.0.0-nullsafety.2
   gql: 0.13.0-nullsafety.2
   flutter_feather_icons: 2.0.0+1
-  cupertino_icons: ^1.0.2
+  cupertino_icons: ^1.0.3
   touchable_opacity: ^1.2.0
   flutter_easyrefresh: ^2.2.1
   jiffy: ^4.1.0
-  flutter_keyboard_visibility: ^5.0.1
   octo_image: ^1.0.0+1
   flutter_mobx: ^2.0.0
   mobx: ^2.0.1

@@ -68,8 +68,9 @@ class _ProfileViewState extends State<ProfileView> {
             onTap: () {
               Navigator.pushNamed(context, RouteName.setting);
             },
-            child: const Icon(
+            child: Icon(
               FeatherIcons.settings,
+              color: theme.textTheme.bodyText2!.color,
             ),
           ),
         ],

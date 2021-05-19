@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/const.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
@@ -13,7 +12,6 @@ import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({
@@ -99,47 +97,36 @@ class _SettingPageState extends State<SettingPage> {
                   showBasicModalBottomSheet(
                     context: context,
                     builder: (_) {
-                      return SafeArea(
-                        top: false,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Text(
-                                '系统模式',
-                                style: TextStyle(
-                                  color: Theme.of(context)
-                                      .textTheme
-                                      .caption!
-                                      .color,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              ListTile(
-                                title: const Text('亮色模式'),
-                                onTap: () {
-                                  appStore.setLight();
-                                  setState(() {});
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('暗色模式'),
-                                onTap: () {
-                                  appStore.setDark();
-                                  setState(() {});
-                                },
-                              ),
-                              ListTile(
-                                title: const Text('系统自动'),
-                                onTap: () {
-                                  appStore.setSystem();
-                                  setState(() {});
-                                },
-                              ),
-                            ],
-                          ),
+                      return MoreHandleModal(
+                        title: '系统模式',
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            ListTile(
+                              title: const Text('亮色模式'),
+                              onTap: () {
+                                appStore.setLight();
+                                setState(() {});
+                              },
+                              selected: appStore.themeMode == ThemeMode.light,
+                            ),
+                            ListTile(
+                              title: const Text('暗色模式'),
+                              onTap: () {
+                                appStore.setDark();
+                                setState(() {});
+                              },
+                              selected: appStore.themeMode == ThemeMode.dark,
+                            ),
+                            ListTile(
+                              title: const Text('系统自动'),
+                              onTap: () {
+                                appStore.setSystem();
+                                setState(() {});
+                              },
+                              selected: appStore.themeMode == ThemeMode.system,
+                            ),
+                          ],
                         ),
                       );
                     },
@@ -189,12 +176,11 @@ class _SettingPageState extends State<SettingPage> {
                                           (BuildContext context, int index) {
                                         return ListTile(
                                           title: Text(
-                                            appStore.modeList[index]
-                                                    .toString() +
-                                                (index == 14
-                                                    ? '     Color OS 选这个'
-                                                    : ''),
+                                            appStore.modeList[index].toString(),
                                           ),
+                                          selected: appStore.displayMode != null
+                                              ? appStore.displayMode == index
+                                              : false,
                                           onTap: () async {
                                             await FlutterDisplayMode
                                                 .setPreferredMode(

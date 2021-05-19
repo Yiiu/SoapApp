@@ -1,4 +1,5 @@
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/store/index.dart';
 
 class ListData<E> {
   const ListData({
@@ -30,7 +31,10 @@ ListData<Picture> pictureListDataFormat(
   final int page = data[label]['page'] as int;
   final int pageSize = data[label]['pageSize'] as int;
   final int count = data[label]['count'] as int;
-  final List<Picture> list = Picture.fromListJson(repositories);
+  final List<Picture> list = Picture.fromListJson(repositories)
+      .where((Picture picture) =>
+          !pictureCachedStore.deleteIds.contains(picture.id))
+      .toList();
   return ListData<Picture>(
     count: count,
     pageSize: pageSize,

@@ -25,8 +25,6 @@ class _CollectionItemState extends State<CollectionItem> {
 
   Widget _preview(int index) {
     final ThemeData theme = Theme.of(context);
-    print(collection.preview!.length);
-    print(index);
     if (collection.preview!.length > index) {
       return Expanded(
         child: AspectRatio(

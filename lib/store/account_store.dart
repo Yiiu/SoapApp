@@ -103,9 +103,7 @@ abstract class _AccountStoreBase with Store {
   @action
   Future<bool> oauthCallback(Uri uri) async {
     final Map<String, String> query = Uri.splitQueryString(uri.query);
-    print(query['action']);
     if (query['action'] != null && query['action'] == 'active') {
-      print('teststs');
       SoapToast.error('此账户没有绑定账号!');
       return false;
     }

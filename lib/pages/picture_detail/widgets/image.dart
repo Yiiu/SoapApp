@@ -24,14 +24,15 @@ class PictureDetailImage extends StatelessWidget {
     final double minFactor = MediaQuery.of(context).size.width / imgMaxHeight;
 
     final Hero _content = Hero(
-        tag: 'picture-$heroLabel-${picture.id}',
-        child: OctoImage(
-          placeholderBuilder: OctoPlaceholder.blurHash(
-            picture.blurhash,
-          ),
-          image: ExtendedImage.network(picture.pictureUrl()).image,
-          fit: BoxFit.cover,
-        ));
+      tag: 'picture-$heroLabel-${picture.id}',
+      child: OctoImage(
+        placeholderBuilder: OctoPlaceholder.blurHash(
+          picture.blurhash,
+        ),
+        image: ExtendedImage.network(picture.pictureUrl()).image,
+        fit: BoxFit.cover,
+      ),
+    );
     final double num = picture.width / picture.height;
     if (num < minFactor && num < 1) {
       return Container(

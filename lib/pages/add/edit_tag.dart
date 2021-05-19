@@ -54,33 +54,36 @@ class _EditTagState extends State<EditTag> {
       child: Container(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: Container(
+        child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
-          height: 200,
-          child: TagEditor(
-            autofocus: true,
-            focusNode: focusNode,
-            controller: _controller,
-            textInputAction: TextInputAction.done,
-            keyboardType: TextInputType.text,
-            length: values.length,
-            delimiters: [',', ' '],
-            hasAddButton: false,
-            inputDecoration: const InputDecoration(
-              border: InputBorder.none,
-              hintText: '空格或者逗号添加标签',
-            ),
-            onTagChanged: _onAdd,
-            onSubmitted: (String title) {
-              widget.onOk(values);
-              Navigator.of(context).pop();
-              // _onAdd(title);
-              // FocusScope.of(context).requestFocus(focusNode);
-            },
-            tagBuilder: (context, index) => _Chip(
-              index: index,
-              label: values[index],
-              onDeleted: _onDelete,
+          child: SizedBox(
+            // height: 200,
+            child: TagEditor(
+              maxLines: 6,
+              autofocus: true,
+              focusNode: focusNode,
+              controller: _controller,
+              textInputAction: TextInputAction.done,
+              keyboardType: TextInputType.text,
+              length: values.length,
+              delimiters: [',', ' '],
+              hasAddButton: false,
+              inputDecoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: '空格或者逗号添加标签',
+              ),
+              onTagChanged: _onAdd,
+              onSubmitted: (String title) {
+                widget.onOk(values);
+                Navigator.of(context).pop();
+                // _onAdd(title);
+                // FocusScope.of(context).requestFocus(focusNode);
+              },
+              tagBuilder: (context, index) => _Chip(
+                index: index,
+                label: values[index],
+                onDeleted: _onDelete,
+              ),
             ),
           ),
         ),
@@ -104,15 +107,15 @@ class _Chip extends StatelessWidget {
   Widget build(BuildContext context) {
     const double height = 24;
     return Chip(
-      backgroundColor: Color(0xff1890ff).withOpacity(.15),
+      backgroundColor: const Color(0xff1890ff).withOpacity(.15),
       labelPadding: const EdgeInsets.only(left: 8.0),
       label: Text(
         label,
-        style: TextStyle(
+        style: const TextStyle(
           color: Color(0xff1890ff),
         ),
       ),
-      deleteIcon: Icon(
+      deleteIcon: const Icon(
         FeatherIcons.x,
         size: 18,
         color: Color(0xff1890ff),

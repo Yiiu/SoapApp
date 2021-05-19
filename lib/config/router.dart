@@ -28,6 +28,7 @@ class RouteName {
   static const String webview = 'webview';
   static const String oauth_webview = 'oauth_webview';
   static const String add = 'add';
+  static const String edit_picture = 'edit_picture';
 }
 
 class Router {
@@ -91,6 +92,13 @@ class Router {
           builder: (_) => AddPage(
             assets:
                 (settings.arguments! as dynamic)['assets'] as List<AssetEntity>,
+          ),
+        );
+      case RouteName.edit_picture:
+        return MaterialPageRoute<void>(
+          builder: (_) => AddPage(
+            edit: true,
+            picture: (settings.arguments as dynamic)!['picture'] as Picture?,
           ),
         );
       default:

@@ -3,6 +3,7 @@ import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/query.dart';

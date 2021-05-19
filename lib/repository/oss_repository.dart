@@ -104,7 +104,6 @@ class OssProvider {
           '{"userId":$userId,"originalname":\${x:originalname},"type":\${x:type},"object":\${object},"bucket":\${bucket},"etag":\${etag},"size":\${size},"mimetype":\${mimeType}}',
       'callbackBodyType': 'application/json',
     };
-    print(userId);
     final Map<String, Object?> map = {
       'key': env['OSS_PREFIX_PATH']! + uuid.v4(),
       'OSSAccessKeyId': accessKeyID,

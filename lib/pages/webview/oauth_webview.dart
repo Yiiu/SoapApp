@@ -45,7 +45,6 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
 
   @override
   Widget build(BuildContext context) {
-    print(url);
     return Material(
       child: FixedAppBarWrapper(
         appBar: SoapAppBar(
@@ -62,9 +61,10 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
               onTap: () {
                 _webViewController.reload();
               },
-              child: const Icon(
+              child: Icon(
                 FeatherIcons.rotateCw,
                 size: 22,
+                color: Theme.of(context).textTheme.bodyText2!.color,
               ),
             ),
           ],

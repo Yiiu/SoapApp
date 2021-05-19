@@ -39,6 +39,16 @@ DocumentNode pictureFragment = gql(r'''
   }
 ''');
 
+DocumentNode updatePictureFragment = gql(r'''
+  fragment UpdatePictureFragment on Picture {
+    ...PictureBaseFragment
+    isPrivate
+    tags {
+      ...TagFragment
+    }
+  }
+''');
+
 DocumentNode pictureBaseFragment = gql(r'''
   fragment PictureBaseFragment on Picture {
     id

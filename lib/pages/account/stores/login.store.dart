@@ -39,7 +39,6 @@ abstract class _LoginStoreBase with Store {
 
   @action
   void setLoading(bool value) {
-    print(value);
     loading = value;
   }
 

@@ -3,7 +3,6 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:share/share.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
@@ -12,18 +11,18 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
+import 'package:soap_app/pages/picture_detail/widgets/app_bar_title.dart';
 import 'package:soap_app/pages/picture_detail/widgets/comment.dart';
 import 'package:soap_app/pages/picture_detail/widgets/handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/image.dart';
 import 'package:soap_app/pages/picture_detail/widgets/info.dart';
+import 'package:soap_app/pages/picture_detail/widgets/more_handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/hero_photo_view.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal_item.dart';
 import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -68,49 +67,15 @@ class PictureDetailPage extends StatelessWidget {
               border: true,
               automaticallyImplyLeading: true,
               elevation: 0,
-              title: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: Row(
-                  children: <Widget>[
-                    TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      onTap: () => Navigator.of(context).pushNamed(
-                        RouteName.user,
-                        arguments: {
-                          'user': picture.user,
-                          'heroId': '',
-                        },
-                      ),
-                      child: Avatar(
-                        size: 38,
-                        image: picture.user!.avatarUrl,
-                      ),
-                    ),
-                    TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => Navigator.of(context).pushNamed(
-                        RouteName.user,
-                        arguments: {
-                          'user': picture.user,
-                          'heroId': '',
-                        },
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 8,
-                        ),
-                        child: Text(
-                          picture.user!.fullName,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              title: PictureAppBarTitle(
+                avatar: picture.user!.avatarUrl,
+                fullName: picture.user!.fullName,
+                openUserPage: () => Navigator.of(context).pushNamed(
+                  RouteName.user,
+                  arguments: {
+                    'user': picture.user!.id,
+                    'heroId': '',
+                  },
                 ),
               ),
               actions: [
@@ -120,41 +85,17 @@ class PictureDetailPage extends StatelessWidget {
                     showBasicModalBottomSheet(
                       enableDrag: true,
                       context: context,
-                      builder: (BuildContext context) => MoreHandleModal(
-                        title: '更多操作',
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 24, vertical: 14),
-                          child: Row(
-                            children: [
-                              MoreHandleModalItem(
-                                svg: 'assets/remix/share-line.svg',
-                                title: '分享',
-                                onTap: () {
-                                  Share.shareFiles([picture.pictureUrl()]);
-                                },
-                              ),
-                              const SizedBox(width: 24),
-                              const MoreHandleModalItem(
-                                svg: 'assets/remix/image-edit-line.svg',
-                                title: '编辑图片',
-                              ),
-                              const SizedBox(width: 24),
-                              MoreHandleModalItem(
-                                svg: 'assets/remix/delete-bin-5-line.svg',
-                                title: '删除图片',
-                                color: theme.errorColor,
-                              ),
-                            ],
-                          ),
-                        ),
+                      builder: (BuildContext context) =>
+                          PictureDetailMoreHandle(
+                        picture: data,
                       ),
                     );
                   },
-                  child: const Padding(
-                    padding: EdgeInsets.only(right: 12),
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 12),
                     child: Icon(
                       FeatherIcons.moreHorizontal,
+                      color: theme.textTheme.bodyText2!.color,
                     ),
                   ),
                 ),
@@ -166,27 +107,25 @@ class PictureDetailPage extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
                   const SizedBox(height: appBarHeight),
-                  SizedBox(
-                    child: TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      onTap: () {
-                        Navigator.of(context).push<dynamic>(
-                          TransparentRoute(
-                            builder: (_) => HeroPhotoView(
-                              id: data.id,
-                              heroLabel: heroLabel,
-                              image: getPictureUrl(
-                                key: data.key,
-                                style: PictureStyle.regular,
-                              ),
+                  TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    onTap: () {
+                      Navigator.of(context).push<dynamic>(
+                        TransparentRoute(
+                          builder: (_) => HeroPhotoView(
+                            id: data.id,
+                            heroLabel: heroLabel,
+                            image: getPictureUrl(
+                              key: data.key,
+                              style: PictureStyle.regular,
                             ),
                           ),
-                        );
-                      },
-                      child: PictureDetailImage(
-                        picture: data,
-                        heroLabel: heroLabel,
-                      ),
+                        ),
+                      );
+                    },
+                    child: PictureDetailImage(
+                      picture: data,
+                      heroLabel: heroLabel,
                     ),
                   ),
                   Container(
@@ -200,7 +139,7 @@ class PictureDetailPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          picture.title,
+                          data.title,
                           style: TextStyle(
                             fontWeight: FontWeight.w700,
                             fontSize: 20,
@@ -230,7 +169,7 @@ class PictureDetailPage extends StatelessWidget {
                         const SizedBox(height: 12),
                         Row(
                           children: [
-                            if (picture.isPrivate != null && picture.isPrivate!)
+                            if (data.isPrivate != null && data.isPrivate!) ...[
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: <Widget>[
@@ -254,7 +193,8 @@ class PictureDetailPage extends StatelessWidget {
                                   ),
                                 ],
                               ),
-                            const SizedBox(width: 12),
+                              const SizedBox(width: 12),
+                            ],
                             Text(
                               '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
                               style: TextStyle(
