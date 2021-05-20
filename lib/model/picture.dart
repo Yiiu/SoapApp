@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/exif.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/utils/picture.dart';
@@ -25,6 +26,7 @@ class Picture {
     required this.blurhash,
     required this.createTime,
     required this.updateTime,
+    this.currentCollections,
     this.isPrivate,
     this.hash,
     this.originalname,
@@ -50,6 +52,7 @@ class Picture {
   final bool isDark;
   final DateTime createTime, updateTime;
 
+  final List<Collection>? currentCollections;
   final User? user;
   final List<Tag>? tags;
   final Exif? exif;

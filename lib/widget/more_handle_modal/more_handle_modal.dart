@@ -15,7 +15,7 @@ class MoreHandleModal extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 6),
+        padding: const EdgeInsets.only(top: 6),
         child: Flex(
             direction: Axis.vertical,
             mainAxisSize: MainAxisSize.min,

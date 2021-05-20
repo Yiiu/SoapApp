@@ -91,6 +91,9 @@ flutter:
     - assets/feather/settings.svg
     - assets/feather/chevron-right.svg
     - assets/feather/camera.svg
+    - assets/feather/star.svg
+    - assets/feather/star-fill.svg
+
     - assets/remix/home-2.svg
     - assets/remix/add-circle.svg
     - assets/remix/user.svg
@@ -105,6 +108,9 @@ flutter:
     - assets/remix/delete-bin-5-line.svg
     - assets/remix/lock-fill.svg
     - assets/remix/share-line.svg
+    - assets/remix/star-line.svg
+    - assets/remix/star-fill.svg
+    - assets/remix/checkbox-circle-fill.svg
     - assets/weibo.svg
   fonts:
     - family: Rubik
@@ -120,4 +126,4 @@ flutter:
 flutter_native_splash:
   image: assets/images/splash.gif
   color: "ffffff"
-  android_disable_fullscreen: true
+  color_dark: "2e186a"

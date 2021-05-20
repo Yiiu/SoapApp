@@ -8,8 +8,10 @@ import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
+import 'package:soap_app/pages/picture_detail/widgets/add_to_collection.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -135,6 +137,14 @@ class PictureDetailHandleBasic extends StatelessWidget {
   final FocusNode focusNode;
   final Picture picture;
 
+  bool get isCollected {
+    if (picture.currentCollections != null &&
+        picture.currentCollections!.isNotEmpty) {
+      return true;
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -235,12 +245,44 @@ class PictureDetailHandleBasic extends StatelessWidget {
                       text,
                       style: TextStyle(
                         color: theme.textTheme.bodyText2!.color,
-                        fontSize: 14,
+                        fontSize: 16,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
                     likeCount: picture.likedCount,
                   ),
+                  const SizedBox(width: 14),
+                  TouchableOpacity(
+                    onTap: () {
+                      if (!accountStore.isLogin) {
+                        SoapToast.error('请登录后再操作！');
+                        return;
+                      }
+                      // print(picture.currentCollections);
+                      showBasicModalBottomSheet(
+                        enableDrag: true,
+                        context: context,
+                        builder: (BuildContext context) => AddToCollection(
+                          current: picture.currentCollections,
+                          pictureId: picture.id,
+                        ),
+                      );
+                    },
+                    child: SizedBox(
+                      width: 26,
+                      height: 26,
+                      child: isCollected
+                          ? SvgPicture.asset(
+                              'assets/feather/star-fill.svg',
+                              color: const Color(0xff47B881),
+                            )
+                          : SvgPicture.asset(
+                              'assets/feather/star.svg',
+                              color: theme.textTheme.bodyText2!.color!
+                                  .withOpacity(.6),
+                            ),
+                    ),
+                  )
                 ],
               ),
             ),

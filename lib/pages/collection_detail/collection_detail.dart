@@ -75,12 +75,12 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                     child: Row(
                       children: <Widget>[
                         Avatar(
-                          image: collection.user.avatarUrl,
+                          image: collection.user!.avatarUrl,
                           size: 22,
                         ),
                         const SizedBox(width: 4),
                         Text(
-                          collection.user.fullName,
+                          collection.user!.fullName,
                           style: const TextStyle(
                             fontSize: 14,
                             color: Colors.white,

@@ -161,14 +161,15 @@ class _SettingPageState extends State<SettingPage> {
                           title: '刷新率和分辨率选择',
                           child: SafeArea(
                             top: false,
-                            child: SizedBox(
-                              height: 420,
+                            child: Container(
+                              constraints: const BoxConstraints(maxHeight: 320),
                               child: Observer(
                                 builder: (_) {
                                   return MediaQuery.removePadding(
                                     removeTop: true,
                                     context: context,
                                     child: ListView.builder(
+                                      shrinkWrap: true,
                                       controller:
                                           ModalScrollController.of(context),
                                       itemCount: appStore.modeList.length,

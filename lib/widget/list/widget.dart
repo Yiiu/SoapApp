@@ -13,7 +13,7 @@ class SoapListWidget extends StatelessWidget {
   }) : super(key: key);
 
   final RefreshController controller;
-  final Future<void> Function()? onRefresh;
+  final VoidCallback? onRefresh;
   final Widget child;
   final bool notScrollView;
 

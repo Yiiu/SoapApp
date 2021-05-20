@@ -17,7 +17,7 @@ abstract class _HandleStoreBase with Store {
   bool isComment = false;
 
   @observable
-  String comment = 'sss';
+  String comment = '';
 
   @action
   void openComment() {

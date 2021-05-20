@@ -11,7 +11,7 @@ class Collection {
     required this.name,
     required this.createTime,
     required this.updateTime,
-    required this.user,
+    this.user,
     this.bio,
     this.isPrivate,
     this.pictureCount = 0,
@@ -35,5 +35,5 @@ class Collection {
   final DateTime createTime, updateTime;
   final int? pictureCount;
   final List<Picture>? preview;
-  final User user;
+  final User? user;
 }
