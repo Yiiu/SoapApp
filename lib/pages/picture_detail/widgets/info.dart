@@ -91,7 +91,7 @@ class PictureDetailInfo extends StatelessWidget {
                       ],
                       if (picture.exif?.aperture != null) ...<Widget>[
                         Text(
-                          'f/${picture.exif!.aperture!.toInt()}',
+                          'f/${picture.exif!.aperture!}',
                           style: const TextStyle(
                             fontSize: 14,
                           ),

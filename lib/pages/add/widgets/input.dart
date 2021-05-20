@@ -19,7 +19,7 @@ class AddInput extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return TextField(
       focusNode: focusNode,
-      keyboardType: isBio ? TextInputType.multiline : null,
+      keyboardType: isBio ? TextInputType.multiline : TextInputType.text,
       maxLines: isBio ? 4 : 1,
       controller: controller,
       cursorColor: theme.textTheme.bodyText2!.color!.withOpacity(.2),
@@ -30,7 +30,7 @@ class AddInput extends StatelessWidget {
           : const TextStyle(
               fontSize: 18,
             ),
-      textInputAction: isBio ? TextInputAction.done : TextInputAction.next,
+      textInputAction: isBio ? TextInputAction.newline : TextInputAction.next,
       decoration: InputDecoration(
         hintText: label,
         hintStyle: TextStyle(
