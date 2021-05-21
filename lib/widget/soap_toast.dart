@@ -110,8 +110,10 @@ class SoapToast {
       toastBuilder: (cancelFunc) => AlertDialog(
         elevation: 0,
         backgroundColor: Theme.of(context).cardColor,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(2)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
         title: Text(title),
+        // insetPadding: EdgeInsets.symmetric(horizontal: 60, vertical: 24),
+        // contentPadding: EdgeInsets.symmetric(horizontal: 24, vertical: 24),
         actions: <Widget>[
           TextButton(
             style: ButtonStyle(
@@ -170,7 +172,7 @@ class SoapToast {
           // Text('test'),
         ],
       ),
-      animationDuration: Duration(milliseconds: 350),
+      animationDuration: const Duration(milliseconds: 300),
     );
   }
 }
@@ -198,7 +200,7 @@ class _CustomOffsetAnimationState extends State<CustomOffsetAnimation> {
   @override
   void initState() {
     tweenOffset = Tween<Offset>(
-      begin: const Offset(0.0, 0.1),
+      begin: const Offset(0.0, 0.02),
       end: Offset.zero,
     );
     tweenScale = Tween<double>(begin: 0.9, end: 1.0);

@@ -170,8 +170,8 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
                       ),
                       trailing: AdvancedSwitch(
                         controller: _controller,
-                        width: 48,
-                        height: 24,
+                        width: 52,
+                        height: 32,
                       ),
                       onTap: () {
                         _controller.value = !_controller.value;

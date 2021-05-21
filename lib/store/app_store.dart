@@ -50,6 +50,10 @@ abstract class _AppStoreBase with Store {
         modeList = await FlutterDisplayMode.supported;
         if (displayMode != null && modeList.length > displayMode!) {
           await FlutterDisplayMode.setPreferredMode(modeList[displayMode!]);
+        } else {
+          await FlutterDisplayMode.setHighRefreshRate();
+          final DisplayMode active = await FlutterDisplayMode.active;
+          displayMode = active.id;
         }
         // ignore: empty_catches
       } catch (e) {}

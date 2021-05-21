@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  auto_animated: ^3.0.0
   flutter_displaymode: ^0.3.1-nullsafety.0
   share: ^2.0.1
   flutter_advanced_switch: ^2.0.2+2

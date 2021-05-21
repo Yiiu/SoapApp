@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
               // ignore: prefer_const_literals_to_create_immutables
               children: <Widget>[
                 AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 300),
                   height: 280,
                   alignment: Alignment.center,
                   curve: Curves.easeInOut,

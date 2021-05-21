@@ -39,7 +39,7 @@ class SoapButton extends StatelessWidget {
             children: [
               AnimatedOpacity(
                 opacity: loading! ? 0 : 1,
-                duration: const Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 300),
                 child: Center(
                   child: titleWidget ??
                       Text(
@@ -58,7 +58,7 @@ class SoapButton extends StatelessWidget {
                 bottom: 0,
                 child: AnimatedOpacity(
                   opacity: loading! ? 1 : 0,
-                  duration: const Duration(milliseconds: 200),
+                  duration: const Duration(milliseconds: 300),
                   child: Center(
                     child: CupertinoTheme(
                       data: CupertinoTheme.of(context)

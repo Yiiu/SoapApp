@@ -276,8 +276,8 @@ class PictureDetailHandleBasic extends StatelessWidget {
                               'assets/feather/star-fill.svg',
                               color: const Color(0xff47B881),
                             )
-                          : SvgPicture.asset(
-                              'assets/feather/star.svg',
+                          : Icon(
+                              FeatherIcons.star,
                               color: theme.textTheme.bodyText2!.color!
                                   .withOpacity(.6),
                             ),

@@ -44,7 +44,8 @@ class _SettingPageState extends State<SettingPage> {
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
           automaticallyImplyLeading: true,
-          elevation: 0.2,
+          elevation: 0,
+          border: true,
           actionsPadding: EdgeInsets.only(
             right: 12,
           ),
@@ -63,18 +64,15 @@ class _SettingPageState extends State<SettingPage> {
             children: <Widget>[
               Observer(
                 builder: (_) => accountStore.isLogin
-                    ? Container(
-                        margin: const EdgeInsets.only(top: 12),
-                        child: SettingItem(
-                          title: '个人资料',
-                          border: false,
-                          actionIcon: false,
-                          action: Avatar(
-                            image: accountStore.userInfo!.avatarUrl,
-                            size: 32,
-                          ),
-                          onPressed: () {},
+                    ? SettingItem(
+                        title: '个人资料',
+                        border: false,
+                        actionIcon: false,
+                        action: Avatar(
+                          image: accountStore.userInfo!.avatarUrl,
+                          size: 32,
                         ),
+                        onPressed: () {},
                       )
                     : const SizedBox(),
               ),
@@ -179,15 +177,15 @@ class _SettingPageState extends State<SettingPage> {
                                           title: Text(
                                             appStore.modeList[index].toString(),
                                           ),
-                                          selected: appStore.displayMode != null
-                                              ? appStore.displayMode == index
-                                              : false,
+                                          selected:
+                                              appStore.displayMode == index,
                                           onTap: () async {
                                             await FlutterDisplayMode
                                                 .setPreferredMode(
                                               appStore.modeList[index],
                                             );
-                                            appStore.setDisplayMode(index);
+                                            appStore.setDisplayMode(
+                                                appStore.modeList[index].id);
                                             Navigator.of(context).pop();
                                           },
                                         );
