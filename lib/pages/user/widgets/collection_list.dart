@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
@@ -7,30 +9,42 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
+import 'package:soap_app/widget/collection/add_collection_modal.dart';
+import 'package:soap_app/store/index.dart';
+import 'package:soap_app/widget/collection/collection_more_handle.dart';
 import 'package:soap_app/widget/collection_item/collection_item.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class UserCollectionList extends StatefulWidget {
-  UserCollectionList({
+  const UserCollectionList({
     Key? key,
     required this.username,
   }) : super(key: key);
 
-  String username;
+  final String username;
 
   @override
   UserCollectionListState createState() => UserCollectionListState();
 }
 
 class UserCollectionListState extends State<UserCollectionList>
-    with AutomaticKeepAliveClientMixin, SingleTickerProviderStateMixin {
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
 
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
+
+  bool get isOwner {
+    if (accountStore.isLogin &&
+        widget.username == accountStore.userInfo!.username) {
+      return true;
+    }
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +67,13 @@ class UserCollectionListState extends State<UserCollectionList>
       }) {
         List<Collection> list = [];
         Future<void> onRefresh() async {
-          await refetch!();
+          final QueryResult? data = await refetch!();
+          if (data != null && data.hasException) {
+            _refreshController.refreshFailed();
+            return;
+          }
           _refreshController.refreshCompleted();
+          setState(() {});
         }
 
         if (result.hasException && result.data == null) {
@@ -77,26 +96,100 @@ class UserCollectionListState extends State<UserCollectionList>
 
         return SmartRefresher(
           enablePullUp: false,
-          enablePullDown: false,
+          enablePullDown: true,
           controller: _refreshController,
           physics: const BouncingScrollPhysics(),
           child: ListView.builder(
-            itemCount: list.length,
-            itemBuilder: (_, i) => TouchableOpacity(
-              activeOpacity: activeOpacity,
-              onTap: () {
-                Navigator.of(context).pushNamed(
-                  RouteName.collection_detail,
-                  arguments: {
-                    'collection': list[i],
-                  },
-                );
-              },
-              child: CollectionItem(
-                collection: list[i],
-              ),
-            ),
+            itemCount: list.length + 1,
+            itemBuilder: (_, i) {
+              if (i == 0) {
+                if (isOwner) {
+                  return TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    onTap: () {
+                      showBasicModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) => AddCollectionModal(
+                          refetch: refetch!,
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 12),
+                      padding: const EdgeInsets.all(12),
+                      color: Theme.of(context).cardColor,
+                      child: Flex(
+                        direction: Axis.horizontal,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: SvgPicture.asset(
+                              'assets/remix/add-circle.svg',
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .color!
+                                  .withOpacity(.2),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            '新增收藏夹',
+                            style: TextStyle(
+                              color: Theme.of(context)
+                                  .textTheme
+                                  .bodyText2!
+                                  .color!
+                                  .withOpacity(.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                } else {
+                  return const SizedBox();
+                }
+              }
+              print(list[i - 1].name);
+              return TouchableOpacity(
+                key: ValueKey<String>(
+                  list[i - 1].id.toString() + 'collection_item',
+                ),
+                activeOpacity: activeOpacity,
+                onTap: () {
+                  Navigator.of(context).pushNamed(
+                    RouteName.collection_detail,
+                    arguments: {
+                      'collection': list[i - 1],
+                    },
+                  );
+                },
+                onLongPress: () {
+                  final Collection item = list[i - 1];
+                  if (accountStore.isLogin &&
+                      item.user!.username == accountStore.userInfo!.username) {
+                    showBasicModalBottomSheet(
+                      enableDrag: true,
+                      context: context,
+                      builder: (BuildContext context) => CollectionMoreHandle(
+                        collection: list[i - 1],
+                        onRefresh: onRefresh,
+                      ),
+                    );
+                  }
+                },
+                child: CollectionItem(
+                  collection: list[i - 1],
+                ),
+              );
+            },
           ),
+          onRefresh: () {
+            onRefresh();
+          },
         );
       },
     );

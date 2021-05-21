@@ -71,6 +71,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
                     confirm: () async {
                       await pictureRepository.deletePicture(picture.id);
                       Navigator.of(context).pop();
+                      Navigator.of(context).pop();
                     },
                   );
                 },

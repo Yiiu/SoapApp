@@ -73,7 +73,7 @@ class PictureDetailPage extends StatelessWidget {
                 openUserPage: () => Navigator.of(context).pushNamed(
                   RouteName.user,
                   arguments: {
-                    'user': picture.user!.id,
+                    'user': picture.user!,
                     'heroId': '',
                   },
                 ),

@@ -283,13 +283,13 @@ DocumentNode collectionFragment = gql(r'''
 
 DocumentNode collectionDetailFragment = gql(r'''
   fragment CollectionDetailFragment on Collection {
-    pictureCount
     ...CollectionFragment
+    pictureCount
     user {
       ...UserFragment
     }
     preview {
-      ...PicturePreviewFragment
+      ...PictureBaseFragment
     }
   }
 ''');
@@ -300,14 +300,7 @@ DocumentNode collectionListFragment = gql(r'''
     page
     pageSize
     data {
-      ...CollectionFragment
-      pictureCount
-      user {
-        ...UserFragment
-      }
-      preview {
-        ...PictureBaseFragment
-      }
+      ...CollectionDetailFragment
     }
   }
 ''');
@@ -357,7 +350,8 @@ List<DocumentNode> userDetailFragmentDocumentNode = <DocumentNode>[
   badgeFragment,
 ];
 
-List<DocumentNode> collectionFragmentDocumentNode = <DocumentNode>[
+List<DocumentNode> collectionDetailFragmentDocumentNode = <DocumentNode>[
+  collectionDetailFragment,
   collectionFragment,
   userFragment,
   pictureBaseFragment,
@@ -365,5 +359,5 @@ List<DocumentNode> collectionFragmentDocumentNode = <DocumentNode>[
 
 List<DocumentNode> collectionListFragmentDocumentNode = <DocumentNode>[
   collectionListFragment,
-  ...collectionFragmentDocumentNode
+  ...collectionDetailFragmentDocumentNode
 ];

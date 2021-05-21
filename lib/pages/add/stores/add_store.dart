@@ -29,7 +29,7 @@ abstract class _AddStoreBase with Store {
 
   @action
   void editInit(Picture picture) {
-    isPrivate = picture.isPrivate!;
+    isPrivate = picture.isPrivate ?? false;
     tags = picture.tags!.map<String>((e) => e.name).toList();
   }
 

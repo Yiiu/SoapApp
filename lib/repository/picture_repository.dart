@@ -23,7 +23,6 @@ class PictureRepository {
       ),
       variables: variables,
     );
-    print(pictureId);
     final Map<String, dynamic>? pictureData = cache.readQuery(queryRequest);
     if (pictureData != null && pictureData['picture'] != null) {
       List<dynamic> list;
@@ -38,7 +37,6 @@ class PictureRepository {
       } else {
         list.add(data);
       }
-      print(list);
       final Map<String, Object?> idFields = {
         'id': pictureId,
       };

@@ -1,69 +1,11 @@
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/repository/comment_repository.dart';
+import 'package:soap_app/widget/collection_item/preview_item.dart';
 
-class CollectionItem extends StatefulWidget {
-  CollectionItem({Key? key, required this.collection}) : super(key: key);
+class CollectionItem extends StatelessWidget {
+  const CollectionItem({Key? key, required this.collection}) : super(key: key);
 
-  Collection collection;
-
-  @override
-  _CollectionItemState createState() => _CollectionItemState();
-}
-
-class _CollectionItemState extends State<CollectionItem> {
-  late Collection collection;
-
-  @override
-  void initState() {
-    collection = widget.collection;
-    super.initState();
-  }
-
-  Widget _preview(int index) {
-    final ThemeData theme = Theme.of(context);
-    if (collection.preview!.length > index) {
-      return Expanded(
-        child: AspectRatio(
-          aspectRatio: 1.5,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(2),
-              color: theme.backgroundColor,
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(2),
-              child: OctoImage(
-                width: double.infinity,
-                height: double.infinity,
-                placeholderBuilder: OctoPlaceholder.blurHash(
-                  collection.preview![0].blurhash,
-                ),
-                image: ExtendedImage.network(
-                        collection.preview![index].pictureUrl())
-                    .image,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-        ),
-      );
-    }
-    return Expanded(
-      child: AspectRatio(
-        aspectRatio: 1.5,
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(2),
-            color: theme.backgroundColor,
-          ),
-        ),
-      ),
-    );
-  }
+  final Collection collection;
 
   @override
   Widget build(BuildContext context) {
@@ -116,16 +58,12 @@ class _CollectionItemState extends State<CollectionItem> {
             ),
             Flex(
               direction: Axis.horizontal,
-              children: [
-                _preview(0),
-                SizedBox(
-                  width: 12,
-                ),
-                _preview(1),
-                SizedBox(
-                  width: 12,
-                ),
-                _preview(2),
+              children: <Widget>[
+                CollectionPreiewItem(collection: collection, index: 0),
+                const SizedBox(width: 12),
+                CollectionPreiewItem(collection: collection, index: 1),
+                const SizedBox(width: 12),
+                CollectionPreiewItem(collection: collection, index: 2),
               ],
             ),
           ],

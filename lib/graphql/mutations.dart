@@ -55,3 +55,27 @@ DocumentNode removePictureCollection = gql(r'''
     }
   }
 ''');
+
+DocumentNode deleteCollection = gql(r'''
+  mutation DeleteCollection($id: Float!) {
+    deleteCollection(id: $id) {
+      done
+    }
+  }
+''');
+
+DocumentNode addCollection = gql(r'''
+  mutation AddCollection($data: AddCollectionInput!) {
+    addCollection(data: $data) {
+      ...CollectionDetailFragment
+    }
+  }
+''');
+
+DocumentNode updateCollection = gql(r'''
+  mutation UpdateCollection($id: Float!, $data: AddCollectionInput!) {
+    updateCollection(id: $id, data: $data) {
+      ...CollectionDetailFragment
+    }
+  }
+''');
