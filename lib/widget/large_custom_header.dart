@@ -10,6 +10,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     this.tabBar,
     this.tabBarHeight = 0,
     required this.title,
+    this.actions,
     this.backgroundImage,
     this.backgroundImageMaskColor,
     this.backgroundImageWidget,
@@ -25,10 +26,11 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
       height: 1.2,
       color: Colors.black,
     ),
-  }) {}
+  });
 
   final Widget bar;
   final bool barCenterTitle;
+  final List<Widget>? actions;
 
   final Widget? tabBar;
   final double tabBarHeight;
@@ -40,7 +42,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
   final Widget? backgroundImageWidget;
   final Color? backgroundImageMaskColor;
 
-  final int _fadeDuration = 250;
+  final int _fadeDuration = 150;
   final double titleHeight;
   final int titleMaxLines;
 
@@ -153,6 +155,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                       duration: Duration(milliseconds: _fadeDuration),
                       child: bar,
                     ),
+                    actions: actions,
                   ),
                 ),
               ],

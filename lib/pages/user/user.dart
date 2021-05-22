@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
@@ -130,6 +131,13 @@ class _UserPageState extends State<UserPage>
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
             ),
+            boxShadow: const <BoxShadow>[
+              BoxShadow(
+                color: Color(0x0d000000),
+                blurRadius: 0.2 * 1.0,
+                offset: Offset(0, 0.2 * 2.0),
+              )
+            ],
           ),
           child: TabBar(
             controller: tabController,
@@ -179,6 +187,28 @@ class _UserPageState extends State<UserPage>
             ],
           ),
         ),
+        actions: [
+          TouchableOpacity(
+            activeOpacity: activeOpacity,
+            onTap: () {
+              // showBasicModalBottomSheet(
+              //   enableDrag: true,
+              //   context: context,
+              //   builder: (BuildContext context) =>
+              //       PictureDetailMoreHandle(
+              //     picture: data,
+              //   ),
+              // );
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 12),
+              child: Icon(
+                FeatherIcons.moreHorizontal,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

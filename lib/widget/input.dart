@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 
-class AddInput extends StatelessWidget {
-  const AddInput({
+class SoapInput extends StatelessWidget {
+  const SoapInput({
     Key? key,
-    this.isBio = false,
+    this.maxLines,
     this.focusNode,
-    this.autofocus,
+    this.autofocus = false,
+    this.textInputAction,
     required this.label,
     required this.controller,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String label;
-  final bool isBio;
+  final int? maxLines;
+  final TextInputAction? textInputAction;
   final bool? autofocus;
   final FocusNode? focusNode;
 
@@ -20,20 +22,17 @@ class AddInput extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return TextField(
-      autofocus: autofocus ?? true,
+      autofocus: autofocus!,
       focusNode: focusNode,
-      keyboardType: isBio ? TextInputType.multiline : TextInputType.text,
-      maxLines: isBio ? 4 : 1,
+      keyboardType:
+          (maxLines ?? 1) > 1 ? TextInputType.multiline : TextInputType.text,
+      maxLines: maxLines,
       controller: controller,
       cursorColor: theme.textTheme.bodyText2!.color!.withOpacity(.2),
-      style: isBio
-          ? const TextStyle(
-              fontSize: 16,
-            )
-          : const TextStyle(
-              fontSize: 18,
-            ),
-      textInputAction: isBio ? TextInputAction.newline : TextInputAction.next,
+      style: const TextStyle(
+        fontSize: 16,
+      ),
+      textInputAction: textInputAction ?? TextInputAction.done,
       decoration: InputDecoration(
         hintText: label,
         hintStyle: TextStyle(

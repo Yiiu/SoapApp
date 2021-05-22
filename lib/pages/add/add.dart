@@ -157,12 +157,13 @@ class _AddPageState extends State<AddPage> {
       child: Container(
         height: 56,
         decoration: BoxDecoration(
-            border: Border(
-          bottom: BorderSide(
-            color: theme.textTheme.overline!.color!.withOpacity(.2),
-            width: .2,
+          border: Border(
+            bottom: BorderSide(
+              color: theme.textTheme.overline!.color!.withOpacity(.2),
+              width: .2,
+            ),
           ),
-        )),
+        ),
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

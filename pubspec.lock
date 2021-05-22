@@ -239,6 +239,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
+  easy_debounce:
+    dependency: "direct main"
+    description:
+      name: easy_debounce
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   enum_to_string:
     dependency: "direct main"
     description:
@@ -947,6 +954,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.1.0"
+  styled_text:
+    dependency: "direct main"
+    description:
+      name: styled_text
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.0.0"
   tab_indicator_styler:
     dependency: "direct main"
     description:
@@ -968,6 +982,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.3.0"
+  throttling:
+    dependency: "direct main"
+    description:
+      name: throttling
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   timing:
     dependency: transitive
     description:
@@ -1136,6 +1157,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.1.0"
+  xmlstream:
+    dependency: transitive
+    description:
+      name: xmlstream
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.0"
   yaml:
     dependency: transitive
     description:

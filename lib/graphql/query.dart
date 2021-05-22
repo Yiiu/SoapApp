@@ -44,6 +44,13 @@ DocumentNode userInfo = gql(r'''
     }
   }
 ''');
+DocumentNode userIsFollowing = gql(r'''
+  query UserIsFollowing($username: String) {
+    user(username: $username) {
+      ...UserFollowInfoFragment
+    }
+  }
+''');
 
 DocumentNode whoami = gql(r'''
   query Whoami {

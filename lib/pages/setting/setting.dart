@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
@@ -72,7 +73,10 @@ class _SettingPageState extends State<SettingPage> {
                           image: accountStore.userInfo!.avatarUrl,
                           size: 32,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context)
+                              .pushNamed(RouteName.edit_profile);
+                        },
                       )
                     : const SizedBox(),
               ),

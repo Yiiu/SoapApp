@@ -44,7 +44,7 @@ abstract class _AccountStoreBase with Store {
     await StorageUtil.preferences!
         .setString('account.accessToken', json.encode(data.data));
     setLoginInfo(data.data);
-    await getUserInfo(data.data['user']['username'] as String);
+    await getUserInfo();
   }
 
   void initialize() {
@@ -62,7 +62,7 @@ abstract class _AccountStoreBase with Store {
     }
   }
 
-  Future<void> getUserInfo(String username) async {
+  Future<void> getUserInfo() async {
     final graphql.QueryResult result = await GraphqlConfig.graphQLClient.query(
       graphql.QueryOptions(
         document: addFragments(
@@ -136,6 +136,6 @@ abstract class _AccountStoreBase with Store {
     await StorageUtil.preferences!
         .setString('account.accessToken', json.encode(data.data));
     setLoginInfo(data.data);
-    await getUserInfo(data.data['user']['username'] as String);
+    await getUserInfo();
   }
 }

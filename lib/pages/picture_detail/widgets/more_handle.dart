@@ -1,4 +1,3 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
@@ -48,7 +47,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
             if (isOwner) ...[
               MoreHandleModalItem(
                 svg: 'assets/remix/image-edit-line.svg',
-                title: '编辑图片',
+                title: '编辑',
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(
@@ -62,7 +61,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
               const SizedBox(width: 24),
               MoreHandleModalItem(
                 svg: 'assets/remix/delete-bin-5-line.svg',
-                title: '删除图片',
+                title: '删除',
                 color: theme.errorColor,
                 onTap: () {
                   SoapToast.confirm(

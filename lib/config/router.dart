@@ -7,6 +7,7 @@ import 'package:soap_app/model/user.dart';
 import 'package:soap_app/pages/account/login.dart';
 import 'package:soap_app/pages/add/add.dart';
 import 'package:soap_app/pages/collection_detail/collection_detail.dart';
+import 'package:soap_app/pages/edit_profile/edit_profile.dart';
 import 'package:soap_app/pages/home/index.dart';
 import 'package:soap_app/pages/picture_detail/picture_detail.dart';
 import 'package:soap_app/pages/setting/setting.dart';
@@ -29,6 +30,7 @@ class RouteName {
   static const String oauth_webview = 'oauth_webview';
   static const String add = 'add';
   static const String edit_picture = 'edit_picture';
+  static const String edit_profile = 'edit_profile';
 }
 
 class Router {
@@ -100,6 +102,10 @@ class Router {
             edit: true,
             picture: (settings.arguments as dynamic)!['picture'] as Picture?,
           ),
+        );
+      case RouteName.edit_profile:
+        return MaterialPageRoute<void>(
+          builder: (_) => EditProfilePage(),
         );
       default:
         return CupertinoPageRoute<void>(

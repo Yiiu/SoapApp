@@ -79,3 +79,27 @@ DocumentNode updateCollection = gql(r'''
     }
   }
 ''');
+
+DocumentNode followUser = gql(r'''
+  mutation FollowUser($input: FollowUserInput!) {
+    followUser(input: $input) {
+      done
+    }
+  }
+''');
+
+DocumentNode unFollowUser = gql(r'''
+  mutation UnFollowUser($input: FollowUserInput!) {
+    unFollowUser(input: $input) {
+      done
+    }
+  }
+''');
+
+DocumentNode updateProfile = gql(r'''
+  mutation UpdateProfile($data: UpdateProfileInput!) {
+    updateProfile(data: $data) {
+      ...UserFragment
+    }
+  }
+''');

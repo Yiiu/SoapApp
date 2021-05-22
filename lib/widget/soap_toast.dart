@@ -125,12 +125,6 @@ class SoapToast {
                       .withOpacity(.7)),
               overlayColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.hovered))
-                    return Theme.of(context)
-                        .textTheme
-                        .bodyText2!
-                        .color!
-                        .withOpacity(0.04);
                   if (states.contains(MaterialState.focused) ||
                       states.contains(MaterialState.pressed))
                     return Theme.of(context)

@@ -1,6 +1,5 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:octo_image/octo_image.dart';
@@ -169,7 +168,28 @@ class _AddToCollectionState extends State<AddToCollection> {
                                 ),
                               )
                             : null,
-                        title: Text(collection.name),
+                        title: Row(
+                          children: [
+                            if (collection.isPrivate == true)
+                              Container(
+                                margin: const EdgeInsets.only(top: 2, right: 6),
+                                height: 18,
+                                width: 18,
+                                child: SvgPicture.asset(
+                                  'assets/remix/lock-fill.svg',
+                                  color: Colors.amber.shade800,
+                                ),
+                              ),
+                            Expanded(
+                              child: Text(
+                                collection.name,
+                                overflow: TextOverflow.fade,
+                                maxLines: 1,
+                                softWrap: false,
+                              ),
+                            ),
+                          ],
+                        ),
                       );
                     }).toList(),
                   ).toList(),

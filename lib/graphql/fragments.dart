@@ -131,6 +131,15 @@ DocumentNode userFragment = gql(r'''
     cover
   }
 ''');
+DocumentNode userFollowInfoFragment = gql(r'''
+  fragment UserFollowInfoFragment on User {
+    id
+    username
+    isFollowing
+    followerCount
+    followedCount
+  }
+''');
 
 DocumentNode userDetailFragment = gql(r'''
   fragment UserDetailFragment on User {

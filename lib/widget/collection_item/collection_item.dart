@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/widget/collection_item/preview_item.dart';
+import 'package:styled_text/styled_text.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({Key? key, required this.collection}) : super(key: key);
@@ -18,7 +20,28 @@ class CollectionItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(collection.name),
+            Row(
+              children: <Widget>[
+                if (collection.isPrivate == true)
+                  Container(
+                    margin: const EdgeInsets.only(top: 2, right: 6),
+                    height: 18,
+                    width: 18,
+                    child: SvgPicture.asset(
+                      'assets/remix/lock-fill.svg',
+                      color: Colors.amber.shade800,
+                    ),
+                  ),
+                Expanded(
+                  child: Text(
+                    collection.name,
+                    overflow: TextOverflow.fade,
+                    maxLines: 1,
+                    softWrap: false,
+                  ),
+                )
+              ],
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Flex(
