@@ -241,6 +241,7 @@ class _UserPageState extends State<UserPage>
                   User.fromJson(result.data!['user'] as Map<String, dynamic>);
             }
             return extended.NestedScrollView(
+              physics: const BouncingScrollPhysics(),
               headerSliverBuilder:
                   (BuildContext context, bool? innerBoxIsScrolled) {
                 return <Widget>[

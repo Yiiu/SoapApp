@@ -120,6 +120,7 @@ class EditProfilePage extends StatelessWidget {
                           border: true,
                           action: Text(
                             accountStore.userInfo!.id.toString(),
+                            textAlign: TextAlign.end,
                             style: TextStyle(
                               color: theme.textTheme.bodyText2!.color!
                                   .withOpacity(.6),
@@ -136,6 +137,7 @@ class EditProfilePage extends StatelessWidget {
                           border: true,
                           action: Text(
                             accountStore.userInfo!.username,
+                            textAlign: TextAlign.end,
                             style: TextStyle(
                               color: theme.textTheme.bodyText2!.color!
                                   .withOpacity(.6),
@@ -150,7 +152,10 @@ class EditProfilePage extends StatelessWidget {
                           title: '昵称',
                           actionIcon: true,
                           border: true,
-                          action: Text(accountStore.userInfo!.fullName),
+                          action: Text(
+                            accountStore.userInfo!.fullName,
+                            textAlign: TextAlign.end,
+                          ),
                           onPressed: () {
                             showBasicModalBottomSheet(
                               context: context,
@@ -173,7 +178,12 @@ class EditProfilePage extends StatelessWidget {
                           title: '简介',
                           actionIcon: true,
                           border: false,
-                          action: Text(accountStore.userInfo!.bio ?? ''),
+                          action: Text(
+                            accountStore.userInfo!.bio ?? '',
+                            textAlign: TextAlign.end,
+                            maxLines: 2,
+                            overflow: TextOverflow.fade,
+                          ),
                           onPressed: () {
                             showBasicModalBottomSheet(
                               context: context,

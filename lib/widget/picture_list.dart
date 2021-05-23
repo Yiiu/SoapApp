@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -124,6 +125,19 @@ class _PictureListState extends State<PictureList>
           result.data!,
           label: widget.label,
         );
+
+        if (listData.count == 0) {
+          return Align(
+            child: SizedBox(
+              width: 220,
+              height: 220,
+              child: SvgPicture.asset(
+                'assets/svg/null.svg',
+              ),
+            ),
+          );
+          // return ;
+        }
 
         return SmartRefresher(
           enablePullUp: widget.enablePullUp,

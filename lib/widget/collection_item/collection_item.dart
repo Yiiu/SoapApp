@@ -38,6 +38,9 @@ class CollectionItem extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     maxLines: 1,
                     softWrap: false,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                 )
               ],

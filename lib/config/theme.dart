@@ -20,24 +20,20 @@ mixin ThemeConfig {
 
   static final TextTheme _lightTextTheme = TextTheme(
     headline4: TextStyle(
-      fontFamily: 'Rubik',
       fontSize: 32,
       color: lightTextColor,
       fontWeight: FontWeight.w600,
     ),
     headline5: TextStyle(
-      fontFamily: 'Rubik',
       fontSize: 24,
       color: lightTextColor,
       fontWeight: FontWeight.w600,
     ),
     bodyText1: TextStyle(
-      fontFamily: 'Rubik',
       fontSize: 16,
       color: lightTextColor,
     ),
     bodyText2: TextStyle(
-      fontFamily: 'Rubik',
       fontSize: 16,
       color: lightTextColor,
     ),
@@ -65,9 +61,9 @@ mixin ThemeConfig {
   );
 
   static ThemeData lightTheme = ThemeData(
-    fontFamily: 'Rubik',
+    fontFamily: '江城圆体',
     brightness: Brightness.light,
-    backgroundColor: const Color(0xfff5f4f9),
+    backgroundColor: const Color(0xfff9fafa),
     primaryColorBrightness: Brightness.light,
     primaryColor: lightPrimary,
     accentColor: lightAccent,
@@ -88,7 +84,7 @@ mixin ThemeConfig {
   );
 
   static ThemeData darkTheme = ThemeData(
-    fontFamily: 'Rubik',
+    fontFamily: '江城圆体',
     primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
     backgroundColor: darkBG,

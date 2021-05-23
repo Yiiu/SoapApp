@@ -43,7 +43,7 @@ class TagItem extends StatelessWidget {
             Container(
               height: height - 8,
               width: height - 8,
-              padding: const EdgeInsets.all(2),
+              // padding: const EdgeInsets.all(2),
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.all(
                   Radius.circular(100),
@@ -65,11 +65,6 @@ class TagItem extends StatelessWidget {
               style: const TextStyle(
                 color: Color(0xFF5789d1),
                 fontSize: 13,
-              ),
-              textHeightBehavior: const TextHeightBehavior(
-                // 基线 发现不设置也能行
-                applyHeightToFirstAscent: false,
-                applyHeightToLastDescent: false,
               ),
             ),
           ],

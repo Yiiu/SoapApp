@@ -24,7 +24,9 @@ class Avatar extends StatelessWidget {
         height: size,
         image: ExtendedImage.network(image).image,
         placeholderBuilder: OctoPlaceholder.circleAvatar(
-            backgroundColor: Colors.white12, text: Text('')),
+          backgroundColor: Colors.white12,
+          text: Text(''),
+        ),
         errorBuilder: OctoError.icon(color: Colors.red),
         fit: BoxFit.cover,
       ),

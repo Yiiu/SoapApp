@@ -35,8 +35,7 @@ class PictureDetailImage extends StatelessWidget {
     );
     final double num = picture.width / picture.height;
     if (num < minFactor && num < 1) {
-      return Container(
-        color: Theme.of(context).cardColor,
+      return SizedBox(
         height: imgMaxHeight,
         child: FractionallySizedBox(
           widthFactor: num / minFactor,
@@ -45,9 +44,12 @@ class PictureDetailImage extends StatelessWidget {
         ),
       );
     } else {
-      return AspectRatio(
-        aspectRatio: picture.width / picture.height,
-        child: _content,
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(8),
+        child: AspectRatio(
+          aspectRatio: picture.width / picture.height,
+          child: _content,
+        ),
       );
     }
   }

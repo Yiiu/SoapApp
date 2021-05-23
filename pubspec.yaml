@@ -115,17 +115,41 @@ flutter:
     - assets/remix/star-line.svg
     - assets/remix/star-fill.svg
     - assets/remix/checkbox-circle-fill.svg
-    - assets/weibo.svg
+    - assets/svg/weibo.svg
+    - assets/svg/github.svg
+    - assets/svg/null.svg
+    - assets/svg/plus.svg
+    - assets/svg/home.svg
   fonts:
     - family: Rubik
       fonts:
-        - asset: assets/fonts/Rubik-Regular.ttf
-        - asset: assets/fonts/Rubik-Light.ttf
+        - asset: assets/fonts/Rubik/400W.ttf
+        - asset: assets/fonts/Rubik/300W.ttf
           weight: 300
-        - asset: assets/fonts/Rubik-Medium.ttf
+        - asset: assets/fonts/Rubik/500W.ttf
           weight: 500
-        - asset: assets/fonts/Rubik-Bold.ttf
+        - asset: assets/fonts/Rubik/600W.ttf
+          weight: 600
+        - asset: assets/fonts/Rubik/700W.ttf
           weight: 700
+    - family: 江城圆体
+      fonts:
+        - asset: assets/fonts/江城圆体/400W.ttf
+        - asset: assets/fonts/江城圆体/300W.ttf
+          weight: 300
+        - asset: assets/fonts/江城圆体/500W.ttf
+          weight: 500
+        - asset: assets/fonts/江城圆体/600W.ttf
+          weight: 600
+    # - family: 思源宋体
+    #   fonts:
+    #     - asset: assets/fonts/思源宋体/400W.otf
+    #     - asset: assets/fonts/思源宋体/300W.otf
+    #       weight: 300
+    #     - asset: assets/fonts/思源宋体/500W.otf
+    #       weight: 500
+    #     - asset: assets/fonts/思源宋体/600W.otf
+    #       weight: 600
 
 flutter_native_splash:
   image: assets/images/splash.gif

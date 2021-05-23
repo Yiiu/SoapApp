@@ -53,7 +53,7 @@ class NewViewState extends State<NewView>
           child: Text(
             '首页',
             style: TextStyle(
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),

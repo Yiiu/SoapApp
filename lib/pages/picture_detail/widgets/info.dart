@@ -87,7 +87,7 @@ class PictureDetailInfo extends StatelessWidget {
                             fontSize: 14,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 14),
                       ],
                       if (picture.exif?.aperture != null) ...<Widget>[
                         Text(
@@ -96,7 +96,7 @@ class PictureDetailInfo extends StatelessWidget {
                             fontSize: 14,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 14),
                       ],
                       if (picture.exif?.exposureTime != null) ...<Widget>[
                         Text(
@@ -105,7 +105,7 @@ class PictureDetailInfo extends StatelessWidget {
                             fontSize: 14,
                           ),
                         ),
-                        const SizedBox(width: 8),
+                        const SizedBox(width: 14),
                       ],
                       if (picture.exif?.ISO != null) ...<Widget>[
                         Text(

@@ -42,8 +42,9 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               ),
               Text(
                 title,
-                style: theme.textTheme.bodyText2!.copyWith(
+                style: TextStyle(
                   color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                  fontSize: 12,
                 ),
               ),
             ],

@@ -134,9 +134,9 @@ class _SoapAppBarState extends State<SoapAppBar>
                       : AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
                     child: _title,
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: Theme.of(context).textTheme.bodyText2!.color,
+                    style: theme.textTheme.bodyText2!.copyWith(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
                     ),
                     maxLines: 1,
                     softWrap: false,

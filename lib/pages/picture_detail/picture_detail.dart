@@ -64,7 +64,7 @@ class PictureDetailPage extends StatelessWidget {
             backdropBar: true,
             appBar: SoapAppBar(
               backdrop: true,
-              border: true,
+              border: false,
               automaticallyImplyLeading: true,
               elevation: 0,
               title: PictureAppBarTitle(
@@ -102,7 +102,7 @@ class PictureDetailPage extends StatelessWidget {
               ],
             ),
             body: Container(
-              color: theme.backgroundColor,
+              color: theme.cardColor,
               child: ListView(
                 physics: const BouncingScrollPhysics(),
                 children: <Widget>[
@@ -129,7 +129,6 @@ class PictureDetailPage extends StatelessWidget {
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(bottom: 8),
                     color: theme.cardColor,
                     padding: const EdgeInsets.symmetric(
                       vertical: 16,
@@ -141,7 +140,7 @@ class PictureDetailPage extends StatelessWidget {
                         Text(
                           data.title,
                           style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                            fontWeight: FontWeight.w600,
                             fontSize: 20,
                             color: theme.textTheme.bodyText2!.color,
                           ),
@@ -183,12 +182,15 @@ class PictureDetailPage extends StatelessWidget {
                                     ),
                                   ),
                                   const SizedBox(width: 4),
-                                  Text(
-                                    '私密',
-                                    style: TextStyle(
-                                      fontSize: 13,
-                                      color: theme.textTheme.bodyText2!.color!
-                                          .withOpacity(.6),
+                                  SizedBox(
+                                    height: 14,
+                                    child: Text(
+                                      '私密',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: theme.textTheme.bodyText2!.color!
+                                            .withOpacity(.6),
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -209,17 +211,27 @@ class PictureDetailPage extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    height: 8,
+                    color: theme.backgroundColor,
+                  ),
+                  Container(
                     color: theme.cardColor,
                     child: Column(
                       children: <Widget>[
                         PictureDetailInfo(picture: data),
-                        Center(
-                          child: Container(
-                            width: MediaQuery.of(context).size.width - 160,
-                            height: .5,
+                        if (picture.make != null || picture.model != null)
+                          Container(
+                            height: 8,
                             color: theme.backgroundColor,
                           ),
-                        ),
+                        // Center(
+                        //   child: Container(
+                        //     width: MediaQuery.of(context).size.width - 160,
+                        //     height: .5,
+                        //     color: theme.textTheme.bodyText2!.color!
+                        //         .withOpacity(.15),
+                        //   ),
+                        // ),
                         PictureDetailComment(picture: data),
                       ],
                     ),

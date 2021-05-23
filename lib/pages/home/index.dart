@@ -43,11 +43,11 @@ class _MyHomePageState extends State<HomePage>
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
         const SoapBottomNavigationBarItem(
-          icon: 'assets/remix/home-2.svg',
+          icon: 'assets/svg/home.svg',
           title: 'Home',
         ),
         const SoapBottomNavigationBarItem(
-          icon: 'assets/remix/add-circle.svg',
+          icon: 'assets/svg/plus.svg',
           title: 'Add',
         ),
         const SoapBottomNavigationBarItem(

@@ -61,7 +61,7 @@ class UserHeaderContent extends StatelessWidget {
             title,
             style: TextStyle(
               color: Colors.white.withOpacity(.8),
-              fontSize: 14,
+              fontSize: 12,
             ),
           ),
         ],
@@ -255,33 +255,39 @@ class UserHeaderContent extends StatelessWidget {
                       image: getPictureUrl(key: user.avatar),
                     ),
                   ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      Text(
-                        user.fullName,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      if (user.bio != null && user.bio!.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4),
-                          child: Text(
-                            user.bio!,
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(.6),
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                            ),
+                Expanded(
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          user.fullName,
+                          textAlign: TextAlign.start,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
                           ),
                         ),
-                    ],
+                        if (user.bio != null && user.bio!.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Text(
+                              user.bio!,
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(.6),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
                   ),
-                )
+                ),
               ],
             ),
           ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -48,21 +49,29 @@ class SettingItem extends StatelessWidget {
               child: SizedBox(
                 child: Text(
                   title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
             ),
-            if (action != null) action!,
+            if (action != null) Expanded(child: action!),
             const SizedBox(width: 6),
-            if (onPressed != null && actionIcon) ...<Widget>[
+            if (onPressed != null && actionIcon)
               SizedBox(
-                child: SvgPicture.asset(
-                  'assets/feather/chevron-right.svg',
-                  width: 26,
-                  height: 26,
-                  color: theme.textTheme.bodyText2!.color,
+                width: 24,
+                height: 24,
+                child: Icon(
+                  FeatherIcons.chevronRight,
+                  color: theme.textTheme.bodyText2!.color!.withOpacity(.4),
+                  size: 18,
                 ),
               ),
-            ]
+            // if (onPressed == null && !actionIcon)
+            //   const SizedBox(
+            //     width: 24,
+            //     height: 24,
+            //   ),
           ],
         ),
       ),

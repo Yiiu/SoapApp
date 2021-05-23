@@ -33,7 +33,15 @@ class ProfileUserItem extends StatelessWidget {
           }
         },
         child: Container(
-          color: Colors.transparent,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+            border: Border(
+              bottom: BorderSide(
+                color: theme.textTheme.overline!.color!.withOpacity(.2),
+                width: .1,
+              ),
+            ),
+          ),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Row(

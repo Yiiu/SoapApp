@@ -84,11 +84,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
           child: Center(
             child: SizedBox(
-              height: 26,
-              width: 26,
+              height: 48,
+              width: 48,
               child: SvgPicture.asset(
                 svg,
-                color: color,
               ),
             ),
           ),
@@ -132,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                     style: TextStyle(
                       color: theme.textTheme.bodyText2!.color,
                       fontSize: 36,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
@@ -224,15 +223,14 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _oauthBtn(
-                    svg: 'assets/remix/github-line.svg',
-                    background:
-                        theme.textTheme.bodyText2!.color!.withOpacity(.95),
+                    svg: 'assets/svg/github.svg',
+                    background: Color(0xff171515),
                     color: theme.backgroundColor,
                     type: OauthType.github,
                   ),
                   _oauthBtn(
-                    svg: 'assets/remix/weibo-line.svg',
-                    background: const Color(0xffffda5d),
+                    svg: 'assets/svg/weibo.svg',
+                    background: const Color(0xffE6162D),
                     color: const Color(0xffe71f19),
                     type: OauthType.weibo,
                   ),
