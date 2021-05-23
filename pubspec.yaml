@@ -25,7 +25,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  easy_debounce: ^2.0.0
   throttling: ^1.0.0
   styled_text: ^3.0.0
   auto_animated: ^3.0.0

@@ -8,6 +8,7 @@
       "name": "soap_app",
       "request": "launch",
       "type": "dart"
+      // "flutterMode": "profile"
     }
   ]
 }

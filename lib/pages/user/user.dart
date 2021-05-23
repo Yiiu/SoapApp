@@ -268,20 +268,25 @@ class _UserPageState extends State<UserPage>
                         children: <Widget>[
                           extended.NestedScrollViewInnerScrollPositionKeyWidget(
                             const Key('Tab0'),
-                            PictureList(
-                              document: addFragments(
-                                userPictures,
-                                [...pictureListFragmentDocumentNode],
+                            RepaintBoundary(
+                              child: PictureList(
+                                document: addFragments(
+                                  userPictures,
+                                  [...pictureListFragmentDocumentNode],
+                                ),
+                                label: 'userPicturesByName',
+                                variables: {
+                                  'username': user.username,
+                                },
                               ),
-                              label: 'userPicturesByName',
-                              variables: {
-                                'username': user.username,
-                              },
                             ),
                           ),
-                          extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                            const Key('Tab1'),
-                            UserCollectionList(username: user.username),
+                          RepaintBoundary(
+                            child: extended
+                                .NestedScrollViewInnerScrollPositionKeyWidget(
+                              const Key('Tab1'),
+                              UserCollectionList(username: user.username),
+                            ),
                           ),
                         ],
                       ),

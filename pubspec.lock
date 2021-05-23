@@ -239,13 +239,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.0.0"
-  easy_debounce:
-    dependency: "direct main"
-    description:
-      name: easy_debounce
-      url: "https://pub.flutter-io.cn"
-    source: hosted
-    version: "2.0.0"
   enum_to_string:
     dependency: "direct main"
     description:

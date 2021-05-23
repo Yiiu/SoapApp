@@ -13,6 +13,7 @@ import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({
@@ -69,9 +70,14 @@ class _SettingPageState extends State<SettingPage> {
                         title: '个人资料',
                         border: false,
                         actionIcon: false,
-                        action: Avatar(
-                          image: accountStore.userInfo!.avatarUrl,
-                          size: 32,
+                        action: Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Avatar(
+                              image: accountStore.userInfo!.avatarUrl,
+                              size: 32,
+                            ),
+                          ],
                         ),
                         onPressed: () {
                           Navigator.of(context)
@@ -139,10 +145,20 @@ class _SettingPageState extends State<SettingPage> {
                 title: '图片缓存',
                 actionIcon: false,
                 border: false,
-                action: Text(cached),
+                action: Text(
+                  cached,
+                  textAlign: TextAlign.end,
+                ),
                 onPressed: () async {
-                  await clearDiskCachedImages();
-                  getImageCached();
+                  SoapToast.confirm(
+                    '是否清除图片缓存？',
+                    context: context,
+                    confirmText: const Text('清除'),
+                    confirm: () async {
+                      await clearDiskCachedImages();
+                      getImageCached();
+                    },
+                  );
                 },
               ),
               const SizedBox(height: 12),
@@ -164,7 +180,11 @@ class _SettingPageState extends State<SettingPage> {
                           child: SafeArea(
                             top: false,
                             child: Container(
-                              constraints: const BoxConstraints(maxHeight: 320),
+                              constraints: BoxConstraints(
+                                maxHeight:
+                                    (MediaQuery.of(context).size.height / 5) *
+                                        3,
+                              ),
                               child: Observer(
                                 builder: (_) {
                                   return MediaQuery.removePadding(

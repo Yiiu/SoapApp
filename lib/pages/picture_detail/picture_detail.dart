@@ -123,9 +123,11 @@ class PictureDetailPage extends StatelessWidget {
                         ),
                       );
                     },
-                    child: PictureDetailImage(
-                      picture: data,
-                      heroLabel: heroLabel,
+                    child: RepaintBoundary(
+                      child: PictureDetailImage(
+                        picture: data,
+                        heroLabel: heroLabel,
+                      ),
                     ),
                   ),
                   Container(
@@ -134,80 +136,84 @@ class PictureDetailPage extends StatelessWidget {
                       vertical: 16,
                       horizontal: 16,
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          data.title,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 20,
-                            color: theme.textTheme.bodyText2!.color,
-                          ),
-                        ),
-                        if (data.tags != null &&
-                            data.tags!.isNotEmpty) ...<Widget>[
-                          const SizedBox(height: 12),
-                          SizedBox(
-                            width: double.infinity,
-                            child: Wrap(
-                              spacing: 6,
-                              runSpacing: 6,
-                              alignment: WrapAlignment.start,
-                              runAlignment: WrapAlignment.end,
-                              children: data.tags!
-                                  .map(
-                                    (Tag tag) => TagItem(
-                                      tag: tag,
-                                    ),
-                                  )
-                                  .toList(),
+                    child: RepaintBoundary(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            data.title,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 20,
+                              color: theme.textTheme.bodyText2!.color,
                             ),
                           ),
-                        ],
-                        const SizedBox(height: 12),
-                        Row(
-                          children: [
-                            if (data.isPrivate != null && data.isPrivate!) ...[
-                              Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  SizedBox(
-                                    height: 14,
-                                    width: 14,
-                                    child: SvgPicture.asset(
-                                      'assets/remix/lock-fill.svg',
-                                      color: theme.textTheme.bodyText2!.color!
-                                          .withOpacity(.6),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 4),
-                                  SizedBox(
-                                    height: 14,
-                                    child: Text(
-                                      '私密',
-                                      style: TextStyle(
-                                        fontSize: 13,
+                          if (data.tags != null &&
+                              data.tags!.isNotEmpty) ...<Widget>[
+                            const SizedBox(height: 12),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                alignment: WrapAlignment.start,
+                                runAlignment: WrapAlignment.end,
+                                children: data.tags!
+                                    .map(
+                                      (Tag tag) => TagItem(
+                                        tag: tag,
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 12),
+                          Row(
+                            children: [
+                              if (data.isPrivate != null &&
+                                  data.isPrivate!) ...[
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 14,
+                                      width: 14,
+                                      child: SvgPicture.asset(
+                                        'assets/remix/lock-fill.svg',
                                         color: theme.textTheme.bodyText2!.color!
                                             .withOpacity(.6),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(width: 4),
+                                    SizedBox(
+                                      height: 14,
+                                      child: Text(
+                                        '私密',
+                                        style: TextStyle(
+                                          fontSize: 13,
+                                          color: theme
+                                              .textTheme.bodyText2!.color!
+                                              .withOpacity(.6),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(width: 12),
+                              ],
+                              Text(
+                                '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
+                                style: TextStyle(
+                                  color: theme.textTheme.bodyText2!.color!
+                                      .withOpacity(.6),
+                                  fontSize: 13,
+                                ),
                               ),
-                              const SizedBox(width: 12),
                             ],
-                            Text(
-                              '发布于 ${Jiffy(data.createTime.toString()).fromNow()}',
-                              style: TextStyle(
-                                color: theme.textTheme.bodyText2!.color!
-                                    .withOpacity(.6),
-                                fontSize: 13,
-                              ),
-                            ),
-                          ],
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                   Container(

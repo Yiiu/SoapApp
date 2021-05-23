@@ -55,7 +55,13 @@ class SettingItem extends StatelessWidget {
                 ),
               ),
             ),
-            if (action != null) Expanded(child: action!),
+            if (action != null)
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[action!],
+                ),
+              ),
             const SizedBox(width: 6),
             if (onPressed != null && actionIcon)
               SizedBox(

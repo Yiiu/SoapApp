@@ -152,9 +152,13 @@ class EditProfilePage extends StatelessWidget {
                           title: '昵称',
                           actionIcon: true,
                           border: true,
-                          action: Text(
-                            accountStore.userInfo!.fullName,
-                            textAlign: TextAlign.end,
+                          action: Expanded(
+                            child: Text(
+                              accountStore.userInfo!.fullName,
+                              textAlign: TextAlign.end,
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                            ),
                           ),
                           onPressed: () {
                             showBasicModalBottomSheet(
@@ -178,11 +182,13 @@ class EditProfilePage extends StatelessWidget {
                           title: '简介',
                           actionIcon: true,
                           border: false,
-                          action: Text(
-                            accountStore.userInfo!.bio ?? '',
-                            textAlign: TextAlign.end,
-                            maxLines: 2,
-                            overflow: TextOverflow.fade,
+                          action: Expanded(
+                            child: Text(
+                              accountStore.userInfo!.bio ?? '',
+                              textAlign: TextAlign.end,
+                              maxLines: 2,
+                              overflow: TextOverflow.fade,
+                            ),
                           ),
                           onPressed: () {
                             showBasicModalBottomSheet(

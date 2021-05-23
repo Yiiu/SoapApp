@@ -2,8 +2,12 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:throttling/throttling.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class SoapToast {
+  static late Throttling confirmThrottling;
+
   static void error(String title, {bool closeButton = true}) {
     BotToast.showSimpleNotification(
       title: title,
@@ -77,6 +81,8 @@ class SoapToast {
     Widget? confirmText,
     Widget? cancelText,
   }) {
+    SoapToast.confirmThrottling =
+        Throttling(duration: const Duration(seconds: 2));
     BotToast.showAnimationWidget(
       clickClose: false,
       allowClick: false,
@@ -158,8 +164,10 @@ class SoapToast {
               ),
             ),
             onPressed: () async {
-              cancelFunc();
-              confirm?.call();
+              SoapToast.confirmThrottling.throttle(() async {
+                confirm?.call();
+                cancelFunc();
+              });
             },
             child: confirmText ?? const Text('删除'),
           ),

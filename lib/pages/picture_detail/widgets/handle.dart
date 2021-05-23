@@ -148,6 +148,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    // print(picture.currentCollections);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: SizedBox(
@@ -205,7 +206,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                 children: <Widget>[
                   LikeButton(
                     isLiked: picture.isLike,
-                    size: 28,
+                    size: 26,
                     onTap: (bool like) async {
                       if (!accountStore.isLogin) {
                         SoapToast.error('请登录后再操作！');
@@ -240,16 +241,25 @@ class PictureDetailHandleBasic extends StatelessWidget {
                             theme.textTheme.bodyText2!.color!.withOpacity(.6),
                       );
                     },
-                    countBuilder: (int? count, bool isLiked, String text) =>
-                        Text(
-                      text,
-                      style: TextStyle(
-                        color: theme.textTheme.bodyText2!.color,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
                     likeCount: picture.likedCount,
+                    countBuilder: (int? count, bool isLiked, String text) =>
+                        count == 0
+                            ? Text(
+                                '点个赞吧~',
+                                style: TextStyle(
+                                  color: theme.textTheme.bodyText2!.color,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              )
+                            : Text(
+                                text,
+                                style: TextStyle(
+                                  color: theme.textTheme.bodyText2!.color,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                   ),
                   const SizedBox(width: 14),
                   TouchableOpacity(
@@ -280,6 +290,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                               FeatherIcons.star,
                               color: theme.textTheme.bodyText2!.color!
                                   .withOpacity(.6),
+                              size: 25,
                             ),
                     ),
                   )
