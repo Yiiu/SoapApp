@@ -15,6 +15,7 @@ import 'package:soap_app/pages/add/stores/add_store.dart';
 import 'package:soap_app/pages/add/edit_tag.dart';
 import 'package:soap_app/pages/add/more_setting.dart';
 import 'package:soap_app/pages/add/widgets/input.dart';
+import 'package:soap_app/repository/baidu_repository.dart';
 import 'package:soap_app/repository/oss_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/colors.dart';
@@ -47,6 +48,8 @@ class _AddPageState extends State<AddPage> {
 
   final AddStore _addStore = AddStore();
 
+  final BaiduProvider _baiduProvider = BaiduProvider();
+
   final OssProvider _ossProvider = OssProvider();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
@@ -74,13 +77,15 @@ class _AddPageState extends State<AddPage> {
   Future<void> _baidu() async {
     if (widget.assets != null) {
       final Uint8List? thumb =
-          await widget.assets![0].thumbDataWithSize(300, 300, quality: 100);
+          await widget.assets![0].thumbDataWithSize(600, 600, quality: 90);
       if (thumb != null) {
         String base64Image = base64Encode(thumb);
-        print(base64Image);
+        final result = await _baiduProvider.getImageClassify(base64Image);
+        if (result?.data?['result'] != null) {
+          print(result!.data!['result']);
+        }
       }
     }
-    print(widget.assets);
   }
 
   Future<void> _onOk() async {
