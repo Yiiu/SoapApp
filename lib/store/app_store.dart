@@ -45,8 +45,8 @@ abstract class _AppStoreBase with Store {
 
   @action
   Future<void> _initializeDisplayMode() async {
-    if (Platform.isAndroid) {
-      try {
+    try {
+      if (Platform.isAndroid) {
         modeList = await FlutterDisplayMode.supported;
         if (displayMode != null && modeList.length > displayMode!) {
           await FlutterDisplayMode.setPreferredMode(modeList[displayMode!]);
@@ -64,8 +64,8 @@ abstract class _AppStoreBase with Store {
           })();
         }
         // ignore: empty_catches
-      } catch (e) {}
-    }
+      }
+    } catch (e) {}
   }
 
   @computed

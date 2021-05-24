@@ -121,7 +121,6 @@ class _AddToCollectionState extends State<AddToCollection> {
                               currentList.add(collection.id);
                             });
                           }
-                          print(collection.name);
                         },
                         contentPadding: const EdgeInsets.symmetric(
                           horizontal: 16,

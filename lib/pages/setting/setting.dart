@@ -26,8 +26,17 @@ class SettingPage extends StatefulWidget {
 class _SettingPageState extends State<SettingPage> {
   String cached = '0kb';
 
+  bool isAndroid = true;
+
   @override
   void initState() {
+    try {
+      if (Platform.isIOS) {
+        isAndroid = false;
+      }
+    } catch (e) {
+      // kisweb = true;
+    }
     super.initState();
     getImageCached();
   }
@@ -162,7 +171,7 @@ class _SettingPageState extends State<SettingPage> {
                 },
               ),
               const SizedBox(height: 12),
-              if (Platform.isAndroid)
+              if (isAndroid)
                 Observer(
                   builder: (_) => SettingItem(
                     title: '刷新率选择',

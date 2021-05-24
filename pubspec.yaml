@@ -88,6 +88,8 @@ flutter:
   assets:
     - .env
     - assets/images/empty.png
+    - assets/images/vip.png
+
     - assets/feather/thumbs-up.svg
     - assets/feather/chevron-left.svg
     - assets/feather/plus.svg
@@ -114,11 +116,14 @@ flutter:
     - assets/remix/star-line.svg
     - assets/remix/star-fill.svg
     - assets/remix/checkbox-circle-fill.svg
+
     - assets/svg/weibo.svg
     - assets/svg/github.svg
     - assets/svg/null.svg
     - assets/svg/plus.svg
     - assets/svg/home.svg
+    - assets/svg/vip.svg
+    - assets/svg/hzfe.svg
   fonts:
     - family: Rubik
       fonts:

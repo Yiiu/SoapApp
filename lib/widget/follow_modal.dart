@@ -106,7 +106,7 @@ class _FollowModalState extends State<FollowModal> {
                   context: context,
                   child: ListView.builder(
                     controller: widget.scrollController,
-                    physics: const BouncingScrollPhysics(),
+                    physics: const ClampingScrollPhysics(),
                     itemBuilder: (BuildContext context, int index) {
                       final User user = list[index];
                       EdgeInsetsGeometry? margin;
@@ -121,71 +121,71 @@ class _FollowModalState extends State<FollowModal> {
                         ),
                         child: Row(
                           children: [
-                            Row(
-                              children: [
-                                TouchableOpacity(
-                                  activeOpacity: activeOpacity,
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                      RouteName.user,
-                                      arguments: {
-                                        'user': user,
-                                        'heroId': '',
-                                      },
-                                    );
+                            TouchableOpacity(
+                              activeOpacity: activeOpacity,
+                              onTap: () {
+                                Navigator.of(context).pushNamed(
+                                  RouteName.user,
+                                  arguments: {
+                                    'user': user,
+                                    'heroId': '',
                                   },
-                                  child: Avatar(
-                                    image: user.avatarUrl,
-                                    size: 42,
-                                  ),
+                                );
+                              },
+                              child: Avatar(
+                                image: user.avatarUrl,
+                                size: 42,
+                              ),
+                            ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 12,
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                    left: 12,
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TouchableOpacity(
-                                        activeOpacity: activeOpacity,
-                                        onTap: () {
-                                          Navigator.of(context).pushNamed(
-                                            RouteName.user,
-                                            arguments: {
-                                              'user': user,
-                                              'heroId': '',
-                                            },
-                                          );
-                                        },
+                                child: Flex(
+                                  direction: Axis.vertical,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    TouchableOpacity(
+                                      activeOpacity: activeOpacity,
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                          RouteName.user,
+                                          arguments: {
+                                            'user': user,
+                                            'heroId': '',
+                                          },
+                                        );
+                                      },
+                                      child: Text(
+                                        user.fullName,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
+                                    ),
+                                    if (user.bio != null)
+                                      Padding(
+                                        padding: const EdgeInsets.only(top: 6),
                                         child: Text(
-                                          user.fullName,
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                          user.bio!,
+                                          maxLines: 1,
+                                          softWrap: false,
+                                          overflow: TextOverflow.fade,
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            color: Theme.of(context)
+                                                .textTheme
+                                                .bodyText2!
+                                                .color!
+                                                .withOpacity(.8),
                                           ),
                                         ),
                                       ),
-                                      if (user.bio != null)
-                                        Padding(
-                                          padding:
-                                              const EdgeInsets.only(top: 6),
-                                          child: Text(
-                                            user.bio!,
-                                            style: TextStyle(
-                                              fontSize: 14,
-                                              color: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyText2!
-                                                  .color!
-                                                  .withOpacity(.8),
-                                            ),
-                                          ),
-                                        ),
-                                    ],
-                                  ),
+                                  ],
                                 ),
-                              ],
+                              ),
                             ),
                           ],
                         ),

@@ -8,6 +8,7 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/query.dart';
+import 'package:soap_app/widget/list/empty.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/picture_item/picture_item.dart';
@@ -127,15 +128,7 @@ class _PictureListState extends State<PictureList>
         );
 
         if (listData.count == 0) {
-          return Align(
-            child: SizedBox(
-              width: 220,
-              height: 220,
-              child: SvgPicture.asset(
-                'assets/svg/null.svg',
-              ),
-            ),
-          );
+          return SoapListEmpty();
           // return ;
         }
 

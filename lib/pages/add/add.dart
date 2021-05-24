@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:blurhash/blurhash.dart';
@@ -57,6 +56,7 @@ class _AddPageState extends State<AddPage> {
   void initState() {
     _titleFocusNode = FocusNode();
     _bioFocusNode = FocusNode();
+    _baidu();
     if (widget.edit) {
       editInit();
     }
@@ -69,6 +69,18 @@ class _AddPageState extends State<AddPage> {
       _titleController.text = widget.picture!.title;
       _bioController.text = widget.picture!.bio;
     }
+  }
+
+  Future<void> _baidu() async {
+    if (widget.assets != null) {
+      final Uint8List? thumb =
+          await widget.assets![0].thumbDataWithSize(300, 300, quality: 100);
+      if (thumb != null) {
+        String base64Image = base64Encode(thumb);
+        print(base64Image);
+      }
+    }
+    print(widget.assets);
   }
 
   Future<void> _onOk() async {
@@ -86,7 +98,7 @@ class _AddPageState extends State<AddPage> {
       if (widget.assets == null) {
         return;
       }
-      final File? file = await widget.assets![0].loadFile();
+      final file = await widget.assets![0].loadFile();
       if (file != null) {
         if (_titleController.text.isEmpty) {
           SoapToast.error('请填写标题！');

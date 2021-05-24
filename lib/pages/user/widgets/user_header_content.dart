@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
@@ -260,22 +261,33 @@ class UserHeaderContent extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          user.fullName,
-                          textAlign: TextAlign.start,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.w600,
-                          ),
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            if (user.isVip)
+                              SizedBox(
+                                width: 22,
+                                height: 22,
+                                child: Image.asset('assets/images/vip.png'),
+                              ),
+                            const SizedBox(width: 6),
+                            Text(
+                              user.fullName,
+                              textAlign: TextAlign.start,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
                         ),
                         if (user.bio != null && user.bio!.isNotEmpty)
                           Padding(
                             padding: const EdgeInsets.only(top: 2),
                             child: Text(
                               user.bio!,
-                              maxLines: 2,
+                              maxLines: 1,
                               overflow: TextOverflow.fade,
                               style: TextStyle(
                                 color: Colors.white.withOpacity(.6),

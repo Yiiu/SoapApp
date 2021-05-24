@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/badge.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
 
@@ -27,6 +28,7 @@ class User {
     this.pictureCount = 0,
     this.followerCount = 0,
     this.followedCount = 0,
+    this.badge,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -42,6 +44,7 @@ class User {
       isFollowing;
   final DateTime createTime, updateTime;
   final List<Picture>? pictures;
+  final List<Badge>? badge;
 
   String get avatarUrl {
     return getPictureUrl(key: avatar, style: PictureStyle.itemprop);
@@ -51,4 +54,12 @@ class User {
       .map<User>((dynamic p) => User.fromJson(p as Map<String, dynamic>))
       .toList();
   Map<String, dynamic> toJson() => _$UserToJson(this);
+
+  bool get isVip {
+    print(badge);
+    if (badge != null && badge!.indexWhere((e) => e.name == 'prestige') != -1) {
+      return true;
+    }
+    return false;
+  }
 }

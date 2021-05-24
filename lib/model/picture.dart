@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:soap_app/model/badge.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/exif.dart';
 import 'package:soap_app/model/tag.dart';
@@ -38,6 +39,7 @@ class Picture {
     this.user,
     this.tags,
     this.exif,
+    this.badge,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) =>
@@ -56,6 +58,7 @@ class Picture {
   final User? user;
   final List<Tag>? tags;
   final Exif? exif;
+  final List<Badge>? badge;
 
   String pictureUrl({PictureStyle? style = PictureStyle.small}) {
     if (RegExp('^photo\/').hasMatch(key)) {
