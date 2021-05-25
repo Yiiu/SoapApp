@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +11,7 @@ import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart' as RouterConfig;
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -20,6 +23,12 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    List<Locale> an = [
+      const Locale('zh', 'CH'),
+    ];
+    List<Locale> ios = [
+      const Locale('zh', 'CH'),
+    ];
     return RefreshConfiguration(
       headerBuilder: () => const ClassicHeader(
         releaseText: '松开刷新',
@@ -57,8 +66,12 @@ class _MyAppState extends State<MyApp> {
         builder: (_) => MaterialApp(
           localizationsDelegates: [
             RefreshLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
           ],
           builder: BotToastInit(),
+          locale: Locale('zh', 'CH'),
           navigatorObservers: [BotToastNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           initialRoute: RouterConfig.RouteName.home,
@@ -67,6 +80,10 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeConfig.lightTheme,
           darkTheme: ThemeConfig.darkTheme,
           title: Constants.appName,
+          supportedLocales: Platform.isIOS ? ios : an,
+          // supportedLocales: [
+          //   const Locale('zh', 'CH'),
+          // ],
         ),
       ),
     );

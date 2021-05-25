@@ -24,6 +24,8 @@ dependencies:
   json_annotation: ^4.0.0
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
   sentry_flutter: ^5.1.0-beta.1
   throttling: ^1.0.0
@@ -159,8 +161,9 @@ flutter:
     #       weight: 500
     #     - asset: assets/fonts/思源宋体/600W.otf
     #       weight: 600
-
 flutter_native_splash:
   image: assets/images/splash.gif
   color: "ffffff"
   color_dark: "2e186a"
+flutter_intl:
+  enabled: true
