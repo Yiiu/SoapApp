@@ -19,6 +19,7 @@ import 'package:soap_app/repository/baidu_repository.dart';
 import 'package:soap_app/repository/oss_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/colors.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/image.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/button.dart';
@@ -54,14 +55,18 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
+  late final dynamic? _classify;
+
   double progressValue = 1;
   @override
   void initState() {
     _titleFocusNode = FocusNode();
     _bioFocusNode = FocusNode();
-    _baidu();
     if (widget.edit) {
       editInit();
+    } else {
+      // 获取图片关键词，方便搜索分类
+      _getImageClassify();
     }
     super.initState();
   }
@@ -70,19 +75,19 @@ class _AddPageState extends State<AddPage> {
     if (widget.picture != null) {
       _addStore.editInit(widget.picture!);
       _titleController.text = widget.picture!.title;
-      _bioController.text = widget.picture!.bio;
+      _bioController.text = widget.picture!.bio ?? '';
     }
   }
 
-  Future<void> _baidu() async {
+  Future<void> _getImageClassify() async {
     if (widget.assets != null) {
       final Uint8List? thumb =
           await widget.assets![0].thumbDataWithSize(600, 600, quality: 90);
       if (thumb != null) {
-        String base64Image = base64Encode(thumb);
+        final String base64Image = base64Encode(thumb);
         final result = await _baiduProvider.getImageClassify(base64Image);
         if (result?.data?['result'] != null) {
-          print(result!.data!['result']);
+          _classify = result!.data!['result'];
         }
       }
     }
@@ -129,6 +134,7 @@ class _AddPageState extends State<AddPage> {
         info['make'] = exif?['make'];
         info['model'] = exif?['model'];
         info['blurhash'] = blurHash;
+        info['classify'] = _classify;
         _addStore.setLoading(true);
         try {
           final Response sts = await _ossProvider.sts();
@@ -155,6 +161,7 @@ class _AddPageState extends State<AddPage> {
           SoapToast.success('上传成功！');
           Navigator.of(context).pop();
         } catch (e) {
+          captureException(e);
           _addStore.setLoading(false);
           SoapToast.error('上传失败，请重试！');
         }

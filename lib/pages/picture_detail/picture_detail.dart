@@ -18,6 +18,7 @@ import 'package:soap_app/pages/picture_detail/widgets/image.dart';
 import 'package:soap_app/pages/picture_detail/widgets/info.dart';
 import 'package:soap_app/pages/picture_detail/widgets/more_handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
@@ -56,6 +57,10 @@ class PictureDetailPage extends StatelessWidget {
           FetchMore? fetchMore,
         }) {
           Picture data = picture;
+
+          if (result.hasException) {
+            captureException(result.exception);
+          }
           if (result.data != null) {
             data = Picture.fromJson(
                 result.data!['picture'] as Map<String, dynamic>);

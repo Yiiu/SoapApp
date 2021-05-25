@@ -9,6 +9,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/user.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -93,6 +94,9 @@ class _FollowModalState extends State<FollowModal> {
               Refetch? refetch,
               FetchMore? fetchMore,
             }) {
+              if (result.hasException) {
+                captureException(result.exception);
+              }
               if (result.data?[resultLabel] == null) {
                 return const Center(
                   child: CupertinoActivityIndicator(),
@@ -106,7 +110,9 @@ class _FollowModalState extends State<FollowModal> {
                   context: context,
                   child: ListView.builder(
                     controller: widget.scrollController,
-                    physics: const ClampingScrollPhysics(),
+                    physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics(),
+                    ),
                     itemBuilder: (BuildContext context, int index) {
                       final User user = list[index];
                       EdgeInsetsGeometry? margin;

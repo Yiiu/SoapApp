@@ -8,6 +8,7 @@ import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/model/tag.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/widget/picture_list.dart';
@@ -133,6 +134,10 @@ class _TagDetailPageState extends State<TagDetailPage> {
           FetchMore? fetchMore,
         }) {
           Tag data = tag;
+
+          if (result.hasException) {
+            captureException(result.exception);
+          }
           if (result.data != null && result.data!['tag'] != null) {
             data = Tag.fromJson(result.data!['tag'] as Map<String, dynamic>);
           }

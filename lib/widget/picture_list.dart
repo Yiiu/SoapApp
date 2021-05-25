@@ -3,8 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/query.dart';
@@ -105,6 +107,9 @@ class _PictureListState extends State<PictureList>
         Refetch? refetch,
         FetchMore? fetchMore,
       }) {
+        if (result.hasException) {
+          captureException(result.exception);
+        }
         if (result.hasException && result.data == null) {
           return SoapListError(
             notScrollView: true,
@@ -149,6 +154,7 @@ class _PictureListState extends State<PictureList>
             itemBuilder: (_, int i) => PictureItem(
               heroLabel: 'user-list',
               crossAxisSpacing: 0,
+              mainAxisSpacing: padding,
               picture: listData.list[i],
               header: false,
               pictureStyle: PictureStyle.thumb,

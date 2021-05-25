@@ -6,6 +6,7 @@ import 'package:soap_app/graphql/mutations.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
@@ -28,7 +29,9 @@ class EditProfilePage extends StatelessWidget {
     try {
       await _accountProvider.updateProfile(data);
       SoapToast.success('保存成功');
-    } on OperationException catch (_) {
+    } on OperationException catch (_, stackTrace) {
+      captureException(_, stackTrace: stackTrace);
+      // print(_.graphqlErrors[0].extensions?['exception']['message']);
       SoapToast.error('保存失败，服务器坏掉了!');
       rethrow;
     }

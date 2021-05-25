@@ -9,6 +9,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/widget/collection/add_collection_modal.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/collection/collection_more_handle.dart';
@@ -74,6 +75,10 @@ class UserCollectionListState extends State<UserCollectionList>
           }
           _refreshController.refreshCompleted();
           setState(() {});
+        }
+
+        if (result.hasException) {
+          captureException(result.exception);
         }
 
         if (result.hasException && result.data == null) {
@@ -153,7 +158,6 @@ class UserCollectionListState extends State<UserCollectionList>
                   return const SizedBox();
                 }
               }
-              print(list[i - 1].name);
               return TouchableOpacity(
                 key: ValueKey<String>(
                   list[i - 1].id.toString() + 'collection_item',

@@ -7,6 +7,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/model/comment.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/graphql/query.dart' as query;
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 
@@ -44,6 +45,10 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
         Widget content = const Center(
           child: CupertinoActivityIndicator(radius: 8),
         );
+
+        if (result.hasException) {
+          captureException(result.exception);
+        }
         if (result.data != null) {
           final List<Comment> data = Comment.fromListJson(
               result.data!['comments']['data'] as List<dynamic>);

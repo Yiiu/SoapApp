@@ -56,7 +56,6 @@ class User {
   Map<String, dynamic> toJson() => _$UserToJson(this);
 
   bool get isVip {
-    print(badge);
     if (badge != null && badge!.indexWhere((e) => e.name == 'prestige') != -1) {
       return true;
     }

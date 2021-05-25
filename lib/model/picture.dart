@@ -46,8 +46,8 @@ class Picture {
       _$PictureFromJson(json);
 
   final int id;
-  final String key, title, bio, blurhash, color;
-  final String? hash, originalname, mimetype, make, model;
+  final String key, title, blurhash, color;
+  final String? hash, originalname, mimetype, make, model, bio;
   final int views, size, height, width;
   final int? commentCount, likedCount;
   final bool? isLike, isPrivate;
@@ -59,6 +59,12 @@ class Picture {
   final List<Tag>? tags;
   final Exif? exif;
   final List<Badge>? badge;
+
+  bool get isChoice {
+    if (badge != null && badge!.indexWhere((e) => e.name == 'choice') != -1)
+      return true;
+    return false;
+  }
 
   String pictureUrl({PictureStyle? style = PictureStyle.small}) {
     if (RegExp('^photo\/').hasMatch(key)) {

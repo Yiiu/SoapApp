@@ -135,7 +135,7 @@ class _SoapAppBarState extends State<SoapAppBar>
                   child: DefaultTextStyle(
                     child: _title,
                     style: theme.textTheme.bodyText2!.copyWith(
-                      fontSize: 18,
+                      fontSize: 20,
                       fontWeight: FontWeight.w600,
                     ),
                     maxLines: 1,

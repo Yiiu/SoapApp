@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/storage.dart';
 // ignore: library_prefixes
@@ -34,10 +35,15 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  runApp(
-    GraphQLProvider(
+  await SentryFlutter.init(
+    (SentryFlutterOptions options) {
+      options.debug = false;
+      options.dsn = DotEnv.env['SENTRY_URL'];
+    },
+    appRunner: () => runApp(GraphQLProvider(
       client: GraphqlConfig.client,
       child: const MyApp(),
-    ),
+    )),
   );
+  accountStore.initializeSentry();
 }

@@ -10,6 +10,7 @@ import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
@@ -75,6 +76,10 @@ class _AddToCollectionState extends State<AddToCollection> {
                 FetchMore? fetchMore,
               }) {
                 List<Collection> list = [];
+
+                if (result.hasException) {
+                  captureException(result.exception);
+                }
 
                 if (result.hasException && result.data == null) {
                   return SoapListError(

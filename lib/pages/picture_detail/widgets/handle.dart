@@ -131,7 +131,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
     required this.picture,
   }) : super(key: key);
 
-  final PictureRepository pictureRepository = PictureRepository();
+  final PictureRepository _pictureRepository = PictureRepository();
 
   final HandleStore store;
   final FocusNode focusNode;
@@ -148,7 +148,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    // print(picture.currentCollections);
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       child: SizedBox(
@@ -213,9 +212,9 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         return like;
                       }
                       if (!like) {
-                        await pictureRepository.liked(picture.id);
+                        await _pictureRepository.liked(picture.id);
                       } else {
-                        await pictureRepository.unLike(picture.id);
+                        await _pictureRepository.unLike(picture.id);
                       }
                       return !like;
                     },
@@ -230,9 +229,20 @@ class PictureDetailHandleBasic extends StatelessWidget {
                     ),
                     likeBuilder: (bool isLiked) {
                       if (isLiked) {
-                        return SvgPicture.asset(
-                          'assets/remix/heart-3-fill.svg',
-                          color: const Color(0xfffe2341),
+                        return ShaderMask(
+                          child: SvgPicture.asset(
+                            'assets/remix/heart-3-fill.svg',
+                            color: const Color(0xfffe2341),
+                          ),
+                          blendMode: BlendMode.srcATop,
+                          shaderCallback: (Rect bounds) => RadialGradient(
+                            center:
+                                Alignment.topLeft.add(Alignment(0.66, 0.66)),
+                            colors: [
+                              Color(0xffEF6F6F),
+                              Color(0xffF03E3E),
+                            ],
+                          ).createShader(bounds),
                         );
                       }
                       return SvgPicture.asset(
@@ -268,7 +278,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         SoapToast.error('请登录后再操作！');
                         return;
                       }
-                      // print(picture.currentCollections);
                       showBasicModalBottomSheet(
                         enableDrag: true,
                         context: context,
@@ -282,9 +291,20 @@ class PictureDetailHandleBasic extends StatelessWidget {
                       width: 26,
                       height: 26,
                       child: isCollected
-                          ? SvgPicture.asset(
-                              'assets/feather/star-fill.svg',
-                              color: const Color(0xff47B881),
+                          ? ShaderMask(
+                              child: SvgPicture.asset(
+                                'assets/feather/star-fill.svg',
+                                color: const Color(0xff47B881),
+                              ),
+                              blendMode: BlendMode.srcATop,
+                              shaderCallback: (Rect bounds) => RadialGradient(
+                                center: Alignment.topLeft
+                                    .add(const Alignment(0.66, 0.66)),
+                                colors: const <Color>[
+                                  Color(0xff82c1a4),
+                                  Color(0xff47b881),
+                                ],
+                              ).createShader(bounds),
                             )
                           : Icon(
                               FeatherIcons.star,

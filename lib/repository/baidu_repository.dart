@@ -31,7 +31,6 @@ class BaiduProvider {
     if (_token.data['access_token'] == null) {
       return null;
     }
-    print(_token.data['access_token']);
     final Map<String, String> queryParameters = {
       'access_token': _token.data['access_token'] as String,
     };

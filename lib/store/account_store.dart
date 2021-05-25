@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/query.dart' as query;
@@ -60,6 +61,25 @@ abstract class _AccountStoreBase with Store {
       setUserInfo(
           User.fromJson(json.decode(userString) as Map<String, dynamic>));
     }
+    getUserInfo();
+  }
+
+  void initializeSentry() {
+    setSentrtyInfo(userInfo);
+  }
+
+  void setSentrtyInfo(User? user) {
+    if (user != null) {
+      Sentry.configureScope(
+        (scope) => scope.user = SentryUser(
+          id: user.id.toString(),
+          username: user.username,
+          email: user.email,
+        ),
+      );
+    } else {
+      Sentry.configureScope((scope) => scope.user = null);
+    }
   }
 
   Future<void> getUserInfo() async {
@@ -75,6 +95,7 @@ abstract class _AccountStoreBase with Store {
       setUserInfo(
           User.fromJson(result.data?['whoami'] as Map<String, dynamic>));
     }
+    setSentrtyInfo(userInfo);
   }
 
   @action
@@ -95,6 +116,7 @@ abstract class _AccountStoreBase with Store {
     accessToken = null;
     accessTokenExpiresAt = null;
     userInfo = null;
+    setSentrtyInfo(userInfo);
     await StorageUtil.preferences!.remove('account.accessToken');
     await StorageUtil.preferences!.remove('account.userInfo');
     await GraphqlConfig.graphQLClient.resetStore();

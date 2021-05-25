@@ -53,6 +53,7 @@ class NewList extends StatelessWidget {
         child: ExtendedListView.builder(
           extendedListDelegate: const ExtendedListDelegate(),
           itemBuilder: (BuildContext _, int i) => PictureItem(
+            doubleLike: true,
             picture: listData.list[i],
           ),
           itemCount: listData.list.length,

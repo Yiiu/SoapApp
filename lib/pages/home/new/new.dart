@@ -8,6 +8,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/home/new/widgets/list.dart';
+import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
@@ -81,6 +82,10 @@ class NewViewState extends State<NewView>
                 return;
               }
               _refreshController.refreshCompleted();
+            }
+
+            if (result.hasException) {
+              captureException(result.exception);
             }
 
             if (result.hasException && result.data == null) {

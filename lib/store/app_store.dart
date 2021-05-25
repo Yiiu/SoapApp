@@ -53,14 +53,11 @@ abstract class _AppStoreBase with Store {
         } else {
           // ignore: unnecessary_statements
           (() async {
-            print(await FlutterDisplayMode.active);
-            await Future<void>.delayed(const Duration(milliseconds: 4000));
+            await Future<void>.delayed(const Duration(milliseconds: 1000));
             await FlutterDisplayMode.setHighRefreshRate();
             await Future<void>.delayed(const Duration(milliseconds: 500));
-            print(await FlutterDisplayMode.active);
             final DisplayMode active = await FlutterDisplayMode.active;
             displayMode = active.id;
-            print(active);
           })();
         }
         // ignore: empty_catches
