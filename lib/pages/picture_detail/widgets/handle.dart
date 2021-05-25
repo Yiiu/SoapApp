@@ -257,7 +257,8 @@ class PictureDetailHandleBasic extends StatelessWidget {
                             ? Text(
                                 '点个赞吧~',
                                 style: TextStyle(
-                                  color: theme.textTheme.bodyText2!.color,
+                                  color: theme.textTheme.bodyText2!.color!
+                                      .withOpacity(.6),
                                   fontSize: 12,
                                   fontWeight: FontWeight.w500,
                                 ),

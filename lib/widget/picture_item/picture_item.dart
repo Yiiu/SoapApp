@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/like_gesture.dart';
+import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/picture_item/content.dart';
 import 'package:soap_app/widget/picture_item/header.dart';
 
@@ -140,64 +141,10 @@ class PictureItem extends StatelessWidget {
                 Positioned(
                   top: 8,
                   right: 8 + crossAxisSpacing,
-                  child: SizedBox(
-                    width: 34,
-                    height: 34,
-                    child: Stack(
-                      children: [
-                        SizedBox(
-                          width: 34,
-                          height: 34,
-                          child: ShaderMask(
-                            child: SvgPicture.asset('assets/svg/hexagon.svg'),
-                            blendMode: BlendMode.srcATop,
-                            shaderCallback: (Rect bounds) =>
-                                const LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: <Color>[
-                                Color(0xffF5C164),
-                                Color(0xffFF9500),
-                              ],
-                            ).createShader(bounds),
-                          ),
-                        ),
-                        Center(
-                          child: SizedBox(
-                            width: 22,
-                            height: 22,
-                            child: SvgPicture.asset(
-                              'assets/svg/planet.svg',
-                              color: Colors.white.withOpacity(.8),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  child: Medal(
+                    type: MedalType.choice,
+                    size: header ? null : 24,
                   ),
-                  // ClipOval(
-                  //   child: Container(
-                  //     decoration: const BoxDecoration(
-                  //       gradient: LinearGradient(
-                  //         colors: <Color>[Color(0xFFff9500), Color(0xFFf5c164)],
-                  //         begin: Alignment.topCenter,
-                  //         end: Alignment.bottomCenter,
-                  //       ),
-                  //     ),
-                  //     width: 32,
-                  //     height: 32,
-                  //     child: Align(
-                  //       child: SizedBox(
-                  //         width: 22,
-                  //         height: 22,
-                  //         child: SvgPicture.asset(
-                  //           'assets/svg/planet.svg',
-                  //           color: Colors.white,
-                  //         ),
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
                 ),
               if (picture.isPrivate != null && picture.isPrivate!)
                 Positioned(
@@ -231,7 +178,6 @@ class PictureItem extends StatelessWidget {
                               '私密',
                               style: TextStyle(
                                 fontSize: 10,
-                                height: 1.2,
                                 color: Colors.white,
                               ),
                             ),

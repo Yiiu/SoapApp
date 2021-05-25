@@ -14,6 +14,7 @@ import 'package:soap_app/widget/collection/add_collection_modal.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/collection/collection_more_handle.dart';
 import 'package:soap_app/widget/collection_item/collection_item.dart';
+import 'package:soap_app/widget/list/empty.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
@@ -99,6 +100,11 @@ class UserCollectionListState extends State<UserCollectionList>
           result.data!['userCollectionsByName']['data'] as List,
         );
 
+        if (list.isEmpty) {
+          return const SoapListEmpty();
+          // return ;
+        }
+
         return SmartRefresher(
           enablePullUp: false,
           enablePullDown: true,
@@ -106,7 +112,7 @@ class UserCollectionListState extends State<UserCollectionList>
           physics: const BouncingScrollPhysics(),
           child: ListView.builder(
             itemCount: list.length + 1,
-            itemBuilder: (_, i) {
+            itemBuilder: (_, int i) {
               if (i == 0) {
                 if (isOwner) {
                   return TouchableOpacity(

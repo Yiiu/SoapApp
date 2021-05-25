@@ -53,7 +53,7 @@ abstract class _AppStoreBase with Store {
         } else {
           // ignore: unnecessary_statements
           (() async {
-            await Future<void>.delayed(const Duration(milliseconds: 1000));
+            await Future<void>.delayed(const Duration(milliseconds: 2000));
             await FlutterDisplayMode.setHighRefreshRate();
             await Future<void>.delayed(const Duration(milliseconds: 500));
             final DisplayMode active = await FlutterDisplayMode.active;

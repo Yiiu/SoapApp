@@ -64,7 +64,7 @@ class TagItem extends StatelessWidget {
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Color(0xFF5789d1),
-                fontSize: 13,
+                fontSize: 12,
               ),
             ),
           ],

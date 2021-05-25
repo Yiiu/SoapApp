@@ -10,6 +10,7 @@ import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
+import 'package:soap_app/widget/list/empty.dart';
 
 class PictureDetailComment extends StatefulWidget {
   const PictureDetailComment({
@@ -121,14 +122,8 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
                   .toList(),
             );
           } else {
-            content = Center(
-              child: Text(
-                '暂无评论',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                ),
-              ),
+            content = const Center(
+              child: SoapListEmpty(),
             );
           }
         }

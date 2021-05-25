@@ -23,6 +23,7 @@ import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/hero_photo_view.dart';
+import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -145,13 +146,26 @@ class PictureDetailPage extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
-                          Text(
-                            data.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: theme.textTheme.bodyText2!.color,
-                            ),
+                          Row(
+                            children: [
+                              if (picture.isChoice) ...[
+                                Medal(
+                                  type: MedalType.choice,
+                                  size: 24,
+                                ),
+                                SizedBox(
+                                  width: 4,
+                                )
+                              ],
+                              Text(
+                                data.title,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 20,
+                                  color: theme.textTheme.bodyText2!.color,
+                                ),
+                              )
+                            ],
                           ),
                           if (data.tags != null &&
                               data.tags!.isNotEmpty) ...<Widget>[
@@ -191,16 +205,12 @@ class PictureDetailPage extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(width: 4),
-                                    SizedBox(
-                                      height: 14,
-                                      child: Text(
-                                        '私密',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          color: theme
-                                              .textTheme.bodyText2!.color!
-                                              .withOpacity(.6),
-                                        ),
+                                    Text(
+                                      '私密',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: theme.textTheme.bodyText2!.color!
+                                            .withOpacity(.6),
                                       ),
                                     ),
                                   ],
