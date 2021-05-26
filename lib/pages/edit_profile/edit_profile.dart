@@ -228,11 +228,23 @@ class EditProfilePage extends StatelessWidget {
                           builder: (_) {
                             return ConfirmModalBottom(
                               bottomPadding: 0,
+                              topPadding: 0,
                               onOk: () async {},
                               child: DatePickerWidget(
-                                pickerTheme: const DateTimePickerTheme(
+                                onChange: (DateTime date, List<int> _) {
+                                  print(date);
+                                },
+                                pickerTheme: DateTimePickerTheme(
+                                  pickerHeight: 220,
                                   showTitle: false,
                                   backgroundColor: Colors.transparent,
+                                  itemTextStyle: TextStyle(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText2!
+                                        .color,
+                                    fontSize: 14,
+                                  ),
                                 ),
                               ),
                             );

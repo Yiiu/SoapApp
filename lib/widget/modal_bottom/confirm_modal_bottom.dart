@@ -7,10 +7,12 @@ class ConfirmModalBottom extends StatefulWidget {
     Key? key,
     this.title,
     this.bottomPadding = 24,
+    this.topPadding = 12,
   }) : super(key: key);
 
   final String? title;
   final double? bottomPadding;
+  final double? topPadding;
   final Future<void> Function() onOk;
   final Widget child;
 
@@ -125,7 +127,8 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
+              if (widget.topPadding != null && widget.topPadding! > 0)
+                SizedBox(height: widget.topPadding!),
               widget.child,
               if (widget.bottomPadding != null && widget.bottomPadding! > 0)
                 SizedBox(height: widget.bottomPadding!),

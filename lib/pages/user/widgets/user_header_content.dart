@@ -336,7 +336,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                             Container(
                               height: 22,
                               decoration: BoxDecoration(
-                                color: Colors.white.withOpacity(.2),
+                                color: Colors.white.withOpacity(.1),
                                 borderRadius: BorderRadius.circular(25),
                               ),
                               padding: const EdgeInsets.symmetric(

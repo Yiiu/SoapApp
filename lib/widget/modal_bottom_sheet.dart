@@ -20,10 +20,10 @@ void showBasicModalBottomSheet({
       type: MaterialType.transparency,
       child: ClipRect(
         child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 12, sigmaY: 12),
+          filter: ImageFilter.blur(sigmaX: 18, sigmaY: 18),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(_).cardColor.withOpacity(.9),
+              color: Theme.of(_).backgroundColor.withOpacity(.95),
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(12),
                 topRight: Radius.circular(12),
