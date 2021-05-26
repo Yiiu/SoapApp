@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart' as RouterConfig;
 import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/generated/l10n.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
@@ -24,10 +25,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     List<Locale> an = [
-      const Locale('zh', 'CH'),
+      const Locale('en', 'US'),
     ];
     List<Locale> ios = [
-      const Locale('zh', 'CH'),
+      const Locale('en', 'US'),
     ];
     return RefreshConfiguration(
       headerBuilder: () => const ClassicHeader(
@@ -65,13 +66,13 @@ class _MyAppState extends State<MyApp> {
       child: Observer(
         builder: (_) => MaterialApp(
           localizationsDelegates: [
-            RefreshLocalizations.delegate,
+            S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
+          supportedLocales: S.delegate.supportedLocales,
           builder: BotToastInit(),
-          locale: Locale('zh', 'CH'),
           navigatorObservers: [BotToastNavigatorObserver()],
           debugShowCheckedModeBanner: false,
           initialRoute: RouterConfig.RouteName.home,
@@ -80,7 +81,6 @@ class _MyAppState extends State<MyApp> {
           theme: ThemeConfig.lightTheme,
           darkTheme: ThemeConfig.darkTheme,
           title: Constants.appName,
-          supportedLocales: Platform.isIOS ? ios : an,
           // supportedLocales: [
           //   const Locale('zh', 'CH'),
           // ],

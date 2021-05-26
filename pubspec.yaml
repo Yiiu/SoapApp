@@ -27,6 +27,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_cupertino_datetime_picker: ^2.0.1
   sentry_flutter: ^5.1.0-beta.1
   throttling: ^1.0.0
   styled_text: ^3.0.0
@@ -131,6 +132,8 @@ flutter:
     - assets/svg/view.svg
     - assets/svg/planet.svg
     - assets/svg/hexagon.svg
+    - assets/svg/female.svg
+    - assets/svg/male.svg
   fonts:
     - family: Rubik
       fonts:

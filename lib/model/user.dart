@@ -16,6 +16,8 @@ class User {
     required this.avatar,
     required this.createTime,
     required this.updateTime,
+    required this.gender,
+    this.genderSecret,
     this.name,
     this.email,
     this.bio,
@@ -36,6 +38,8 @@ class User {
   final int id;
   final String username, fullName, avatar;
   final String? name, email, bio, website, cover;
+  final int gender;
+  final bool? genderSecret;
   final int? likedCount,
       likesCount,
       pictureCount,
@@ -50,15 +54,22 @@ class User {
     return getPictureUrl(key: avatar, style: PictureStyle.itemprop);
   }
 
-  static List<User> fromListJson(List<dynamic> list) => list
-      .map<User>((dynamic p) => User.fromJson(p as Map<String, dynamic>))
-      .toList();
-  Map<String, dynamic> toJson() => _$UserToJson(this);
-
   bool get isVip {
     if (badge != null && badge!.indexWhere((e) => e.name == 'prestige') != -1) {
       return true;
     }
     return false;
   }
+
+  String get genderString {
+    if (gender == -1) {
+      return '不详';
+    }
+    return gender == 0 ? '男' : '女';
+  }
+
+  static List<User> fromListJson(List<dynamic> list) => list
+      .map<User>((dynamic p) => User.fromJson(p as Map<String, dynamic>))
+      .toList();
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }

@@ -24,6 +24,23 @@ class GraphqlConfig {
   static GraphQLClient graphQLClient = GraphQLClient(
     link: authLink.concat(httpLink),
     cache: GraphQLCache(store: HiveStore()),
+    defaultPolicies: DefaultPolicies(
+      watchMutation: Policies(
+        fetch: FetchPolicy.networkOnly,
+        error: ErrorPolicy.none,
+        cacheReread: CacheRereadPolicy.mergeOptimistic,
+      ),
+      mutate: Policies(
+        fetch: FetchPolicy.networkOnly,
+        error: ErrorPolicy.none,
+        cacheReread: CacheRereadPolicy.mergeOptimistic,
+      ),
+      query: Policies(
+        fetch: FetchPolicy.cacheFirst,
+        error: ErrorPolicy.none,
+        cacheReread: CacheRereadPolicy.mergeOptimistic,
+      ),
+    ),
   );
 
   static ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(

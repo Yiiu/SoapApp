@@ -1,44 +1,35 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/widget/input.dart';
 
-class InputModalModalBottom extends StatefulWidget {
-  const InputModalModalBottom({
-    Key? key,
-    this.label,
-    this.title,
-    this.defaultValue,
-    this.maxLines,
+class ConfirmModalBottom extends StatefulWidget {
+  const ConfirmModalBottom({
     required this.onOk,
+    required this.child,
+    Key? key,
+    this.title,
+    this.bottomPadding = 24,
   }) : super(key: key);
 
-  final String? label;
   final String? title;
-  final String? defaultValue;
-  final int? maxLines;
-  final Future<void> Function(String) onOk;
+  final double? bottomPadding;
+  final Future<void> Function() onOk;
+  final Widget child;
 
   @override
-  _InputModalModalBottomState createState() => _InputModalModalBottomState();
+  _ConfirmModalBottomState createState() => _ConfirmModalBottomState();
 }
 
-class _InputModalModalBottomState extends State<InputModalModalBottom> {
-  final TextEditingController _textController = TextEditingController();
-
-  final FocusNode _textFocusNode = FocusNode();
-
+class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
   bool _okBind = false;
 
   @override
   void initState() {
-    _textController.text = widget.defaultValue ?? '';
     super.initState();
   }
 
   void _onOk() {
     if (!_okBind) {
       _okBind = true;
-      final Future<void> data = widget.onOk.call(_textController.text.trim());
+      final Future<void> data = widget.onOk.call();
       if (data != null) {
         data.then((_) async {
           await Future<void>.delayed(const Duration(milliseconds: 1000));
@@ -135,25 +126,9 @@ class _InputModalModalBottomState extends State<InputModalModalBottom> {
                 ],
               ),
               const SizedBox(height: 12),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      // height: 40,
-                      width: double.infinity,
-                      child: SoapInput(
-                        autofocus: true,
-                        maxLines: widget.maxLines,
-                        focusNode: _textFocusNode,
-                        label: widget.label ?? '请输入',
-                        controller: _textController,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 24),
+              widget.child,
+              if (widget.bottomPadding != null && widget.bottomPadding! > 0)
+                SizedBox(height: widget.bottomPadding!),
             ],
           ),
         ),

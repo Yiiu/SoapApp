@@ -28,7 +28,7 @@ import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-class PictureDetailPage extends StatelessWidget {
+class PictureDetailPage extends StatefulWidget {
   const PictureDetailPage({
     Key? key,
     required this.picture,
@@ -38,10 +38,15 @@ class PictureDetailPage extends StatelessWidget {
   final String? heroLabel;
 
   @override
+  _PictureDetailPageState createState() => _PictureDetailPageState();
+}
+
+class _PictureDetailPageState extends State<PictureDetailPage> {
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final Map<String, int> variables = {
-      'id': picture.id,
+      'id': widget.picture.id,
     };
     return Material(
       child: Query(
@@ -50,6 +55,7 @@ class PictureDetailPage extends StatelessWidget {
             query.picture,
             [...pictureDetailFragmentDocumentNode],
           ),
+          fetchPolicy: FetchPolicy.cacheFirst,
           variables: variables,
         ),
         builder: (
@@ -57,7 +63,7 @@ class PictureDetailPage extends StatelessWidget {
           Refetch? refetch,
           FetchMore? fetchMore,
         }) {
-          Picture data = picture;
+          Picture data = widget.picture;
 
           if (result.hasException) {
             captureException(result.exception);
@@ -74,12 +80,12 @@ class PictureDetailPage extends StatelessWidget {
               automaticallyImplyLeading: true,
               elevation: 0,
               title: PictureAppBarTitle(
-                avatar: picture.user!.avatarUrl,
-                fullName: picture.user!.fullName,
+                avatar: widget.picture.user!.avatarUrl,
+                fullName: widget.picture.user!.fullName,
                 openUserPage: () => Navigator.of(context).pushNamed(
                   RouteName.user,
                   arguments: {
-                    'user': picture.user!,
+                    'user': widget.picture.user!,
                     'heroId': '',
                   },
                 ),
@@ -120,7 +126,7 @@ class PictureDetailPage extends StatelessWidget {
                         TransparentRoute(
                           builder: (_) => HeroPhotoView(
                             id: data.id,
-                            heroLabel: heroLabel,
+                            heroLabel: widget.heroLabel,
                             image: getPictureUrl(
                               key: data.key,
                               style: PictureStyle.regular,
@@ -132,7 +138,7 @@ class PictureDetailPage extends StatelessWidget {
                     child: RepaintBoundary(
                       child: PictureDetailImage(
                         picture: data,
-                        heroLabel: heroLabel,
+                        heroLabel: widget.heroLabel,
                       ),
                     ),
                   ),
@@ -148,7 +154,7 @@ class PictureDetailPage extends StatelessWidget {
                         children: <Widget>[
                           Row(
                             children: [
-                              if (picture.isChoice) ...[
+                              if (widget.picture.isChoice) ...[
                                 Medal(
                                   type: MedalType.choice,
                                   size: 24,
@@ -240,7 +246,8 @@ class PictureDetailPage extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         PictureDetailInfo(picture: data),
-                        if (picture.make != null || picture.model != null)
+                        if (widget.picture.make != null ||
+                            widget.picture.model != null)
                           Container(
                             height: 8,
                             color: theme.backgroundColor,

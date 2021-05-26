@@ -33,7 +33,6 @@ class _SliverHeaderState extends State<SliverHeader> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    print(bioHeight);
     return SliverPersistentHeader(
       // floating: true,
       pinned: true,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/graphql/mutations.dart';
+import 'package:soap_app/pages/edit_profile/widgets/edit_gender_modal.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:soap_app/store/index.dart';
@@ -10,7 +13,8 @@ import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/input_modal_bottom.dart';
+import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
+import 'package:soap_app/widget/modal_bottom/input_modal_bottom.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 
@@ -19,12 +23,12 @@ class EditProfilePage extends StatelessWidget {
 
   final AccountProvider _accountProvider = AccountProvider();
 
-  Future<void> _updateProfile(String label, String value) async {
-    final Map<String, String?> data = {
+  Future<void> _updateProfile(Map<String, Object?> newData) async {
+    final Map<String, Object?> data = {
       'name': accountStore.userInfo!.fullName,
       'bio': accountStore.userInfo!.bio,
       'key': accountStore.userInfo!.avatar,
-      label: value,
+      ...newData,
     };
     try {
       await _accountProvider.updateProfile(data);
@@ -115,64 +119,121 @@ class EditProfilePage extends StatelessWidget {
                 child: Flex(
                   direction: Axis.vertical,
                   children: [
-                    Observer(
-                      builder: (_) {
-                        return SettingItem(
-                          title: 'ID',
-                          actionIcon: false,
-                          border: true,
-                          action: Text(
-                            accountStore.userInfo!.id.toString(),
+                    SettingItem(
+                      title: 'ID',
+                      actionIcon: false,
+                      border: true,
+                      action: Observer(builder: (_) {
+                        return Text(
+                          accountStore.userInfo!.id.toString(),
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: theme.textTheme.bodyText2!.color!
+                                .withOpacity(.6),
+                          ),
+                        );
+                      }),
+                    ),
+                    SettingItem(
+                      title: '用户名',
+                      actionIcon: false,
+                      border: true,
+                      action: Observer(builder: (_) {
+                        return Text(
+                          accountStore.userInfo!.username,
+                          textAlign: TextAlign.end,
+                          style: TextStyle(
+                            color: theme.textTheme.bodyText2!.color!
+                                .withOpacity(.6),
+                          ),
+                        );
+                      }),
+                    ),
+                    SettingItem(
+                      title: '昵称',
+                      actionIcon: true,
+                      border: true,
+                      action: Expanded(
+                        child: Observer(builder: (_) {
+                          return Text(
+                            accountStore.userInfo!.fullName,
                             textAlign: TextAlign.end,
-                            style: TextStyle(
-                              color: theme.textTheme.bodyText2!.color!
-                                  .withOpacity(.6),
-                            ),
+                            maxLines: 2,
+                            overflow: TextOverflow.fade,
+                          );
+                        }),
+                      ),
+                      onPressed: () {
+                        showBasicModalBottomSheet(
+                          context: context,
+                          builder: (_) => InputModalModalBottom(
+                            defaultValue: accountStore.userInfo!.fullName,
+                            title: '编辑昵称',
+                            onOk: (String value) async {
+                              await _updateProfile({'name': value});
+                              Navigator.of(context).pop();
+                            },
                           ),
                         );
                       },
                     ),
-                    Observer(
-                      builder: (_) {
-                        return SettingItem(
-                          title: '用户名',
-                          actionIcon: false,
-                          border: true,
-                          action: Text(
-                            accountStore.userInfo!.username,
+                    SettingItem(
+                      title: '性别',
+                      actionIcon: true,
+                      border: true,
+                      action: Expanded(
+                        child: Observer(builder: (_) {
+                          return Text(
+                            accountStore.userInfo!.genderString,
                             textAlign: TextAlign.end,
-                            style: TextStyle(
-                              color: theme.textTheme.bodyText2!.color!
-                                  .withOpacity(.6),
-                            ),
-                          ),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                          );
+                        }),
+                      ),
+                      onPressed: () {
+                        showBasicModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return EditGenderModal(
+                              gender: accountStore.userInfo!.gender,
+                              onOk: (data) async {
+                                await _updateProfile(data);
+                                Navigator.of(context).pop();
+                              },
+                              genderSecret:
+                                  accountStore.userInfo!.genderSecret!,
+                            );
+                          },
                         );
                       },
                     ),
-                    Observer(
-                      builder: (_) {
-                        return SettingItem(
-                          title: '昵称',
-                          actionIcon: true,
-                          border: true,
-                          action: Expanded(
-                            child: Text(
-                              accountStore.userInfo!.fullName,
-                              textAlign: TextAlign.end,
-                              maxLines: 2,
-                              overflow: TextOverflow.fade,
-                            ),
-                          ),
-                          onPressed: () {
-                            showBasicModalBottomSheet(
-                              context: context,
-                              builder: (_) => InputModalModalBottom(
-                                defaultValue: accountStore.userInfo!.fullName,
-                                title: '编辑昵称',
-                                onOk: (String value) async {
-                                  await _updateProfile('name', value);
-                                  Navigator.of(context).pop();
-                                },
+                    SettingItem(
+                      title: '生日',
+                      actionIcon: true,
+                      border: true,
+                      action: Expanded(
+                        child: Observer(builder: (_) {
+                          return Text(
+                            accountStore.userInfo!.genderString,
+                            textAlign: TextAlign.end,
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                          );
+                        }),
+                      ),
+                      onPressed: () {
+                        showBasicModalBottomSheet(
+                          context: context,
+                          builder: (_) {
+                            return ConfirmModalBottom(
+                              bottomPadding: 0,
+                              onOk: () async {},
+                              child: DatePickerWidget(
+                                pickerTheme: const DateTimePickerTheme(
+                                  showTitle: false,
+                                  backgroundColor: Colors.transparent,
+                                ),
                               ),
                             );
                           },
@@ -201,7 +262,7 @@ class EditProfilePage extends StatelessWidget {
                                 defaultValue: accountStore.userInfo!.bio,
                                 title: '编辑简介',
                                 onOk: (String value) async {
-                                  await _updateProfile('bio', value);
+                                  await _updateProfile({'bio': value});
                                   Navigator.of(context).pop();
                                 },
                               ),

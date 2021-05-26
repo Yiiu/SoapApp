@@ -25,7 +25,8 @@ class MoreHandleModal extends StatelessWidget {
                   title!,
                   style: TextStyle(
                     color: Theme.of(context).textTheme.caption!.color,
-                    fontSize: 14,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
               const SizedBox(height: 6),

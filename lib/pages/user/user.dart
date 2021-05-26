@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
@@ -75,6 +76,7 @@ class _UserPageState extends State<UserPage>
               userInfo,
               [...userDetailFragmentDocumentNode],
             ),
+            fetchPolicy: FetchPolicy.cacheFirst,
             variables: variables,
           ),
           builder: (

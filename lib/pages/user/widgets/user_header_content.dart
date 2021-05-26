@@ -3,6 +3,8 @@ import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/parser.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
@@ -144,8 +146,8 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
             ),
           ),
           side: MaterialStateProperty.all(
-            const BorderSide(
-              color: Colors.white,
+            BorderSide(
+              color: Colors.white.withOpacity(.8),
               width: 1,
             ),
           ),
@@ -284,57 +286,106 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        TouchableOpacity(
-          onTap: () {},
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Row(
-              children: <Widget>[
-                if (widget.heroId == null)
-                  Avatar(
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Row(
+            children: <Widget>[
+              if (widget.heroId == null)
+                Avatar(
+                  size: 56,
+                  image: getPictureUrl(key: widget.user.avatar),
+                )
+              else
+                Hero(
+                  tag: 'user-${widget.user.username}-${widget.heroId}',
+                  child: Avatar(
                     size: 56,
                     image: getPictureUrl(key: widget.user.avatar),
-                  )
-                else
-                  Hero(
-                    tag: 'user-${widget.user.username}-${widget.heroId}',
-                    child: Avatar(
-                      size: 56,
-                      image: getPictureUrl(key: widget.user.avatar),
-                    ),
-                  ),
-                Expanded(
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          children: [
-                            if (widget.user.isVip)
-                              SizedBox(
-                                width: 22,
-                                height: 22,
-                                child: Image.asset('assets/images/vip.png'),
-                              ),
-                            const SizedBox(width: 6),
-                            Text(
-                              widget.user.fullName,
-                              textAlign: TextAlign.start,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
                   ),
                 ),
-              ],
-            ),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: [
+                          Text(
+                            widget.user.fullName,
+                            textAlign: TextAlign.start,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 22,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          if (widget.user.isVip) ...[
+                            const SizedBox(width: 6),
+                            SizedBox(
+                              width: 20,
+                              height: 20,
+                              child: Image.asset('assets/images/vip.png'),
+                            ),
+                          ]
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          if (widget.user.gender >= 0)
+                            Container(
+                              height: 22,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(.2),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              child: SizedBox(
+                                width: 12,
+                                height: 12,
+                                child: SvgPicture.asset(
+                                  widget.user.gender == 0
+                                      ? 'assets/svg/male.svg'
+                                      : 'assets/svg/female.svg',
+                                  // color: Color(0xffdd8d99),
+                                  color: widget.user.gender == 0
+                                      ? const Color(0xff84c0f6)
+                                      : const Color(0xffdd8d99),
+                                ),
+                              ),
+                            ),
+                          const SizedBox(width: 8),
+                          // Container(
+                          //   height: 22,
+                          //   decoration: BoxDecoration(
+                          //     color: Colors.white.withOpacity(.2),
+                          //     borderRadius: BorderRadius.circular(25),
+                          //   ),
+                          //   padding: const EdgeInsets.symmetric(
+                          //     horizontal: 8,
+                          //     vertical: 2,
+                          //   ),
+                          //   child: Padding(
+                          //     padding: const EdgeInsets.symmetric(vertical: 2),
+                          //     child: Text(
+                          //       '处女座',
+                          //       style: TextStyle(
+                          //         color: Colors.white.withOpacity(.8),
+                          //         fontSize: 10,
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         const SizedBox(height: 10),

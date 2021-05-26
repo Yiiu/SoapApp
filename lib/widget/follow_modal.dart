@@ -53,9 +53,12 @@ class _FollowModalState extends State<FollowModal> {
   Widget build(BuildContext context) {
     final variables = {
       'id': widget.id,
-      'limit': 30,
-      'offset': 0,
+      'query': {
+        'pageSize': 30,
+        'page': 1,
+      }
     };
+    print(variables);
     return SizedBox(
       height: MediaQuery.of(context).size.height * .75,
       child: FixedAppBarWrapper(

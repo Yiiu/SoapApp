@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:intl/date_symbol_data_local.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/store/index.dart';
@@ -18,7 +17,6 @@ Future<void> main() async {
     initHiveForFlutter(),
     DotEnv.load(fileName: '.env'),
     StorageUtil.initialize(),
-    Jiffy.locale('zh_cn'),
   });
   accountStore.initialize();
   await Future.wait<dynamic>({
@@ -36,7 +34,6 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  await initializeDateFormatting('zh-CN');
   await SentryFlutter.init(
     (SentryFlutterOptions options) {
       options.debug = false;

@@ -100,7 +100,7 @@ class _PictureListState extends State<PictureList>
       options: QueryOptions(
         document: widget.document,
         variables: variables,
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
+        fetchPolicy: FetchPolicy.cacheFirst,
       ),
       builder: (
         QueryResult result, {
@@ -133,7 +133,7 @@ class _PictureListState extends State<PictureList>
         );
 
         if (listData.count == 0) {
-          return SoapListEmpty();
+          return const SoapListEmpty();
           // return ;
         }
 

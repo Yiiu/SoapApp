@@ -349,6 +349,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.0"
+  flutter_cupertino_datetime_picker:
+    dependency: "direct main"
+    description:
+      name: flutter_cupertino_datetime_picker
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   flutter_displaymode:
     dependency: "direct main"
     description:

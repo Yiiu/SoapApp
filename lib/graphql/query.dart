@@ -61,8 +61,8 @@ DocumentNode whoami = gql(r'''
 ''');
 
 DocumentNode followedUsers = gql(r'''
-query FollowedUsers($id: Float!, $limit: Float!, $offset: Float!) {
-  followedUsers(id: $id, limit: $limit, offset: $offset) {
+query FollowedUsers($id: Float!, $query: FollowUsersQueryInput) {
+  followedUsers(id: $id, query: $query) {
     ...UserDetailFragment
   }
 }
@@ -70,8 +70,8 @@ query FollowedUsers($id: Float!, $limit: Float!, $offset: Float!) {
 ''');
 
 DocumentNode followerUsers = gql(r'''
-  query FollowerUsers($id: Float!, $limit: Float!, $offset: Float!) {
-    followerUsers(id: $id, limit: $limit, offset: $offset) {
+  query FollowerUsers($id: Float!, $query: FollowUsersQueryInput) {
+    followerUsers(id: $id, query: $query) {
       ...UserDetailFragment
     }
   }

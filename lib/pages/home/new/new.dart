@@ -63,7 +63,7 @@ class NewViewState extends State<NewView>
         color: theme.backgroundColor,
         child: Query(
           options: QueryOptions(
-            fetchPolicy: FetchPolicy.cacheAndNetwork,
+            fetchPolicy: FetchPolicy.cacheFirst,
             document: addFragments(
               pictures,
               [...pictureListFragmentDocumentNode],

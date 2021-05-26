@@ -47,7 +47,7 @@ class AccountProvider {
   }
 
   Future<void> updateProfile(Map<String, dynamic> data) async {
-    final variables = {
+    final Map<String, Map<String, dynamic>> variables = {
       'data': data,
     };
     final graphql.QueryResult result = await GraphqlConfig.graphQLClient.mutate(
@@ -60,7 +60,6 @@ class AccountProvider {
             graphql.QueryResult? result) async {
           if (result?.data?['updateProfile'] != null) {
             accountStore.getUserInfo();
-            // _setFollowInfoCache(cache, username);
           }
         },
       ),

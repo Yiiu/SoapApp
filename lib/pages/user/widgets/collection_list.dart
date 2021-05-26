@@ -55,11 +55,11 @@ class UserCollectionListState extends State<UserCollectionList>
     };
     return Query(
       options: QueryOptions(
-        fetchPolicy: FetchPolicy.cacheAndNetwork,
         document: addFragments(
           userCollectionsByName,
           [...collectionListFragmentDocumentNode],
         ),
+        fetchPolicy: FetchPolicy.cacheFirst,
         variables: variables,
       ),
       builder: (

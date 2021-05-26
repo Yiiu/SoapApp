@@ -4,7 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 DocumentNode likePicture = gql(r'''
   mutation LikePicture($id: Float!) {
     likePicture(id: $id) {
-      ...PictureLikeFragment
+      ...PictureFragment
     }
   }
 ''');
@@ -12,7 +12,7 @@ DocumentNode likePicture = gql(r'''
 DocumentNode unLikePicture = gql(r'''
   mutation UnLikePicture($id: Float!) {
     unlikePicture(id: $id) {
-      ...PictureLikeFragment
+      ...PictureFragment
     }
   }
 ''');

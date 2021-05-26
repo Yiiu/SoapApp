@@ -36,6 +36,7 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
           query.comments,
           [...commentListFragmentDocumentNode],
         ),
+        fetchPolicy: FetchPolicy.cacheFirst,
         variables: variables,
       ),
       builder: (
@@ -123,7 +124,9 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
             );
           } else {
             content = const Center(
-              child: SoapListEmpty(),
+              child: SoapListEmpty(
+                message: '留个言吧！',
+              ),
             );
           }
         }

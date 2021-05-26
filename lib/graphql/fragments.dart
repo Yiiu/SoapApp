@@ -129,6 +129,10 @@ DocumentNode userFragment = gql(r'''
     createTime
     updateTime
     cover
+    gender
+    genderSecret
+    birthday
+    birthdayShow
   }
 ''');
 DocumentNode userFollowInfoFragment = gql(r'''

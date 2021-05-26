@@ -8,9 +8,11 @@ void captureException(dynamic throwable, {dynamic stackTrace}) {
       print('网络错误：' + throwable.linkException.toString());
       // handle network issues, maybe
     } else {
-      if (throwable.graphqlErrors[0].extensions?['exception']['message'] ==
-          'Unauthorized') {
-        SoapToast.error('没权限！');
+      if (throwable.graphqlErrors.isNotEmpty) {
+        if (throwable.graphqlErrors[0].extensions?['exception']['message'] ==
+            'Unauthorized') {
+          SoapToast.error('没权限！');
+        }
       }
       Sentry.captureException(throwable);
       print(throwable);
