@@ -1,16 +1,15 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_svg/parser.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/repository/user_repository.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/utils/date.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/follow_modal.dart';
@@ -292,7 +291,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
             children: <Widget>[
               if (widget.heroId == null)
                 Avatar(
-                  size: 56,
+                  size: 64,
                   image: getPictureUrl(key: widget.user.avatar),
                 )
               else
@@ -330,6 +329,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                           ]
                         ],
                       ),
+                      SizedBox(height: 4),
                       Row(
                         children: [
                           if (widget.user.gender >= 0)
@@ -358,27 +358,43 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                               ),
                             ),
                           const SizedBox(width: 8),
-                          // Container(
-                          //   height: 22,
-                          //   decoration: BoxDecoration(
-                          //     color: Colors.white.withOpacity(.2),
-                          //     borderRadius: BorderRadius.circular(25),
-                          //   ),
-                          //   padding: const EdgeInsets.symmetric(
-                          //     horizontal: 8,
-                          //     vertical: 2,
-                          //   ),
-                          //   child: Padding(
-                          //     padding: const EdgeInsets.symmetric(vertical: 2),
-                          //     child: Text(
-                          //       '处女座',
-                          //       style: TextStyle(
-                          //         color: Colors.white.withOpacity(.8),
-                          //         fontSize: 10,
-                          //       ),
-                          //     ),
-                          //   ),
-                          // ),
+                          if (widget.user.birthday != null)
+                            Container(
+                              height: 22,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(.1),
+                                borderRadius: BorderRadius.circular(25),
+                              ),
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 2,
+                              ),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 2),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    SizedBox(
+                                      width: 12,
+                                      height: 12,
+                                      child: SvgPicture.asset(
+                                        'assets/svg/constellation/${constellationEng[widget.user.constellation!]}.svg',
+                                        color: const Color(0xffff85c0),
+                                      ),
+                                    ),
+                                    const SizedBox(width: 2),
+                                    Text(
+                                      widget.user.constellation!,
+                                      style: TextStyle(
+                                        color: Colors.white.withOpacity(.8),
+                                        fontSize: 10,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ],
@@ -388,7 +404,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
             ],
           ),
         ),
-        const SizedBox(height: 10),
+        const SizedBox(height: 12),
         Padding(
           padding: const EdgeInsets.only(left: 16, top: 2, right: 16),
           key: _bioKey,

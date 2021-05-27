@@ -134,6 +134,19 @@ flutter:
     - assets/svg/hexagon.svg
     - assets/svg/female.svg
     - assets/svg/male.svg
+
+    - assets/svg/constellation/capricorn.svg
+    - assets/svg/constellation/aquarius.svg
+    - assets/svg/constellation/pisces.svg
+    - assets/svg/constellation/aries.svg
+    - assets/svg/constellation/taurus.svg
+    - assets/svg/constellation/gemini.svg
+    - assets/svg/constellation/cancer.svg
+    - assets/svg/constellation/leo.svg
+    - assets/svg/constellation/virgo.svg
+    - assets/svg/constellation/libra.svg
+    - assets/svg/constellation/scorpio.svg
+    - assets/svg/constellation/sagittarius.svg
   fonts:
     - family: Rubik
       fonts:

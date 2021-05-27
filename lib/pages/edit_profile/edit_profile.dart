@@ -4,7 +4,9 @@ import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_pic
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/graphql/mutations.dart';
+import 'package:soap_app/pages/edit_profile/widgets/edit_birthday.dart';
 import 'package:soap_app/pages/edit_profile/widgets/edit_gender_modal.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/repository/account_repository.dart';
@@ -28,6 +30,10 @@ class EditProfilePage extends StatelessWidget {
       'name': accountStore.userInfo!.fullName,
       'bio': accountStore.userInfo!.bio,
       'key': accountStore.userInfo!.avatar,
+      'gender': accountStore.userInfo!.gender,
+      'genderSecret': accountStore.userInfo!.genderSecret,
+      'birthday': accountStore.userInfo!.gender,
+      'birthdayShow': accountStore.userInfo!.genderSecret,
       ...newData,
     };
     try {
@@ -197,7 +203,7 @@ class EditProfilePage extends StatelessWidget {
                           builder: (_) {
                             return EditGenderModal(
                               gender: accountStore.userInfo!.gender,
-                              onOk: (data) async {
+                              onOk: (Map<String, Object?> data) async {
                                 await _updateProfile(data);
                                 Navigator.of(context).pop();
                               },
@@ -215,7 +221,11 @@ class EditProfilePage extends StatelessWidget {
                       action: Expanded(
                         child: Observer(builder: (_) {
                           return Text(
-                            accountStore.userInfo!.genderString,
+                            accountStore.userInfo!.birthday != null
+                                ? Jiffy(accountStore.userInfo!.birthday!
+                                        .toLocal())
+                                    .MMMd
+                                : '暂无',
                             textAlign: TextAlign.end,
                             maxLines: 1,
                             overflow: TextOverflow.fade,
@@ -226,27 +236,13 @@ class EditProfilePage extends StatelessWidget {
                         showBasicModalBottomSheet(
                           context: context,
                           builder: (_) {
-                            return ConfirmModalBottom(
-                              bottomPadding: 0,
-                              topPadding: 0,
-                              onOk: () async {},
-                              child: DatePickerWidget(
-                                onChange: (DateTime date, List<int> _) {
-                                  print(date);
-                                },
-                                pickerTheme: DateTimePickerTheme(
-                                  pickerHeight: 220,
-                                  showTitle: false,
-                                  backgroundColor: Colors.transparent,
-                                  itemTextStyle: TextStyle(
-                                    color: Theme.of(context)
-                                        .textTheme
-                                        .bodyText2!
-                                        .color,
-                                    fontSize: 14,
-                                  ),
-                                ),
-                              ),
+                            return EditBirthday(
+                              birthday: accountStore.userInfo!.birthday,
+                              birthdayShow: accountStore.userInfo!.birthdayShow,
+                              onOk: (Map<String, Object?> data) async {
+                                await _updateProfile(data);
+                                Navigator.of(context).pop();
+                              },
                             );
                           },
                         );

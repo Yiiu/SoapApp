@@ -1,6 +1,5 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:soap_app/widget/soap_toast.dart';
 
 void captureException(dynamic throwable, {dynamic stackTrace}) {
   if (throwable is OperationException) {
@@ -11,7 +10,7 @@ void captureException(dynamic throwable, {dynamic stackTrace}) {
       if (throwable.graphqlErrors.isNotEmpty) {
         if (throwable.graphqlErrors[0].extensions?['exception']['message'] ==
             'Unauthorized') {
-          SoapToast.error('没权限！');
+          // SoapToast.error('没权限！');
         }
       }
       Sentry.captureException(throwable);

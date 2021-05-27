@@ -4,13 +4,14 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
+import 'package:soap_app/widget/select_list.dart';
 
 class EditGenderModal extends StatefulWidget {
   const EditGenderModal({
     Key? key,
-    required this.onOk,
     required this.gender,
     required this.genderSecret,
+    required this.onOk,
   }) : super(key: key);
 
   final int gender;
@@ -49,48 +50,15 @@ class _EditGenderModalState extends State<EditGenderModal> {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).cardColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                children: [
-                  ListTile(
-                    title: const Text('男'),
-                    onTap: () {
-                      setState(() {
-                        gender = 0;
-                      });
-                    },
-                    trailing: gender == 0
-                        ? Icon(
-                            FeatherIcons.check,
-                            color: Theme.of(context).primaryColor,
-                          )
-                        : null,
-                    selected: appStore.themeMode == ThemeMode.light,
-                  ),
-                  ListTile(
-                    title: const Text('女'),
-                    onTap: () {
-                      setState(() {
-                        gender = 1;
-                      });
-                    },
-                    trailing: gender == 1
-                        ? Icon(
-                            FeatherIcons.check,
-                            color: Theme.of(context).primaryColor,
-                          )
-                        : null,
-                    selected: appStore.themeMode == ThemeMode.dark,
-                  ),
-                ],
-              ),
-            ),
+          SoapSelectList<int>(
+            value: gender,
+            onChange: (int value) => setState(() {
+              gender = value;
+            }),
+            config: <SelectTileConfig<int>>[
+              SelectTileConfig<int>(title: '男', value: 0),
+              SelectTileConfig<int>(title: '女', value: 1),
+            ],
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),

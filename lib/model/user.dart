@@ -2,6 +2,7 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:soap_app/model/badge.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
+import 'package:soap_app/utils/date.dart' as date;
 
 // import '../utils/picture.dart';
 
@@ -31,6 +32,8 @@ class User {
     this.followerCount = 0,
     this.followedCount = 0,
     this.badge,
+    this.birthday,
+    this.birthdayShow,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
@@ -40,6 +43,8 @@ class User {
   final String? name, email, bio, website, cover;
   final int gender;
   final bool? genderSecret;
+  final DateTime? birthday;
+  final int? birthdayShow;
   final int? likedCount,
       likesCount,
       pictureCount,
@@ -66,6 +71,13 @@ class User {
       return '不详';
     }
     return gender == 0 ? '男' : '女';
+  }
+
+  String? get constellation {
+    if (birthday == null) {
+      return null;
+    }
+    return date.getConstellation(birthday!);
   }
 
   static List<User> fromListJson(List<dynamic> list) => list

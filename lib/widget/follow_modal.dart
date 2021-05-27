@@ -90,6 +90,7 @@ class _FollowModalState extends State<FollowModal> {
                 document,
                 [...userDetailFragmentDocumentNode],
               ),
+              fetchPolicy: FetchPolicy.cacheFirst,
               variables: variables,
             ),
             builder: (

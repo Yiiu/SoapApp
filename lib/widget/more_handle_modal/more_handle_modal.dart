@@ -15,23 +15,24 @@ class MoreHandleModal extends StatelessWidget {
     return SafeArea(
       top: false,
       child: Padding(
-        padding: const EdgeInsets.only(top: 6),
+        padding: const EdgeInsets.only(top: 16),
         child: Flex(
-            direction: Axis.vertical,
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              if (title != null)
-                Text(
-                  title!,
-                  style: TextStyle(
-                    color: Theme.of(context).textTheme.caption!.color,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+          direction: Axis.vertical,
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            if (title != null)
+              Text(
+                title!,
+                style: TextStyle(
+                  color: Theme.of(context).textTheme.bodyText2!.color,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
                 ),
-              const SizedBox(height: 6),
-              child,
-            ]),
+              ),
+            const SizedBox(height: 16),
+            child,
+          ],
+        ),
       ),
     );
   }

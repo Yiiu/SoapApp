@@ -27,7 +27,7 @@ class SliverHeader extends StatefulWidget {
 }
 
 class _SliverHeaderState extends State<SliverHeader> {
-  final double titleHeight = 150;
+  final double titleHeight = 160;
   double bioHeight = 20;
 
   @override

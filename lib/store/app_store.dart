@@ -12,7 +12,7 @@ class AppStore = _AppStoreBase with _$AppStore;
 
 abstract class _AppStoreBase with Store {
   @observable
-  int _mode = 2;
+  int mode = 2;
 
   @observable
   int? displayMode;
@@ -20,14 +20,14 @@ abstract class _AppStoreBase with Store {
   @observable
   List<DisplayMode> modeList = ObservableList<DisplayMode>();
 
-  void setDark() => _setMode(1);
-  void setLight() => _setMode(0);
-  void setSystem() => _setMode(2);
+  void setDark() => setMode(1);
+  void setLight() => setMode(0);
+  void setSystem() => setMode(2);
 
   @action
-  void _setMode(int value) {
+  void setMode(int value) {
     StorageUtil.preferences!.setInt('app.mode', value);
-    _mode = value;
+    mode = value;
   }
 
   @action
@@ -38,7 +38,7 @@ abstract class _AppStoreBase with Store {
 
   @action
   Future<void> initialize() async {
-    _mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
+    mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
     displayMode = StorageUtil.preferences!.getInt('app.display_mode');
     await _initializeDisplayMode();
   }
@@ -67,10 +67,10 @@ abstract class _AppStoreBase with Store {
 
   @computed
   ThemeMode get themeMode {
-    if (_mode == 1) {
+    if (mode == 1) {
       return ThemeMode.dark;
     }
-    if (_mode == 2) {
+    if (mode == 2) {
       return ThemeMode.system;
     }
     return ThemeMode.light;
@@ -78,7 +78,7 @@ abstract class _AppStoreBase with Store {
 
   @computed
   ThemeData get themeData {
-    if (_mode == 1) {
+    if (mode == 1) {
       return ThemeConfig.darkTheme;
     }
     return ThemeConfig.lightTheme;

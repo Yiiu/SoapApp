@@ -13,6 +13,7 @@ import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import 'package:soap_app/widget/select_list.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 
 class SettingPage extends StatefulWidget {
@@ -116,34 +117,31 @@ class _SettingPageState extends State<SettingPage> {
                     builder: (_) {
                       return MoreHandleModal(
                         title: '系统模式',
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            ListTile(
-                              title: const Text('亮色模式'),
-                              onTap: () {
-                                appStore.setLight();
-                                setState(() {});
-                              },
-                              selected: appStore.themeMode == ThemeMode.light,
-                            ),
-                            ListTile(
-                              title: const Text('暗色模式'),
-                              onTap: () {
-                                appStore.setDark();
-                                setState(() {});
-                              },
-                              selected: appStore.themeMode == ThemeMode.dark,
-                            ),
-                            ListTile(
-                              title: const Text('系统自动'),
-                              onTap: () {
-                                appStore.setSystem();
-                                setState(() {});
-                              },
-                              selected: appStore.themeMode == ThemeMode.system,
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Observer(builder: (_) {
+                            return SoapSelectList<int>(
+                              value: appStore.mode,
+                              onChange: (int value) => setState(() {
+                                appStore.setMode(value);
+                                Navigator.of(context).pop();
+                              }),
+                              config: <SelectTileConfig<int>>[
+                                SelectTileConfig<int>(
+                                  title: '亮色模式',
+                                  value: 0,
+                                ),
+                                SelectTileConfig<int>(
+                                  title: '暗色模式',
+                                  value: 1,
+                                ),
+                                SelectTileConfig<int>(
+                                  title: '系统自动',
+                                  value: 2,
+                                ),
+                              ],
+                            );
+                          }),
                         ),
                       );
                     },
@@ -186,48 +184,29 @@ class _SettingPageState extends State<SettingPage> {
                         context: context,
                         builder: (_) => MoreHandleModal(
                           title: '刷新率和分辨率选择',
-                          child: SafeArea(
-                            top: false,
-                            child: Container(
-                              constraints: BoxConstraints(
-                                maxHeight:
-                                    (MediaQuery.of(context).size.height / 5) *
-                                        3,
-                              ),
-                              child: Observer(
-                                builder: (_) {
-                                  return MediaQuery.removePadding(
-                                    removeTop: true,
-                                    context: context,
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      controller:
-                                          ModalScrollController.of(context),
-                                      itemCount: appStore.modeList.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return ListTile(
-                                          title: Text(
-                                            appStore.modeList[index].toString(),
-                                          ),
-                                          selected:
-                                              appStore.displayMode == index,
-                                          onTap: () async {
-                                            await FlutterDisplayMode
-                                                .setPreferredMode(
-                                              appStore.modeList[index],
-                                            );
-                                            appStore.setDisplayMode(
-                                                appStore.modeList[index].id);
-                                            Navigator.of(context).pop();
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  );
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: Observer(builder: (_) {
+                              return SoapSelectList<int?>(
+                                value: appStore.displayMode,
+                                onChange: (int? value) async {
+                                  if (value != null) {
+                                    await FlutterDisplayMode.setPreferredMode(
+                                      appStore.modeList[value],
+                                    );
+                                    appStore.setDisplayMode(
+                                        appStore.modeList[value].id);
+                                    Navigator.of(context).pop();
+                                  }
                                 },
-                              ),
-                            ),
+                                config: appStore.modeList
+                                    .map(
+                                      (e) => SelectTileConfig<int>(
+                                          title: e.toString(), value: e.id),
+                                    )
+                                    .toList(),
+                              );
+                            }),
                           ),
                         ),
                       );
