@@ -40,6 +40,11 @@ class GraphqlConfig {
         error: ErrorPolicy.none,
         cacheReread: CacheRereadPolicy.mergeOptimistic,
       ),
+      watchQuery: Policies(
+        fetch: FetchPolicy.cacheFirst,
+        error: ErrorPolicy.none,
+        cacheReread: CacheRereadPolicy.mergeOptimistic,
+      ),
     ),
   );
 

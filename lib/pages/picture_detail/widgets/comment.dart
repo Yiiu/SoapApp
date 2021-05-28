@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/graphql/fragments.dart';
@@ -7,6 +8,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/model/comment.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/graphql/query.dart' as query;
+import 'package:soap_app/pages/picture_detail/stores/picture_detail_store.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
@@ -15,9 +17,9 @@ import 'package:soap_app/widget/list/empty.dart';
 class PictureDetailComment extends StatefulWidget {
   const PictureDetailComment({
     Key? key,
-    required this.picture,
+    required this.store,
   }) : super(key: key);
-  final Picture picture;
+  final PictureDetailPageStore store;
 
   @override
   _PictureDetailCommentState createState() => _PictureDetailCommentState();
@@ -27,8 +29,8 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final variables = {
-      'id': widget.picture.id,
+    final Map<String, int> variables = {
+      'id': widget.store.picture!.id,
     };
     return Query(
       options: QueryOptions(
@@ -139,13 +141,15 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text(
-                (widget.picture.commentCount ?? 0).toString() + ' 条评论',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                ),
-              ),
+              Observer(builder: (_) {
+                return Text(
+                  (widget.store.picture!.commentCount ?? 0).toString() + ' 条评论',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                  ),
+                );
+              }),
               const SizedBox(height: 8),
               content,
             ],
