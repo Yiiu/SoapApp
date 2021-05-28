@@ -213,6 +213,22 @@ class _SettingPageState extends State<SettingPage> {
                     },
                   ),
                 ),
+              const SizedBox(height: 12),
+              SettingItem(
+                title: '鸣谢列表',
+                actionIcon: true,
+                border: false,
+                onPressed: () async {},
+              ),
+              const SizedBox(height: 12),
+              SettingItem(
+                title: '关于肥皂',
+                actionIcon: true,
+                border: false,
+                onPressed: () async {
+                  Navigator.of(context).pushNamed(RouteName.about);
+                },
+              ),
             ],
           ),
         ),

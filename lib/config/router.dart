@@ -4,6 +4,7 @@ import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/model/user.dart';
+import 'package:soap_app/pages/about/about.dart';
 import 'package:soap_app/pages/account/login.dart';
 import 'package:soap_app/pages/add/add.dart';
 import 'package:soap_app/pages/collection_detail/collection_detail.dart';
@@ -31,6 +32,7 @@ class RouteName {
   static const String add = 'add';
   static const String edit_picture = 'edit_picture';
   static const String edit_profile = 'edit_profile';
+  static const String about = 'about';
 }
 
 class Router {
@@ -106,6 +108,10 @@ class Router {
       case RouteName.edit_profile:
         return MaterialPageRoute<void>(
           builder: (_) => EditProfilePage(),
+        );
+      case RouteName.about:
+        return MaterialPageRoute<void>(
+          builder: (_) => AboutPage(),
         );
       default:
         return CupertinoPageRoute<void>(

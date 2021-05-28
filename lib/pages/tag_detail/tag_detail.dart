@@ -123,7 +123,7 @@ class _TagDetailPageState extends State<TagDetailPage> {
             query.tag,
             [tagFragment],
           ),
-          // ignore: unnecessary_cast
+          fetchPolicy: FetchPolicy.cacheFirst,
           variables: {
             'name': tag.name,
           } as Map<String, dynamic>,

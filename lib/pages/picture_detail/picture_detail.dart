@@ -11,6 +11,7 @@ import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
+import 'package:soap_app/pages/picture_detail/test.dart';
 import 'package:soap_app/pages/picture_detail/widgets/app_bar_title.dart';
 import 'package:soap_app/pages/picture_detail/widgets/comment.dart';
 import 'package:soap_app/pages/picture_detail/widgets/handle.dart';
@@ -21,7 +22,6 @@ import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/hero_photo_view.dart';
 import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
@@ -116,8 +116,11 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
             body: Container(
               color: theme.cardColor,
               child: ListView(
-                physics: const BouncingScrollPhysics(),
+                physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics(),
+                ),
                 children: <Widget>[
+                  Test(),
                   const SizedBox(height: appBarHeight),
                   TouchableOpacity(
                     activeOpacity: activeOpacity,
