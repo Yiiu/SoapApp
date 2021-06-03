@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/pages/picture_detail/stores/picture_detail_store.dart';
@@ -171,7 +167,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                       builder: (_) {
                         if (_pageStore.picture!.tags == null ||
                             _pageStore.picture!.tags!.isNotEmpty) {
-                          return SizedBox();
+                          return const SizedBox();
                         }
                         return SizedBox(
                           width: double.infinity,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
 
 class SoapListEmpty extends StatelessWidget {
   const SoapListEmpty({
@@ -18,10 +19,23 @@ class SoapListEmpty extends StatelessWidget {
       child: Column(
         children: <Widget>[
           SizedBox(
-            width: 220,
-            height: 220,
-            child: SvgPicture.asset(
-              'assets/svg/null.svg',
+            width: 240,
+            height: 120,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  top: -60,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  child: Lottie.asset(
+                    'assets/lottie/cat.json',
+                    width: 240,
+                    height: 240,
+                    fit: BoxFit.fitWidth,
+                  ),
+                ),
+              ],
             ),
           ),
           if (!onlyImage!)

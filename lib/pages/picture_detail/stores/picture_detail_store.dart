@@ -1,3 +1,4 @@
+import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/graphql.dart';
@@ -12,27 +13,55 @@ class PictureDetailPageStore = _PictureDetailPageStoreBase
     with _$PictureDetailPageStore;
 
 abstract class _PictureDetailPageStoreBase with Store {
+  graphql.ObservableQuery? _observableQuery;
+
+  Map<String, int?> get variables {
+    return {
+      'id': picture?.id,
+    };
+  }
+
+  DocumentNode document = addFragments(
+    query.picture,
+    [...pictureDetailFragmentDocumentNode],
+  );
+
   @observable
   Picture? picture;
 
-  graphql.ObservableQuery? _observableQuery;
-
   @action
   void init(Picture data) {
-    picture = data;
+    if (!setQueryCache(data.id)) {
+      picture = data;
+    }
+  }
+
+  @action
+  bool setQueryCache(int id) {
+    final Map<String, int?> variables2 = {
+      'id': id,
+    };
+    final graphql.Request queryRequest = graphql.Request(
+      operation: graphql.Operation(
+        document: document,
+      ),
+      variables: variables2,
+    );
+    final Map<String, dynamic>? data =
+        GraphqlConfig.graphQLClient.readQuery(queryRequest);
+    if (data != null) {
+      picture = Picture.fromJson(data['picture'] as Map<String, dynamic>);
+      return true;
+    }
+    return false;
   }
 
   void watchQuery() async {
-    final Map<String, int> variables = {
-      'id': picture!.id,
-    };
-    await Future<void>.delayed(Duration(milliseconds: 500));
+    // 和导航过渡动画错开来
+    await Future<void>.delayed(const Duration(milliseconds: 350));
     _observableQuery = GraphqlConfig.graphQLClient.watchQuery(
       graphql.WatchQueryOptions(
-        document: addFragments(
-          query.picture,
-          [...pictureDetailFragmentDocumentNode],
-        ),
+        document: document,
         fetchResults: true,
         fetchPolicy: graphql.FetchPolicy.networkOnly,
         variables: variables,

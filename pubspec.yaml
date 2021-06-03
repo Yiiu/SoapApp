@@ -27,6 +27,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  lottie: ^1.0.1
   flutter_cupertino_datetime_picker: ^2.0.1
   sentry_flutter: ^5.1.0-beta.1
   throttling: ^1.0.0
@@ -147,6 +148,10 @@ flutter:
     - assets/svg/constellation/libra.svg
     - assets/svg/constellation/scorpio.svg
     - assets/svg/constellation/sagittarius.svg
+
+    - assets/lottie/cat.json
+    - assets/lottie/mail-send.json
+    - assets/lottie/coffee-time.json
   fonts:
     - family: Rubik
       fonts:
