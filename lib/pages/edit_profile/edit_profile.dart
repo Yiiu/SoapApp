@@ -32,10 +32,14 @@ class EditProfilePage extends StatelessWidget {
       'key': accountStore.userInfo!.avatar,
       'gender': accountStore.userInfo!.gender,
       'genderSecret': accountStore.userInfo!.genderSecret,
-      'birthday': accountStore.userInfo!.gender,
-      'birthdayShow': accountStore.userInfo!.genderSecret,
+      'birthday': accountStore.userInfo!.birthday,
+      'birthdayShow': accountStore.userInfo!.birthdayShow,
       ...newData,
     };
+    if (accountStore.userInfo!.birthday != null) {
+      data['birthday'] = accountStore.userInfo!.birthday.toString();
+    }
+    print(data);
     try {
       await _accountProvider.updateProfile(data);
       SoapToast.success('保存成功');
