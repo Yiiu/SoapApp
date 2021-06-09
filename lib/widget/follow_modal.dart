@@ -58,7 +58,6 @@ class _FollowModalState extends State<FollowModal> {
         'page': 1,
       }
     };
-    print(variables);
     return SizedBox(
       height: MediaQuery.of(context).size.height * .75,
       child: FixedAppBarWrapper(

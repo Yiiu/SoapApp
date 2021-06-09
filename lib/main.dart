@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:soap_app/config/jpush.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/storage.dart';
 // ignore: library_prefixes
@@ -17,6 +19,12 @@ Future<void> main() async {
     DotEnv.load(fileName: '.env'),
     StorageUtil.initialize(),
   });
+  jpush.setup(
+    appKey: 'e889bc53e9d0357b7d5632dc',
+    channel: 'theChannel',
+    production: true,
+    debug: false,
+  );
   accountStore.initialize();
   await Future.wait<dynamic>({
     pictureCachedStore.initialize(),
@@ -43,5 +51,4 @@ Future<void> main() async {
       child: const MyApp(),
     )),
   );
-  accountStore.initializeSentry();
 }

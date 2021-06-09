@@ -10,7 +10,6 @@ class Test extends StatefulWidget {
 class _TestState extends State<Test> {
   @override
   Widget build(BuildContext context) {
-    print('comment刷新了');
     return Text('fdsfsdf');
   }
 }

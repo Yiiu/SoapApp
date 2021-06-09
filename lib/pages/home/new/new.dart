@@ -40,6 +40,18 @@ class NewViewState extends State<NewView>
       RefreshController(initialRefresh: false);
 
   @override
+  void initState() {
+    super.initState();
+    Future<void>.delayed(const Duration(milliseconds: 350)).then(
+      (dynamic value) {
+        _refreshController.requestRefresh(
+          duration: const Duration(milliseconds: 300),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final Map<String, Object> variables = {'query': query, 'type': type};

@@ -39,7 +39,6 @@ class EditProfilePage extends StatelessWidget {
     if (accountStore.userInfo!.birthday != null) {
       data['birthday'] = accountStore.userInfo!.birthday.toString();
     }
-    print(data);
     try {
       await _accountProvider.updateProfile(data);
       SoapToast.success('保存成功');

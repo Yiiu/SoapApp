@@ -4,7 +4,6 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,11 +34,6 @@ class _MyHomePageState extends State<HomePage>
   List<Picture> list = <Picture>[];
   int _selectedIndex = 0;
   final int _addIndex = 1;
-  final int _loginIndex = 2;
-
-  late File _image;
-  // final ImagePicker picker = ImagePicker();
-
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
         const SoapBottomNavigationBarItem(
