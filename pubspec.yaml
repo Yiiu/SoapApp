@@ -27,6 +27,8 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  image_gallery_saver: ^1.6.9
+  permission_handler: ^8.0.1
   jpush_flutter: ^2.0.9
   lottie: ^1.0.1
   flutter_cupertino_datetime_picker: ^2.0.1

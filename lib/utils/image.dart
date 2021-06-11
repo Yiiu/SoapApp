@@ -1,7 +1,13 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:decimal/decimal.dart';
 import 'package:exif/exif.dart';
+import 'package:extended_image/extended_image.dart';
+import 'package:flutter/services.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 
 enum ExifProperties {
   model,
@@ -99,4 +105,46 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
   }
 
   return exif;
+}
+
+Future<void> saveImage(String imageUrl, {bool isAsset: false}) async {
+  try {
+    if (imageUrl == null) throw '保存失败，图片不存在！';
+
+    /// 权限检测
+    PermissionStatus storageStatus = await Permission.storage.status;
+    if (storageStatus != PermissionStatus.granted) {
+      storageStatus = await Permission.storage.request();
+      if (storageStatus != PermissionStatus.granted) {
+        throw '无法存储图片，请先授权！';
+      }
+    }
+
+    /// 保存的图片数据
+    Uint8List imageBytes;
+
+    if (isAsset) {
+      /// 保存资源图片
+      final ByteData bytes = await rootBundle.load(imageUrl);
+      imageBytes = bytes.buffer.asUint8List();
+    } else {
+      /// 保存网络图片
+      imageBytes =
+          await getNetworkImageData(imageUrl, useCache: true) as Uint8List;
+    }
+
+    /// 保存图片
+    final dynamic result = await ImageGallerySaver.saveImage(
+      imageBytes,
+      quality: 100,
+    );
+    print(result);
+
+    if (result == null || result == '') {
+      throw '图片保存失败';
+    }
+    SoapToast.success('保存成功');
+  } catch (e) {
+    SoapToast.error(e.toString());
+  }
 }

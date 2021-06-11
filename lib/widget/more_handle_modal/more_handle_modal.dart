@@ -20,7 +20,7 @@ class MoreHandleModal extends StatelessWidget {
           direction: Axis.vertical,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            if (title != null)
+            if (title != null) ...[
               Text(
                 title!,
                 style: TextStyle(
@@ -29,7 +29,8 @@ class MoreHandleModal extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-            const SizedBox(height: 16),
+              const SizedBox(height: 16)
+            ],
             child,
           ],
         ),
