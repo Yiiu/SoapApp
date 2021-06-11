@@ -16,7 +16,13 @@ import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 
 class NewView extends StatefulWidget {
-  const NewView({Key? key}) : super(key: key);
+  const NewView({
+    Key? key,
+    required this.refreshController,
+  }) : super(key: key);
+
+  final RefreshController refreshController;
+
   @override
   NewViewState createState() {
     return NewViewState();
@@ -36,16 +42,14 @@ class NewViewState extends State<NewView>
   String type = 'NEW';
 
   static List<String> get tabs => <String>['最新', '热门'];
-  final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
 
   @override
   void initState() {
     super.initState();
     Future<void>.delayed(const Duration(milliseconds: 350)).then(
       (dynamic value) {
-        _refreshController.requestRefresh(
-          duration: const Duration(milliseconds: 300),
+        widget.refreshController.requestRefresh(
+          duration: const Duration(milliseconds: 150),
         );
       },
     );
@@ -90,10 +94,10 @@ class NewViewState extends State<NewView>
             Future<void> onRefresh() async {
               final QueryResult? data = await refetch!();
               if (data != null && data.hasException) {
-                _refreshController.refreshFailed();
+                widget.refreshController.refreshFailed();
                 return;
               }
-              _refreshController.refreshCompleted();
+              widget.refreshController.refreshCompleted();
             }
 
             if (result.hasException) {
@@ -102,7 +106,7 @@ class NewViewState extends State<NewView>
 
             if (result.hasException && result.data == null) {
               return SoapListError(
-                controller: _refreshController,
+                controller: widget.refreshController,
                 onRefresh: onRefresh,
                 // message: result.exception.toString(),
               );
@@ -110,7 +114,7 @@ class NewViewState extends State<NewView>
 
             if (result.isLoading && result.data == null) {
               return SoapListLoading(
-                controller: _refreshController,
+                controller: widget.refreshController,
               );
             }
 
@@ -120,7 +124,7 @@ class NewViewState extends State<NewView>
             );
 
             return NewList(
-              controller: _refreshController,
+              controller: widget.refreshController,
               listData: listData,
               onRefresh: onRefresh,
               loading: (int page) async {

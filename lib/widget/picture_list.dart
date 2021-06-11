@@ -43,6 +43,12 @@ class _PictureListState extends State<PictureList>
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
+  final RefreshController _loadingRefreshController =
+      RefreshController(initialRefresh: false);
+
+  final RefreshController _errorRefreshController =
+      RefreshController(initialRefresh: false);
+
   int page = 1;
   int pageSize = 30;
 
@@ -113,7 +119,7 @@ class _PictureListState extends State<PictureList>
         if (result.hasException && result.data == null) {
           return SoapListError(
             notScrollView: true,
-            controller: _refreshController,
+            controller: _errorRefreshController,
             onRefresh: () async {
               _onRefresh(refetch!);
             },
@@ -123,7 +129,7 @@ class _PictureListState extends State<PictureList>
         if (result.isLoading && result.data == null) {
           return SoapListLoading(
             notScrollView: true,
-            controller: _refreshController,
+            controller: _loadingRefreshController,
           );
         }
 

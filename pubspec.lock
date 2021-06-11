@@ -349,6 +349,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.0"
+  flutter_conditional_rendering:
+    dependency: "direct main"
+    description:
+      name: flutter_conditional_rendering
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_cupertino_datetime_picker:
     dependency: "direct main"
     description:

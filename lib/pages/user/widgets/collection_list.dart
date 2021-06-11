@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -38,6 +37,10 @@ class UserCollectionListState extends State<UserCollectionList>
   bool get wantKeepAlive => true;
 
   final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+  final RefreshController _errorRefreshController =
+      RefreshController(initialRefresh: false);
+  final RefreshController _loaddingRefreshController =
       RefreshController(initialRefresh: false);
 
   bool get isOwner {
@@ -85,7 +88,7 @@ class UserCollectionListState extends State<UserCollectionList>
         if (result.hasException && result.data == null) {
           return SoapListError(
             notScrollView: true,
-            controller: _refreshController,
+            controller: _errorRefreshController,
             onRefresh: onRefresh,
           );
         }
@@ -93,7 +96,7 @@ class UserCollectionListState extends State<UserCollectionList>
         if (result.isLoading && result.data == null) {
           return SoapListLoading(
             notScrollView: true,
-            controller: _refreshController,
+            controller: _loaddingRefreshController,
           );
         }
         list = Collection.fromListJson(

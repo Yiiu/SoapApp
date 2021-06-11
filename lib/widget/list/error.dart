@@ -33,7 +33,7 @@ class SoapListError extends StatelessWidget {
           behavior: HitTestBehavior.opaque,
           onTap: () {
             controller.requestRefresh(
-              duration: const Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 150),
             );
           },
           child: Column(
