@@ -12,6 +12,8 @@ import 'package:soap_app/config/router.dart' as RouterConfig;
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/generated/l10n.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatefulWidget {
@@ -67,6 +69,13 @@ class _MyAppState extends State<MyApp> {
         builder: (_) => MaterialApp(
           localizationsDelegates: [
             S.delegate,
+            FlutterI18nDelegate(
+              translationLoader: FileTranslationLoader(
+                useCountryCode: false,
+                fallbackFile: 'zh',
+                basePath: 'assets/i18n',
+              ),
+            ),
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,

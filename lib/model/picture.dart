@@ -66,7 +66,7 @@ class Picture {
     return false;
   }
 
-  String pictureUrl({PictureStyle? style = PictureStyle.small}) {
+  String pictureUrl({PictureStyle? style}) {
     if (RegExp('^photo\/').hasMatch(key)) {
       return getPictureUrl(key: key, style: style!);
     }

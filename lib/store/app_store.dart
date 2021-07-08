@@ -14,6 +14,10 @@ abstract class _AppStoreBase with Store {
   @observable
   int mode = 2;
 
+  // 1 大图 2 小图
+  @observable
+  int imgMode = 1;
+
   @observable
   int? displayMode;
 
@@ -31,6 +35,12 @@ abstract class _AppStoreBase with Store {
   }
 
   @action
+  void setImgMode(int value) {
+    StorageUtil.preferences!.setInt('app.img_mode', value);
+    imgMode = value;
+  }
+
+  @action
   void setDisplayMode(int value) {
     StorageUtil.preferences!.setInt('app.display_mode', value);
     displayMode = value;
@@ -40,6 +50,7 @@ abstract class _AppStoreBase with Store {
   Future<void> initialize() async {
     mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
     displayMode = StorageUtil.preferences!.getInt('app.display_mode');
+    imgMode = StorageUtil.preferences!.getInt('app.img_mode') ?? 1;
     await _initializeDisplayMode();
   }
 

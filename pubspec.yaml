@@ -28,9 +28,9 @@ dependencies:
     sdk: flutter
 
   flutter_conditional_rendering: ^2.0.0
-
+  flutter_i18n: ^0.22.4
   image_gallery_saver: ^1.6.9
-  permission_handler: ^8.1.1
+  permission_handler: ^8.1.2
   jpush_flutter: ^2.0.9
   lottie: ^1.0.1
   flutter_cupertino_datetime_picker: ^2.0.1
@@ -49,8 +49,8 @@ dependencies:
   crypto: ^3.0.1
   intl: ^0.17.0
   palette_generator: ^0.3.0
-  decimal: ^1.1.0
-  wechat_assets_picker: ^5.5.5
+  decimal: ^1.2.0
+  wechat_assets_picker: ^5.5.8
   exif: ^3.0.0
   url_launcher: ^6.0.6
   enum_to_string: ^2.0.1
@@ -91,6 +91,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
+    - assets/i18n/
     - .env
     - assets/images/empty.png
     - assets/images/vip.png

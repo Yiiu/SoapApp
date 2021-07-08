@@ -7,9 +7,11 @@ class SelectTileConfig<T> {
   SelectTileConfig({
     required this.title,
     required this.value,
+    this.subtitle,
   });
 
   final String title;
+  final String? subtitle;
   final T value;
 }
 
@@ -32,6 +34,14 @@ class SoapSelectList<T> extends StatelessWidget {
       onTap: () {
         onChange(config.value);
       },
+      subtitle: config.subtitle != null
+          ? Text(
+              config.subtitle!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            )
+          : null,
       trailing: selected
           ? Icon(
               FeatherIcons.check,

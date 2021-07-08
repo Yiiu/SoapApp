@@ -231,7 +231,7 @@ packages:
       name: decimal
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   dio:
     dependency: "direct main"
     description:
@@ -391,6 +391,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0+1"
+  flutter_i18n:
+    dependency: "direct main"
+    description:
+      name: flutter_i18n
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.22.4"
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -825,7 +832,7 @@ packages:
       name: permission_handler
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "8.1.1"
+    version: "8.1.2"
   permission_handler_platform_interface:
     dependency: transitive
     description:
@@ -846,7 +853,7 @@ packages:
       name: photo_manager
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.2"
+    version: "1.2.5"
   platform:
     dependency: transitive
     description:
@@ -909,7 +916,7 @@ packages:
       name: rational
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0+1"
+    version: "1.2.1"
   rxdart:
     dependency: transitive
     description:
@@ -1124,7 +1131,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.6"
+    version: "6.0.9"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1236,7 +1243,7 @@ packages:
       name: wechat_assets_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.5.5"
+    version: "5.5.8"
   win32:
     dependency: transitive
     description:
@@ -1258,6 +1265,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "5.1.2"
+  xml2json:
+    dependency: transitive
+    description:
+      name: xml2json
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.1"
   xmlstream:
     dependency: transitive
     description:

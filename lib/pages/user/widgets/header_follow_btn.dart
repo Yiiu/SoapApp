@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/user/stores/user_store.dart';
@@ -64,9 +65,9 @@ class UserHeaderFollowBtn extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).pushNamed(RouteName.edit_profile);
           },
-          child: const Text(
-            '编辑资料',
-            style: TextStyle(
+          child: Text(
+            FlutterI18n.translate(context, 'setting.label.edit_profile'),
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 12,
             ),
@@ -167,9 +168,9 @@ class UserHeaderFollowBtn extends StatelessWidget {
                     store.user!.id, store.user!.username);
               });
             },
-            child: const Text(
-              '关 注',
-              style: TextStyle(
+            child: Text(
+              FlutterI18n.translate(context, 'common.label.follow'),
+              style: const TextStyle(
                 color: Colors.white,
                 fontSize: 12,
               ),

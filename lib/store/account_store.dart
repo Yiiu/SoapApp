@@ -103,7 +103,7 @@ abstract class _AccountStoreBase with Store {
           User.fromJson(result.data?['whoami'] as Map<String, dynamic>));
     }
     setSentrtyInfo(userInfo);
-    setJPushInfo(userInfo);
+    // setJPushInfo(userInfo);
   }
 
   @action

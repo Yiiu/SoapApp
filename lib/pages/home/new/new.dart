@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/graphql/fragments.dart';
@@ -67,15 +68,15 @@ class NewViewState extends State<NewView>
     final Map<String, Object> variables = {'query': query, 'type': type};
     return FixedAppBarWrapper(
       backdropBar: true,
-      appBar: const SoapAppBar(
+      appBar: SoapAppBar(
         backdrop: true,
         centerTitle: false,
         elevation: 0,
         title: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            '首页',
-            style: TextStyle(
+            FlutterI18n.translate(context, "nav.home"),
+            style: const TextStyle(
               fontWeight: FontWeight.w600,
             ),
           ),

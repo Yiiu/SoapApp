@@ -115,7 +115,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                       heroLabel: widget.heroLabel,
                       image: getPictureUrl(
                         key: _pageStore.picture!.key,
-                        style: PictureStyle.regular,
+                        style: PictureStyle.full,
                       ),
                     ),
                   ),

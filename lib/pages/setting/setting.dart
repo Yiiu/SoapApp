@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/router.dart';
@@ -54,17 +55,17 @@ class _SettingPageState extends State<SettingPage> {
     final ThemeData theme = Theme.of(context);
     return Material(
       child: FixedAppBarWrapper(
-        appBar: const SoapAppBar(
+        appBar: SoapAppBar(
           automaticallyImplyLeading: true,
           elevation: 0,
           border: true,
-          actionsPadding: EdgeInsets.only(
+          actionsPadding: const EdgeInsets.only(
             right: 12,
           ),
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              '设置',
+              FlutterI18n.translate(context, 'nav.setting'),
             ),
           ),
         ),
@@ -77,7 +78,8 @@ class _SettingPageState extends State<SettingPage> {
               Observer(
                 builder: (_) => accountStore.isLogin
                     ? SettingItem(
-                        title: '个人资料',
+                        title: FlutterI18n.translate(
+                            context, 'setting.label.edit_profile'),
                         border: false,
                         actionIcon: false,
                         action: Row(
@@ -98,17 +100,20 @@ class _SettingPageState extends State<SettingPage> {
               ),
               const SizedBox(height: 12),
               SettingItem(
-                title: '系统模式',
-                actionIcon: false,
+                title: FlutterI18n.translate(context, 'setting.label.theme'),
+                actionIcon: true,
                 action: Observer(
                   builder: (_) {
                     if (appStore.themeMode == ThemeMode.dark)
-                      return const Text(
-                        '黑暗模式',
+                      return Text(
+                        FlutterI18n.translate(
+                            context, 'setting.value.theme.black'),
                       );
                     if (appStore.themeMode == ThemeMode.system)
-                      return const Text('系统设置');
-                    return const Text('亮色设置');
+                      return Text(FlutterI18n.translate(
+                          context, 'setting.value.theme.system'));
+                    return Text(FlutterI18n.translate(
+                        context, 'setting.value.theme.light'));
                   },
                 ),
                 onPressed: () {
@@ -116,7 +121,8 @@ class _SettingPageState extends State<SettingPage> {
                     context: context,
                     builder: (_) {
                       return MoreHandleModal(
-                        title: '系统模式',
+                        title: FlutterI18n.translate(
+                            context, 'setting.title.theme'),
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 16),
                           child: Observer(builder: (_) {
@@ -128,15 +134,18 @@ class _SettingPageState extends State<SettingPage> {
                               }),
                               config: <SelectTileConfig<int>>[
                                 SelectTileConfig<int>(
-                                  title: '亮色模式',
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.theme.light'),
                                   value: 0,
                                 ),
                                 SelectTileConfig<int>(
-                                  title: '暗色模式',
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.theme.black'),
                                   value: 1,
                                 ),
                                 SelectTileConfig<int>(
-                                  title: '系统自动',
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.theme.system'),
                                   value: 2,
                                 ),
                               ],
@@ -149,8 +158,9 @@ class _SettingPageState extends State<SettingPage> {
                 },
               ),
               SettingItem(
-                title: '图片缓存',
-                actionIcon: false,
+                title:
+                    FlutterI18n.translate(context, 'setting.label.image_cache'),
+                actionIcon: true,
                 border: false,
                 action: Text(
                   cached,
@@ -158,9 +168,11 @@ class _SettingPageState extends State<SettingPage> {
                 ),
                 onPressed: () async {
                   SoapToast.confirm(
-                    '是否清除图片缓存？',
+                    FlutterI18n.translate(
+                        context, 'setting.confirm.image_cache_confirm'),
                     context: context,
-                    confirmText: const Text('清除'),
+                    confirmText: Text(FlutterI18n.translate(
+                        context, 'setting.btn.clean_cache')),
                     confirm: () async {
                       await clearDiskCachedImages();
                       getImageCached();
@@ -173,8 +185,8 @@ class _SettingPageState extends State<SettingPage> {
                 Observer(
                   builder: (_) => SettingItem(
                     title: '刷新率选择',
-                    actionIcon: false,
-                    border: false,
+                    actionIcon: true,
+                    border: true,
                     action: appStore.displayMode != null
                         ? Text(
                             appStore.modeList[appStore.displayMode!].toString())
@@ -221,6 +233,57 @@ class _SettingPageState extends State<SettingPage> {
               //     Navigator.of(context).pushNamed(RouteName.about);
               //   },
               // ),
+
+              SettingItem(
+                title: FlutterI18n.translate(context, 'setting.label.img_mode'),
+                action: Observer(builder: (_) {
+                  return Text(appStore.imgMode == 1
+                      ? FlutterI18n.translate(
+                          context, 'setting.value.img_mode.big')
+                      : FlutterI18n.translate(
+                          context, 'setting.value.img_mode.small'));
+                }),
+                actionIcon: true,
+                onPressed: () {
+                  showBasicModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return MoreHandleModal(
+                        title: FlutterI18n.translate(
+                            context, 'setting.title.img_mode'),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Observer(builder: (_) {
+                            return SoapSelectList<int>(
+                              value: appStore.imgMode,
+                              onChange: (int value) => setState(() {
+                                appStore.setImgMode(value);
+                                Navigator.of(context).pop();
+                              }),
+                              config: <SelectTileConfig<int>>[
+                                SelectTileConfig<int>(
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.img_mode.big'),
+                                  subtitle: FlutterI18n.translate(
+                                      context, 'setting.message.img_mode.big'),
+                                  value: 1,
+                                ),
+                                SelectTileConfig<int>(
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.img_mode.small'),
+                                  subtitle: FlutterI18n.translate(context,
+                                      'setting.message.img_mode.small'),
+                                  value: 2,
+                                ),
+                              ],
+                            );
+                          }),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -60,7 +61,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
     Function? onTap,
   }) {
     final Widget content = Container(
-      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: Column(
         children: <Widget>[
           Text(
@@ -256,11 +257,15 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
             direction: Axis.horizontal,
             children: [
               Expanded(
-                child: Row(
+                flex: 1,
+                child: Flex(
+                  direction: Axis.horizontal,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: <Widget>[
                     Observer(builder: (_) {
                       return _userCount(
-                        title: '关注',
+                        title: FlutterI18n.translate(
+                            context, 'common.label.following'),
                         count: widget.store.user!.followedCount,
                         onTap: () {
                           showBasicModalBottomSheet(
@@ -278,7 +283,8 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                     }),
                     Observer(builder: (_) {
                       return _userCount(
-                        title: '粉丝',
+                        title: FlutterI18n.translate(
+                            context, 'common.label.followers'),
                         count: widget.store.user!.followerCount,
                         onTap: () {
                           showBasicModalBottomSheet(
@@ -296,7 +302,8 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                     }),
                     Observer(builder: (_) {
                       return _userCount(
-                        title: '人气',
+                        title: FlutterI18n.translate(
+                            context, 'common.label.popularity'),
                         count: widget.store.user!.likesCount,
                       );
                     }),

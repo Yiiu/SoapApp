@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:soap_app/config/const.dart';
@@ -56,10 +57,10 @@ class _ProfileViewState extends State<ProfileView> {
         actionsPadding: const EdgeInsets.only(
           right: 16,
         ),
-        title: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.0),
+        title: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            '个人中心',
+            FlutterI18n.translate(context, 'nav.profile'),
           ),
         ),
         actions: <Widget>[
@@ -101,7 +102,7 @@ class _ProfileViewState extends State<ProfileView> {
                         horizontal: 12,
                       ),
                       child: Text(
-                        '退出登录',
+                        FlutterI18n.translate(context, 'profile.btn.signout'),
                         style: TextStyle(
                           color: theme.errorColor,
                           fontSize: 16,
