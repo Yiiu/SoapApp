@@ -56,10 +56,10 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
           exif['make'] = data[key]?.printable;
           break;
         case 'EXIF FocalLength':
-          exif['focalLengthke'] = formatValue(data[key]!.values);
+          exif['focalLengthke'] = formatValue(data[key]!.values.toList());
           break;
         case 'EXIF FNumber':
-          exif['aperture'] = formatValue(data[key]!.values);
+          exif['aperture'] = formatValue(data[key]!.values.toList());
           break;
         case 'EXIF ExposureTime':
           // final String? value = formatValue(data[key]!.values);
@@ -84,7 +84,7 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
           exif['software'] = data[key]!.printable;
           break;
         case 'Image Orientation':
-          exif['orientation'] = data[key]!.values![0];
+          exif['orientation'] = data[key]!.values.toList()[0];
           break;
         case 'EXIF LensModel':
           exif['lensModel'] = data[key]!.printable;

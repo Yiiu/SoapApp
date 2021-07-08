@@ -43,6 +43,12 @@ class NewViewState extends State<NewView>
 
   static List<String> get tabs => <String>['最新', '热门'];
 
+  final RefreshController _loadingRefreshController =
+      RefreshController(initialRefresh: false);
+
+  final RefreshController _errorRefreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   void initState() {
     super.initState();
@@ -106,7 +112,7 @@ class NewViewState extends State<NewView>
 
             if (result.hasException && result.data == null) {
               return SoapListError(
-                controller: widget.refreshController,
+                controller: _errorRefreshController,
                 onRefresh: onRefresh,
                 // message: result.exception.toString(),
               );
@@ -114,7 +120,7 @@ class NewViewState extends State<NewView>
 
             if (result.isLoading && result.data == null) {
               return SoapListLoading(
-                controller: widget.refreshController,
+                controller: _loadingRefreshController,
               );
             }
 

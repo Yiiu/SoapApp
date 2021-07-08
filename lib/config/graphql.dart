@@ -5,7 +5,7 @@ import 'package:soap_app/store/index.dart';
 
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(
-    '${env['API_URL']}/graphql',
+    '${dotenv.env['API_URL']}/graphql',
     defaultHeaders: {
       'accept': 'application/json',
     },

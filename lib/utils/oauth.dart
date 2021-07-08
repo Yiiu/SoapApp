@@ -21,7 +21,7 @@ Uri getOauthUrl(
       unencodedPath = '/login/oauth/authorize';
       query = {
         'state': EnumToString.convertToString(state),
-        'client_id': env['OAUTH_GITHUB_CLIENT_ID']!,
+        'client_id': dotenv.env['OAUTH_GITHUB_CLIENT_ID']!,
         'redirect_uri': cb,
       };
       break;
@@ -30,7 +30,7 @@ Uri getOauthUrl(
       unencodedPath = '/oauth2/authorize';
       query = {
         'state': EnumToString.convertToString(state),
-        'client_id': env['OAUTH_WEIBO_CLIENT_ID']!,
+        'client_id': dotenv.env['OAUTH_WEIBO_CLIENT_ID']!,
         'response_type': 'code',
         'redirect_uri': cb,
       };

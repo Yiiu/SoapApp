@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:jpush_flutter/jpush_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/jpush.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/storage.dart';
 // ignore: library_prefixes
-import 'package:flutter_dotenv/flutter_dotenv.dart' as DotEnv;
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'config/graphql.dart';
 import 'pages/app.dart';
@@ -16,7 +15,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait<dynamic>({
     initHiveForFlutter(),
-    DotEnv.load(fileName: '.env'),
+    dotenv.load(fileName: '.env'),
     StorageUtil.initialize(),
   });
   jpush.setup(
@@ -44,7 +43,7 @@ Future<void> main() async {
   await SentryFlutter.init(
     (SentryFlutterOptions options) {
       options.debug = false;
-      options.dsn = DotEnv.env['SENTRY_URL'];
+      options.dsn = dotenv.env['SENTRY_URL'];
     },
     appRunner: () => runApp(GraphQLProvider(
       client: GraphqlConfig.client,

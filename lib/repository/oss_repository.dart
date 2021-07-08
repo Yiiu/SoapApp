@@ -49,7 +49,7 @@ class SignUtil {
 class OssProvider {
   OssProvider() {
     httpClient = Dio()
-      ..options.baseUrl = env['API_URL']!
+      ..options.baseUrl = dotenv.env['API_URL']!
       ..options.connectTimeout = 5000;
   }
   String bucketName = 'soapphoto';
@@ -105,7 +105,7 @@ class OssProvider {
       'callbackBodyType': 'application/json',
     };
     final Map<String, Object?> map = {
-      'key': env['OSS_PREFIX_PATH']! + uuid.v4(),
+      'key': dotenv.env['OSS_PREFIX_PATH']! + uuid.v4(),
       'OSSAccessKeyId': accessKeyID,
       'success_action_status': '200',
       'signature': SignUtil.getSignature(accessKeySecret),
