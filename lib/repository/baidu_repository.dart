@@ -7,7 +7,7 @@ class BaiduProvider {
 
   Future<Response> token() {
     final Dio httpClient = Dio()
-      ..options.baseUrl = env['API_URL']!
+      ..options.baseUrl = dotenv.env['API_URL']!
       ..options.connectTimeout = 5000;
     final Map<String, String> map = {
       'Authorization': 'Bearer ${accountStore.accessToken}',

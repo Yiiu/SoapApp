@@ -1,3 +1,9 @@
 {
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "i18n-ally.localesPaths": [
+    "../../../yu/SoapApp/lib/l10n",
+    "../../../yu/SoapApp/assets/i18n"
+  ],
+  "i18n-ally.extract.autoDetect": true,
+  "i18n-ally.keystyle": "nested"
 }

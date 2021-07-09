@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/graphql.dart';
+import 'package:soap_app/config/jpush.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/graphql/gql.dart';
@@ -82,6 +83,12 @@ abstract class _AccountStoreBase with Store {
     }
   }
 
+  void setJPushInfo(User? user) {
+    if (user != null) {
+      jpush.setAlias(user.id.toString());
+    }
+  }
+
   Future<void> getUserInfo() async {
     final graphql.QueryResult result = await GraphqlConfig.graphQLClient.query(
       graphql.QueryOptions(
@@ -96,6 +103,7 @@ abstract class _AccountStoreBase with Store {
           User.fromJson(result.data?['whoami'] as Map<String, dynamic>));
     }
     setSentrtyInfo(userInfo);
+    // setJPushInfo(userInfo);
   }
 
   @action

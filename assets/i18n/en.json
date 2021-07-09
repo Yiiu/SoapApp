@@ -1,0 +1,61 @@
+{
+  "nav": {
+    "home": "Home",
+    "profile": "Profile",
+    "setting": "Setting"
+  },
+  "setting": {
+    "label": {
+      "edit_profile": "Edit Profile",
+      "theme": "Theme",
+      "image_cache": "Image Cache",
+      "img_mode": "Image display",
+      "locale": "Language"
+    },
+    "value": {
+      "theme": {
+        "black": "Dark",
+        "system": "System Default",
+        "light": "Light"
+      },
+      "img_mode": {
+        "big": "Big Image",
+        "small": "Small picture"
+      },
+      "locale": {
+        "system": "System Language"
+      }
+    },
+    "title": {
+      "theme": "Set Theme",
+      "img_mode": "Set Image Display",
+      "locale": "Select Language"
+    },
+    "confirm": {
+      "image_cache_confirm": "Do you want to clear the image cache?"
+    },
+    "btn": {
+      "clean_cache": "Clear"
+    },
+    "message": {
+      "img_mode": {
+        "big": "Load the big picture and compare the traffic consumption",
+        "small": "Load small images to save data"
+      }
+    }
+  },
+  "profile": {
+    "btn": {
+      "signout": "Log Out"
+    }
+  },
+  "common": {
+    "label": {
+      "following": "Following",
+      "followers": "Followers",
+      "likes": "Likes",
+      "popularity": "Popularity",
+      "follow": "Follow"
+    }
+  }
+}

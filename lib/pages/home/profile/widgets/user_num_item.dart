@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
@@ -66,7 +67,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
           direction: Axis.horizontal,
           children: <Widget>[
             _userCount(
-              title: '关注',
+              title: FlutterI18n.translate(context, 'common.label.following'),
               count: accountStore.userInfo?.followedCount,
               onTap: accountStore.isLogin
                   ? () {
@@ -82,7 +83,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
                   : null,
             ),
             _userCount(
-              title: '粉丝',
+              title: FlutterI18n.translate(context, 'common.label.followers'),
               count: accountStore.userInfo?.followerCount,
               onTap: accountStore.isLogin
                   ? () {
@@ -98,7 +99,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
                   : null,
             ),
             _userCount(
-              title: '喜欢',
+              title: FlutterI18n.translate(context, 'common.label.likes'),
               count: accountStore.userInfo?.likedCount,
             ),
           ],

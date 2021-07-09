@@ -44,6 +44,15 @@ android {
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        // ndk {
+        //     abiFilters 'armeabi', 'x86', 'mips', 'mips64'    
+        // }
+
+        manifestPlaceholders = [
+            JPUSH_PKGNAME : applicationId,
+            JPUSH_APPKEY : "e889bc53e9d0357b7d5632dc",
+            JPUSH_CHANNEL : "developer-default"
+        ]
     }
    signingConfigs {
        release {

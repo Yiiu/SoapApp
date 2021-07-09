@@ -7,9 +7,11 @@ class SelectTileConfig<T> {
   SelectTileConfig({
     required this.title,
     required this.value,
+    this.subtitle,
   });
 
   final String title;
+  final String? subtitle;
   final T value;
 }
 
@@ -28,10 +30,23 @@ class SoapSelectList<T> extends StatelessWidget {
   Widget _tileWidget(SelectTileConfig<T> config, BuildContext context) {
     final bool selected = value == config.value;
     return ListTile(
-      title: Text(config.title),
+      title: Text(
+        config.title,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      ),
       onTap: () {
         onChange(config.value);
       },
+      subtitle: config.subtitle != null
+          ? Text(
+              config.subtitle!,
+              style: const TextStyle(
+                fontSize: 12,
+              ),
+            )
+          : null,
       trailing: selected
           ? Icon(
               FeatherIcons.check,

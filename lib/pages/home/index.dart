@@ -4,7 +4,7 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -35,10 +35,6 @@ class _MyHomePageState extends State<HomePage>
   List<Picture> list = <Picture>[];
   int _selectedIndex = 0;
   final int _addIndex = 1;
-  final int _loginIndex = 2;
-
-  late File _image;
-  // final ImagePicker picker = ImagePicker();
 
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
@@ -58,6 +54,9 @@ class _MyHomePageState extends State<HomePage>
 
   late TabController tabController;
 
+  final RefreshController _newRefreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   void initState() {
     super.initState();
@@ -69,6 +68,11 @@ class _MyHomePageState extends State<HomePage>
   }
 
   Future<void> handleTabChange(int index) async {
+    if (index == 0 && tabController.index == 0) {
+      _newRefreshController.requestRefresh(
+        duration: const Duration(milliseconds: 150),
+      );
+    }
     if (index == _addIndex) {
       if (!accountStore.isLogin) {
         Navigator.pushNamed(context, RouteName.login);
@@ -117,7 +121,9 @@ class _MyHomePageState extends State<HomePage>
                   physics: const NeverScrollableScrollPhysics(),
                   controller: tabController,
                   children: <Widget>[
-                    const NewView(),
+                    NewView(
+                      refreshController: _newRefreshController,
+                    ),
                     const Text(''),
                     ProfileView(
                       controller: tabController,

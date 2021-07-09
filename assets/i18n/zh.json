@@ -1,0 +1,62 @@
+{
+  "nav": {
+    "home": "首页",
+    "profile": "个人中心",
+    "setting": "设置"
+  },
+  "setting": {
+    "label": {
+      "edit_profile": "个人资料",
+      "theme": "主题",
+      "image_cache": "图片缓存",
+      "img_mode": "图片显示",
+      "locale": "语言"
+    },
+    "value": {
+      "theme": {
+        "black": "黑暗模式",
+        "system": "系统设置",
+        "light": "亮色模式"
+      },
+      "img_mode": {
+        "big": "大图",
+        "small": "小图"
+      },
+      "locale": {
+        "system": "系统语言"
+      }
+    },
+    "title": {
+      "theme": "主题设置",
+      "img_mode": "图片显示",
+      "locale": "选择语言"
+    },
+    "confirm": {
+      "image_cache_confirm": "是否清除图片缓存？"
+    },
+    "btn": {
+      "clean_cache": "清除"
+    },
+    "message": {
+      "img_mode": {
+        "big": "加载大图，比较消耗流量",
+        "small": "加载小图，节省流量"
+      }
+    }
+  },
+  "profile": {
+    "btn": {
+      "signout": "退出登录"
+    }
+  },
+  "common": {
+    "label": {
+      "following": "关注",
+      "followers": "粉丝",
+      "likes": "喜欢",
+      "popularity": "人气",
+      "follow": "关 注"
+    }
+  },
+  "zhang-tu-pian": "张图片"
+}

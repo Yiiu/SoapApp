@@ -12,7 +12,7 @@ import 'package:soap_app/widget/soap_toast.dart';
 class AccountProvider {
   AccountProvider() {
     httpClient = Dio()
-      ..options.baseUrl = env['API_URL']!
+      ..options.baseUrl = dotenv.env['API_URL']!
       ..options.connectTimeout = 5000;
   }
 
@@ -20,7 +20,7 @@ class AccountProvider {
 
   Future<Response> oauth(dynamic data) {
     final Map<String, String> map = {
-      'Authorization': 'Basic ${env['BASIC_TOKEN']}'
+      'Authorization': 'Basic ${dotenv.env['BASIC_TOKEN']}'
     };
     return httpClient.post<dynamic>(
       '/oauth/token',
@@ -34,7 +34,7 @@ class AccountProvider {
 
   Future<Response> oauthToken(String type, dynamic data) {
     final Map<String, String> map = {
-      'Authorization': 'Basic ${env['BASIC_TOKEN']}'
+      'Authorization': 'Basic ${dotenv.env['BASIC_TOKEN']}'
     };
     return httpClient.post<dynamic>(
       '/oauth/$type/token',

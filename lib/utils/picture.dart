@@ -6,6 +6,7 @@ enum PictureStyle {
   blur,
   itemprop,
   thumbSmall,
+  mediumLarge,
 }
 
 Map<PictureStyle, String> pictureStyleData = {
@@ -16,6 +17,7 @@ Map<PictureStyle, String> pictureStyleData = {
   PictureStyle.blur: '@!thumbnailBlur',
   PictureStyle.itemprop: '@!itemprop',
   PictureStyle.thumbSmall: '@!thumbnailSmall',
+  PictureStyle.mediumLarge: '@!medium_large'
 };
 
 String getPictureUrl({

@@ -28,7 +28,7 @@ packages:
       name: args
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
   async:
     dependency: transitive
     description:
@@ -231,7 +231,7 @@ packages:
       name: decimal
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.0"
   dio:
     dependency: "direct main"
     description:
@@ -252,7 +252,7 @@ packages:
       name: exif
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.2.0"
+    version: "3.0.0"
   extended_image:
     dependency: "direct main"
     description:
@@ -341,7 +341,7 @@ packages:
       name: flutter_advanced_switch
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.2+2"
+    version: "2.1.0"
   flutter_blurhash:
     dependency: transitive
     description:
@@ -349,6 +349,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.6.0"
+  flutter_conditional_rendering:
+    dependency: "direct main"
+    description:
+      name: flutter_conditional_rendering
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   flutter_cupertino_datetime_picker:
     dependency: "direct main"
     description:
@@ -369,7 +376,7 @@ packages:
       name: flutter_dotenv
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "4.0.0-nullsafety.1"
+    version: "5.0.0"
   flutter_easyrefresh:
     dependency: "direct main"
     description:
@@ -384,6 +391,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.0+1"
+  flutter_i18n:
+    dependency: "direct main"
+    description:
+      name: flutter_i18n
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.22.4"
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -409,7 +423,7 @@ packages:
       name: flutter_native_splash
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.8+4"
+    version: "1.2.0"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -546,6 +560,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "3.0.2"
+  image_gallery_saver:
+    dependency: "direct main"
+    description:
+      name: image_gallery_saver
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.6.9"
   intl:
     dependency: "direct main"
     description:
@@ -567,6 +588,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "4.1.0"
+  jpush_flutter:
+    dependency: "direct main"
+    description:
+      name: jpush_flutter
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.1.2"
   js:
     dependency: transitive
     description:
@@ -599,6 +627,13 @@ packages:
     dependency: transitive
     description:
       name: logging
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.0.1"
+  lottie:
+    dependency: "direct main"
+    description:
+      name: lottie
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.1"
@@ -791,6 +826,20 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.11.0"
+  permission_handler:
+    dependency: "direct main"
+    description:
+      name: permission_handler
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "8.1.2"
+  permission_handler_platform_interface:
+    dependency: transitive
+    description:
+      name: permission_handler_platform_interface
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "3.6.0"
   petitparser:
     dependency: transitive
     description:
@@ -804,7 +853,7 @@ packages:
       name: photo_manager
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.2.1"
+    version: "1.2.5"
   platform:
     dependency: transitive
     description:
@@ -857,19 +906,17 @@ packages:
   pull_to_refresh:
     dependency: "direct main"
     description:
-      path: "."
-      ref: nullsafety
-      resolved-ref: "8048176b0b2e961bab8f3537f2591766673326b5"
-      url: "https://github.com/peng8350/flutter_pulltorefresh"
-    source: git
-    version: "1.6.4-nullsafety.1"
+      name: pull_to_refresh
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   rational:
     dependency: transitive
     description:
       name: rational
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.1.0+1"
+    version: "1.2.1"
   rxdart:
     dependency: transitive
     description:
@@ -1021,7 +1068,7 @@ packages:
       name: styled_text
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.0"
+    version: "3.0.1"
   tab_indicator_styler:
     dependency: "direct main"
     description:
@@ -1084,7 +1131,7 @@ packages:
       name: url_launcher
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "6.0.4"
+    version: "6.0.9"
   url_launcher_linux:
     dependency: transitive
     description:
@@ -1147,7 +1194,7 @@ packages:
       name: video_player
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.4"
+    version: "2.1.6"
   video_player_platform_interface:
     dependency: transitive
     description:
@@ -1196,7 +1243,7 @@ packages:
       name: wechat_assets_picker
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.5.3+1"
+    version: "5.5.8"
   win32:
     dependency: transitive
     description:
@@ -1217,7 +1264,14 @@ packages:
       name: xml
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.1.1"
+    version: "5.1.2"
+  xml2json:
+    dependency: transitive
+    description:
+      name: xml2json
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "5.3.1"
   xmlstream:
     dependency: transitive
     description:

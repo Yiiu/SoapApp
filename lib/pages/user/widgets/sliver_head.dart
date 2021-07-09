@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/model/user.dart';
-import 'package:soap_app/pages/user/widgets/user_header_content.dart';
+import 'package:soap_app/pages/user/stores/user_store.dart';
+import 'package:soap_app/pages/user/widgets/header_content.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
@@ -14,12 +14,12 @@ class SliverHeader extends StatefulWidget {
   const SliverHeader({
     Key? key,
     required this.tabBarHeight,
-    required this.user,
+    required this.store,
     required this.tabController,
   }) : super(key: key);
 
   final double tabBarHeight;
-  final User user;
+  final UserPageStore store;
   final TabController tabController;
 
   @override
@@ -42,26 +42,23 @@ class _SliverHeaderState extends State<SliverHeader> {
         tabBarHeight: widget.tabBarHeight,
         barCenterTitle: false,
         backgroundImage: getPictureUrl(
-          key: widget.user.cover ?? widget.user.avatar,
-          style:
-              widget.user.cover != null ? PictureStyle.blur : PictureStyle.blur,
+          key: widget.store.user!.cover ?? widget.store.user!.avatar,
+          style: widget.store.user!.cover != null
+              ? PictureStyle.blur
+              : PictureStyle.blur,
         ),
         titleTextStyle: TextStyle(
           color: theme.cardColor,
           fontSize: 36,
         ),
         title: UserHeaderContent(
-            user: widget.user,
-            onHeightChanged: (double height) {
-              setState(() {
-                bioHeight = height;
-              });
-              // if (height != null) {
-              //   setState(() {
-              //     bioHeight = height;
-              //   });
-              // }
-            }),
+          store: widget.store,
+          onHeightChanged: (double height) {
+            setState(() {
+              bioHeight = height;
+            });
+          },
+        ),
         tabBar: Container(
           height: double.infinity,
           width: double.infinity,
@@ -111,12 +108,12 @@ class _SliverHeaderState extends State<SliverHeader> {
             children: <Widget>[
               Avatar(
                 size: 38,
-                image: widget.user.avatarUrl,
+                image: widget.store.user!.avatarUrl,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Text(
-                  widget.user.fullName,
+                  widget.store.user!.fullName,
                   style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.w500,

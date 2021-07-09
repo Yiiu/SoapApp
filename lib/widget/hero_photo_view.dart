@@ -1,6 +1,10 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:soap_app/utils/image.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import 'package:soap_app/widget/select_list.dart';
 
 class HeroPhotoView extends StatefulWidget {
   HeroPhotoView({
@@ -50,6 +54,31 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
         onTap: () {
           slidePagekey.currentState?.popPage();
           Navigator.pop(context);
+        },
+        onLongPress: () {
+          showBasicModalBottomSheet(
+            context: context,
+            builder: (_) => MoreHandleModal(
+              child: Padding(
+                padding: const EdgeInsets.only(bottom: 16),
+                child: ListTile(
+                  dense: false,
+                  contentPadding: const EdgeInsets.symmetric(
+                    vertical: 0,
+                    horizontal: 0,
+                  ),
+                  title: const Center(
+                    child: Text('保存到相册'),
+                  ),
+                  onTap: () {
+                    Navigator.pop(_);
+                    saveImage(widget.image);
+                  },
+                ),
+              ),
+            ),
+          );
+          // print('长按');
         },
         child: Container(
           constraints: BoxConstraints.expand(
