@@ -30,7 +30,12 @@ class SoapSelectList<T> extends StatelessWidget {
   Widget _tileWidget(SelectTileConfig<T> config, BuildContext context) {
     final bool selected = value == config.value;
     return ListTile(
-      title: Text(config.title),
+      title: Text(
+        config.title,
+        style: const TextStyle(
+          fontSize: 16,
+        ),
+      ),
       onTap: () {
         onChange(config.value);
       },

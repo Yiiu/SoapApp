@@ -11,3 +11,7 @@ A new Flutter project.
 | ![Home](doc/img/home.jpg)                     | ![Profile](doc/img/profile.jpg)       | ![Setting](doc/img/setting.jpg) |
 | --------------------------------------------- | ------------------------------------- | ------------------------------- |
 | ![picture_detail](doc/img/picture_detail.jpg) | ![Collection](doc/img/collection.jpg) | ![User](doc/img/user.jpg)       |
+
+```
+flutter packages pub run build_runner watch
+```

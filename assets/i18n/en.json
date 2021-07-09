@@ -9,7 +9,8 @@
       "edit_profile": "Edit Profile",
       "theme": "Theme",
       "image_cache": "Image Cache",
-      "img_mode": "Image display"
+      "img_mode": "Image display",
+      "locale": "Language"
     },
     "value": {
       "theme": {
@@ -20,11 +21,15 @@
       "img_mode": {
         "big": "Big Image",
         "small": "Small picture"
+      },
+      "locale": {
+        "system": "System Language"
       }
     },
     "title": {
       "theme": "Set Theme",
-      "img_mode": "Set Image Display"
+      "img_mode": "Set Image Display",
+      "locale": "Select Language"
     },
     "confirm": {
       "image_cache_confirm": "Do you want to clear the image cache?"

@@ -9,7 +9,8 @@
       "edit_profile": "个人资料",
       "theme": "主题",
       "image_cache": "图片缓存",
-      "img_mode": "图片显示"
+      "img_mode": "图片显示",
+      "locale": "语言"
     },
     "value": {
       "theme": {
@@ -20,11 +21,15 @@
       "img_mode": {
         "big": "大图",
         "small": "小图"
+      },
+      "locale": {
+        "system": "系统语言"
       }
     },
     "title": {
       "theme": "主题设置",
-      "img_mode": "图片显示"
+      "img_mode": "图片显示",
+      "locale": "选择语言"
     },
     "confirm": {
       "image_cache_confirm": "是否清除图片缓存？"
@@ -52,5 +57,6 @@
       "popularity": "人气",
       "follow": "关 注"
     }
-  }
+  },
+  "zhang-tu-pian": "张图片"
 }

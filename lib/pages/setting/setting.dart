@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
+import 'package:soap_app/store/app_store.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
 import 'package:soap_app/widget/app_bar.dart';
@@ -53,6 +55,10 @@ class _SettingPageState extends State<SettingPage> {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Map<localeType, String> localeLabelString = {
+      localeType.en: 'English',
+      localeType.zhCN: '中文',
+    };
     return Material(
       child: FixedAppBarWrapper(
         appBar: SoapAppBar(
@@ -278,6 +284,71 @@ class _SettingPageState extends State<SettingPage> {
                               ],
                             );
                           }),
+                        ),
+                      );
+                    },
+                  );
+                },
+              ),
+              SettingItem(
+                title: FlutterI18n.translate(context, 'setting.label.locale'),
+                action: Observer(builder: (_) {
+                  return Text(appStore.locale != null
+                      ? localeLabelString[appStore.locale!]!
+                      : FlutterI18n.translate(
+                          context, 'setting.value.locale.system'));
+                }),
+                actionIcon: true,
+                onPressed: () {
+                  showBasicModalBottomSheet(
+                    context: context,
+                    builder: (_) {
+                      return MoreHandleModal(
+                        title: FlutterI18n.translate(
+                            context, 'setting.title.locale'),
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Observer(
+                            builder: (_) {
+                              return SoapSelectList<String>(
+                                value: appStore.localeString,
+                                onChange: (String value) => setState(() {
+                                  if (value == 'system') {
+                                    appStore.setLocale();
+                                  } else {
+                                    appStore.setLocale(
+                                      value: EnumToString.fromString(
+                                        localeType.values,
+                                        value,
+                                      ),
+                                    );
+                                  }
+                                  print(value);
+                                  // appStore.setImgMode(value);
+                                  // Navigator.of(context).pop();
+                                }),
+                                config: <SelectTileConfig<String>>[
+                                  SelectTileConfig<String>(
+                                    title: FlutterI18n.translate(
+                                        context, 'setting.value.locale.system'),
+                                    value: 'system',
+                                  ),
+                                  ...EnumToString.toList(localeType.values)
+                                      .map(
+                                        (String e) => SelectTileConfig<String>(
+                                          title: localeLabelString[
+                                              EnumToString.fromString(
+                                            localeType.values,
+                                            e,
+                                          )]!,
+                                          value: e,
+                                        ),
+                                      )
+                                      .toList(),
+                                ],
+                              );
+                            },
+                          ),
                         ),
                       );
                     },
