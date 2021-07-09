@@ -8,6 +8,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
+import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:soap_app/widget/picture_list.dart';
@@ -103,7 +104,8 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                           collection.preview![0].blurhash,
                         ),
                         image: ExtendedImage.network(
-                          collection.preview![0].pictureUrl(),
+                          collection.preview![0]
+                              .pictureUrl(style: PictureStyle.small),
                         ).image,
                         fit: BoxFit.cover,
                       ),

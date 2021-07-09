@@ -11,6 +11,7 @@ import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/exception.dart';
+import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
@@ -151,7 +152,9 @@ class _AddToCollectionState extends State<AddToCollection> {
                                     collection.preview![0].blurhash,
                                   ),
                                   image: ExtendedImage.network(
-                                    collection.preview![0].pictureUrl(),
+                                    collection.preview![0].pictureUrl(
+                                      style: PictureStyle.small,
+                                    ),
                                   ).image,
                                   fit: BoxFit.cover,
                                 )

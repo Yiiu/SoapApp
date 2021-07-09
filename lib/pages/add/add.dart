@@ -21,6 +21,7 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/colors.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/image.dart';
+import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/button.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
@@ -281,9 +282,10 @@ class _AddPageState extends State<AddPage> {
                                                 widget.picture!.blurhash,
                                               ),
                                               image: ExtendedImage.network(
-                                                      widget.picture!
-                                                          .pictureUrl())
-                                                  .image,
+                                                widget.picture!.pictureUrl(
+                                                  style: PictureStyle.small,
+                                                ),
+                                              ).image,
                                               fit: BoxFit.cover,
                                             )
                                           : Image(

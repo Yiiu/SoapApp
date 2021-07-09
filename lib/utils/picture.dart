@@ -22,9 +22,9 @@ Map<PictureStyle, String> pictureStyleData = {
 
 String getPictureUrl({
   required String key,
-  PictureStyle style = PictureStyle.regular,
+  PictureStyle? style = PictureStyle.regular,
 }) {
-  final String styleName = pictureStyleData[style]!;
+  final String styleName = pictureStyleData[style ?? PictureStyle.regular]!;
   if (RegExp(r'default.svg$').hasMatch(key)) {
     return key;
   }

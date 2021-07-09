@@ -166,23 +166,26 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                     Observer(
                       builder: (_) {
                         if (_pageStore.picture!.tags == null ||
-                            _pageStore.picture!.tags!.isNotEmpty) {
+                            _pageStore.picture!.tags!.isEmpty) {
                           return const SizedBox();
                         }
-                        return SizedBox(
-                          width: double.infinity,
-                          child: Wrap(
-                            spacing: 6,
-                            runSpacing: 6,
-                            alignment: WrapAlignment.start,
-                            runAlignment: WrapAlignment.end,
-                            children: _pageStore.picture!.tags!
-                                .map(
-                                  (Tag tag) => TagItem(
-                                    tag: tag,
-                                  ),
-                                )
-                                .toList(),
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 12),
+                          child: SizedBox(
+                            width: double.infinity,
+                            child: Wrap(
+                              spacing: 6,
+                              runSpacing: 6,
+                              alignment: WrapAlignment.start,
+                              runAlignment: WrapAlignment.end,
+                              children: _pageStore.picture!.tags!
+                                  .map(
+                                    (Tag tag) => TagItem(
+                                      tag: tag,
+                                    ),
+                                  )
+                                  .toList(),
+                            ),
                           ),
                         );
                       },
