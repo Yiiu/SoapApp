@@ -55,7 +55,8 @@
       "followers": "Followers",
       "likes": "Likes",
       "popularity": "Popularity",
-      "follow": "Follow"
+      "follow": "Follow",
+      "share": "Share"
     }
   }
 }

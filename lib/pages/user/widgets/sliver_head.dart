@@ -125,26 +125,26 @@ class _SliverHeaderState extends State<SliverHeader> {
           ),
         ),
         actions: [
-          TouchableOpacity(
-            activeOpacity: activeOpacity,
-            onTap: () {
-              // showBasicModalBottomSheet(
-              //   enableDrag: true,
-              //   context: context,
-              //   builder: (BuildContext context) =>
-              //       PictureDetailMoreHandle(
-              //     picture: data,
-              //   ),
-              // );
-            },
-            child: const Padding(
-              padding: EdgeInsets.only(right: 12),
-              child: Icon(
-                FeatherIcons.moreHorizontal,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          // TouchableOpacity(
+          //   activeOpacity: activeOpacity,
+          //   onTap: () {
+          //     // showBasicModalBottomSheet(
+          //     //   enableDrag: true,
+          //     //   context: context,
+          //     //   builder: (BuildContext context) =>
+          //     //       PictureDetailMoreHandle(
+          //     //     picture: data,
+          //     //   ),
+          //     // );
+          //   },
+          //   child: const Padding(
+          //     padding: EdgeInsets.only(right: 12),
+          //     child: Icon(
+          //       FeatherIcons.moreHorizontal,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:exif/exif.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 
@@ -147,4 +148,19 @@ Future<void> saveImage(String imageUrl, {bool isAsset: false}) async {
   } catch (e) {
     SoapToast.error(e.toString());
   }
+}
+
+Future<File> getImageFile({required Uint8List bytes, String? name}) async {
+  final Uint8List sourceBytes = bytes.buffer.asUint8List();
+  final Directory tempDir = await getTemporaryDirectory();
+
+  final String storagePath = tempDir.path;
+  final File file;
+  file = File('$storagePath/$name');
+
+  if (!file.existsSync()) {
+    file.createSync();
+  }
+  file.writeAsBytesSync(sourceBytes);
+  return file;
 }
