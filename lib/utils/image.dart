@@ -3,7 +3,7 @@ import 'dart:typed_data';
 
 import 'package:decimal/decimal.dart';
 import 'package:exif/exif.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:extended_image/extended_image.dart' as extended_image;
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
@@ -37,7 +37,7 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
     }
   }
 
-  final Map<String?, IfdTag>? data = await readExifFromBytes(
+  final Map<String?, IfdTag> data = await readExifFromBytes(
     await File(path).readAsBytes(),
   );
 
@@ -130,8 +130,8 @@ Future<void> saveImage(String imageUrl, {bool isAsset: false}) async {
       imageBytes = bytes.buffer.asUint8List();
     } else {
       /// 保存网络图片
-      imageBytes =
-          await getNetworkImageData(imageUrl, useCache: true) as Uint8List;
+      imageBytes = await extended_image.getNetworkImageData(imageUrl,
+          useCache: true) as Uint8List;
     }
 
     /// 保存图片

@@ -2,7 +2,7 @@
     package="com.soapphoto.soap">
    <application
         android:label="Soap"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

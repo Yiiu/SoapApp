@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:extended_image/extended_image.dart';
+import 'package:extended_image/extended_image.dart' as extended_image;
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:share/share.dart';
@@ -47,7 +47,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
                 svg: 'assets/remix/share-line.svg',
                 title: FlutterI18n.translate(context, 'common.label.share'),
                 onTap: () async {
-                  final data = await getCachedImageFile(
+                  final data = await extended_image.getCachedImageFile(
                       picture.pictureUrl(style: PictureStyle.regular));
                   if (data != null) {
                     final Uint8List bytes = await data.readAsBytes();

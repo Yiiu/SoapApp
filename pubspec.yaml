@@ -27,9 +27,12 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
+  flutter_launcher_icons:
+    git:
+      url: git://github.com/chrystoffer/flutter_launcher_icons.git
+
   mime_type: ^1.0.0
   path_provider: ^2.0.2
-  flutter_share: ^2.0.0
   flutter_conditional_rendering: ^2.0.0
   flutter_i18n: ^0.22.4
   image_gallery_saver: ^1.6.9
@@ -192,3 +195,8 @@ flutter_native_splash:
   color_dark: "2e186a"
 flutter_intl:
   enabled: true
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
