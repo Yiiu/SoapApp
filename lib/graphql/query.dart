@@ -29,6 +29,14 @@ DocumentNode picture = gql(r'''
   }
 ''');
 
+DocumentNode pictureRelatedPictures = gql(r'''
+  query PictureRelatedPictures($id: Float!, $limit: Float) {
+    pictureRelatedPictures(id: $id, limit: $limit) {
+      ...RelatedPictureFragment
+    }
+  }
+''');
+
 DocumentNode comments = gql(r'''
   query Comments($id: Float!, $query: CommentsQueryInput) {
     comments(id: $id, query: $query) {

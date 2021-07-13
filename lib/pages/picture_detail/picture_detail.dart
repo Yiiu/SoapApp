@@ -6,6 +6,7 @@ import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/pages/picture_detail/stores/picture_detail_store.dart';
@@ -15,6 +16,7 @@ import 'package:soap_app/pages/picture_detail/widgets/handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/image.dart';
 import 'package:soap_app/pages/picture_detail/widgets/info.dart';
 import 'package:soap_app/pages/picture_detail/widgets/more_handle.dart';
+import 'package:soap_app/pages/picture_detail/widgets/related_picture.dart';
 import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
@@ -266,6 +268,16 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                   PictureDetailComment(store: _pageStore),
                 ],
               ),
+            ),
+            FutureBuilder<dynamic>(
+              future:
+                  Future<dynamic>.delayed(const Duration(milliseconds: 300)),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done)
+                  return RelatedPicture(id: _pageStore.picture!.id);
+                else
+                  return const SizedBox();
+              },
             ),
             const SizedBox(
               height: pictureDetailHandleHeight,

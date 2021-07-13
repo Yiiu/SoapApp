@@ -149,7 +149,7 @@ class _AddPageState extends State<AddPage> {
               progressValue = progress;
             }),
           );
-          final Response res = await _ossProvider.addPicture({
+          await _ossProvider.addPicture({
             'info': info,
             'key': jsonDecode(ossData.data as String)['key'],
             'tags': _addStore.tags

@@ -72,6 +72,26 @@ DocumentNode pictureBaseFragment = gql(r'''
   }
 ''');
 
+DocumentNode relatedPictureFragment = gql(r'''
+  fragment RelatedPictureFragment on Picture {
+    ...PictureFragment
+    badge {
+      ...BadgeFragment
+    }
+    blurhash
+    isPrivate
+    user {
+      ...UserBaseFragment
+      badge {
+        ...BadgeFragment
+      }
+    }
+    exif {
+      ...EXIFFragment
+    }
+  }
+''');
+
 DocumentNode pictureListFragment = gql(r'''
   fragment PictureListFragment on Pictures {
       count
@@ -317,6 +337,16 @@ DocumentNode collectionListFragment = gql(r'''
     }
   }
 ''');
+
+List<DocumentNode> relatedPicturesFragmentDocumentNode = <DocumentNode>[
+  relatedPictureFragment,
+  pictureBaseFragment,
+  pictureFragment,
+  badgeFragment,
+  userBaseFragment,
+  userFragment,
+  exifFragment,
+];
 
 List<DocumentNode> pictureListFragmentDocumentNode = <DocumentNode>[
   pictureFragment,
