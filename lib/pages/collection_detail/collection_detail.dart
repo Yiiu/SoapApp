@@ -2,7 +2,9 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
@@ -10,8 +12,11 @@ import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
+import 'package:soap_app/widget/collection/collection_more_handle.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
+import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/picture_list.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 class CollectionDetailPage extends StatefulWidget {
   const CollectionDetailPage({
@@ -59,38 +64,44 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    collection.name,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 4),
-                    child: Row(
-                      children: <Widget>[
-                        Avatar(
-                          image: collection.user!.avatarUrl,
-                          size: 22,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: Text(
+                        collection.name,
+                        softWrap: false,
+                        overflow: TextOverflow.fade,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
                         ),
-                        const SizedBox(width: 4),
-                        Text(
-                          collection.user!.fullName,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            color: Colors.white,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 4),
+                      child: Row(
+                        children: <Widget>[
+                          Avatar(
+                            image: collection.user!.avatarUrl,
+                            size: 24,
                           ),
-                        ),
-                      ],
-                    ),
-                  )
-                ],
+                          const SizedBox(width: 4),
+                          Text(
+                            collection.user!.fullName,
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
               if (collection.pictureCount! > 0)
                 SizedBox(
@@ -127,18 +138,37 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           ),
         ),
         bar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Row(
-            children: <Widget>[
-              Text(
-                collection.name,
-                style: const TextStyle(
-                  color: Colors.white,
-                ),
-              ),
-            ],
+          padding: const EdgeInsets.only(right: 16),
+          child: Text(
+            collection.name,
+            overflow: TextOverflow.fade,
+            style: const TextStyle(
+              color: Colors.white,
+            ),
           ),
         ),
+        actions: [
+          TouchableOpacity(
+            activeOpacity: activeOpacity,
+            onTap: () {
+              showBasicModalBottomSheet(
+                enableDrag: true,
+                context: context,
+                builder: (BuildContext context) => CollectionMoreHandle(
+                  collection: collection,
+                  onRefresh: () {},
+                ),
+              );
+            },
+            child: const Padding(
+              padding: EdgeInsets.only(right: 12),
+              child: Icon(
+                FeatherIcons.moreHorizontal,
+                color: Colors.white,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

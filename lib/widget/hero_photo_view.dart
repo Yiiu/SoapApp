@@ -59,23 +59,40 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
           showBasicModalBottomSheet(
             context: context,
             builder: (_) => MoreHandleModal(
+              title: '操作',
               child: Padding(
                 padding: const EdgeInsets.only(bottom: 16),
-                child: ListTile(
-                  dense: false,
-                  contentPadding: const EdgeInsets.symmetric(
-                    vertical: 0,
-                    horizontal: 0,
-                  ),
-                  title: const Center(
-                    child: Text('保存到相册'),
-                  ),
-                  onTap: () {
+                child: SoapSelectList<int>(
+                  value: 2,
+                  onChange: (int value) {
                     Navigator.pop(_);
                     saveImage(widget.image);
                   },
+                  config: <SelectTileConfig<int>>[
+                    SelectTileConfig<int>(
+                      title: '保存到本地',
+                      value: 1,
+                    ),
+                  ],
                 ),
               ),
+              // child: Padding(
+              //   padding: const EdgeInsets.only(bottom: 16),
+              //   child: ListTile(
+              //     dense: false,
+              //     contentPadding: const EdgeInsets.symmetric(
+              //       vertical: 0,
+              //       horizontal: 0,
+              //     ),
+              //     title: const Center(
+              //       child: Text('保存到相册'),
+              //     ),
+              //     onTap: () {
+              //       Navigator.pop(_);
+              //       saveImage(widget.image);
+              //     },
+              //   ),
+              // ),
             ),
           );
           // print('长按');

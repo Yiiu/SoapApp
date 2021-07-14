@@ -34,7 +34,7 @@ class CollectionMoreHandle extends StatelessWidget {
     return MoreHandleModal(
       title: '更多操作',
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
+        padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
         child: Row(
           children: [
             // if (picture.isPrivate == null || !picture.isPrivate!) ...[
