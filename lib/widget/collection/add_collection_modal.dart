@@ -151,7 +151,6 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: 40,
                       width: double.infinity,
                       child: AddInput(
                         focusNode: _titleFocusNode,

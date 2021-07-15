@@ -301,7 +301,6 @@ class _AddPageState extends State<AddPage> {
                                     direction: Axis.vertical,
                                     children: <Widget>[
                                       SizedBox(
-                                        height: 40,
                                         width: double.infinity,
                                         child: AddInput(
                                           focusNode: _titleFocusNode,
