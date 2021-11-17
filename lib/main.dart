@@ -31,10 +31,13 @@ Future<void> main() async {
   });
   SystemChrome.setPreferredOrientations(
       <DeviceOrientation>[DeviceOrientation.portraitUp]);
-  SystemChrome.setEnabledSystemUIOverlays(<SystemUiOverlay>[
-    SystemUiOverlay.top,
-    SystemUiOverlay.bottom,
-  ]);
+  SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: <SystemUiOverlay>[
+      SystemUiOverlay.top,
+      SystemUiOverlay.bottom,
+    ],
+  );
   const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,

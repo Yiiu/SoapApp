@@ -2,11 +2,13 @@ buildscript {
     ext.kotlin_version = '1.5.0'
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        // maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'http://developer.huawei.com/repo/'}
         // fcm
         maven { url "https://maven.google.com" }
+        google()
+        jcenter()
     }
 
     dependencies {
@@ -22,11 +24,13 @@ buildscript {
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/jcenter' }
+        // maven { url 'https://maven.aliyun.com/repository/jcenter' }
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
         maven { url 'http://developer.huawei.com/repo/'}
         // fcm
         maven { url "https://maven.google.com" }
+        google()
+        jcenter()
     }
 }
 
