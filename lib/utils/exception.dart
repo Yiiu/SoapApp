@@ -16,5 +16,8 @@ void captureException(dynamic throwable, {dynamic stackTrace}) {
       Sentry.captureException(throwable);
       print(throwable);
     }
+  } else {
+    Sentry.captureException(throwable);
+    print(throwable);
   }
 }

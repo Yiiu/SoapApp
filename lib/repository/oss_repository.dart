@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:mime_type/mime_type.dart';
 import 'package:uuid/uuid.dart';
 import 'package:dio/dio.dart';
 import 'package:soap_app/store/index.dart';
@@ -104,6 +106,20 @@ class OssProvider {
           '{"userId":$userId,"originalname":\${x:originalname},"type":\${x:type},"object":\${object},"bucket":\${bucket},"etag":\${etag},"size":\${size},"mimetype":\${mimeType}}',
       'callbackBodyType': 'application/json',
     };
+    final MediaType contentType;
+    if (Platform.isIOS) {
+      String mimeType = mime(await asset.titleAsync)!;
+      contentType = MediaType(
+        mimeType.split('/')[0],
+        mimeType.split('/')[1],
+      );
+    } else {
+      contentType = MediaType(
+        asset.mimeType!.split('/')[0],
+        asset.mimeType!.split('/')[1],
+      );
+    }
+    print(contentType);
     final Map<String, Object?> map = {
       'key': dotenv.env['OSS_PREFIX_PATH']! + uuid.v4(),
       'OSSAccessKeyId': accessKeyID,
@@ -114,10 +130,11 @@ class OssProvider {
       'x:originalname': asset.title,
       'x:type': 'PICTURE',
       'callback': _base64Encode(jsonEncode(callback)),
-      'file': MultipartFile.fromBytes(btyes!,
-          filename: asset.title,
-          contentType: MediaType(
-              asset.mimeType!.split('/')[0], asset.mimeType!.split('/')[1])),
+      'file': MultipartFile.fromBytes(
+        btyes!,
+        filename: asset.title,
+        contentType: contentType,
+      ),
     };
     final FormData data = FormData.fromMap(map);
     return dio.post<dynamic>(
