@@ -158,6 +158,8 @@ flutter:
     - assets/svg/constellation/scorpio.svg
     - assets/svg/constellation/sagittarius.svg
 
+    - assets/svg/emoji/garden.svg
+
     - assets/lottie/cat.json
     - assets/lottie/mail-send.json
     - assets/lottie/coffee-time.json

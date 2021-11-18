@@ -26,7 +26,7 @@ DocumentNode pictureDetailFragment = gql(r'''
       ...BadgeFragment
     }
     location {
-      ...PictureLocationFragment
+      ...LocationFragment
     }
   }
 ''');
@@ -224,6 +224,44 @@ DocumentNode pictureLocationFragment = gql(r'''
   }
 ''');
 
+DocumentNode locationFragment = gql(r'''
+  fragment LocationFragment on Location {
+    name
+    location {
+      lat
+      lng
+    }
+    address
+    province
+    city
+    area
+    street_id
+    telephone
+    uid
+    detail {
+      ...LocationDetailFragment
+    }
+  }
+''');
+
+DocumentNode locationDetailFragment = gql(r'''
+  fragment LocationDetailFragment on LocationDetail {
+    tag
+    navi_location {
+      lat
+      lng
+    }
+    shop_hours
+    detail_url
+    type
+    overall_rating
+    image_num
+    comment_num
+    scope_type
+    content_tag
+  }
+''');
+
 DocumentNode commentBaseFragment = gql(r'''
   fragment CommentBaseFragment on Comment {
     id
@@ -368,7 +406,8 @@ List<DocumentNode> pictureDetailFragmentDocumentNode = <DocumentNode>[
   exifFragment,
   collectionFragment,
   tagFragment,
-  pictureLocationFragment,
+  locationFragment,
+  locationDetailFragment,
 ];
 
 List<DocumentNode> commentFragmentDocumentNode = <DocumentNode>[

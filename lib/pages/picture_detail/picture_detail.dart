@@ -235,7 +235,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                           );
                         }),
                       ],
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -269,6 +269,42 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                 ],
               ),
             ),
+            // Observer(builder: (_) {
+            //   return Visibility(
+            //     visible: _pageStore.picture?.location != null,
+            //     child: Container(
+            //       padding: const EdgeInsets.symmetric(
+            //         vertical: 16,
+            //         horizontal: 16,
+            //       ),
+            //       child: Row(
+            //         children: [
+            //           SizedBox(
+            //             width: 20,
+            //             height: 20,
+            //             child: SvgPicture.asset(
+            //               'assets/svg/emoji/garden.svg',
+            //             ),
+            //           ),
+            //           SizedBox(width: 12),
+            //           Text(
+            //             _pageStore.picture!.location!['city'],
+            //             style: const TextStyle(
+            //               fontSize: 14,
+            //             ),
+            //           ),
+            //           Text('·'),
+            //           Text(
+            //             _pageStore.picture!.location!['name'],
+            //             style: const TextStyle(
+            //               fontSize: 14,
+            //             ),
+            //           ),
+            //         ],
+            //       ),
+            //     ),
+            //   );
+            // }),
             Container(
               height: 8,
               color: theme.backgroundColor,

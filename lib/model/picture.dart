@@ -40,6 +40,7 @@ class Picture {
     this.tags,
     this.exif,
     this.badge,
+    this.location,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) =>
@@ -59,6 +60,8 @@ class Picture {
   final List<Tag>? tags;
   final Exif? exif;
   final List<Badge>? badge;
+
+  final Map? location;
 
   bool get isChoice {
     if (badge != null && badge!.indexWhere((e) => e.name == 'choice') != -1)
