@@ -244,31 +244,6 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               height: 8,
               color: theme.backgroundColor,
             ),
-            Container(
-              color: theme.cardColor,
-              child: Column(
-                children: <Widget>[
-                  Observer(builder: (_) {
-                    return PictureDetailInfo(picture: _pageStore.picture!);
-                  }),
-                  if (widget.picture.make != null ||
-                      widget.picture.model != null)
-                    Container(
-                      height: 8,
-                      color: theme.backgroundColor,
-                    ),
-                  // Center(
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width - 160,
-                  //     height: .5,
-                  //     color: theme.textTheme.bodyText2!.color!
-                  //         .withOpacity(.15),
-                  //   ),
-                  // ),
-                  PictureDetailComment(store: _pageStore),
-                ],
-              ),
-            ),
             // Observer(builder: (_) {
             //   return Visibility(
             //     visible: _pageStore.picture?.location != null,
@@ -306,33 +281,61 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
             //   );
             // }),
             Container(
-              height: 8,
-              color: theme.backgroundColor,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                top: 8,
-                left: 16,
-                right: 16,
+              color: theme.cardColor,
+              child: Column(
+                children: <Widget>[
+                  Observer(builder: (_) {
+                    return PictureDetailInfo(picture: _pageStore.picture!);
+                  }),
+                  if (widget.picture.make != null ||
+                      widget.picture.model != null)
+                    Container(
+                      height: 8,
+                      color: theme.backgroundColor,
+                    ),
+                  // Center(
+                  //   child: Container(
+                  //     width: MediaQuery.of(context).size.width - 160,
+                  //     height: .5,
+                  //     color: theme.textTheme.bodyText2!.color!
+                  //         .withOpacity(.15),
+                  //   ),
+                  // ),
+                  PictureDetailComment(store: _pageStore),
+                ],
               ),
-              child: Text(
-                '相关图片',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+            ),
+            if (_pageStore.picture!.isPrivate == null ||
+                _pageStore.picture!.isPrivate == false) ...[
+              Container(
+                height: 8,
+                color: theme.backgroundColor,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  left: 16,
+                  right: 16,
+                ),
+                child: Text(
+                  '相关图片',
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                  ),
                 ),
               ),
-            ),
-            FutureBuilder<dynamic>(
-              future:
-                  Future<dynamic>.delayed(const Duration(milliseconds: 300)),
-              builder: (BuildContext context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done)
-                  return RelatedPicture(id: _pageStore.picture!.id);
-                else
-                  return const SizedBox();
-              },
-            ),
+              FutureBuilder<dynamic>(
+                future:
+                    Future<dynamic>.delayed(const Duration(milliseconds: 300)),
+                builder: (BuildContext context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done)
+                    return RelatedPicture(id: _pageStore.picture!.id);
+                  else
+                    return const SizedBox();
+                },
+              ),
+            ],
             const SizedBox(
               height: pictureDetailHandleHeight,
             ),
