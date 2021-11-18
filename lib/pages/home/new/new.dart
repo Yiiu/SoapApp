@@ -15,6 +15,7 @@ import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
+import 'package:soap_app/widget/soap_toast.dart';
 
 class NewView extends StatefulWidget {
   const NewView({
@@ -102,6 +103,9 @@ class NewViewState extends State<NewView>
               final QueryResult? data = await refetch!();
               if (data != null && data.hasException) {
                 widget.refreshController.refreshFailed();
+                if (data.exception?.linkException != null) {
+                  SoapToast.error('连接出错，请稍后再试！');
+                }
                 return;
               }
               widget.refreshController.refreshCompleted();

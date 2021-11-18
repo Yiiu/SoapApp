@@ -176,7 +176,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: extended.NestedScrollView(
+      child: extended.ExtendedNestedScrollView(
         physics: const BouncingScrollPhysics(),
         headerSliverBuilder: (BuildContext context, bool? innerBoxIsScrolled) {
           return <Widget>[
@@ -185,10 +185,6 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
         },
         pinnedHeaderSliverHeightBuilder: () {
           return MediaQuery.of(context).padding.top + appBarHeight;
-        },
-        innerScrollPositionKeyBuilder: () {
-          const String index = 'Tab';
-          return const Key(index);
         },
         body: PictureList(
           enablePullDown: false,

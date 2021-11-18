@@ -49,8 +49,8 @@ class _EditBirthdayState extends State<EditBirthday> {
       },
       child: Column(
         children: [
-          DatePickerWidget(
-            initialDateTime: _value,
+          DateTimePickerWidget(
+            initDateTime: _value,
             onChange: (DateTime date, List<int> _) {
               _value = date;
             },

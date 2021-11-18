@@ -60,7 +60,7 @@ class _UserPageState extends State<UserPage>
     return Material(
       child: Container(
           color: theme.cardColor,
-          child: extended.NestedScrollView(
+          child: extended.ExtendedNestedScrollView(
             physics: const BouncingScrollPhysics(),
             headerSliverBuilder:
                 (BuildContext context, bool? innerBoxIsScrolled) {
@@ -77,10 +77,6 @@ class _UserPageState extends State<UserPage>
                   appBarHeight +
                   _tabBarHeight;
             },
-            innerScrollPositionKeyBuilder: () {
-              final String index = 'Tab${tabController.index.toString()}';
-              return Key(index);
-            },
             body: Container(
               color: theme.backgroundColor,
               child: Column(
@@ -90,29 +86,22 @@ class _UserPageState extends State<UserPage>
                       physics: const BouncingScrollPhysics(),
                       controller: tabController,
                       children: <Widget>[
-                        extended.NestedScrollViewInnerScrollPositionKeyWidget(
-                          const Key('Tab0'),
-                          RepaintBoundary(
-                            key: _pictureListKey,
-                            child: PictureList(
-                              document: addFragments(
-                                userPictures,
-                                [...pictureListFragmentDocumentNode],
-                              ),
-                              label: 'userPicturesByName',
-                              variables: {
-                                'username': user.username,
-                              },
+                        RepaintBoundary(
+                          key: _pictureListKey,
+                          child: PictureList(
+                            document: addFragments(
+                              userPictures,
+                              [...pictureListFragmentDocumentNode],
                             ),
+                            label: 'userPicturesByName',
+                            variables: {
+                              'username': user.username,
+                            },
                           ),
                         ),
                         RepaintBoundary(
                           key: _collectionListKey,
-                          child: extended
-                              .NestedScrollViewInnerScrollPositionKeyWidget(
-                            const Key('Tab1'),
-                            UserCollectionList(username: user.username),
-                          ),
+                          child: UserCollectionList(username: user.username),
                         ),
                       ],
                     ),

@@ -141,7 +141,7 @@ class _TagDetailPageState extends State<TagDetailPage> {
           if (result.data != null && result.data!['tag'] != null) {
             data = Tag.fromJson(result.data!['tag'] as Map<String, dynamic>);
           }
-          return extended.NestedScrollView(
+          return extended.ExtendedNestedScrollView(
             physics: const BouncingScrollPhysics(),
             headerSliverBuilder:
                 (BuildContext context, bool? innerBoxIsScrolled) {
@@ -151,10 +151,6 @@ class _TagDetailPageState extends State<TagDetailPage> {
             },
             pinnedHeaderSliverHeightBuilder: () {
               return MediaQuery.of(context).padding.top + appBarHeight;
-            },
-            innerScrollPositionKeyBuilder: () {
-              const String index = 'Tab';
-              return const Key(index);
             },
             body: PictureList(
               enablePullDown: false,
