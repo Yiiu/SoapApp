@@ -43,6 +43,9 @@ DocumentNode updatePictureFragment = gql(r'''
   fragment UpdatePictureFragment on Picture {
     ...PictureBaseFragment
     isPrivate
+    location {
+      ...LocationFragment
+    }
     tags {
       ...TagFragment
     }

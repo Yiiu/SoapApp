@@ -43,7 +43,7 @@ class User {
   final String? name, email, bio, website, cover;
   final int gender;
   final bool? genderSecret;
-  final DateTime? birthday;
+  final String? birthday;
   final int? birthdayShow;
   final int? likedCount,
       likesCount,

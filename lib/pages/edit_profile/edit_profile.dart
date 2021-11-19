@@ -36,7 +36,7 @@ class EditProfilePage extends StatelessWidget {
       'birthdayShow': accountStore.userInfo!.birthdayShow,
       ...newData,
     };
-    if (accountStore.userInfo!.birthday != null) {
+    if (accountStore.userInfo!.birthday == null) {
       data['birthday'] = accountStore.userInfo!.birthday.toString();
     }
     try {
@@ -225,9 +225,7 @@ class EditProfilePage extends StatelessWidget {
                         child: Observer(builder: (_) {
                           return Text(
                             accountStore.userInfo!.birthday != null
-                                ? Jiffy(accountStore.userInfo!.birthday!
-                                        .toLocal())
-                                    .MMMd
+                                ? Jiffy(accountStore.userInfo!.birthday!).MMMd
                                 : '暂无',
                             textAlign: TextAlign.end,
                             maxLines: 1,

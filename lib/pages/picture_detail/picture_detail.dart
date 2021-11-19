@@ -15,6 +15,7 @@ import 'package:soap_app/pages/picture_detail/widgets/comment.dart';
 import 'package:soap_app/pages/picture_detail/widgets/handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/image.dart';
 import 'package:soap_app/pages/picture_detail/widgets/info.dart';
+import 'package:soap_app/pages/picture_detail/widgets/location_info.dart';
 import 'package:soap_app/pages/picture_detail/widgets/more_handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/related_picture.dart';
 import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
@@ -25,6 +26,8 @@ import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/router/transparent_route.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import 'widgets/title_info.dart';
 
 class PictureDetailPage extends StatefulWidget {
   const PictureDetailPage({
@@ -132,154 +135,20 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                 }),
               ),
             ),
-            Container(
-              color: theme.cardColor,
-              padding: const EdgeInsets.symmetric(
-                vertical: 16,
-                horizontal: 16,
-              ),
-              child: RepaintBoundary(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Row(
-                      children: [
-                        if (widget.picture.isChoice) ...[
-                          Medal(
-                            type: MedalType.choice,
-                            size: 24,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          )
-                        ],
-                        Observer(builder: (_) {
-                          return Text(
-                            _pageStore.picture!.title,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20,
-                              color: theme.textTheme.bodyText2!.color,
-                            ),
-                          );
-                        })
-                      ],
-                    ),
-                    Observer(
-                      builder: (_) {
-                        if (_pageStore.picture!.tags == null ||
-                            _pageStore.picture!.tags!.isEmpty) {
-                          return const SizedBox();
-                        }
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 12),
-                          child: SizedBox(
-                            width: double.infinity,
-                            child: Wrap(
-                              spacing: 6,
-                              runSpacing: 6,
-                              alignment: WrapAlignment.start,
-                              runAlignment: WrapAlignment.end,
-                              children: _pageStore.picture!.tags!
-                                  .map(
-                                    (Tag tag) => TagItem(
-                                      tag: tag,
-                                    ),
-                                  )
-                                  .toList(),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
-                    Row(
-                      children: [
-                        Observer(builder: (_) {
-                          return Visibility(
-                            visible: _pageStore.picture!.isPrivate != null &&
-                                _pageStore.picture!.isPrivate!,
-                            child: Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                SizedBox(
-                                  height: 14,
-                                  width: 14,
-                                  child: SvgPicture.asset(
-                                    'assets/remix/lock-fill.svg',
-                                    color: theme.textTheme.bodyText2!.color!
-                                        .withOpacity(.6),
-                                  ),
-                                ),
-                                const SizedBox(width: 4),
-                                Text(
-                                  '私密',
-                                  style: TextStyle(
-                                    fontSize: 13,
-                                    color: theme.textTheme.bodyText2!.color!
-                                        .withOpacity(.6),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }),
-                        Observer(builder: (_) {
-                          return Text(
-                            '发布于 ${Jiffy(_pageStore.picture!.createTime.toString()).fromNow()}',
-                            style: TextStyle(
-                              color: theme.textTheme.bodyText2!.color!
-                                  .withOpacity(.6),
-                              fontSize: 13,
-                            ),
-                          );
-                        }),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            Observer(builder: (_) {
+              return PictureTitleInfo(picture: _pageStore.picture!);
+            }),
             Container(
               height: 8,
               color: theme.backgroundColor,
             ),
-            // Observer(builder: (_) {
-            //   return Visibility(
-            //     visible: _pageStore.picture?.location != null,
-            //     child: Container(
-            //       padding: const EdgeInsets.symmetric(
-            //         vertical: 16,
-            //         horizontal: 16,
-            //       ),
-            //       child: Row(
-            //         children: [
-            //           SizedBox(
-            //             width: 20,
-            //             height: 20,
-            //             child: SvgPicture.asset(
-            //               'assets/svg/emoji/garden.svg',
-            //             ),
-            //           ),
-            //           SizedBox(width: 12),
-            //           Text(
-            //             _pageStore.picture!.location!['city'],
-            //             style: const TextStyle(
-            //               fontSize: 14,
-            //             ),
-            //           ),
-            //           Text('·'),
-            //           Text(
-            //             _pageStore.picture!.location!['name'],
-            //             style: const TextStyle(
-            //               fontSize: 14,
-            //             ),
-            //           ),
-            //         ],
-            //       ),
-            //     ),
-            //   );
-            // }),
+            Observer(builder: (_) {
+              if (_pageStore.picture?.location == null) {
+                return SizedBox();
+              }
+              return PictureLocationInfo(
+                  location: _pageStore.picture!.location!);
+            }),
             Container(
               color: theme.cardColor,
               child: Column(

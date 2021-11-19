@@ -118,6 +118,8 @@ class PictureRepository {
           updatePictureFragment,
           pictureBaseFragment,
           tagFragment,
+          locationFragment,
+          locationDetailFragment,
         ]),
         variables: variables,
         update: (GraphQLDataProxy cache, QueryResult? result) async {
@@ -154,7 +156,8 @@ class PictureRepository {
       ),
     );
     if (result.hasException) {
-      captureException(result.exception);
+      // captureException(result.exception);
+      throw result.exception!;
     }
     return result;
   }

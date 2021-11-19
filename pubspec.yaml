@@ -160,6 +160,8 @@ flutter:
 
     - assets/svg/emoji/garden.svg
 
+    - assets/svg/ordinary.svg
+
     - assets/lottie/cat.json
     - assets/lottie/mail-send.json
     - assets/lottie/coffee-time.json

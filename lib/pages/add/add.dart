@@ -103,7 +103,9 @@ class _AddPageState extends State<AddPage> {
         SoapToast.success('修改成功！');
         Navigator.of(context).pop();
       } catch (e) {
+        captureException(e);
         _addStore.setLoading(false);
+        // SoapToast.error('修改失败');
       }
     } else {
       if (widget.assets == null) {

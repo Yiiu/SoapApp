@@ -16,6 +16,7 @@ class MedalType {
   );
 }
 
+// 勋章
 class Medal extends StatelessWidget {
   const Medal({
     Key? key,
@@ -37,29 +38,30 @@ class Medal extends StatelessWidget {
           SizedBox(
             width: size ?? 34,
             height: size ?? 34,
-            child: ShaderMask(
-              child: SvgPicture.asset('assets/svg/hexagon.svg'),
-              blendMode: BlendMode.srcATop,
-              shaderCallback: (Rect bounds) => const LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: <Color>[
-                  Color(0xffF5C164),
-                  Color(0xffFF9500),
-                ],
-              ).createShader(bounds),
-            ),
+            child: SvgPicture.asset('assets/svg/ordinary.svg'),
+            // child: ShaderMask(
+            //   child: SvgPicture.asset('assets/svg/hexagon.svg'),
+            //   blendMode: BlendMode.srcATop,
+            //   shaderCallback: (Rect bounds) => const LinearGradient(
+            //     begin: Alignment.topCenter,
+            //     end: Alignment.bottomCenter,
+            //     colors: <Color>[
+            //       Color(0xffF5C164),
+            //       Color(0xffFF9500),
+            //     ],
+            //   ).createShader(bounds),
+            // ),
           ),
-          Align(
-            child: SizedBox(
-              width: (size ?? 34) - 8,
-              height: (size ?? 34) - 8,
-              child: SvgPicture.asset(
-                type.icon,
-                color: type.iconColor,
-              ),
-            ),
-          ),
+          // Align(
+          //   child: SizedBox(
+          //     width: (size ?? 34) - 8,
+          //     height: (size ?? 34) - 8,
+          //     child: SvgPicture.asset(
+          //       type.icon,
+          //       color: type.iconColor,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

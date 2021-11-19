@@ -35,6 +35,7 @@ class RouteName {
   static const String about = 'about';
 }
 
+// ignore: avoid_classes_with_only_static_members
 class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {

@@ -13,7 +13,7 @@ class EditBirthday extends StatefulWidget {
     required this.onOk,
   }) : super(key: key);
 
-  final DateTime? birthday;
+  final String? birthday;
   final int? birthdayShow;
   final Future<void> Function(Map<String, Object?>) onOk;
 
@@ -22,13 +22,13 @@ class EditBirthday extends StatefulWidget {
 }
 
 class _EditBirthdayState extends State<EditBirthday> {
-  DateTime? _value;
+  String? _value;
   late int birthdayShow;
 
   @override
   void initState() {
     if (widget.birthday != null) {
-      _value = widget.birthday!.toLocal();
+      _value = widget.birthday;
     }
     birthdayShow = widget.birthdayShow ?? 0;
     super.initState();
@@ -40,19 +40,23 @@ class _EditBirthdayState extends State<EditBirthday> {
       bottomPadding: 16,
       topPadding: 0,
       onOk: () async {
-        final DateTime value =
-            _value ?? Jiffy(Jiffy().format('yyyy-MM-dd')).dateTime;
+        String? value;
+        if (_value != null) {
+          value = Jiffy(_value).format('yyyy-MM-dd');
+        }
         await widget.onOk.call({
-          'birthday': value.toString(),
+          'birthday': value,
           'birthdayShow': birthdayShow,
         });
       },
       child: Column(
         children: [
-          DateTimePickerWidget(
-            initDateTime: _value,
+          DatePickerWidget(
+            initDateTime: Jiffy(_value).dateTime,
             onChange: (DateTime date, List<int> _) {
-              _value = date;
+              // print(Jiffy(date).format('yyyy-MM-dd'));
+              // print(_);
+              _value = Jiffy(date).format('yyyy-MM-dd');
             },
             pickerTheme: DateTimePickerTheme(
               pickerHeight: 220,

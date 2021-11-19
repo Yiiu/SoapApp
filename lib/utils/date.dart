@@ -1,5 +1,7 @@
 // ignore: avoid_classes_with_only_static_members
 
+import 'package:jiffy/jiffy.dart';
+
 final Map<String, String> constellation = {
   'capricorn': '摩羯座',
   'aquarius': '水瓶座',
@@ -30,7 +32,7 @@ final Map<String, String> constellationEng = {
   '射手座': 'sagittarius',
 };
 
-String getConstellation(DateTime birthday) {
+String getConstellation(String birthday) {
   const String capricorn = '摩羯座'; //Capricorn 摩羯座（12月22日～1月20日）
   const String aquarius = '水瓶座'; //Aquarius 水瓶座（1月21日～2月19日）
   const String pisces = '双鱼座'; //Pisces 双鱼座（2月20日～3月20日）
@@ -44,8 +46,8 @@ String getConstellation(DateTime birthday) {
   const String scorpio = '天蝎座'; //Scorpio 天蝎座（10月24日～11月22日）
   const String sagittarius = '射手座'; //Sagittarius 射手座（11月23日～12月21日）
 
-  final int month = birthday.month;
-  final int day = birthday.day;
+  final int month = Jiffy(birthday).month;
+  final int day = Jiffy(birthday).day;
   String constellation = '';
 
   switch (month) {
