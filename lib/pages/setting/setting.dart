@@ -14,6 +14,7 @@ import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/filesize.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/avatar.dart';
+import 'package:soap_app/widget/divider.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
 import 'package:soap_app/widget/select_list.dart';
@@ -104,10 +105,11 @@ class _SettingPageState extends State<SettingPage> {
                       )
                     : const SizedBox(),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 14),
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.theme'),
                 actionIcon: true,
+                border: false,
                 action: Observer(
                   builder: (_) {
                     if (appStore.themeMode == ThemeMode.dark)
@@ -163,6 +165,7 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
+              SoapDivider(),
               SettingItem(
                 title:
                     FlutterI18n.translate(context, 'setting.label.image_cache'),
@@ -186,13 +189,13 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
-              const SizedBox(height: 12),
-              if (isAndroid)
+              const SizedBox(height: 14),
+              if (isAndroid) ...[
                 Observer(
                   builder: (_) => SettingItem(
                     title: '刷新率选择',
                     actionIcon: true,
-                    border: true,
+                    border: false,
                     action: appStore.displayMode != null
                         ? Text(
                             appStore.modeList[appStore.displayMode!].toString())
@@ -231,15 +234,17 @@ class _SettingPageState extends State<SettingPage> {
                     },
                   ),
                 ),
-              // SettingItem(
-              //   title: '关于肥皂',
-              //   actionIcon: true,
-              //   border: false,
-              //   onPressed: () async {
-              //     Navigator.of(context).pushNamed(RouteName.about);
-              //   },
-              // ),
-
+                Container(
+                  height: 1,
+                  color: theme.cardColor,
+                  child: Center(
+                    child: Container(
+                      height: 0.4,
+                      color: theme.textTheme.overline!.color!.withOpacity(.1),
+                    ),
+                  ),
+                ),
+              ],
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.img_mode'),
                 action: Observer(builder: (_) {
@@ -250,6 +255,7 @@ class _SettingPageState extends State<SettingPage> {
                           context, 'setting.value.img_mode.small'));
                 }),
                 actionIcon: true,
+                border: false,
                 onPressed: () {
                   showBasicModalBottomSheet(
                     context: context,
@@ -290,6 +296,7 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
+              SoapDivider(),
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.locale'),
                 action: Observer(builder: (_) {
@@ -299,6 +306,7 @@ class _SettingPageState extends State<SettingPage> {
                           context, 'setting.value.locale.system'));
                 }),
                 actionIcon: true,
+                border: false,
                 onPressed: () {
                   showBasicModalBottomSheet(
                     context: context,

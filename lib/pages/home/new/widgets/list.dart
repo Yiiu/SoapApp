@@ -5,7 +5,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/list.dart';
+import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/picture_item/picture_item.dart';
+import 'package:waterfall_flow/waterfall_flow.dart';
 
 class NewList extends StatelessWidget {
   NewList({
@@ -44,21 +46,39 @@ class NewList extends StatelessWidget {
         ];
       },
       body: SmartRefresher(
-        enablePullUp: true,
-        enablePullDown: true,
-        controller: controller,
-        physics: const BouncingScrollPhysics(),
-        onRefresh: onRefresh,
-        onLoading: _onLoading,
-        child: ExtendedListView.builder(
-          extendedListDelegate: const ExtendedListDelegate(),
-          itemBuilder: (BuildContext _, int i) => PictureItem(
-            doubleLike: true,
-            picture: listData.list[i],
+          enablePullUp: true,
+          enablePullDown: true,
+          controller: controller,
+          physics: const BouncingScrollPhysics(),
+          onRefresh: onRefresh,
+          onLoading: _onLoading,
+          child: WaterfallFlow.builder(
+            padding: const EdgeInsets.all(12),
+            gridDelegate:
+                const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+            ),
+            itemCount: listData.list.length,
+            itemBuilder: (_, int i) => PictureItem(
+              heroLabel: 'picture-list',
+              crossAxisSpacing: 0,
+              mainAxisSpacing: 12,
+              picture: listData.list[i],
+              header: false,
+              pictureStyle: PictureStyle.thumb,
+            ),
+          )
+          //   ExtendedListView.builder(
+          //   extendedListDelegate: const ExtendedListDelegate(),
+          //   itemBuilder: (BuildContext _, int i) => PictureItem(
+          //     doubleLike: true,
+          //     picture: listData.list[i],
+          //   ),
+          //   itemCount: listData.list.length,
+          // ),
           ),
-          itemCount: listData.list.length,
-        ),
-      ),
     );
   }
 }

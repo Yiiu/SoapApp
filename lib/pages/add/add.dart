@@ -56,7 +56,7 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
-  late final dynamic? _classify;
+  dynamic? _classify;
 
   double progressValue = 1;
   @override
@@ -137,7 +137,9 @@ class _AddPageState extends State<AddPage> {
         info['make'] = exif?['make'];
         info['model'] = exif?['model'];
         info['blurhash'] = blurHash;
-        info['classify'] = _classify;
+        if (_classify != null) {
+          info['classify'] = _classify;
+        }
         _addStore.setLoading(true);
         try {
           final Response sts = await _ossProvider.sts();

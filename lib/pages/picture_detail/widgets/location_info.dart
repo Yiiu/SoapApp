@@ -19,7 +19,7 @@ class PictureLocationInfo extends StatelessWidget {
         border: Border(
           bottom: BorderSide(
             color: theme.textTheme.overline!.color!.withOpacity(.2),
-            width: .1,
+            width: .2,
           ),
         ),
       ),
@@ -38,14 +38,14 @@ class PictureLocationInfo extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Text(
-            location['city'],
+            location['city'] ?? '',
             style: const TextStyle(
               fontSize: 14,
             ),
           ),
           const Text('·'),
           Text(
-            location['name'],
+            location['name'] ?? '',
             style: const TextStyle(
               fontSize: 14,
             ),

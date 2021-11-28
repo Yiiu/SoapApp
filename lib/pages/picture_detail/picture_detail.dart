@@ -1,8 +1,12 @@
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:octo_image/octo_image.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
 import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/config/theme.dart';
@@ -19,8 +23,10 @@ import 'package:soap_app/pages/picture_detail/widgets/location_info.dart';
 import 'package:soap_app/pages/picture_detail/widgets/more_handle.dart';
 import 'package:soap_app/pages/picture_detail/widgets/related_picture.dart';
 import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
+import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/hero_dialog_route.dart';
 import 'package:soap_app/widget/hero_photo_view.dart';
 import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
@@ -56,6 +62,32 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
   void dispose() {
     _pageStore.close();
     super.dispose();
+  }
+
+  Widget _flightShuttleBuilder(
+    int index,
+    Animation<double> animation,
+    HeroFlightDirection flightDirection,
+    BuildContext fromHeroContext,
+    BuildContext toHeroContext,
+  ) {
+    final hero = flightDirection == HeroFlightDirection.push
+        ? fromHeroContext.widget as Hero
+        : toHeroContext.widget as Hero;
+
+    final tween = BorderRadiusTween(
+      begin: BorderRadius.all(Radius.circular(6)),
+      end: BorderRadius.zero,
+    );
+
+    return AnimatedBuilder(
+      animation: animation,
+      builder: (_, __) => ClipRRect(
+        clipBehavior: Clip.hardEdge,
+        borderRadius: tween.evaluate(animation),
+        child: hero.child,
+      ),
+    );
   }
 
   @override
@@ -114,16 +146,113 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               activeOpacity: activeOpacity,
               onTap: () {
                 Navigator.of(context).push<dynamic>(
-                  TransparentRoute(
-                    builder: (_) => HeroPhotoView(
-                      id: _pageStore.picture!.id,
-                      heroLabel: widget.heroLabel,
-                      image: getPictureUrl(
-                        key: _pageStore.picture!.key,
-                        style: PictureStyle.full,
-                      ),
+                  HeroDialogRoute<void>(
+                    builder: (_) => PhotoViewGallery.builder(
+                      scrollPhysics: const BouncingScrollPhysics(),
+                      itemCount: 1,
+                      pageController: PageController(initialPage: 0),
+                      backgroundDecoration:
+                          const BoxDecoration(color: Colors.transparent),
+                      builder: (BuildContext context, int index) {
+                        return PhotoViewGalleryPageOptions.customChild(
+                          // heroAttributes: PhotoViewHeroAttributes(
+                          //   tag:
+                          //       'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
+                          // ),
+                          initialScale: PhotoViewComputedScale.covered,
+                          minScale: PhotoViewComputedScale.contained,
+                          maxScale: PhotoViewComputedScale.covered * 3,
+                          gestureDetectorBehavior: HitTestBehavior.opaque,
+                          child: Container(
+                            color: Colors.transparent,
+                            child: Stack(
+                              children: [
+                                GestureDetector(
+                                  onTap: Navigator.of(context).pop,
+                                ),
+                                Center(
+                                  child: ExtendedImage.network(
+                                    _pageStore.picture!.pictureUrl(
+                                      style: PictureStyle.full,
+                                    ),
+                                  ),
+                                  // child: OctoImage(
+                                  //   placeholderBuilder: (context) {
+                                  //     return Hero(
+                                  //       flightShuttleBuilder: (
+                                  //         _,
+                                  //         animation,
+                                  //         flightDirection,
+                                  //         fromHeroContext,
+                                  //         toHeroContext,
+                                  //       ) =>
+                                  //           _flightShuttleBuilder(
+                                  //         index,
+                                  //         animation,
+                                  //         flightDirection,
+                                  //         fromHeroContext,
+                                  //         toHeroContext,
+                                  //       ),
+                                  //       tag:
+                                  //           'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
+                                  //       child: OctoImage(
+                                  //         image: ExtendedImage.network(
+                                  //           _pageStore.picture!.pictureUrl(
+                                  //             style: appStore.imgMode == 1
+                                  //                 ? PictureStyle.regular
+                                  //                 : PictureStyle.mediumLarge,
+                                  //           ),
+                                  //         ).image,
+                                  //         fit: BoxFit.cover,
+                                  //       ),
+                                  //     );
+                                  //   },
+                                  //   image: ExtendedImage.network(
+                                  //     _pageStore.picture!.pictureUrl(
+                                  //       style: PictureStyle.full,
+                                  //     ),
+                                  //   ).image,
+                                  //   fit: BoxFit.cover,
+                                  //   imageBuilder: (_, w) {
+                                  //     return Hero(
+                                  //       flightShuttleBuilder: (
+                                  //         _,
+                                  //         animation,
+                                  //         flightDirection,
+                                  //         fromHeroContext,
+                                  //         toHeroContext,
+                                  //       ) =>
+                                  //           _flightShuttleBuilder(
+                                  //         index,
+                                  //         animation,
+                                  //         flightDirection,
+                                  //         fromHeroContext,
+                                  //         toHeroContext,
+                                  //       ),
+                                  //       tag:
+                                  //           'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
+                                  //       child: w,
+                                  //     );
+                                  //   },
+                                  // ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
+                  // TransparentRoute(
+                  //   builder: (_) => HeroPhotoView(
+                  //     id: _pageStore.picture!.id,
+                  //     heroLabel: widget.heroLabel,
+                  //     image: getPictureUrl(
+                  //       key: _pageStore.picture!.key,
+                  //       style: PictureStyle.full,
+                  //     ),
+                  //   ),
+                  // ),
                 );
               },
               child: RepaintBoundary(

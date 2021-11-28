@@ -10,6 +10,7 @@ import 'package:soap_app/pages/home/profile/widgets/user_item.dart';
 import 'package:soap_app/pages/home/profile/widgets/user_num_item.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/divider.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class ProfileView extends StatefulWidget {
@@ -83,6 +84,7 @@ class _ProfileViewState extends State<ProfileView> {
           padding: const EdgeInsets.all(0),
           children: <Widget>[
             const ProfileUserItem(),
+            SoapDivider(),
             const ProfileUserNumItem(),
             const SizedBox(
               height: 12,

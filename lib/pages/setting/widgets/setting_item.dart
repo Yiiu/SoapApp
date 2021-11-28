@@ -12,7 +12,7 @@ class SettingItem extends StatelessWidget {
     this.action,
     this.onPressed,
     this.border = true,
-    this.height = 62,
+    this.height = 64,
   }) : super(key: key);
 
   final String title;
@@ -36,7 +36,7 @@ class SettingItem extends StatelessWidget {
                 border: Border(
                   bottom: BorderSide(
                     color: theme.textTheme.overline!.color!.withOpacity(.2),
-                    width: .2,
+                    width: 0.5,
                   ),
                 ),
               )
