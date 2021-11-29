@@ -6,15 +6,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/const.dart';
-import 'package:soap_app/pages/user/stores/user_store.dart';
-import 'package:soap_app/pages/user/widgets/header_follow_btn.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/date.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/follow_modal.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../stores/user_store.dart';
+import 'header_follow_btn.dart';
 
 class UserHeaderContent extends StatefulWidget {
   const UserHeaderContent({

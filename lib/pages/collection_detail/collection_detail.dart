@@ -1,21 +1,14 @@
 import 'package:extended_image/extended_image.dart';
-import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
+import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
+import 'package:soap_app/config/config.dart';
+import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/collection/collection_more_handle.dart';
-import 'package:soap_app/widget/large_custom_header.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/picture_list.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class CollectionDetailPage extends StatefulWidget {

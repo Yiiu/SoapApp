@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class SettingItem extends StatelessWidget {
@@ -49,7 +48,7 @@ class SettingItem extends StatelessWidget {
               child: SizedBox(
                 child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.w500,
                   ),
                 ),

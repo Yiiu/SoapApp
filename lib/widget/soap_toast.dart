@@ -154,11 +154,13 @@ class SoapToast {
                   Theme.of(context).errorColor),
               overlayColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
-                  if (states.contains(MaterialState.hovered))
+                  if (states.contains(MaterialState.hovered)) {
                     return Theme.of(context).errorColor.withOpacity(0.04);
+                  }
                   if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed))
+                      states.contains(MaterialState.pressed)) {
                     return Theme.of(context).errorColor.withOpacity(0.12);
+                  }
                   return Colors.transparent; // Defer to the widget's default.
                 },
               ),

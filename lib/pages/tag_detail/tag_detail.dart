@@ -1,16 +1,16 @@
-import 'package:flutter/material.dart';
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
+import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/model/tag.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
-import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/widget/picture_list.dart';
 
 class TagDetailPage extends StatefulWidget {

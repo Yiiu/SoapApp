@@ -6,19 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:soap_app/config/router.dart';
-import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/store/app_store.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/filesize.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/divider.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/select_list.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
+
+import 'widgets/setting_item.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({

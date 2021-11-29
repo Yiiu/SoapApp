@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:soap_app/model/collection.dart';
@@ -112,7 +114,7 @@ class Router {
         );
       case RouteName.about:
         return MaterialPageRoute<void>(
-          builder: (_) => AboutPage(),
+          builder: (_) => const AboutPage(),
         );
       default:
         return CupertinoPageRoute<void>(

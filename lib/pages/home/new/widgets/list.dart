@@ -1,12 +1,10 @@
-import 'package:extended_list/extended_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/list.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/picture_item/picture_item.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
 class NewList extends StatelessWidget {

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/follow_modal.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class ProfileUserNumItem extends StatefulWidget {

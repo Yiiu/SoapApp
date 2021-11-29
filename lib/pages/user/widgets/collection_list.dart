@@ -2,21 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
+import 'package:soap_app/config/config.dart';
+import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/widget/collection/add_collection_modal.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/collection/collection_more_handle.dart';
-import 'package:soap_app/widget/collection_item/collection_item.dart';
-import 'package:soap_app/widget/list/empty.dart';
-import 'package:soap_app/widget/list/error.dart';
-import 'package:soap_app/widget/list/loading.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class UserCollectionList extends StatefulWidget {

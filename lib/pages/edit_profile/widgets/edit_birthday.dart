@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
-import 'package:soap_app/widget/select_list.dart';
+import 'package:soap_app/widget/widgets.dart';
 
 class EditBirthday extends StatefulWidget {
   const EditBirthday({

@@ -4,8 +4,8 @@ import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/graphql/query.dart' as query;
+import 'package:soap_app/model/picture.dart';
 
 part 'picture_detail_store.g.dart';
 

@@ -1,10 +1,11 @@
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/const.dart';
@@ -13,9 +14,6 @@ import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/generated/l10n.dart';
 import 'package:soap_app/store/app_store.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
-import 'package:soap_app/widget/select_list.dart';
+import 'package:soap_app/widget/widgets.dart';
 
 class EditGenderModal extends StatefulWidget {
   const EditGenderModal({

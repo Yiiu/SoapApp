@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/pages/user/stores/user_store.dart';
-import 'package:soap_app/pages/user/widgets/header_content.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
-import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../stores/user_store.dart';
+import 'header_content.dart';
 
 class SliverHeader extends StatefulWidget {
   const SliverHeader({

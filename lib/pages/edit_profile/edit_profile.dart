@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/graphql/mutations.dart';
-import 'package:soap_app/pages/edit_profile/widgets/edit_birthday.dart';
-import 'package:soap_app/pages/edit_profile/widgets/edit_gender_modal.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/repository/account_repository.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
-import 'package:soap_app/widget/modal_bottom/input_modal_bottom.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
+
+import 'widgets/edit_birthday.dart';
+import 'widgets/edit_gender_modal.dart';
 
 class EditProfilePage extends StatelessWidget {
   EditProfilePage({Key? key}) : super(key: key);

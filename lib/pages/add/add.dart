@@ -5,29 +5,22 @@ import 'package:blurhash/blurhash.dart';
 import 'package:dio/dio.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:flutter/material.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/add/stores/add_store.dart';
-import 'package:soap_app/pages/add/edit_tag.dart';
-import 'package:soap_app/pages/add/more_setting.dart';
-import 'package:soap_app/pages/add/widgets/input.dart';
-import 'package:soap_app/repository/baidu_repository.dart';
-import 'package:soap_app/repository/oss_repository.dart';
+import 'package:soap_app/repository/repository.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/colors.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/utils/image.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/button.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import 'package:soap_app/utils/utils.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     as WechatAssetsPicker;
+
+import 'more_setting.dart';
+import 'stores/add_store.dart';
+import 'widgets/widgets.dart';
 
 class AddPage extends StatefulWidget {
   const AddPage({

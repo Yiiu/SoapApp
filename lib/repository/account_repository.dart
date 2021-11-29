@@ -5,7 +5,6 @@ import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/mutations.dart' as mutations;
-import 'package:soap_app/graphql/query.dart' as query;
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 

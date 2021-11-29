@@ -33,6 +33,10 @@ class PictureDetailImage extends StatelessWidget {
           placeholderBuilder: OctoPlaceholder.blurHash(
             picture.blurhash,
           ),
+          errorBuilder: OctoError.blurHash(
+            picture.blurhash,
+            iconColor: Colors.white,
+          ),
           image: ExtendedImage.network(
             picture.pictureUrl(
               style: appStore.imgMode == 1

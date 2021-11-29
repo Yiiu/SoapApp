@@ -1,6 +1,6 @@
 import 'package:gql/ast.dart';
-import 'package:mobx/mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
+import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';

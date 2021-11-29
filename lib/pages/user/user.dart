@@ -1,16 +1,15 @@
+import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
+    as extended;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
+import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/user.dart';
-import 'package:soap_app/pages/user/stores/user_store.dart';
-import 'package:soap_app/pages/user/widgets/collection_list.dart';
-import 'package:soap_app/pages/user/widgets/sliver_head.dart';
 import 'package:soap_app/widget/picture_list.dart';
-import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
-    as extended;
+
+import 'stores/user_store.dart';
+import 'widgets/collection_list.dart';
+import 'widgets/sliver_head.dart';
 
 class UserPage extends StatefulWidget {
   const UserPage({
@@ -59,57 +58,58 @@ class _UserPageState extends State<UserPage>
     final ThemeData theme = Theme.of(context);
     return Material(
       child: Container(
-          color: theme.cardColor,
-          child: extended.ExtendedNestedScrollView(
-            physics: const BouncingScrollPhysics(),
-            headerSliverBuilder:
-                (BuildContext context, bool? innerBoxIsScrolled) {
-              return <Widget>[
-                SliverHeader(
-                  tabBarHeight: _tabBarHeight,
-                  store: _pageStore,
-                  tabController: tabController,
-                ),
-              ];
-            },
-            pinnedHeaderSliverHeightBuilder: () {
-              return MediaQuery.of(context).padding.top +
-                  appBarHeight +
-                  _tabBarHeight;
-            },
-            body: Container(
-              color: theme.backgroundColor,
-              child: Column(
-                children: <Widget>[
-                  Expanded(
-                    child: TabBarView(
-                      physics: const BouncingScrollPhysics(),
-                      controller: tabController,
-                      children: <Widget>[
-                        RepaintBoundary(
-                          key: _pictureListKey,
-                          child: PictureList(
-                            document: addFragments(
-                              userPictures,
-                              [...pictureListFragmentDocumentNode],
-                            ),
-                            label: 'userPicturesByName',
-                            variables: {
-                              'username': user.username,
-                            },
-                          ),
-                        ),
-                        RepaintBoundary(
-                          key: _collectionListKey,
-                          child: UserCollectionList(username: user.username),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        color: theme.cardColor,
+        child: extended.ExtendedNestedScrollView(
+          physics: const BouncingScrollPhysics(),
+          headerSliverBuilder:
+              (BuildContext context, bool? innerBoxIsScrolled) {
+            return <Widget>[
+              SliverHeader(
+                tabBarHeight: _tabBarHeight,
+                store: _pageStore,
+                tabController: tabController,
               ),
+            ];
+          },
+          pinnedHeaderSliverHeightBuilder: () {
+            return MediaQuery.of(context).padding.top +
+                appBarHeight +
+                _tabBarHeight;
+          },
+          body: Container(
+            color: theme.backgroundColor,
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  child: TabBarView(
+                    physics: const BouncingScrollPhysics(),
+                    controller: tabController,
+                    children: <Widget>[
+                      RepaintBoundary(
+                        key: _pictureListKey,
+                        child: PictureList(
+                          document: addFragments(
+                            userPictures,
+                            [...pictureListFragmentDocumentNode],
+                          ),
+                          label: 'userPicturesByName',
+                          variables: {
+                            'username': user.username,
+                          },
+                        ),
+                      ),
+                      RepaintBoundary(
+                        key: _collectionListKey,
+                        child: UserCollectionList(username: user.username),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          )),
+          ),
+        ),
+      ),
     );
   }
 }
