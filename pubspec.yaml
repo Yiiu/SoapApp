@@ -89,6 +89,7 @@ dependencies:
   shelf_proxy: ^1.0.1
   like_button: ^2.0.3
   pull_to_refresh: ^2.0.0
+  flutter_staggered_animations: ^1.0.0
   photo_view:
     # custom photo_view with better gesture recognition
     git: git://github.com/SoapPhoto/photo_view.git

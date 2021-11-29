@@ -6,9 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/config.dart';
 
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/repository/repository.dart';
+import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/like_gesture.dart';
 import 'package:soap_app/widget/medal.dart';
@@ -30,7 +33,7 @@ class PictureInfoWidget {
 }
 
 class PictureItem extends StatelessWidget {
-  const PictureItem({
+  PictureItem({
     Key? key,
     required this.picture,
     this.pictureStyle = PictureStyle.small,
@@ -50,6 +53,8 @@ class PictureItem extends StatelessWidget {
   final bool fall;
   final PictureStyle? pictureStyle;
   final bool? doubleLike;
+
+  final PictureRepository _pictureRepository = PictureRepository();
 
   Widget _bottomBuilder(BuildContext context) {
     final List<PictureInfoWidget> list = [
@@ -127,72 +132,77 @@ class PictureItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 10,
-        ),
-        Text(
-          picture.title,
-          style: TextStyle(fontSize: 14),
-        ),
-        SizedBox(
-          height: 10,
+        const SizedBox(
+          height: 8,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TouchableOpacity(
-              activeOpacity: activeOpacity,
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.user,
-                  arguments: {
-                    'user': picture.user,
-                    'heroId': picture.id.toString(),
+            Row(
+              children: [
+                TouchableOpacity(
+                  activeOpacity: activeOpacity,
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.user,
+                      arguments: {
+                        'user': picture.user,
+                        'heroId': picture.id.toString(),
+                      },
+                    );
                   },
-                );
-              },
-              child: Hero(
-                tag: 'user-${picture.user!.username}-${picture.id.toString()}',
-                child: Avatar(
-                  size: 20,
-                  image: picture.user!.avatarUrl,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Flex(
-                direction: Axis.vertical,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TouchableOpacity(
-                    onTap: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.user,
-                        arguments: {
-                          'user': picture.user,
-                          'heroId': picture.id.toString(),
-                        },
-                      );
-                    },
-                    child: Text(
-                      picture.user!.fullName,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontSize: 12,
-                        color:
-                            theme.textTheme.bodyText2!.color!.withOpacity(.8),
-                      ),
+                  child: Hero(
+                    tag:
+                        'user-${picture.user!.username}-${picture.id.toString()}',
+                    child: Avatar(
+                      size: 24,
+                      image: picture.user!.avatarUrl,
                     ),
                   ),
-                ],
-              ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: Flex(
+                    direction: Axis.vertical,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TouchableOpacity(
+                        onTap: () {
+                          Navigator.pushNamed(
+                            context,
+                            RouteName.user,
+                            arguments: {
+                              'user': picture.user,
+                              'heroId': picture.id.toString(),
+                            },
+                          );
+                        },
+                        child: Text(
+                          picture.user!.fullName,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 14,
+                            color: theme.textTheme.bodyText2!.color,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
+            SoapLikeButton(
+              isLike: picture.isLike!,
+              likedCount: picture.likedCount!,
+              id: picture.id,
+              iconSize: 18,
+              textStyle: const TextStyle(fontSize: 13),
+            )
           ],
         ),
-        SizedBox(
-          height: 6,
+        const SizedBox(
+          height: 16,
         ),
       ],
     );

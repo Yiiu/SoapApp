@@ -2,6 +2,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/user.dart';
@@ -87,14 +88,26 @@ class _UserPageState extends State<UserPage>
                     children: <Widget>[
                       RepaintBoundary(
                         key: _pictureListKey,
-                        child: PictureList(
-                          document: addFragments(
-                            userPictures,
-                            [...pictureListFragmentDocumentNode],
+                        child: FutureBuilder<dynamic>(
+                          future: Future<dynamic>.delayed(
+                            Duration(milliseconds: screenDelayTimer),
                           ),
-                          label: 'userPicturesByName',
-                          variables: {
-                            'username': user.username,
+                          builder: (BuildContext context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return PictureList(
+                                document: addFragments(
+                                  userPictures,
+                                  [...pictureListFragmentDocumentNode],
+                                ),
+                                label: 'userPicturesByName',
+                                variables: {
+                                  'username': user.username,
+                                },
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
                           },
                         ),
                       ),

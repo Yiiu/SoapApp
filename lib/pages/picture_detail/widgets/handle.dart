@@ -13,6 +13,7 @@ import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/soap_toast.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 const double pictureDetailHandleHeight = 62;
@@ -263,12 +264,16 @@ class PictureDetailHandleBasic extends StatelessWidget {
                                   fontWeight: FontWeight.w500,
                                 ),
                               )
-                            : Text(
-                                text,
-                                style: TextStyle(
-                                  color: theme.textTheme.bodyText2!.color,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
+                            : IntrinsicWidth(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Expanded(
+                                      child: AnimatedNumber(
+                                        number: count,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                   ),

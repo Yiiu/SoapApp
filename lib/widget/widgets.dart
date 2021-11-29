@@ -1,5 +1,6 @@
 library widgets;
 
+export 'animations/animated_number.dart';
 export 'app_bar.dart';
 export 'avatar.dart';
 export 'button.dart';
@@ -22,13 +23,14 @@ export 'medal.dart';
 export 'modal_bottom/confirm_modal_bottom.dart';
 export 'modal_bottom/input_modal_bottom.dart';
 export 'modal_bottom_sheet.dart';
+export 'more_handle_modal/more_handle_modal.dart';
+export 'more_handle_modal/more_handle_modal_item.dart';
 export 'picture_item/content.dart';
 export 'picture_item/header.dart';
 export 'picture_item/picture_item.dart';
 export 'picture_list.dart';
 export 'router/hero_dialog_route.dart';
 export 'router/transparent_route.dart';
-export 'more_handle_modal/more_handle_modal.dart';
-export 'more_handle_modal/more_handle_modal_item.dart';
 export 'select_list.dart';
 export 'soap_toast.dart';
+export 'like_button.dart';

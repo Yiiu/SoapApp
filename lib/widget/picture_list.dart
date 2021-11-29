@@ -94,7 +94,7 @@ class _PictureListState extends State<PictureList>
 
   @override
   Widget build(BuildContext context) {
-    const double padding = 12;
+    const double padding = 8;
     final Map<String, Object> variables = {
       'query': {
         'page': 1,
