@@ -55,12 +55,13 @@ class PictureDetailImage extends StatelessWidget {
         child: FractionallySizedBox(
           widthFactor: num / minFactor,
           heightFactor: 1,
-          child: _content,
+          child: ClipRRect(
+              borderRadius: BorderRadius.circular(6), child: _content),
         ),
       );
     } else {
       return ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(6),
         child: AspectRatio(
           aspectRatio: picture.width / picture.height,
           child: _content,

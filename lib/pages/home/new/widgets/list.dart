@@ -51,20 +51,21 @@ class NewList extends StatelessWidget {
           onRefresh: onRefresh,
           onLoading: _onLoading,
           child: WaterfallFlow.builder(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.all(10),
             gridDelegate:
                 const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,
-              crossAxisSpacing: 12,
-              mainAxisSpacing: 12,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
             ),
             itemCount: listData.list.length,
             itemBuilder: (_, int i) => PictureItem(
               heroLabel: 'picture-list',
               crossAxisSpacing: 0,
-              mainAxisSpacing: 12,
+              mainAxisSpacing: 10,
               picture: listData.list[i],
               header: false,
+              fall: true,
               pictureStyle: PictureStyle.thumb,
             ),
           )

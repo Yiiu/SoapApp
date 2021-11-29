@@ -2,12 +2,17 @@
 
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:soap_app/config/config.dart';
+import 'package:soap_app/widget/app_bar.dart';
+import 'package:soap_app/widget/custom_dismissible.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
-class HeroPhotoGallery extends StatelessWidget {
-  const HeroPhotoGallery({
+class HeroPhotoGallery extends StatefulWidget {
+  HeroPhotoGallery({
     Key? key,
     required this.url,
     required this.id,
@@ -19,6 +24,36 @@ class HeroPhotoGallery extends StatelessWidget {
   final int id;
 
   final String? heroLabel;
+
+  @override
+  _HeroPhotoGalleryState createState() => _HeroPhotoGalleryState();
+}
+
+class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
+    with SingleTickerProviderStateMixin<HeroPhotoGallery>, RouteAware {
+  late AnimationController _controller;
+  late Animation<Offset> _topAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 350),
+    );
+    _topAnimation = Tween(
+      begin: Offset.zero,
+      end: const Offset(0, -1),
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _controller.reverse(from: 1);
+  }
+
+  @override
+  void didPop() {
+    _controller.forward();
+  }
 
   Widget _flightShuttleBuilder(
     int index,
@@ -50,7 +85,7 @@ class HeroPhotoGallery extends StatelessWidget {
     int index,
     Widget child,
   ) {
-    if (heroLabel == null) {
+    if (widget.heroLabel == null) {
       return child;
     } else {
       return Hero(
@@ -68,70 +103,110 @@ class HeroPhotoGallery extends StatelessWidget {
           fromHeroContext,
           toHeroContext,
         ),
-        tag: 'picture-${heroLabel}-${id}',
+        tag: 'picture-${widget.heroLabel}-${widget.id}',
         child: child,
       );
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return PhotoViewGallery.builder(
-      itemCount: 1,
-      pageController: PageController(initialPage: 0),
-      backgroundDecoration: const BoxDecoration(color: Colors.transparent),
-      builder: (BuildContext context, int index) {
-        return PhotoViewGalleryPageOptions.customChild(
-          // heroAttributes: PhotoViewHeroAttributes(
-          //   tag:
-          //       'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
-          // ),
-          initialScale: PhotoViewComputedScale.covered,
-          minScale: PhotoViewComputedScale.contained,
-          maxScale: PhotoViewComputedScale.covered * 3,
-          gestureDetectorBehavior: HitTestBehavior.opaque,
-          child: Container(
-            color: Colors.transparent,
-            child: Stack(
-              children: [
-                GestureDetector(
-                  onTap: Navigator.of(context).pop,
-                ),
-                Center(
-                  // child: _heroBuilder(
-                  //   index,
-                  //   ExtendedImage.network(
-                  //     url,
-                  //   ),
-                  // ),
-                  child: OctoImage(
-                    placeholderBuilder: (BuildContext context) {
-                      return _heroBuilder(
-                        index,
-                        OctoImage(
-                          image: ExtendedImage.network(
-                            url,
-                          ).image,
-                          errorBuilder: OctoError.icon(),
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                    image: ExtendedImage.network(
-                      url,
-                    ).image,
-                    fit: BoxFit.cover,
-                    imageBuilder: (_, w) {
-                      return _heroBuilder(index, w);
-                    },
-                    errorBuilder: OctoError.icon(),
-                  ),
-                ),
+  Widget _topBuilder() {
+    return Positioned(
+      child: SlideTransition(
+        position: _topAnimation,
+        child: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black45,
+                Colors.transparent,
               ],
             ),
           ),
-        );
-      },
+          child: SoapAppBar(
+            backgroundColor: Colors.transparent,
+            textColor: Colors.white,
+            brightness: Brightness.dark,
+            actions: <Widget>[
+              TouchableOpacity(
+                activeOpacity: activeOpacity,
+                onTap: () {
+                  Navigator.of(context).maybePop();
+                  // Navigator.pushNamed(context, RouteName.setting);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.only(right: 12),
+                  child: Icon(
+                    FeatherIcons.x,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (_, __) => Stack(
+        children: [
+          CustomDismissible(
+            onDismissed: () => Navigator.of(context).maybePop(),
+            child: PhotoViewGallery.builder(
+              itemCount: 1,
+              pageController: PageController(initialPage: 0),
+              backgroundDecoration:
+                  const BoxDecoration(color: Colors.transparent),
+              scrollPhysics: const BouncingScrollPhysics(),
+              builder: (BuildContext context, int index) {
+                return PhotoViewGalleryPageOptions.customChild(
+                  initialScale: PhotoViewComputedScale.contained,
+                  minScale: PhotoViewComputedScale.contained,
+                  maxScale: PhotoViewComputedScale.covered * 3,
+                  gestureDetectorBehavior: HitTestBehavior.opaque,
+                  child: Container(
+                    color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        GestureDetector(
+                          onTap: Navigator.of(context).pop,
+                        ),
+                        Center(
+                          // child: _heroBuilder(
+                          //   index,
+                          //   ExtendedImage.network(
+                          //     url,
+                          //   ),
+                          // ),
+                          child: OctoImage(
+                            placeholderBuilder:
+                                OctoPlaceholder.circularProgressIndicator(),
+                            image: ExtendedImage.network(
+                              widget.url,
+                            ).image,
+                            fit: BoxFit.cover,
+                            imageBuilder: (_, w) {
+                              return _heroBuilder(index, w);
+                            },
+                            errorBuilder: OctoError.icon(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+          _topBuilder(),
+        ],
+      ),
     );
   }
 }

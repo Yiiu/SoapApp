@@ -5,6 +5,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jiffy/jiffy.dart';
+import 'package:soap_app/config/config.dart';
 
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/picture.dart';
@@ -12,6 +14,8 @@ import 'package:soap_app/widget/like_gesture.dart';
 import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/picture_item/content.dart';
 import 'package:soap_app/widget/picture_item/header.dart';
+import 'package:soap_app/widget/widgets.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
 
 class PictureInfoWidget {
   PictureInfoWidget({
@@ -32,6 +36,7 @@ class PictureItem extends StatelessWidget {
     this.pictureStyle = PictureStyle.small,
     this.heroLabel = 'list',
     this.header = true,
+    this.fall = false,
     this.doubleLike = false,
     this.crossAxisSpacing = 16,
     this.mainAxisSpacing = 20,
@@ -42,10 +47,11 @@ class PictureItem extends StatelessWidget {
   final String heroLabel;
   final double crossAxisSpacing;
   final double mainAxisSpacing;
+  final bool fall;
   final PictureStyle? pictureStyle;
   final bool? doubleLike;
 
-  Widget bottom(BuildContext context) {
+  Widget _bottomBuilder(BuildContext context) {
     final List<PictureInfoWidget> list = [
       PictureInfoWidget(
         icon: 'assets/svg/view.svg',
@@ -113,6 +119,82 @@ class PictureItem extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _fallBuilder(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SizedBox(
+          height: 10,
+        ),
+        Text(
+          picture.title,
+          style: TextStyle(fontSize: 14),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        Row(
+          children: [
+            TouchableOpacity(
+              activeOpacity: activeOpacity,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteName.user,
+                  arguments: {
+                    'user': picture.user,
+                    'heroId': picture.id.toString(),
+                  },
+                );
+              },
+              child: Hero(
+                tag: 'user-${picture.user!.username}-${picture.id.toString()}',
+                child: Avatar(
+                  size: 20,
+                  image: picture.user!.avatarUrl,
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Flex(
+                direction: Axis.vertical,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  TouchableOpacity(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.user,
+                        arguments: {
+                          'user': picture.user,
+                          'heroId': picture.id.toString(),
+                        },
+                      );
+                    },
+                    child: Text(
+                      picture.user!.fullName,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12,
+                        color:
+                            theme.textTheme.bodyText2!.color!.withOpacity(.8),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: 6,
+        ),
+      ],
     );
   }
 
@@ -189,7 +271,8 @@ class PictureItem extends StatelessWidget {
                 ),
             ],
           ),
-          if (header) bottom(context),
+          if (fall) _fallBuilder(context),
+          if (header) _bottomBuilder(context),
         ],
       ),
     );

@@ -44,9 +44,10 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
       HeroDialogRoute<void>(
         builder: (_) => HeroPhotoGallery(
           id: _pageStore.picture!.id,
+          heroLabel: widget.heroLabel,
           url: getPictureUrl(
             key: _pageStore.picture!.key,
-            style: PictureStyle.full,
+            style: PictureStyle.regular,
           ),
         ),
       ),
@@ -147,15 +148,18 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                       height: 8,
                       color: theme.backgroundColor,
                     ),
-                  // Center(
-                  //   child: Container(
-                  //     width: MediaQuery.of(context).size.width - 160,
-                  //     height: .5,
-                  //     color: theme.textTheme.bodyText2!.color!
-                  //         .withOpacity(.15),
-                  //   ),
-                  // ),
-                  PictureDetailComment(store: _pageStore),
+                  FutureBuilder<dynamic>(
+                    future: Future<dynamic>.delayed(
+                      Duration(milliseconds: screenDelayTimer),
+                    ),
+                    builder: (BuildContext context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.done) {
+                        return PictureDetailComment(store: _pageStore);
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
+                  ),
                 ],
               ),
             ),
@@ -180,8 +184,9 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                 ),
               ),
               FutureBuilder<dynamic>(
-                future:
-                    Future<dynamic>.delayed(const Duration(milliseconds: 300)),
+                future: Future<dynamic>.delayed(
+                  Duration(milliseconds: screenDelayTimer),
+                ),
                 builder: (BuildContext context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return RelatedPicture(id: _pageStore.picture!.id);
