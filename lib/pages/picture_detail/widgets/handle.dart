@@ -5,7 +5,7 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:like_button/like_button.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
 import 'package:soap_app/pages/picture_detail/widgets/add_to_collection.dart';
@@ -284,10 +284,9 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         SoapToast.error('请登录后再操作！');
                         return;
                       }
-                      showBasicModalBottomSheet(
-                        enableDrag: true,
-                        context: context,
-                        builder: (BuildContext context) => AddToCollection(
+                      showSoapBottomSheet(
+                        context,
+                        child: AddToCollection(
                           current: picture.currentCollections,
                           pictureId: picture.id,
                         ),

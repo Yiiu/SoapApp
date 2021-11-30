@@ -56,7 +56,7 @@ class User {
   final List<Badge>? badge;
 
   String get avatarUrl {
-    return getPictureUrl(key: avatar, style: PictureStyle.itemprop);
+    return getPictureUrl(key: avatar, style: PictureStyle.avatarSmall);
   }
 
   bool get isVip {

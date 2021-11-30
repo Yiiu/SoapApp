@@ -43,8 +43,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
     Navigator.of(context).push<dynamic>(
       HeroDialogRoute<void>(
         builder: (_) => HeroPhotoGallery(
-          id: _pageStore.picture!.id,
-          heroLabel: widget.heroLabel,
+          heroLabel: 'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
           url: getPictureUrl(
             key: _pageStore.picture!.key,
             style: PictureStyle.regular,
@@ -79,10 +78,9 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           TouchableOpacity(
             activeOpacity: activeOpacity,
             onTap: () {
-              showBasicModalBottomSheet(
-                enableDrag: true,
-                context: context,
-                builder: (BuildContext context) => PictureDetailMoreHandle(
+              showSoapBottomSheet(
+                context,
+                child: PictureDetailMoreHandle(
                   picture: _pageStore.picture!,
                 ),
               );

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/oauth.dart';

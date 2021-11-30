@@ -102,7 +102,7 @@ class _AddToCollectionState extends State<AddToCollection> {
                 );
                 return ListView(
                   shrinkWrap: true,
-                  physics: BottomBouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   children: ListTile.divideTiles(
                     color: theme.textTheme.overline!.color!.withOpacity(.1),
                     tiles: list.map((Collection collection) {

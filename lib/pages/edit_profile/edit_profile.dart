@@ -17,6 +17,11 @@ class EditProfilePage extends StatelessWidget {
 
   final AccountProvider _accountProvider = AccountProvider();
 
+  @override
+  void initState() {
+    accountStore.getUserInfo();
+  }
+
   Future<void> _updateProfile(Map<String, Object?> newData) async {
     final Map<String, Object?> data = {
       'name': accountStore.userInfo!.fullName,
@@ -45,6 +50,7 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    print(accountStore.userInfo!.birthday);
     return Material(
       color: theme.backgroundColor,
       child: FixedAppBarWrapper(
@@ -82,14 +88,9 @@ class EditProfilePage extends StatelessWidget {
                       children: [
                         Center(
                           child: Observer(
-                            builder: (_) => SizedBox(
-                              width: 86,
-                              height: 86,
-                              child: Avatar(
-                                image: getPictureUrl(
-                                  key: accountStore.userInfo!.avatar,
-                                ),
-                              ),
+                            builder: (_) => Avatar(
+                              size: 86,
+                              image: accountStore.userInfo!.avatarUrl,
                             ),
                           ),
                         ),
@@ -123,7 +124,7 @@ class EditProfilePage extends StatelessWidget {
                     SettingItem(
                       title: 'ID',
                       actionIcon: false,
-                      border: true,
+                      border: false,
                       action: Observer(builder: (_) {
                         return Text(
                           accountStore.userInfo!.id.toString(),
@@ -135,10 +136,11 @@ class EditProfilePage extends StatelessWidget {
                         );
                       }),
                     ),
+                    SoapDivider(),
                     SettingItem(
                       title: '用户名',
                       actionIcon: false,
-                      border: true,
+                      border: false,
                       action: Observer(builder: (_) {
                         return Text(
                           accountStore.userInfo!.username,
@@ -150,10 +152,11 @@ class EditProfilePage extends StatelessWidget {
                         );
                       }),
                     ),
+                    const SoapDivider(),
                     SettingItem(
                       title: '昵称',
                       actionIcon: true,
-                      border: true,
+                      border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
                           return Text(
@@ -165,9 +168,10 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showBasicModalBottomSheet(
-                          context: context,
-                          builder: (_) => InputModalModalBottom(
+                        showSoapBottomSheet(
+                          context,
+                          isScrollControlled: true,
+                          child: InputModalModalBottom(
                             defaultValue: accountStore.userInfo!.fullName,
                             title: '编辑昵称',
                             onOk: (String value) async {
@@ -178,10 +182,11 @@ class EditProfilePage extends StatelessWidget {
                         );
                       },
                     ),
+                    const SoapDivider(),
                     SettingItem(
                       title: '性别',
                       actionIcon: true,
-                      border: true,
+                      border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
                           return Text(
@@ -193,26 +198,24 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showBasicModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return EditGenderModal(
-                              gender: accountStore.userInfo!.gender,
-                              onOk: (Map<String, Object?> data) async {
-                                await _updateProfile(data);
-                                Navigator.of(context).pop();
-                              },
-                              genderSecret:
-                                  accountStore.userInfo!.genderSecret!,
-                            );
-                          },
+                        showSoapBottomSheet(
+                          context,
+                          child: EditGenderModal(
+                            gender: accountStore.userInfo!.gender,
+                            onOk: (Map<String, Object?> data) async {
+                              await _updateProfile(data);
+                              Navigator.of(context).pop();
+                            },
+                            genderSecret: accountStore.userInfo!.genderSecret!,
+                          ),
                         );
                       },
                     ),
+                    const SoapDivider(),
                     SettingItem(
                       title: '生日',
                       actionIcon: true,
-                      border: true,
+                      border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
                           return Text(
@@ -226,21 +229,21 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showBasicModalBottomSheet(
-                          context: context,
-                          builder: (_) {
-                            return EditBirthday(
-                              birthday: accountStore.userInfo!.birthday,
-                              birthdayShow: accountStore.userInfo!.birthdayShow,
-                              onOk: (Map<String, Object?> data) async {
-                                await _updateProfile(data);
-                                Navigator.of(context).pop();
-                              },
-                            );
-                          },
+                        showSoapBottomSheet(
+                          context,
+                          isScrollControlled: true,
+                          child: EditBirthday(
+                            birthday: accountStore.userInfo!.birthday,
+                            birthdayShow: accountStore.userInfo!.birthdayShow,
+                            onOk: (Map<String, Object?> data) async {
+                              await _updateProfile(data);
+                              Navigator.of(context).pop();
+                            },
+                          ),
                         );
                       },
                     ),
+                    const SoapDivider(),
                     Observer(
                       builder: (_) {
                         return SettingItem(
@@ -256,9 +259,10 @@ class EditProfilePage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            showBasicModalBottomSheet(
-                              context: context,
-                              builder: (_) => InputModalModalBottom(
+                            showSoapBottomSheet(
+                              context,
+                              isScrollControlled: true,
+                              child: InputModalModalBottom(
                                 maxLines: 4,
                                 defaultValue: accountStore.userInfo!.bio,
                                 title: '编辑简介',

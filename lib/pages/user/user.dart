@@ -88,26 +88,14 @@ class _UserPageState extends State<UserPage>
                     children: <Widget>[
                       RepaintBoundary(
                         key: _pictureListKey,
-                        child: FutureBuilder<dynamic>(
-                          future: Future<dynamic>.delayed(
-                            Duration(milliseconds: screenDelayTimer),
+                        child: PictureList(
+                          document: addFragments(
+                            userPictures,
+                            [...pictureListFragmentDocumentNode],
                           ),
-                          builder: (BuildContext context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              return PictureList(
-                                document: addFragments(
-                                  userPictures,
-                                  [...pictureListFragmentDocumentNode],
-                                ),
-                                label: 'userPicturesByName',
-                                variables: {
-                                  'username': user.username,
-                                },
-                              );
-                            } else {
-                              return const SizedBox();
-                            }
+                          label: 'userPicturesByName',
+                          variables: {
+                            'username': user.username,
                           },
                         ),
                       ),

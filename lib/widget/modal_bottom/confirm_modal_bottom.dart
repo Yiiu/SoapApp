@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soap_app/config/config.dart';
 
 class ConfirmModalBottom extends StatefulWidget {
   const ConfirmModalBottom({
@@ -46,11 +47,19 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return SafeArea(
       top: false,
-      child: Padding(
+      child: Container(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        decoration: BoxDecoration(
+          color: theme.backgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: radius,
+            topRight: radius,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(top: 6),
           child: Flex(

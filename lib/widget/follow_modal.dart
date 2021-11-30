@@ -2,9 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/config/theme.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
@@ -79,132 +77,133 @@ class _FollowModalState extends State<FollowModal> {
           ),
           centerTitle: false,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
+            topLeft: radius,
+            topRight: radius,
           ),
         ),
         body: Query(
-            options: QueryOptions(
-              document: addFragments(
-                document,
-                [...userDetailFragmentDocumentNode],
-              ),
-              fetchPolicy: FetchPolicy.cacheAndNetwork,
-              variables: variables,
+          options: QueryOptions(
+            document: addFragments(
+              document,
+              [...userDetailFragmentDocumentNode],
             ),
-            builder: (
-              QueryResult result, {
-              Refetch? refetch,
-              FetchMore? fetchMore,
-            }) {
-              if (result.hasException) {
-                captureException(result.exception);
-              }
-              if (result.data?[resultLabel] == null) {
-                return const Center(
-                  child: CupertinoActivityIndicator(),
-                );
-              }
-              final List<User> list =
-                  User.fromListJson(result.data?[resultLabel] as List);
-              return SizedBox(
-                child: MediaQuery.removePadding(
-                  removeTop: true,
-                  context: context,
-                  child: ListView.builder(
-                    controller: widget.scrollController,
-                    physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics(),
-                    ),
-                    itemBuilder: (BuildContext context, int index) {
-                      final User user = list[index];
-                      EdgeInsetsGeometry? margin;
-                      if (index == 0) {
-                        margin = const EdgeInsets.only(top: appBarHeight);
-                      }
-                      return Container(
-                        margin: margin,
-                        padding: const EdgeInsets.symmetric(
-                          vertical: 12,
-                          horizontal: 14,
-                        ),
-                        child: Row(
-                          children: [
-                            TouchableOpacity(
-                              activeOpacity: activeOpacity,
-                              onTap: () {
-                                Navigator.of(context).pushNamed(
-                                  RouteName.user,
-                                  arguments: {
-                                    'user': user,
-                                    'heroId': '',
-                                  },
-                                );
-                              },
-                              child: Avatar(
-                                image: user.avatarUrl,
-                                size: 42,
-                              ),
+            fetchPolicy: FetchPolicy.cacheAndNetwork,
+            variables: variables,
+          ),
+          builder: (
+            QueryResult result, {
+            Refetch? refetch,
+            FetchMore? fetchMore,
+          }) {
+            if (result.hasException) {
+              captureException(result.exception);
+            }
+            if (result.data?[resultLabel] == null) {
+              return const Center(
+                child: CupertinoActivityIndicator(),
+              );
+            }
+            final List<User> list =
+                User.fromListJson(result.data?[resultLabel] as List);
+            return SizedBox(
+              child: MediaQuery.removePadding(
+                removeTop: true,
+                context: context,
+                child: ListView.builder(
+                  controller: widget.scrollController,
+                  physics: const BouncingScrollPhysics(
+                    parent: AlwaysScrollableScrollPhysics(),
+                  ),
+                  itemBuilder: (BuildContext context, int index) {
+                    final User user = list[index];
+                    EdgeInsetsGeometry? margin;
+                    if (index == 0) {
+                      margin = const EdgeInsets.only(top: appBarHeight);
+                    }
+                    return Container(
+                      margin: margin,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 12,
+                        horizontal: 14,
+                      ),
+                      child: Row(
+                        children: [
+                          TouchableOpacity(
+                            activeOpacity: activeOpacity,
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                RouteName.user,
+                                arguments: {
+                                  'user': user,
+                                  'heroId': '',
+                                },
+                              );
+                            },
+                            child: Avatar(
+                              image: user.avatarUrl,
+                              size: 42,
                             ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  left: 12,
-                                ),
-                                child: Flex(
-                                  direction: Axis.vertical,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TouchableOpacity(
-                                      activeOpacity: activeOpacity,
-                                      onTap: () {
-                                        Navigator.of(context).pushNamed(
-                                          RouteName.user,
-                                          arguments: {
-                                            'user': user,
-                                            'heroId': '',
-                                          },
-                                        );
-                                      },
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                left: 12,
+                              ),
+                              child: Flex(
+                                direction: Axis.vertical,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  TouchableOpacity(
+                                    activeOpacity: activeOpacity,
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                        RouteName.user,
+                                        arguments: {
+                                          'user': user,
+                                          'heroId': '',
+                                        },
+                                      );
+                                    },
+                                    child: Text(
+                                      user.fullName,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  ),
+                                  if (user.bio != null)
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 6),
                                       child: Text(
-                                        user.fullName,
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                        user.bio!,
+                                        maxLines: 1,
+                                        softWrap: false,
+                                        overflow: TextOverflow.fade,
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .color!
+                                              .withOpacity(.8),
                                         ),
                                       ),
                                     ),
-                                    if (user.bio != null)
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 6),
-                                        child: Text(
-                                          user.bio!,
-                                          maxLines: 1,
-                                          softWrap: false,
-                                          overflow: TextOverflow.fade,
-                                          style: TextStyle(
-                                            fontSize: 14,
-                                            color: Theme.of(context)
-                                                .textTheme
-                                                .bodyText2!
-                                                .color!
-                                                .withOpacity(.8),
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
-                      );
-                    },
-                    itemCount: list.length,
-                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  itemCount: list.length,
                 ),
-              );
-            }),
+              ),
+            );
+          },
+        ),
       ),
     );
   }

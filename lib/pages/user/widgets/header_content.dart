@@ -5,7 +5,7 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -107,6 +107,10 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
 
   @override
   Widget build(BuildContext context) {
+    print(getPictureUrl(
+      key: widget.store.user!.avatar,
+      style: PictureStyle.avatarSmall,
+    ));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -114,12 +118,30 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Row(
             children: <Widget>[
-              Observer(builder: (_) {
-                return Avatar(
-                  size: 64,
-                  image: getPictureUrl(key: widget.store.user!.avatar),
-                );
-              }),
+              TouchableOpacity(
+                onTap: () {
+                  Navigator.of(context).push<dynamic>(
+                    HeroDialogRoute<void>(
+                      builder: (_) => HeroPhotoGallery(
+                        radius: const Radius.circular(200),
+                        heroLabel: 'user_detail-${widget.store.user!.username}',
+                        url: getPictureUrl(
+                          key: widget.store.user!.avatar,
+                          style: PictureStyle.avatarRegular,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Observer(builder: (_) {
+                  return Avatar(
+                    heroTag: 'user_detail-${widget.store.user!.username}',
+                    size: 64,
+                    radius: 64,
+                    image: widget.store.user!.avatarUrl,
+                  );
+                }),
+              ),
               Expanded(
                 child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -265,9 +287,10 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                             context, 'common.label.following'),
                         count: widget.store.user!.followedCount,
                         onTap: () {
-                          showBasicModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) => FollowModal(
+                          showSoapBottomSheet<void>(
+                            context,
+                            isScrollControlled: true,
+                            child: FollowModal(
                               key: ValueKey('followedModal'),
                               type: FollowModalType.followed,
                               scrollController:
@@ -284,9 +307,10 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                             context, 'common.label.followers'),
                         count: widget.store.user!.followerCount,
                         onTap: () {
-                          showBasicModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) => FollowModal(
+                          showSoapBottomSheet<void>(
+                            context,
+                            isScrollControlled: true,
+                            child: FollowModal(
                               key: const ValueKey('followerModal'),
                               scrollController:
                                   ModalScrollController.of(context),

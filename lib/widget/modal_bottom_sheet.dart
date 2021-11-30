@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:soap_app/config/config.dart';
 
 void showBasicModalBottomSheet({
   bool enableDrag = false,
@@ -25,8 +26,8 @@ void showBasicModalBottomSheet({
             decoration: BoxDecoration(
               color: Theme.of(_).backgroundColor.withOpacity(.95),
               borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+                topLeft: radius,
+                topRight: radius,
               ),
             ),
             child: child,

@@ -12,18 +12,18 @@ import 'package:soap_app/widget/custom_dismissible.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class HeroPhotoGallery extends StatefulWidget {
-  HeroPhotoGallery({
+  const HeroPhotoGallery({
     Key? key,
     required this.url,
-    required this.id,
     this.heroLabel,
+    this.radius = const Radius.circular(6),
   }) : super(key: key);
 
   final String url;
 
-  final int id;
-
   final String? heroLabel;
+
+  final Radius radius;
 
   @override
   _HeroPhotoGalleryState createState() => _HeroPhotoGalleryState();
@@ -67,7 +67,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
         : toHeroContext.widget as Hero;
 
     final BorderRadiusTween tween = BorderRadiusTween(
-      begin: const BorderRadius.all(Radius.circular(6)),
+      begin: BorderRadius.all(widget.radius),
       end: BorderRadius.zero,
     );
 
@@ -103,7 +103,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
           fromHeroContext,
           toHeroContext,
         ),
-        tag: 'picture-${widget.heroLabel}-${widget.id}',
+        tag: widget.heroLabel!,
         child: child,
       );
     }
@@ -175,7 +175,9 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
                     child: Stack(
                       children: [
                         GestureDetector(
-                          onTap: Navigator.of(context).pop,
+                          onTap: () {
+                            Navigator.of(context).maybePop();
+                          },
                         ),
                         Center(
                           // child: _heroBuilder(

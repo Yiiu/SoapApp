@@ -336,10 +336,10 @@ class _AddPageState extends State<AddPage> {
                                                 ),
                                           icon: FeatherIcons.hash,
                                           onTap: () {
-                                            showBasicModalBottomSheet(
-                                              context: context,
-                                              builder: (BuildContext context) =>
-                                                  EditTag(
+                                            showSoapBottomSheet<void>(
+                                              context,
+                                              isScrollControlled: true,
+                                              child: EditTag(
                                                 onOk: (List<String> _tags) {
                                                   _unfocus();
                                                   _addStore.setTags(_tags);

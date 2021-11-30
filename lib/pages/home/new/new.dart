@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -55,10 +58,11 @@ class NewViewState extends State<NewView>
   void initState() {
     super.initState();
     Future<void>.delayed(const Duration(milliseconds: 350)).then(
-      (dynamic value) {
-        widget.refreshController.requestRefresh(
+      (dynamic value) async {
+        await widget.refreshController.requestRefresh(
           duration: const Duration(milliseconds: 150),
         );
+        unawaited(HapticFeedback.lightImpact());
       },
     );
   }
@@ -109,6 +113,7 @@ class NewViewState extends State<NewView>
                 return;
               }
               widget.refreshController.refreshCompleted();
+              unawaited(HapticFeedback.lightImpact());
             }
 
             if (result.hasException) {

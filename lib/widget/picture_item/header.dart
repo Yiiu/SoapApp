@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/widget/avatar.dart';

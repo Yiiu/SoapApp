@@ -112,9 +112,10 @@ class UserCollectionListState extends State<UserCollectionList>
                   return TouchableOpacity(
                     activeOpacity: activeOpacity,
                     onTap: () {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => AddCollectionModal(
+                      showSoapBottomSheet(
+                        context,
+                        isScrollControlled: true,
+                        child: AddCollectionModal(
                           refetch: refetch!,
                         ),
                       );
@@ -175,10 +176,9 @@ class UserCollectionListState extends State<UserCollectionList>
                   final Collection item = list[i - 1];
                   if (accountStore.isLogin &&
                       item.user!.username == accountStore.userInfo!.username) {
-                    showBasicModalBottomSheet(
-                      enableDrag: true,
-                      context: context,
-                      builder: (BuildContext context) => CollectionMoreHandle(
+                    showSoapBottomSheet(
+                      context,
+                      child: CollectionMoreHandle(
                         collection: list[i - 1],
                         onRefresh: onRefresh,
                       ),

@@ -28,7 +28,7 @@ class _InputModalModalBottomState extends State<InputModalModalBottom> {
 
   final FocusNode _textFocusNode = FocusNode();
 
-  bool _okBind = false;
+  final bool _okBind = false;
 
   @override
   void initState() {

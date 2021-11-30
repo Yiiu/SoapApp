@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/pages/add/widgets/input.dart';
 import 'package:soap_app/repository/collection_repository.dart';
@@ -64,11 +65,19 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
   @override
   Widget build(BuildContext context) {
     _titleFocusNode.requestFocus();
+    final ThemeData theme = Theme.of(context);
     return SafeArea(
       top: false,
-      child: Padding(
+      child: Container(
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        decoration: BoxDecoration(
+          color: theme.backgroundColor,
+          borderRadius: const BorderRadius.only(
+            topLeft: radius,
+            topRight: radius,
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.only(top: 6),
           child: Flex(
@@ -86,12 +95,13 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
                       overlayColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.focused) ||
-                              states.contains(MaterialState.pressed))
+                              states.contains(MaterialState.pressed)) {
                             return Theme.of(context)
                                 .textTheme
                                 .bodyText2!
                                 .color!
                                 .withOpacity(0.12);
+                          }
                           return Colors
                               .transparent; // Defer to the widget's default.
                         },
@@ -119,15 +129,17 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
                           Theme.of(context).primaryColor),
                       overlayColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered))
+                          if (states.contains(MaterialState.hovered)) {
                             return Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.04);
+                          }
                           if (states.contains(MaterialState.focused) ||
-                              states.contains(MaterialState.pressed))
+                              states.contains(MaterialState.pressed)) {
                             return Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.12);
+                          }
                           return Colors
                               .transparent; // Defer to the widget's default.
                         },

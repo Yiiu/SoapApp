@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class MoreHandleModalItem extends StatelessWidget {

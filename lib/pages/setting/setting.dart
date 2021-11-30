@@ -119,43 +119,41 @@ class _SettingPageState extends State<SettingPage> {
                   },
                 ),
                 onPressed: () {
-                  showBasicModalBottomSheet(
-                    context: context,
-                    builder: (_) {
-                      return MoreHandleModal(
-                        title: FlutterI18n.translate(
-                            context, 'setting.title.theme'),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Observer(builder: (_) {
-                            return SoapSelectList<int>(
-                              value: appStore.mode,
-                              onChange: (int value) => setState(() {
-                                appStore.setMode(value);
-                                Navigator.of(context).pop();
-                              }),
-                              config: <SelectTileConfig<int>>[
-                                SelectTileConfig<int>(
-                                  title: FlutterI18n.translate(
-                                      context, 'setting.value.theme.light'),
-                                  value: 0,
-                                ),
-                                SelectTileConfig<int>(
-                                  title: FlutterI18n.translate(
-                                      context, 'setting.value.theme.black'),
-                                  value: 1,
-                                ),
-                                SelectTileConfig<int>(
-                                  title: FlutterI18n.translate(
-                                      context, 'setting.value.theme.system'),
-                                  value: 2,
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
-                      );
-                    },
+                  showSoapBottomSheet(
+                    context,
+                    child: MoreHandleModal(
+                      title:
+                          FlutterI18n.translate(context, 'setting.title.theme'),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Observer(builder: (_) {
+                          return SoapSelectList<int>(
+                            value: appStore.mode,
+                            onChange: (int value) => setState(() {
+                              appStore.setMode(value);
+                              Navigator.of(context).pop();
+                            }),
+                            config: <SelectTileConfig<int>>[
+                              SelectTileConfig<int>(
+                                title: FlutterI18n.translate(
+                                    context, 'setting.value.theme.light'),
+                                value: 0,
+                              ),
+                              SelectTileConfig<int>(
+                                title: FlutterI18n.translate(
+                                    context, 'setting.value.theme.black'),
+                                value: 1,
+                              ),
+                              SelectTileConfig<int>(
+                                title: FlutterI18n.translate(
+                                    context, 'setting.value.theme.system'),
+                                value: 2,
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -195,9 +193,9 @@ class _SettingPageState extends State<SettingPage> {
                             appStore.modeList[appStore.displayMode!].toString())
                         : Text(''),
                     onPressed: () async {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (_) => MoreHandleModal(
+                      showSoapBottomSheet<void>(
+                        context,
+                        child: MoreHandleModal(
                           title: '刷新率和分辨率选择',
                           child: Padding(
                             padding: const EdgeInsets.only(bottom: 16),
@@ -251,42 +249,40 @@ class _SettingPageState extends State<SettingPage> {
                 actionIcon: true,
                 border: false,
                 onPressed: () {
-                  showBasicModalBottomSheet(
-                    context: context,
-                    builder: (_) {
-                      return MoreHandleModal(
-                        title: FlutterI18n.translate(
-                            context, 'setting.title.img_mode'),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Observer(builder: (_) {
-                            return SoapSelectList<int>(
-                              value: appStore.imgMode,
-                              onChange: (int value) => setState(() {
-                                appStore.setImgMode(value);
-                                Navigator.of(context).pop();
-                              }),
-                              config: <SelectTileConfig<int>>[
-                                SelectTileConfig<int>(
-                                  title: FlutterI18n.translate(
-                                      context, 'setting.value.img_mode.big'),
-                                  subtitle: FlutterI18n.translate(
-                                      context, 'setting.message.img_mode.big'),
-                                  value: 1,
-                                ),
-                                SelectTileConfig<int>(
-                                  title: FlutterI18n.translate(
-                                      context, 'setting.value.img_mode.small'),
-                                  subtitle: FlutterI18n.translate(context,
-                                      'setting.message.img_mode.small'),
-                                  value: 2,
-                                ),
-                              ],
-                            );
-                          }),
-                        ),
-                      );
-                    },
+                  showSoapBottomSheet<void>(
+                    context,
+                    child: MoreHandleModal(
+                      title: FlutterI18n.translate(
+                          context, 'setting.title.img_mode'),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Observer(builder: (_) {
+                          return SoapSelectList<int>(
+                            value: appStore.imgMode,
+                            onChange: (int value) => setState(() {
+                              appStore.setImgMode(value);
+                              Navigator.of(context).pop();
+                            }),
+                            config: <SelectTileConfig<int>>[
+                              SelectTileConfig<int>(
+                                title: FlutterI18n.translate(
+                                    context, 'setting.value.img_mode.big'),
+                                subtitle: FlutterI18n.translate(
+                                    context, 'setting.message.img_mode.big'),
+                                value: 1,
+                              ),
+                              SelectTileConfig<int>(
+                                title: FlutterI18n.translate(
+                                    context, 'setting.value.img_mode.small'),
+                                subtitle: FlutterI18n.translate(
+                                    context, 'setting.message.img_mode.small'),
+                                value: 2,
+                              ),
+                            ],
+                          );
+                        }),
+                      ),
+                    ),
                   );
                 },
               ),
@@ -302,58 +298,56 @@ class _SettingPageState extends State<SettingPage> {
                 actionIcon: true,
                 border: false,
                 onPressed: () {
-                  showBasicModalBottomSheet(
-                    context: context,
-                    builder: (_) {
-                      return MoreHandleModal(
-                        title: FlutterI18n.translate(
-                            context, 'setting.title.locale'),
-                        child: Padding(
-                          padding: const EdgeInsets.only(bottom: 16),
-                          child: Observer(
-                            builder: (_) {
-                              return SoapSelectList<String>(
-                                value: appStore.localeString,
-                                onChange: (String value) => setState(() {
-                                  if (value == 'system') {
-                                    appStore.setLocale();
-                                  } else {
-                                    appStore.setLocale(
-                                      value: EnumToString.fromString(
-                                        localeType.values,
-                                        value,
+                  showSoapBottomSheet<void>(
+                    context,
+                    child: MoreHandleModal(
+                      title: FlutterI18n.translate(
+                          context, 'setting.title.locale'),
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Observer(
+                          builder: (_) {
+                            return SoapSelectList<String>(
+                              value: appStore.localeString,
+                              onChange: (String value) => setState(() {
+                                if (value == 'system') {
+                                  appStore.setLocale();
+                                } else {
+                                  appStore.setLocale(
+                                    value: EnumToString.fromString(
+                                      localeType.values,
+                                      value,
+                                    ),
+                                  );
+                                }
+                                print(value);
+                                // appStore.setImgMode(value);
+                                // Navigator.of(context).pop();
+                              }),
+                              config: <SelectTileConfig<String>>[
+                                SelectTileConfig<String>(
+                                  title: FlutterI18n.translate(
+                                      context, 'setting.value.locale.system'),
+                                  value: 'system',
+                                ),
+                                ...EnumToString.toList(localeType.values)
+                                    .map(
+                                      (String e) => SelectTileConfig<String>(
+                                        title: localeLabelString[
+                                            EnumToString.fromString(
+                                          localeType.values,
+                                          e,
+                                        )]!,
+                                        value: e,
                                       ),
-                                    );
-                                  }
-                                  print(value);
-                                  // appStore.setImgMode(value);
-                                  // Navigator.of(context).pop();
-                                }),
-                                config: <SelectTileConfig<String>>[
-                                  SelectTileConfig<String>(
-                                    title: FlutterI18n.translate(
-                                        context, 'setting.value.locale.system'),
-                                    value: 'system',
-                                  ),
-                                  ...EnumToString.toList(localeType.values)
-                                      .map(
-                                        (String e) => SelectTileConfig<String>(
-                                          title: localeLabelString[
-                                              EnumToString.fromString(
-                                            localeType.values,
-                                            e,
-                                          )]!,
-                                          value: e,
-                                        ),
-                                      )
-                                      .toList(),
-                                ],
-                              );
-                            },
-                          ),
+                                    )
+                                    .toList(),
+                              ],
+                            );
+                          },
                         ),
-                      );
-                    },
+                      ),
+                    ),
                   );
                 },
               ),

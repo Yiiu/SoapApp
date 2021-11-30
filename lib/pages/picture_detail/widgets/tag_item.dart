@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/const.dart';
-import 'package:soap_app/config/router.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/tag.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 

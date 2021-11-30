@@ -66,7 +66,7 @@ class _PictureDetailCommentState extends State<PictureDetailComment> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Avatar(
-                            image: getPictureUrl(key: comment.user!.avatar),
+                            image: comment.user!.avatarUrl,
                           ),
                           const SizedBox(width: 6),
                           Column(

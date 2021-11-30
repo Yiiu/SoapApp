@@ -144,10 +144,9 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           TouchableOpacity(
             activeOpacity: activeOpacity,
             onTap: () {
-              showBasicModalBottomSheet(
-                enableDrag: true,
-                context: context,
-                builder: (BuildContext context) => CollectionMoreHandle(
+              showSoapBottomSheet(
+                context,
+                child: CollectionMoreHandle(
                   collection: collection,
                   onRefresh: () {},
                 ),

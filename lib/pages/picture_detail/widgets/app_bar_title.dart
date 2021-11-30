@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/const.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 

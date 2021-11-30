@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 
 const double appBarHeight = 58.0;
 
+const double activeOpacity = 0.8;
+
+const Radius radius = Radius.circular(12);
+
 mixin ThemeConfig {
   static String appName = 'Soap';
 

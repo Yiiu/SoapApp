@@ -45,8 +45,7 @@ class ProfileUserItem extends StatelessWidget {
                               'user-${accountStore.userInfo!.username}-profile',
                           child: Avatar(
                             size: 64,
-                            image: getPictureUrl(
-                                key: accountStore.userInfo!.avatar),
+                            image: accountStore.userInfo!.avatarUrl,
                           ),
                         );
                       }

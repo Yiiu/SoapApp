@@ -70,9 +70,10 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               count: accountStore.userInfo?.followedCount,
               onTap: accountStore.isLogin
                   ? () {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => FollowModal(
+                      showSoapBottomSheet(
+                        context,
+                        isScrollControlled: true,
+                        child: FollowModal(
                           type: FollowModalType.followed,
                           scrollController: ModalScrollController.of(context),
                           id: accountStore.userInfo!.id,
@@ -86,9 +87,10 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               count: accountStore.userInfo?.followerCount,
               onTap: accountStore.isLogin
                   ? () {
-                      showBasicModalBottomSheet(
-                        context: context,
-                        builder: (BuildContext context) => FollowModal(
+                      showSoapBottomSheet(
+                        context,
+                        isScrollControlled: true,
+                        child: FollowModal(
                           type: FollowModalType.follower,
                           scrollController: ModalScrollController.of(context),
                           id: accountStore.userInfo!.id,

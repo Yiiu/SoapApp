@@ -7,6 +7,7 @@ import 'package:soap_app/widget/modal_bottom_sheet.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal_item.dart';
 import 'package:soap_app/widget/soap_toast.dart';
+import 'package:soap_app/widget/widgets.dart';
 
 class CollectionMoreHandle extends StatelessWidget {
   CollectionMoreHandle({
@@ -53,9 +54,10 @@ class CollectionMoreHandle extends StatelessWidget {
                 title: '编辑',
                 onTap: () {
                   Navigator.of(context).pop();
-                  showBasicModalBottomSheet(
-                    context: context,
-                    builder: (BuildContext context) => AddCollectionModal(
+                  showSoapBottomSheet(
+                    context,
+                    isScrollControlled: true,
+                    child: AddCollectionModal(
                       refetch: onRefresh,
                       collection: collection,
                     ),
