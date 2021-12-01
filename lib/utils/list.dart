@@ -2,7 +2,7 @@ import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/store/index.dart';
 
 class ListData<E> {
-  const ListData({
+  ListData({
     required this.page,
     required this.pageSize,
     required this.list,
@@ -12,7 +12,7 @@ class ListData<E> {
   final int page;
   final int pageSize;
   final int count;
-  final List<E> list;
+  List<E> list;
 
   int get morePage {
     return (count / pageSize).ceil();

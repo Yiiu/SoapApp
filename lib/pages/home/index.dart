@@ -7,6 +7,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import 'new/new.dart';
@@ -79,7 +80,7 @@ class _MyHomePageState extends State<HomePage>
       } else {
         final List<AssetEntity>? assets = await AssetPicker.pickAssets(
           context,
-          routeCurve: Curves.ease,
+          routeCurve: Curves.easeOut,
           routeDuration: const Duration(milliseconds: 250),
           maxAssets: 1,
         );

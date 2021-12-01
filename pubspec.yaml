@@ -93,6 +93,7 @@ dependencies:
   photo_view:
     # custom photo_view with better gesture recognition
     git: git://github.com/SoapPhoto/photo_view.git
+    # git: git://github.com/SoapPhoto/photo_view.git
 dev_dependencies:
   flutter_test:
     sdk: flutter

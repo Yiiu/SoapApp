@@ -18,6 +18,7 @@ import 'package:soap_app/pages/tag_detail/tag_detail.dart';
 import 'package:soap_app/pages/user/user.dart';
 import 'package:soap_app/pages/webview/oauth_webview.dart';
 import 'package:soap_app/utils/oauth.dart';
+import 'package:soap_app/widget/widgets.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 class RouteName {
@@ -95,7 +96,7 @@ class Router {
           ),
         );
       case RouteName.add:
-        return MaterialPageRoute<void>(
+        return HeroDialogRoute<void>(
           builder: (_) => AddPage(
             assets:
                 (settings.arguments! as dynamic)['assets'] as List<AssetEntity>,

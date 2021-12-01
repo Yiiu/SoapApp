@@ -150,6 +150,20 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
     );
   }
 
+  Widget _bottomBuilder() {
+    return Positioned(
+      bottom: 0,
+      child: Material(
+        type: MaterialType.transparency,
+        child: TouchableOpacity(
+          child: Container(
+            child: Text('test'),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
@@ -166,8 +180,9 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
               scrollPhysics: const BouncingScrollPhysics(),
               builder: (BuildContext context, int index) {
                 return PhotoViewGalleryPageOptions.customChild(
-                  initialScale: PhotoViewComputedScale.contained,
+                  initialScale: PhotoViewComputedScale.covered,
                   minScale: PhotoViewComputedScale.contained,
+                  // tightMode: true,
                   maxScale: PhotoViewComputedScale.covered * 3,
                   gestureDetectorBehavior: HitTestBehavior.opaque,
                   child: Container(
@@ -180,12 +195,6 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
                           },
                         ),
                         Center(
-                          // child: _heroBuilder(
-                          //   index,
-                          //   ExtendedImage.network(
-                          //     url,
-                          //   ),
-                          // ),
                           child: OctoImage(
                             placeholderBuilder:
                                 OctoPlaceholder.circularProgressIndicator(),
@@ -207,6 +216,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
             ),
           ),
           _topBuilder(),
+          // _bottomBuilder(),
         ],
       ),
     );

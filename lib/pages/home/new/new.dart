@@ -5,12 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/config/config.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:soap_app/pages/home/new/widgets/list.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/list.dart';
@@ -56,13 +59,16 @@ class NewViewState extends State<NewView>
 
   @override
   void initState() {
+    newListStore.init();
     super.initState();
     Future<void>.delayed(const Duration(milliseconds: 350)).then(
       (dynamic value) async {
-        await widget.refreshController.requestRefresh(
-          duration: const Duration(milliseconds: 150),
-        );
-        unawaited(HapticFeedback.lightImpact());
+        // widget.refreshController.requestRefresh()
+        newListStore.watchQuery();
+        // await widget.refreshController.requestRefresh(
+        //   duration: const Duration(milliseconds: 150),
+        // );
+        // unawaited(HapticFeedback.lightImpact());
       },
     );
   }
@@ -89,71 +95,28 @@ class NewViewState extends State<NewView>
       ),
       body: Container(
         color: theme.backgroundColor,
-        child: Query(
-          options: QueryOptions(
-            fetchPolicy: FetchPolicy.cacheFirst,
-            document: addFragments(
-              pictures,
-              [...pictureListFragmentDocumentNode],
-            ),
-            variables: variables,
-          ),
-          builder: (
-            QueryResult result, {
-            Refetch? refetch,
-            FetchMore? fetchMore,
-          }) {
-            Future<void> onRefresh() async {
-              final QueryResult? data = await refetch!();
-              if (data != null && data.hasException) {
-                widget.refreshController.refreshFailed();
-                if (data.exception?.linkException != null) {
-                  SoapToast.error('连接出错，请稍后再试！');
-                }
-                return;
-              }
-              widget.refreshController.refreshCompleted();
-              unawaited(HapticFeedback.lightImpact());
-            }
-
-            if (result.hasException) {
-              captureException(result.exception);
-            }
-
-            if (result.hasException && result.data == null) {
-              return SoapListError(
-                controller: _errorRefreshController,
-                onRefresh: onRefresh,
-                // message: result.exception.toString(),
+        child: Observer(
+          builder: (_) {
+            if (newListStore.pictureList == null) {
+              return ListView(
+                children: const <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: appBarHeight + 42),
+                    child: Center(
+                      child: Text('loading'),
+                    ),
+                  )
+                ],
               );
             }
-
-            if (result.isLoading && result.data == null) {
-              return SoapListLoading(
-                controller: _loadingRefreshController,
-              );
-            }
-
-            final ListData<Picture> listData = pictureListDataFormat(
-              result.data!,
-              label: 'pictures',
-            );
-
             return NewList(
               controller: widget.refreshController,
-              listData: listData,
-              onRefresh: onRefresh,
+              onRefresh: () async {
+                await newListStore.refresh();
+                widget.refreshController.refreshCompleted();
+              },
               loading: (int page) async {
-                final Map<String, Object> fetchMoreVariables = {
-                  'query': {...query, 'page': page},
-                  'type': type
-                };
-                await fetchMore!(
-                  listFetchMoreOptions(
-                    variables: fetchMoreVariables,
-                    label: 'pictures',
-                  ),
-                );
+                await newListStore.fetchMore(page);
               },
             );
           },

@@ -16,7 +16,6 @@ FetchMoreOptions listFetchMoreOptions({
         ...fetchMoreResultData![label]['data'] as List<dynamic>
       ];
       fetchMoreResultData[label]['data'] = repos;
-
       return fetchMoreResultData;
     },
   );

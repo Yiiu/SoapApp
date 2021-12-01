@@ -106,16 +106,26 @@ class _SettingPageState extends State<SettingPage> {
                 border: false,
                 action: Observer(
                   builder: (_) {
-                    if (appStore.themeMode == ThemeMode.dark)
+                    if (appStore.themeMode == ThemeMode.dark) {
                       return Text(
                         FlutterI18n.translate(
                             context, 'setting.value.theme.black'),
                       );
-                    if (appStore.themeMode == ThemeMode.system)
-                      return Text(FlutterI18n.translate(
-                          context, 'setting.value.theme.system'));
-                    return Text(FlutterI18n.translate(
-                        context, 'setting.value.theme.light'));
+                    }
+                    if (appStore.themeMode == ThemeMode.system) {
+                      return Text(
+                        FlutterI18n.translate(
+                          context,
+                          'setting.value.theme.system',
+                        ),
+                      );
+                    }
+                    return Text(
+                      FlutterI18n.translate(
+                        context,
+                        'setting.value.theme.light',
+                      ),
+                    );
                   },
                 ),
                 onPressed: () {
@@ -157,7 +167,53 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
-              SoapDivider(),
+              const SoapDivider(),
+              SettingItem(
+                title: FlutterI18n.translate(context, 'setting.label.theme'),
+                actionIcon: true,
+                border: false,
+                action: Observer(
+                  builder: (_) {
+                    if (appStore.homeStyle == 1) {
+                      return const Text('单列');
+                    }
+                    return const Text('瀑布流');
+                  },
+                ),
+                onPressed: () {
+                  showSoapBottomSheet(
+                    context,
+                    child: MoreHandleModal(
+                      title: '首页样式',
+                      child: Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Observer(
+                          builder: (_) {
+                            return SoapSelectList<int>(
+                              value: appStore.homeStyle,
+                              onChange: (int value) => setState(() {
+                                appStore.setHomeStyle(value);
+                                Navigator.of(context).pop();
+                              }),
+                              config: <SelectTileConfig<int>>[
+                                SelectTileConfig<int>(
+                                  title: '单列',
+                                  value: 1,
+                                ),
+                                SelectTileConfig<int>(
+                                  title: '瀑布流',
+                                  value: 2,
+                                ),
+                              ],
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
+              const SoapDivider(),
               SettingItem(
                 title:
                     FlutterI18n.translate(context, 'setting.label.image_cache'),

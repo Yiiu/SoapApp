@@ -107,10 +107,6 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
 
   @override
   Widget build(BuildContext context) {
-    print(getPictureUrl(
-      key: widget.store.user!.avatar,
-      style: PictureStyle.avatarSmall,
-    ));
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -123,7 +119,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                   Navigator.of(context).push<dynamic>(
                     HeroDialogRoute<void>(
                       builder: (_) => HeroPhotoGallery(
-                        radius: const Radius.circular(200),
+                        radius: const Radius.circular(64),
                         heroLabel: 'user_detail-${widget.store.user!.username}',
                         url: getPictureUrl(
                           key: widget.store.user!.avatar,

@@ -29,6 +29,10 @@ abstract class _AppStoreBase with Store {
   @observable
   int imgMode = 1;
 
+  // 1 单列 2 瀑布
+  @observable
+  int homeStyle = 1;
+
   @observable
   localeType? locale;
 
@@ -87,6 +91,12 @@ abstract class _AppStoreBase with Store {
   }
 
   @action
+  void setHomeStyle(int value) {
+    StorageUtil.preferences!.setInt('app.home_style', value);
+    homeStyle = value;
+  }
+
+  @action
   void setLocale({localeType? value}) {
     if (value != null) {
       StorageUtil.preferences!
@@ -108,6 +118,7 @@ abstract class _AppStoreBase with Store {
     mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
     displayMode = StorageUtil.preferences!.getInt('app.display_mode');
     imgMode = StorageUtil.preferences!.getInt('app.img_mode') ?? 1;
+    homeStyle = StorageUtil.preferences!.getInt('app.home_style') ?? 1;
     if (StorageUtil.preferences!.getString('app.locale') != null) {
       locale = EnumToString.fromString(
           localeType.values, StorageUtil.preferences!.getString('app.locale')!);
