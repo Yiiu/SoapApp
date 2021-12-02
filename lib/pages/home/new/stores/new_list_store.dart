@@ -92,13 +92,13 @@ abstract class _NewListStoreBase with Store {
   }
 
   @action
-  Future<void> fetchMore(int page) async {
+  Future<void> fetchMore() async {
     final graphql.QueryResult result =
         await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
       fetchPolicy: graphql.FetchPolicy.networkOnly,
       variables: {
-        'query': {...query, 'page': page},
+        'query': {...query, 'page': page + 1},
         'type': type
       },
     ));

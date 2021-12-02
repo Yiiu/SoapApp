@@ -1,19 +1,12 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/config.dart';
 
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/repository.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/like_gesture.dart';
 import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/picture_item/content.dart';
 import 'package:soap_app/widget/picture_item/header.dart';

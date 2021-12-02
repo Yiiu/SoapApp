@@ -73,10 +73,7 @@ class _LoadMoreListenerState extends State<LoadMoreListener> {
   Widget build(BuildContext context) {
     return NotificationListener<ScrollNotification>(
       onNotification: !widget.listen || _loading ? null : _onNotification,
-      child: ScrollDirection(
-        direction: _direction,
-        child: widget.child,
-      ),
+      child: widget.child,
     );
   }
 }

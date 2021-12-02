@@ -5,13 +5,14 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/config.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
+import 'package:soap_app/pages/home/new/widgets/footer.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
 
 class NewList extends StatelessWidget {
-  NewList({
+  const NewList({
     Key? key,
     required this.loading,
     required this.controller,
@@ -32,6 +33,39 @@ class NewList extends StatelessWidget {
     controller.loadComplete();
   }
 
+  Widget _listBuilder() {
+    if (appStore.homeStyle == 1) {
+      return ExtendedListView.builder(
+        extendedListDelegate: const ExtendedListDelegate(),
+        itemBuilder: (BuildContext _, int i) => PictureItem(
+          doubleLike: true,
+          picture: newListStore.pictureList![i],
+          pictureStyle: PictureStyle.thumb,
+        ),
+        itemCount: newListStore.pictureList!.length,
+      );
+    } else {
+      return WaterfallFlow.builder(
+        padding: const EdgeInsets.all(8),
+        gridDelegate: const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          crossAxisSpacing: 8,
+          mainAxisSpacing: 8,
+        ),
+        itemCount: newListStore.pictureList!.length,
+        itemBuilder: (_, int i) => PictureItem(
+          heroLabel: 'picture-list',
+          crossAxisSpacing: 0,
+          mainAxisSpacing: 8,
+          picture: newListStore.pictureList![i],
+          header: false,
+          fall: true,
+          pictureStyle: PictureStyle.thumb,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return NestedScrollView(
@@ -44,61 +78,16 @@ class NewList extends StatelessWidget {
           )
         ];
       },
-      body: Observer(
-        builder: (_) => SmartRefresher(
-          footer: CustomFooter(
-            height: 56 + MediaQuery.of(context).padding.bottom + 50,
-            builder: (BuildContext context, LoadStatus? mode) {
-              return Column(
-                children: <Widget>[
-                  Container(
-                    height: 50,
-                    child: const Center(
-                      child: Text('加载中'),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 56 + MediaQuery.of(context).padding.bottom,
-                  )
-                ],
-              );
-            },
-          ),
-          enablePullUp: true,
-          enablePullDown: true,
-          controller: controller,
-          physics: const BouncingScrollPhysics(),
-          onRefresh: onRefresh,
-          onLoading: () async {},
-          child: appStore.homeStyle == 1
-              ? ExtendedListView.builder(
-                  extendedListDelegate: const ExtendedListDelegate(),
-                  itemBuilder: (BuildContext _, int i) => PictureItem(
-                    doubleLike: true,
-                    picture: newListStore.pictureList![i],
-                    pictureStyle: PictureStyle.thumb,
-                  ),
-                  itemCount: newListStore.pictureList!.length,
-                )
-              : WaterfallFlow.builder(
-                  padding: const EdgeInsets.all(8),
-                  gridDelegate:
-                      const SliverWaterfallFlowDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: 8,
-                    mainAxisSpacing: 8,
-                  ),
-                  itemCount: newListStore.pictureList!.length,
-                  itemBuilder: (_, int i) => PictureItem(
-                    heroLabel: 'picture-list',
-                    crossAxisSpacing: 0,
-                    mainAxisSpacing: 8,
-                    picture: newListStore.pictureList![i],
-                    header: false,
-                    fall: true,
-                    pictureStyle: PictureStyle.thumb,
-                  ),
-                ),
+      body: SmartRefresher(
+        footer: const NewListFooter(),
+        enablePullUp: true,
+        enablePullDown: true,
+        controller: controller,
+        physics: const BouncingScrollPhysics(),
+        onRefresh: onRefresh,
+        onLoading: () async {},
+        child: Observer(
+          builder: (_) => _listBuilder(),
         ),
       ),
     );

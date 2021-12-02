@@ -20,6 +20,7 @@ import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
 import 'package:soap_app/widget/list/error.dart';
+import 'package:soap_app/widget/list/load_more_listener.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/soap_toast.dart';
 
@@ -109,15 +110,20 @@ class NewViewState extends State<NewView>
                 ],
               );
             }
-            return NewList(
-              controller: widget.refreshController,
-              onRefresh: () async {
-                await newListStore.refresh();
-                widget.refreshController.refreshCompleted();
+            return LoadMoreListener(
+              onLoadMore: () async {
+                await newListStore.fetchMore();
               },
-              loading: (int page) async {
-                await newListStore.fetchMore(page);
-              },
+              child: NewList(
+                controller: widget.refreshController,
+                onRefresh: () async {
+                  await newListStore.refresh();
+                  widget.refreshController.refreshCompleted();
+                },
+                loading: (int page) async {
+                  await newListStore.fetchMore();
+                },
+              ),
             );
           },
         ),
