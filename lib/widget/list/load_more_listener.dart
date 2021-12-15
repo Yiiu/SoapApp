@@ -77,26 +77,3 @@ class _LoadMoreListenerState extends State<LoadMoreListener> {
     );
   }
 }
-
-// 数据共享
-class ScrollDirection extends InheritedWidget {
-  const ScrollDirection({
-    required this.direction,
-    required Widget child,
-  }) : super(child: child);
-
-  final VerticalDirection? direction;
-
-  bool get up => direction == VerticalDirection.up;
-
-  bool get down => direction == VerticalDirection.down;
-
-  static ScrollDirection? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<ScrollDirection>();
-  }
-
-  @override
-  bool updateShouldNotify(ScrollDirection oldWidget) {
-    return oldWidget.direction != direction;
-  }
-}

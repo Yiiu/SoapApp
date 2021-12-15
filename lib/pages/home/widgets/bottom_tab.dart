@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soap_app/widget/animations/animated_shifted_position.dart';
 
 import 'tab_view.dart';
 
@@ -15,15 +17,17 @@ class SoapBottomNavigationBarItem {
   final String title;
 }
 
-class HomeBottomTab extends StatelessWidget {
-  const HomeBottomTab({
+class HomeBottomTab extends StatefulWidget {
+  HomeBottomTab({
     Key? key,
     required this.onChange,
     required this.selectedIndex,
+    required this.vertical,
   }) : super(key: key);
 
   final OnChangeFunc onChange;
   final int selectedIndex;
+  final VerticalDirection vertical;
 
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
@@ -42,57 +46,135 @@ class HomeBottomTab extends StatelessWidget {
       ];
 
   @override
+  State<HomeBottomTab> createState() => _HomeBottomTabState();
+}
+
+class _HomeBottomTabState extends State<HomeBottomTab>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  late Animation<Offset> _topAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 650),
+    );
+
+    _topAnimation = Tween(
+      begin: Offset.zero,
+      end: const Offset(0, 1),
+    ).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+    _controller.reverse(from: 1);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Positioned(
       bottom: 0,
       left: 0,
       right: 0,
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 16,
-            sigmaY: 16,
-          ),
+      child: SlideTransition(
+        position: _topAnimation,
+        child: AnimatedShiftedPosition(
+          shift: widget.vertical == VerticalDirection.down
+              ? const Offset(0, 1)
+              : Offset.zero,
           child: Container(
-            color: theme.cardColor.withOpacity(.85),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(100.0),
+                topRight: Radius.circular(100.0),
+                bottomLeft: Radius.circular(100.0),
+                bottomRight: Radius.circular(100.0),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Color(0x0d000000),
+                  spreadRadius: 1,
+                  blurRadius: 6,
+                  offset: Offset(0, 6), // changes position of shadow
+                ),
+              ],
+            ),
             height: 56 + MediaQuery.of(context).padding.bottom,
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).padding.bottom,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: bottomBar
-                  .map<Widget>(
-                    (SoapBottomNavigationBarItem bar) => GestureDetector(
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () {
-                        onChange(bottomBar.indexOf(bar));
-                      },
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 22),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            SizedBox(
-                              height: 26,
-                              width: 26,
-                              child: SvgPicture.asset(
-                                bar.icon,
-                                color: selectedIndex == bottomBar.indexOf(bar)
-                                    ? theme.primaryColor
-                                    : theme.textTheme.bodyText2!.color!
-                                        .withOpacity(.5),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
+            margin: const EdgeInsets.only(
+              left: 80,
+              right: 80,
+              bottom: 16,
+            ),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(100.0),
+                topRight: Radius.circular(100.0),
+                bottomLeft: Radius.circular(100.0),
+                bottomRight: Radius.circular(100.0),
+              ),
+              child: Container(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(
+                    sigmaX: 16,
+                    sigmaY: 16,
+                  ),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: theme.cardColor.withOpacity(.92),
                     ),
-                  )
-                  .toList(),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: HomeBottomTab.bottomBar
+                          .map<Widget>(
+                            (SoapBottomNavigationBarItem bar) =>
+                                GestureDetector(
+                              behavior: HitTestBehavior.opaque,
+                              onTap: () {
+                                widget.onChange(
+                                    HomeBottomTab.bottomBar.indexOf(bar));
+                              },
+                              child: Container(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 22),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    SizedBox(
+                                      height: 26,
+                                      width: 26,
+                                      child: SvgPicture.asset(
+                                        bar.icon,
+                                        color: widget.selectedIndex ==
+                                                HomeBottomTab.bottomBar
+                                                    .indexOf(bar)
+                                            ? theme.primaryColor
+                                            : theme.textTheme.bodyText2!.color!
+                                                .withOpacity(.5),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:soap_app/pages/home/widgets/bottom_tab.dart';
+import 'package:soap_app/widget/list/scroll_direction_listener.dart';
 
 typedef OnChangeFunc = Future<void> Function(int index);
 
-class HomeTabView extends StatelessWidget {
+class HomeTabView extends StatefulWidget {
   const HomeTabView({
     Key? key,
     required this.child,
@@ -18,6 +19,13 @@ class HomeTabView extends StatelessWidget {
   final int selectedIndex;
 
   @override
+  State<HomeTabView> createState() => _HomeTabViewState();
+}
+
+class _HomeTabViewState extends State<HomeTabView> {
+  VerticalDirection vertical = VerticalDirection.up;
+
+  @override
   Widget build(BuildContext context) {
     return Material(
       child: Stack(
@@ -25,11 +33,24 @@ class HomeTabView extends StatelessWidget {
           Column(
             children: <Widget>[
               Expanded(
-                child: child,
+                child: ScrollDirectionListener(
+                  child: widget.child,
+                  onScrollDirectionChanged: (VerticalDirection dir) {
+                    if (widget.selectedIndex == 0) {
+                      setState(() {
+                        vertical = dir;
+                      });
+                    }
+                  },
+                ),
               ),
             ],
           ),
-          HomeBottomTab(onChange: onChange, selectedIndex: selectedIndex),
+          HomeBottomTab(
+            onChange: widget.onChange,
+            selectedIndex: widget.selectedIndex,
+            vertical: vertical,
+          ),
         ],
       ),
     );

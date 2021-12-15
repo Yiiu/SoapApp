@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:soap_app/pages/home/new/widgets/footer.dart';
 import 'package:soap_app/store/index.dart';
@@ -68,27 +67,15 @@ class NewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-        return <Widget>[
-          SliverAppBar(
-            backgroundColor: Theme.of(context).backgroundColor,
-            title: const Text(''),
-            toolbarHeight: appBarHeight,
-          )
-        ];
-      },
-      body: SmartRefresher(
-        footer: const NewListFooter(),
-        enablePullUp: true,
+    return Observer(
+      builder: (_) => SmartRefresher(
+        enablePullUp: false,
         enablePullDown: true,
-        controller: controller,
         physics: const BouncingScrollPhysics(),
+        controller: controller,
         onRefresh: onRefresh,
         onLoading: () async {},
-        child: Observer(
-          builder: (_) => _listBuilder(),
-        ),
+        child: _listBuilder(),
       ),
     );
   }

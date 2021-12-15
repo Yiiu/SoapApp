@@ -79,11 +79,11 @@ class NewViewState extends State<NewView>
     final ThemeData theme = Theme.of(context);
     final Map<String, Object> variables = {'query': query, 'type': type};
     return FixedAppBarWrapper(
-      backdropBar: true,
+      backdropBar: false,
       appBar: SoapAppBar(
-        backdrop: true,
         centerTitle: false,
-        elevation: 0,
+        border: false,
+        elevation: 0.3,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
