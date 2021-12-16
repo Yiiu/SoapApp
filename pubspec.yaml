@@ -92,6 +92,9 @@ dependencies:
   like_button: ^2.0.4
   pull_to_refresh: ^2.0.0
   flutter_staggered_animations: ^1.0.0
+  keframe: ^2.0.3
+  fps_monitor: ^2.0.0
+  flutter_blurhash: ^0.6.0
   photo_view:
     # custom photo_view with better gesture recognition
     git: git://github.com/SoapPhoto/photo_view.git

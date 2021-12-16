@@ -385,7 +385,7 @@ packages:
     source: hosted
     version: "2.1.0"
   flutter_blurhash:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_blurhash
       url: "https://pub.flutter-io.cn"
@@ -506,6 +506,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fps_monitor:
+    dependency: "direct main"
+    description:
+      name: fps_monitor
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.0"
   frontend_server_client:
     dependency: transitive
     description:
@@ -704,6 +711,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "6.1.1"
+  keframe:
+    dependency: "direct main"
+    description:
+      name: keframe
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.3"
   like_button:
     dependency: "direct main"
     description:

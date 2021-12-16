@@ -1,11 +1,14 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
+import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/like_gesture.dart';
 
 import 'picture_item.dart';
@@ -38,36 +41,41 @@ class PictureItemContent extends StatelessWidget {
         borderRadius: pictureType == pictureItemType.single
             ? BorderRadius.zero
             : BorderRadius.circular(8),
-        child: LikeGesture(
-          onTap: () {
-            Navigator.of(context).pushNamed(
-              RouteName.picture_detail,
-              arguments: {
-                'picture': picture,
-                'heroLabel': heroLabel,
-              },
-            );
-          },
-          onLike: (doubleLike! && accountStore.isLogin)
-              ? () {
-                  _pictureRepository.liked(picture.id);
-                }
-              : null,
-          child: SizedBox(
-            width: double.infinity,
-            height: double.infinity,
-            child: OctoImage(
-              placeholderBuilder: OctoPlaceholder.blurHash(
-                picture.blurhash,
+        child: FrameSeparateWidget(
+          placeHolder: Container(
+            color: HexColor.fromHex(picture.color),
+          ),
+          child: LikeGesture(
+            onTap: () {
+              Navigator.of(context).pushNamed(
+                RouteName.picture_detail,
+                arguments: {
+                  'picture': picture,
+                  'heroLabel': heroLabel,
+                },
+              );
+            },
+            onLike: (doubleLike! && accountStore.isLogin)
+                ? () {
+                    _pictureRepository.liked(picture.id);
+                  }
+                : null,
+            child: SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: OctoImage(
+                placeholderBuilder: OctoPlaceholder.blurHash(
+                  picture.blurhash,
+                ),
+                errorBuilder: OctoError.blurHash(
+                  picture.blurhash,
+                  iconColor: Colors.white,
+                ),
+                image: ExtendedImage.network(picture.pictureUrl(
+                  style: pictureStyle,
+                )).image,
+                fit: BoxFit.cover,
               ),
-              errorBuilder: OctoError.blurHash(
-                picture.blurhash,
-                iconColor: Colors.white,
-              ),
-              image: ExtendedImage.network(picture.pictureUrl(
-                style: pictureStyle,
-              )).image,
-              fit: BoxFit.cover,
             ),
           ),
         ),

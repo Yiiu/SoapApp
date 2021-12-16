@@ -1,10 +1,9 @@
 import 'package:extended_list/extended_list.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:keframe/size_cache_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
-import 'package:soap_app/pages/home/new/widgets/footer.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/widgets.dart';
