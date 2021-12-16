@@ -71,7 +71,7 @@ class SoapLikeButton extends StatelessWidget {
               }
               return SvgPicture.asset(
                 'assets/remix/heart-3-line.svg',
-                color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                color: const Color(0xffEF6F6F),
               );
             },
             likeCount: likedCount,

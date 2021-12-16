@@ -36,10 +36,15 @@ class NewList extends StatelessWidget {
     if (appStore.homeStyle == 1) {
       return ExtendedListView.builder(
         extendedListDelegate: const ExtendedListDelegate(),
-        itemBuilder: (BuildContext _, int i) => PictureItem(
-          doubleLike: true,
-          picture: newListStore.pictureList![i],
-          pictureStyle: PictureStyle.thumb,
+        itemBuilder: (BuildContext _, int i) => Container(
+          color: Colors.white,
+          margin: const EdgeInsets.only(bottom: 12),
+          child: PictureItem(
+            doubleLike: true,
+            picture: newListStore.pictureList![i],
+            pictureStyle: PictureStyle.thumb,
+            pictureType: pictureItemType.single,
+          ),
         ),
         itemCount: newListStore.pictureList!.length,
       );

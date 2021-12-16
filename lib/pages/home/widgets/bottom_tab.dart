@@ -32,15 +32,15 @@ class HomeBottomTab extends StatefulWidget {
   static List<SoapBottomNavigationBarItem> get bottomBar =>
       <SoapBottomNavigationBarItem>[
         const SoapBottomNavigationBarItem(
-          icon: 'assets/svg/home.svg',
+          icon: 'assets/svg/home-ternav.svg',
           title: 'Home',
         ),
         const SoapBottomNavigationBarItem(
-          icon: 'assets/svg/plus.svg',
+          icon: 'assets/svg/add-ternav.svg',
           title: 'Add',
         ),
         const SoapBottomNavigationBarItem(
-          icon: 'assets/remix/user.svg',
+          icon: 'assets/svg/user-ternav.svg',
           title: 'Profile',
         ),
       ];
@@ -75,6 +75,38 @@ class _HomeBottomTabState extends State<HomeBottomTab>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
+  }
+
+  Widget _iconBuilder(BuildContext context, SoapBottomNavigationBarItem bar) {
+    final ThemeData theme = Theme.of(context);
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: () {
+        widget.onChange(HomeBottomTab.bottomBar.indexOf(bar));
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 22),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              height: bar.title == 'Add' ? 34 : 26,
+              width: bar.title == 'Add' ? 34 : 26,
+              child: SvgPicture.asset(
+                bar.icon,
+                color:
+                    widget.selectedIndex == HomeBottomTab.bottomBar.indexOf(bar)
+                        ? theme.primaryIconTheme.color
+                        : bar.title == 'Add'
+                            ? Color(0xffff9f55)
+                            : theme.textTheme.bodyText2!.color!.withOpacity(.3),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -112,8 +144,8 @@ class _HomeBottomTabState extends State<HomeBottomTab>
               bottom: MediaQuery.of(context).padding.bottom,
             ),
             margin: const EdgeInsets.only(
-              left: 80,
-              right: 80,
+              left: 92,
+              right: 92,
               bottom: 16,
             ),
             child: ClipRRect(
@@ -139,36 +171,7 @@ class _HomeBottomTabState extends State<HomeBottomTab>
                       children: HomeBottomTab.bottomBar
                           .map<Widget>(
                             (SoapBottomNavigationBarItem bar) =>
-                                GestureDetector(
-                              behavior: HitTestBehavior.opaque,
-                              onTap: () {
-                                widget.onChange(
-                                    HomeBottomTab.bottomBar.indexOf(bar));
-                              },
-                              child: Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 22),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 26,
-                                      width: 26,
-                                      child: SvgPicture.asset(
-                                        bar.icon,
-                                        color: widget.selectedIndex ==
-                                                HomeBottomTab.bottomBar
-                                                    .indexOf(bar)
-                                            ? theme.primaryColor
-                                            : theme.textTheme.bodyText2!.color!
-                                                .withOpacity(.5),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ),
+                                _iconBuilder(context, bar),
                           )
                           .toList(),
                     ),

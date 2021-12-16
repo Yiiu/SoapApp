@@ -77,6 +77,7 @@ mixin ThemeConfig {
     appBarTheme: const AppBarTheme(
       brightness: Brightness.light,
     ),
+    primaryIconTheme: IconThemeData(color: lightTextColor.withOpacity(.8)),
     dialogBackgroundColor: const Color(0xff000000),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       selectedLabelStyle: const TextStyle(
@@ -96,6 +97,7 @@ mixin ThemeConfig {
     accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
     textTheme: _darkTextTheme,
+    primaryIconTheme: IconThemeData(color: darkTextColor.withOpacity(.8)),
     errorColor: const Color(0xffff4757),
     cardColor: const Color(0xff19181e),
     appBarTheme: const AppBarTheme(

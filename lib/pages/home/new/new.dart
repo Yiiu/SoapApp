@@ -15,6 +15,7 @@ import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:soap_app/pages/home/new/widgets/list.dart';
+import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/exception.dart';
 import 'package:soap_app/utils/list.dart';
 import 'package:soap_app/utils/query.dart';
@@ -94,40 +95,38 @@ class NewViewState extends State<NewView>
           ),
         ),
       ),
-      body: Container(
-        color: theme.backgroundColor,
-        child: Observer(
-          builder: (_) {
-            if (newListStore.pictureList == null) {
-              return ListView(
-                children: const <Widget>[
-                  Padding(
-                    padding: EdgeInsets.only(top: appBarHeight + 42),
-                    child: Center(
-                      child: Text('loading'),
-                    ),
-                  )
-                ],
-              );
-            }
-            return LoadMoreListener(
-              onLoadMore: () async {
-                await newListStore.fetchMore();
-              },
-              child: NewList(
-                controller: widget.refreshController,
-                onRefresh: () async {
-                  await newListStore.refresh();
-                  widget.refreshController.refreshCompleted();
-                },
-                loading: (int page) async {
-                  await newListStore.fetchMore();
-                },
-              ),
-            );
-          },
-        ),
-      ),
+      body: Observer(builder: (_) {
+        return Container(
+          color:
+              appStore.homeStyle == 2 ? theme.cardColor : theme.backgroundColor,
+          child: newListStore.pictureList == null
+              ? ListView(
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: appBarHeight + 42),
+                      child: Center(
+                        child: Text('loading'),
+                      ),
+                    )
+                  ],
+                )
+              : LoadMoreListener(
+                  onLoadMore: () async {
+                    await newListStore.fetchMore();
+                  },
+                  child: NewList(
+                    controller: widget.refreshController,
+                    onRefresh: () async {
+                      await newListStore.refresh();
+                      widget.refreshController.refreshCompleted();
+                    },
+                    loading: (int page) async {
+                      await newListStore.fetchMore();
+                    },
+                  ),
+                ),
+        );
+      }),
     );
   }
 }

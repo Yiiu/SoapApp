@@ -172,6 +172,10 @@ flutter:
     - assets/lottie/cat.json
     - assets/lottie/mail-send.json
     - assets/lottie/coffee-time.json
+
+    - assets/svg/home-ternav.svg
+    - assets/svg/user-ternav.svg
+    - assets/svg/add-ternav.svg
   fonts:
     - family: Rubik
       fonts:
