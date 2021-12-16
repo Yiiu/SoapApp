@@ -29,6 +29,10 @@ abstract class _AppStoreBase with Store {
   @observable
   int imgMode = 1;
 
+  // 1 单列 2 瀑布
+  @observable
+  int homeStyle = 1;
+
   @observable
   localeType? locale;
 
@@ -87,6 +91,12 @@ abstract class _AppStoreBase with Store {
   }
 
   @action
+  void setHomeStyle(int value) {
+    StorageUtil.preferences!.setInt('app.home_style', value);
+    homeStyle = value;
+  }
+
+  @action
   void setLocale({localeType? value}) {
     if (value != null) {
       StorageUtil.preferences!
@@ -108,6 +118,7 @@ abstract class _AppStoreBase with Store {
     mode = StorageUtil.preferences!.getInt('app.mode') ?? 2;
     displayMode = StorageUtil.preferences!.getInt('app.display_mode');
     imgMode = StorageUtil.preferences!.getInt('app.img_mode') ?? 1;
+    homeStyle = StorageUtil.preferences!.getInt('app.home_style') ?? 1;
     if (StorageUtil.preferences!.getString('app.locale') != null) {
       locale = EnumToString.fromString(
           localeType.values, StorageUtil.preferences!.getString('app.locale')!);
@@ -119,19 +130,16 @@ abstract class _AppStoreBase with Store {
   Future<void> _initializeDisplayMode() async {
     try {
       if (Platform.isAndroid) {
-        modeList = await FlutterDisplayMode.supported;
-        if (displayMode != null && modeList.length > displayMode!) {
-          await FlutterDisplayMode.setPreferredMode(modeList[displayMode!]);
-        } else {
-          // ignore: unnecessary_statements
-          (() async {
-            await Future<void>.delayed(const Duration(milliseconds: 1000));
+        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+          modeList = await FlutterDisplayMode.supported;
+          if (displayMode != null && modeList.length > displayMode!) {
+            await FlutterDisplayMode.setPreferredMode(modeList[displayMode!]);
+          } else {
             await FlutterDisplayMode.setHighRefreshRate();
-            await Future<void>.delayed(const Duration(milliseconds: 500));
             final DisplayMode active = await FlutterDisplayMode.active;
             displayMode = active.id;
-          })();
-        }
+          }
+        });
         // ignore: empty_catches
       }
     } catch (e) {}

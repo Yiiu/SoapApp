@@ -1,24 +1,19 @@
-import 'dart:convert';
-import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:jiffy/jiffy.dart';
-import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/config.dart';
 
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/repository.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/like_gesture.dart';
 import 'package:soap_app/widget/medal.dart';
 import 'package:soap_app/widget/picture_item/content.dart';
 import 'package:soap_app/widget/picture_item/header.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+enum pictureItemType { single, waterfall }
 
 class PictureInfoWidget {
   PictureInfoWidget({
@@ -36,6 +31,7 @@ class PictureItem extends StatelessWidget {
   PictureItem({
     Key? key,
     required this.picture,
+    this.pictureType = pictureItemType.waterfall,
     this.pictureStyle = PictureStyle.small,
     this.heroLabel = 'list',
     this.header = true,
@@ -52,17 +48,14 @@ class PictureItem extends StatelessWidget {
   final double mainAxisSpacing;
   final bool fall;
   final PictureStyle? pictureStyle;
+  final pictureItemType? pictureType;
   final bool? doubleLike;
 
   final PictureRepository _pictureRepository = PictureRepository();
 
   Widget _bottomBuilder(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final List<PictureInfoWidget> list = [
-      PictureInfoWidget(
-        icon: 'assets/svg/view.svg',
-        color: Colors.blue[300]!,
-        text: picture.views.toString(),
-      ),
       // PictureInfoWidget(
       //   icon: FeatherIcons.messageSquare,
       //   color: Colors.pink[300]!,
@@ -70,57 +63,37 @@ class PictureItem extends StatelessWidget {
       // ),
       PictureInfoWidget(
         icon: 'assets/svg/like.svg',
-        color: Colors.red[300]!,
+        color: theme.textTheme.bodyText2!.color!,
         text: picture.likedCount.toString(),
       ),
     ];
     return Padding(
       padding: EdgeInsets.only(
-        top: mainAxisSpacing,
+        top: 12,
         left: crossAxisSpacing,
         right: crossAxisSpacing,
+        bottom: 12,
       ),
       child: Column(
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: list.map((PictureInfoWidget data) {
-              return Padding(
+            children: [
+              Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: Row(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(right: 4),
-                      child: SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: SvgPicture.asset(
-                          data.icon,
-                          color: data.color,
-                        ),
-                      ),
-                      // child: Icon(
-                      //   data.icon,
-                      //   color: data.color,
-                      //   size: 20,
-                      // ),
-                    ),
-                    Text(
-                      data.text,
-                      style: TextStyle(
-                        color: Theme.of(context)
-                            .textTheme
-                            .bodyText2!
-                            .color!
-                            .withOpacity(.6),
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
+                child: SoapLikeButton(
+                  isLike: picture.isLike!,
+                  likedCount: picture.likedCount!,
+                  id: picture.id,
+                  iconSize: 22,
+                  textStyle: TextStyle(
+                    fontSize: 14,
+                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                  ),
                 ),
-              );
-            }).toList(),
+              ),
+            ],
           ),
         ],
       ),
@@ -132,6 +105,16 @@ class PictureItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        const SizedBox(
+          height: 8,
+        ),
+        Text(
+          picture.title,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
         const SizedBox(
           height: 8,
         ),
@@ -156,7 +139,7 @@ class PictureItem extends StatelessWidget {
                     tag:
                         'user-${picture.user!.username}-${picture.id.toString()}',
                     child: Avatar(
-                      size: 24,
+                      size: 18,
                       image: picture.user!.avatarUrl,
                     ),
                   ),
@@ -182,8 +165,9 @@ class PictureItem extends StatelessWidget {
                           picture.user!.fullName,
                           style: TextStyle(
                             fontWeight: FontWeight.w400,
-                            fontSize: 14,
-                            color: theme.textTheme.bodyText2!.color,
+                            fontSize: 12,
+                            color: theme.textTheme.bodyText2!.color!
+                                .withOpacity(.6),
                           ),
                         ),
                       ),
@@ -197,7 +181,10 @@ class PictureItem extends StatelessWidget {
               likedCount: picture.likedCount!,
               id: picture.id,
               iconSize: 18,
-              textStyle: const TextStyle(fontSize: 13),
+              textStyle: TextStyle(
+                fontSize: 12,
+                color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+              ),
             )
           ],
         ),
@@ -228,6 +215,7 @@ class PictureItem extends StatelessWidget {
                 picture: picture,
                 pictureStyle: pictureStyle,
                 doubleLike: doubleLike,
+                pictureType: pictureType,
               ),
               if (picture.isChoice)
                 Positioned(

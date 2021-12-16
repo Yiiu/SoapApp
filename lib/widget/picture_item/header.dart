@@ -25,7 +25,7 @@ class PictureItemHeader extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        vertical: crossAxisSpacing,
+        vertical: 8,
         horizontal: mainAxisSpacing,
       ),
       child: Flex(
@@ -51,7 +51,7 @@ class PictureItemHeader extends StatelessWidget {
                     tag:
                         'user-${picture.user!.username}-${picture.id.toString()}',
                     child: Avatar(
-                      size: 36,
+                      size: 32,
                       image: picture.user!.avatarUrl,
                     ),
                   ),
@@ -74,7 +74,7 @@ class PictureItemHeader extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 2),
+                          padding: const EdgeInsets.only(bottom: 0),
                           child: Text(
                             picture.user!.fullName,
                             style: const TextStyle(
