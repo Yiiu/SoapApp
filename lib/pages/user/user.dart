@@ -1,9 +1,8 @@
 import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/config/theme.dart';
 import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/user.dart';
 import 'package:soap_app/widget/picture_list.dart';
@@ -38,6 +37,8 @@ class _UserPageState extends State<UserPage>
   final double _tabBarHeight = 55;
   final double titleHeight = 150;
 
+  bool _pictureListCached = false;
+
   final GlobalKey<State<StatefulWidget>> _pictureListKey = GlobalKey();
   final GlobalKey<State<StatefulWidget>> _collectionListKey = GlobalKey();
 
@@ -51,7 +52,30 @@ class _UserPageState extends State<UserPage>
       vsync: this,
       initialIndex: _selectedIndex,
     );
+    checkPictureCache();
     super.initState();
+  }
+
+  void checkPictureCache() {
+    final graphql.Request queryRequest = graphql.Request(
+      operation: graphql.Operation(
+        document: addFragments(
+          userPictures,
+          [...pictureListFragmentDocumentNode],
+        ),
+      ),
+      variables: {
+        'username': user.username,
+        // ignore: prefer_const_literals_to_create_immutables
+        'query': {
+          'page': 1,
+          'pageSize': 30,
+        },
+      },
+    );
+    final Map<String, dynamic>? cacheData =
+        GraphqlConfig.graphQLClient.readQuery(queryRequest);
+    _pictureListCached = cacheData != null;
   }
 
   @override
@@ -86,9 +110,8 @@ class _UserPageState extends State<UserPage>
                     physics: const BouncingScrollPhysics(),
                     controller: tabController,
                     children: <Widget>[
-                      RepaintBoundary(
-                        key: _pictureListKey,
-                        child: PictureList(
+                      if (_pictureListCached)
+                        PictureList(
                           document: addFragments(
                             userPictures,
                             [...pictureListFragmentDocumentNode],
@@ -98,11 +121,30 @@ class _UserPageState extends State<UserPage>
                             'username': user.username,
                           },
                         ),
-                      ),
-                      RepaintBoundary(
-                        key: _collectionListKey,
-                        child: UserCollectionList(username: user.username),
-                      ),
+                      if (!_pictureListCached)
+                        FutureBuilder<dynamic>(
+                          future: Future<dynamic>.delayed(
+                            Duration(milliseconds: screenDelayTimer),
+                          ),
+                          builder: (BuildContext context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              return PictureList(
+                                document: addFragments(
+                                  userPictures,
+                                  [...pictureListFragmentDocumentNode],
+                                ),
+                                label: 'userPicturesByName',
+                                variables: {
+                                  'username': user.username,
+                                },
+                              );
+                            } else {
+                              return const SizedBox();
+                            }
+                          },
+                        ),
+                      UserCollectionList(username: user.username),
                     ],
                   ),
                 ),

@@ -163,36 +163,36 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
             ),
             if (_pageStore.picture!.isPrivate == null ||
                 _pageStore.picture!.isPrivate == false) ...[
-              Container(
-                height: 8,
-                color: theme.backgroundColor,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 8,
-                  left: 16,
-                  right: 16,
-                ),
-                child: Text(
-                  '相关图片',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                  ),
-                ),
-              ),
-              FutureBuilder<dynamic>(
-                future: Future<dynamic>.delayed(
-                  Duration(milliseconds: screenDelayTimer),
-                ),
-                builder: (BuildContext context, snapshot) {
-                  if (snapshot.connectionState == ConnectionState.done) {
-                    return RelatedPicture(id: _pageStore.picture!.id);
-                  } else {
-                    return const SizedBox();
-                  }
-                },
-              ),
+              // Container(
+              //   height: 8,
+              //   color: theme.backgroundColor,
+              // ),
+              // Padding(
+              //   padding: const EdgeInsets.only(
+              //     top: 8,
+              //     left: 16,
+              //     right: 16,
+              //   ),
+              //   child: Text(
+              //     '相关图片',
+              //     style: TextStyle(
+              //       fontSize: 14,
+              //       color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+              //     ),
+              //   ),
+              // ),
+              // FutureBuilder<dynamic>(
+              //   future: Future<dynamic>.delayed(
+              //     Duration(milliseconds: screenDelayTimer),
+              //   ),
+              //   builder: (BuildContext context, snapshot) {
+              //     if (snapshot.connectionState == ConnectionState.done) {
+              //       return RelatedPicture(id: _pageStore.picture!.id);
+              //     } else {
+              //       return const SizedBox();
+              //     }
+              //   },
+              // ),
             ],
             const SizedBox(
               height: pictureDetailHandleHeight,
