@@ -79,6 +79,14 @@ class _UserPageState extends State<UserPage>
   }
 
   @override
+  void didChangeDependencies() {
+    if (!_pictureListCached) {
+      checkPictureCache();
+    }
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Material(

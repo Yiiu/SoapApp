@@ -134,8 +134,8 @@ class _HomeBottomTabState extends State<HomeBottomTab>
                 BoxShadow(
                   color: Color(0x0d000000),
                   spreadRadius: 1,
-                  blurRadius: 6,
-                  offset: Offset(0, 6), // changes position of shadow
+                  blurRadius: 2,
+                  offset: Offset(0, 2), // changes position of shadow
                 ),
               ],
             ),

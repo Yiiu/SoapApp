@@ -31,12 +31,13 @@ class NewList extends StatelessWidget {
     controller.loadComplete();
   }
 
-  Widget _listBuilder() {
+  Widget _listBuilder(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     if (appStore.homeStyle == 1) {
       return ExtendedListView.builder(
         extendedListDelegate: const ExtendedListDelegate(),
         itemBuilder: (BuildContext _, int i) => Container(
-          color: Colors.white,
+          color: theme.cardColor,
           margin: const EdgeInsets.only(bottom: 12),
           child: PictureItem(
             doubleLike: true,
@@ -79,7 +80,7 @@ class NewList extends StatelessWidget {
         controller: controller,
         onRefresh: onRefresh,
         onLoading: () async {},
-        child: _listBuilder(),
+        child: _listBuilder(context),
       ),
     );
   }
