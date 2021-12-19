@@ -336,14 +336,14 @@ packages:
       name: extended_text
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.0.1"
+    version: "8.0.1"
   extended_text_library:
     dependency: transitive
     description:
       name: extended_text_library
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "7.0.0"
+    version: "8.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -689,7 +689,7 @@ packages:
       name: jpush_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.1.9"
+    version: "2.2.0"
   js:
     dependency: transitive
     description:
@@ -1424,7 +1424,7 @@ packages:
       name: waterfall_flow
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.1"
+    version: "3.0.2"
   web_socket_channel:
     dependency: transitive
     description:
