@@ -3,8 +3,8 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:soap_app/pages/setting/widgets/setting_item.dart';
 import 'package:soap_app/widget/app_bar.dart';
 
-class MoreSettingPages extends StatefulWidget {
-  const MoreSettingPages({
+class MoreSettingPage extends StatefulWidget {
+  const MoreSettingPage({
     Key? key,
     this.onChange,
     required this.isPrivate,
@@ -14,10 +14,10 @@ class MoreSettingPages extends StatefulWidget {
   final void Function(bool)? onChange;
 
   @override
-  _MoreSettingPagesState createState() => _MoreSettingPagesState();
+  _MoreSettingPageState createState() => _MoreSettingPageState();
 }
 
-class _MoreSettingPagesState extends State<MoreSettingPages> {
+class _MoreSettingPageState extends State<MoreSettingPage> {
   final AdvancedSwitchController _controller = AdvancedSwitchController();
   @override
   void initState() {
@@ -39,8 +39,8 @@ class _MoreSettingPagesState extends State<MoreSettingPages> {
       color: Theme.of(context).backgroundColor,
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
-          border: true,
-          elevation: 0,
+          border: false,
+          elevation: 0.5,
           automaticallyImplyLeading: true,
           title: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),

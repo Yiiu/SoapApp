@@ -11,6 +11,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/pages/add/location_setting.dart';
 import 'package:soap_app/repository/repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/utils.dart';
@@ -178,14 +179,6 @@ class _AddPageState extends State<AddPage> {
       onTap: onTap,
       child: Container(
         height: 56,
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              color: theme.textTheme.overline!.color!.withOpacity(.2),
-              width: .2,
-            ),
-          ),
-        ),
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,8 +233,8 @@ class _AddPageState extends State<AddPage> {
       color: Theme.of(context).cardColor,
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
-          border: true,
-          elevation: 0,
+          border: false,
+          elevation: 0.5,
           automaticallyImplyLeading: true,
         ),
         body: Stack(
@@ -350,27 +343,48 @@ class _AddPageState extends State<AddPage> {
                                           },
                                         ),
                                       ),
+                                      const SoapDivider(),
                                       _itemBuild(
-                                          title: const Text(
-                                            '更多设置',
-                                          ),
-                                          icon: FeatherIcons.settings,
-                                          onTap: () {
-                                            _unfocus();
-                                            Navigator.of(context).push(
-                                              CupertinoPageRoute<void>(
-                                                builder: (_) =>
-                                                    MoreSettingPages(
-                                                  isPrivate:
-                                                      _addStore.isPrivate,
-                                                  onChange: (bool _isPrivate) {
-                                                    _addStore
-                                                        .setPrivate(_isPrivate);
-                                                  },
-                                                ),
+                                        title: const Text(
+                                          '更多设置',
+                                        ),
+                                        icon: FeatherIcons.settings,
+                                        onTap: () {
+                                          _unfocus();
+                                          Navigator.of(context).push(
+                                            CupertinoPageRoute<void>(
+                                              builder: (_) => MoreSettingPage(
+                                                isPrivate: _addStore.isPrivate,
+                                                onChange: (bool _isPrivate) {
+                                                  _addStore
+                                                      .setPrivate(_isPrivate);
+                                                },
                                               ),
-                                            );
-                                          }),
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                      const SoapDivider(),
+                                      _itemBuild(
+                                        title: const Text(
+                                          '拍摄位置',
+                                        ),
+                                        icon: FeatherIcons.mapPin,
+                                        onTap: () {
+                                          _unfocus();
+                                          Navigator.of(context).push(
+                                            CupertinoPageRoute<void>(
+                                              builder: (_) => LocationSettingPage(
+                                                  // isPrivate: _addStore.isPrivate,
+                                                  // onChange: (bool _isPrivate) {
+                                                  //   _addStore
+                                                  //       .setPrivate(_isPrivate);
+                                                  // },
+                                                  ),
+                                            ),
+                                          );
+                                        },
+                                      ),
                                     ],
                                   ),
                                 ],

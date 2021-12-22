@@ -41,9 +41,9 @@ class AddInput extends StatelessWidget {
         ),
         enabledBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            width: .2,
+            width: 0.5,
             color:
-                Theme.of(context).textTheme.bodyText2!.color!.withOpacity(.2),
+                Theme.of(context).textTheme.bodyText2!.color!.withOpacity(.1),
           ),
           borderRadius: const BorderRadius.all(
             Radius.circular(0),
