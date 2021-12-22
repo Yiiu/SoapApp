@@ -18,6 +18,9 @@ abstract class _AddStoreBase with Store {
   @observable
   List<String> tags = ObservableList<String>();
 
+  @observable
+  Map? location;
+
   @action
   void setPrivate(bool value) => isPrivate = value;
 
@@ -28,9 +31,13 @@ abstract class _AddStoreBase with Store {
   void setTags(List<String> value) => tags = value;
 
   @action
+  void setLocation(Map? value) => location = value;
+
+  @action
   void editInit(Picture picture) {
     isPrivate = picture.isPrivate ?? false;
     tags = picture.tags!.map<String>((e) => e.name).toList();
+    location = picture.location;
   }
 
   Future<void> update(
@@ -38,7 +45,13 @@ abstract class _AddStoreBase with Store {
     String title,
     String bio,
   ) async {
-    await pictureRepository.updatePicture(id,
-        title: title, bio: bio, isPrivate: isPrivate, tags: tags);
+    await pictureRepository.updatePicture(
+      id,
+      title: title,
+      bio: bio,
+      isPrivate: isPrivate,
+      tags: tags,
+      location: location,
+    );
   }
 }

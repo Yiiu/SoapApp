@@ -118,3 +118,18 @@ DocumentNode tagPictures = gql(r'''
     }
   }
 ''');
+
+DocumentNode searchPlace = gql(r'''
+  query SearchPlace($value: String!, $region: String!) {
+    searchPlace(value: $value, region: $region) {
+      ...LocationFragment
+    }
+  }
+''');
+DocumentNode placeDetail = gql(r'''
+  query PlaceDetail($uid: String!) {
+    placeDetail(uid: $uid) {
+      ...LocationFragment
+    }
+  }
+''');

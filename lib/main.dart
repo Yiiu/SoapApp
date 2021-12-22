@@ -1,6 +1,10 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/jpush.dart';
@@ -42,14 +46,31 @@ Future<void> main() async {
     statusBarIconBrightness: Brightness.dark,
   );
   SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
-  await SentryFlutter.init(
-    (SentryFlutterOptions options) {
-      options.debug = false;
-      options.dsn = dotenv.env['SENTRY_URL'];
-    },
-    appRunner: () => runApp(GraphQLProvider(
+  // await FlutterStatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
+  // await FlutterStatusbarManager.setColor(
+  //   Colors.transparent,
+  //   animated: true,
+  // );
+  // await FlutterStatusbarManager.setNavigationBarColor(
+  //   Colors.transparent,
+  //   animated: true,
+  // );
+  // await FlutterStatusbarManager.setTranslucent(false);
+  if (!kIsWeb) {
+    await SentryFlutter.init(
+      (SentryFlutterOptions options) {
+        options.debug = false;
+        options.dsn = dotenv.env['SENTRY_URL'];
+      },
+      appRunner: () => runApp(GraphQLProvider(
+        client: GraphqlConfig.client,
+        child: const MyApp(),
+      )),
+    );
+  } else {
+    runApp(GraphQLProvider(
       client: GraphqlConfig.client,
       child: const MyApp(),
-    )),
-  );
+    ));
+  }
 }

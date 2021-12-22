@@ -26,11 +26,12 @@ class _RelatedPictureState extends State<RelatedPicture> {
     };
     return Query(
       options: QueryOptions(
-          document: addFragments(
-            pictureRelatedPictures,
-            [...relatedPicturesFragmentDocumentNode],
-          ),
-          variables: variables),
+        document: addFragments(
+          pictureRelatedPictures,
+          [...relatedPicturesFragmentDocumentNode],
+        ),
+        variables: variables,
+      ),
       // Just like in apollo refetch() could be used to manually trigger a refetch
       // while fetchMore() can be used for pagination purpose
       builder: (QueryResult result,
