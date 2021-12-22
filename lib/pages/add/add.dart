@@ -156,6 +156,7 @@ class _AddPageState extends State<AddPage> {
             'title': _titleController.text,
             'isPrivate': _addStore.isPrivate,
             'bio': _bioController.text,
+            'location': _addStore.location,
           });
           SoapToast.success('上传成功！');
           Navigator.of(context).pop();
@@ -365,25 +366,37 @@ class _AddPageState extends State<AddPage> {
                                         },
                                       ),
                                       const SoapDivider(),
-                                      _itemBuild(
-                                        title: const Text(
-                                          '拍摄位置',
-                                        ),
-                                        icon: FeatherIcons.mapPin,
-                                        onTap: () {
-                                          _unfocus();
-                                          Navigator.of(context).push(
-                                            CupertinoPageRoute<void>(
-                                              builder: (_) => LocationSettingPage(
-                                                  // isPrivate: _addStore.isPrivate,
-                                                  // onChange: (bool _isPrivate) {
-                                                  //   _addStore
-                                                  //       .setPrivate(_isPrivate);
-                                                  // },
+                                      Observer(
+                                        builder: (_) => _itemBuild(
+                                          title: _addStore.location != null
+                                              ? Text(
+                                                  _addStore.location!['name'],
+                                                  maxLines: 1,
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  style: const TextStyle(
+                                                    color: Color(0xff1890ff),
                                                   ),
-                                            ),
-                                          );
-                                        },
+                                                )
+                                              : const Text(
+                                                  '拍摄位置',
+                                                ),
+                                          icon: FeatherIcons.mapPin,
+                                          onTap: () {
+                                            _unfocus();
+                                            Navigator.of(context).push(
+                                              CupertinoPageRoute<void>(
+                                                builder: (_) =>
+                                                    LocationSettingPage(
+                                                  // isPrivate: _addStore.isPrivate,
+                                                  onChange: (Map? data) {
+                                                    _addStore.setLocation(data);
+                                                  },
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        ),
                                       ),
                                     ],
                                   ),

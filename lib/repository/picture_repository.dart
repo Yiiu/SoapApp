@@ -102,6 +102,7 @@ class PictureRepository {
     required String bio,
     required bool isPrivate,
     required List<String> tags,
+    Map? location,
   }) async {
     final Map<String, Object> variables = {
       'id': id,
@@ -110,6 +111,7 @@ class PictureRepository {
         'bio': bio,
         'isPrivate': isPrivate,
         'tags': tags,
+        'location': location,
       }
     };
     final QueryResult result = await GraphqlConfig.graphQLClient.mutate(
@@ -132,6 +134,7 @@ class PictureRepository {
               'bio': newData['bio']! as String?,
               'tags': newData['tags']! as List,
               'isPrivate': newData['isPrivate']! as bool,
+              'location': newData['location']! as Map?,
               '__typename': 'Picture'
             };
             final Map<String, Object?> idFields = {
@@ -146,6 +149,7 @@ class PictureRepository {
                       bio
                       isPrivate
                       tags
+                      location
                     }
                   '''),
               ).asRequest(idFields: idFields),

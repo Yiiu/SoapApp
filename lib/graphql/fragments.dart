@@ -446,3 +446,8 @@ List<DocumentNode> collectionListFragmentDocumentNode = <DocumentNode>[
   collectionListFragment,
   ...collectionDetailFragmentDocumentNode
 ];
+
+List<DocumentNode> locationFragmentDocumentNode = <DocumentNode>[
+  locationFragment,
+  locationDetailFragment,
+];
