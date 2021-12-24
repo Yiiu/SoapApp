@@ -109,14 +109,12 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
               onTap: () {
                 openPictureGallery();
               },
-              child: RepaintBoundary(
-                child: Observer(builder: (_) {
-                  return PictureDetailImage(
-                    picture: _pageStore.picture!,
-                    heroLabel: widget.heroLabel,
-                  );
-                }),
-              ),
+              child: Observer(builder: (_) {
+                return PictureDetailImage(
+                  picture: _pageStore.picture!,
+                  heroLabel: widget.heroLabel,
+                );
+              }),
             ),
             Observer(builder: (_) {
               return PictureTitleInfo(picture: _pageStore.picture!);

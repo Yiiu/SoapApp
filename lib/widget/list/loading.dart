@@ -34,19 +34,8 @@ class SoapListLoading extends StatelessWidget {
                   width: 300,
                   height: 100,
                   child: Stack(
-                    children: <Widget>[
-                      Positioned(
-                        top: -100,
-                        left: 0,
-                        right: 0,
-                        bottom: 0,
-                        child: Lottie.asset(
-                          'assets/lottie/mail-send.json',
-                          width: 300,
-                          height: 300,
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
+                    children: const <Widget>[
+                      Center(child: CupertinoActivityIndicator(radius: 14)),
                     ],
                   ),
                 ),

@@ -91,11 +91,13 @@ dependencies:
   shelf_proxy: ^1.0.1
   like_button: ^2.0.4
   pull_to_refresh: ^2.0.0
+  line_icons: ^2.0.1
   flutter_staggered_animations: ^1.0.0
   keframe: ^2.0.3
   fps_monitor: ^2.0.0
   flutter_blurhash: ^0.6.0
   searchfield: ^0.5.6
+  decorated_icon: ^1.2.1
   flutter_statusbar_manager:
     git: git://github.com/rafaelmaeuer/flutter_statusbar_manager.git
   photo_view:

@@ -1,7 +1,6 @@
 import 'package:extended_list/extended_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:keframe/size_cache_widget.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:soap_app/store/index.dart';
@@ -43,6 +42,7 @@ class NewList extends StatelessWidget {
             doubleLike: true,
             picture: newListStore.pictureList![i],
             pictureStyle: PictureStyle.thumb,
+            gallery: true,
             pictureType: pictureItemType.single,
           ),
         ),
@@ -58,12 +58,13 @@ class NewList extends StatelessWidget {
         ),
         itemCount: newListStore.pictureList!.length,
         itemBuilder: (_, int i) => PictureItem(
-          heroLabel: 'picture-list',
+          heroLabel: 'new-picture-detail',
           crossAxisSpacing: 0,
           mainAxisSpacing: 8,
           picture: newListStore.pictureList![i],
           header: false,
           fall: true,
+          gallery: true,
           pictureStyle: PictureStyle.thumb,
         ),
       );

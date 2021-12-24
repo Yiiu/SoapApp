@@ -7,9 +7,6 @@ import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/repository.dart';
 import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/medal.dart';
-import 'package:soap_app/widget/picture_item/content.dart';
-import 'package:soap_app/widget/picture_item/header.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -37,6 +34,7 @@ class PictureItem extends StatelessWidget {
     this.header = true,
     this.fall = false,
     this.doubleLike = false,
+    this.gallery = false,
     this.crossAxisSpacing = 16,
     this.mainAxisSpacing = 20,
   }) : super(key: key);
@@ -50,6 +48,7 @@ class PictureItem extends StatelessWidget {
   final PictureStyle? pictureStyle;
   final pictureItemType? pictureType;
   final bool? doubleLike;
+  final bool gallery;
 
   final PictureRepository _pictureRepository = PictureRepository();
 
@@ -216,6 +215,7 @@ class PictureItem extends StatelessWidget {
                 pictureStyle: pictureStyle,
                 doubleLike: doubleLike,
                 pictureType: pictureType,
+                gallery: gallery,
               ),
               if (picture.isChoice)
                 Positioned(

@@ -5,11 +5,14 @@ import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/pages/new_picture_detail/new_picture_detail.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/like_gesture.dart';
+import 'package:soap_app/widget/router/hero_detail_route.dart';
+import 'package:soap_app/widget/widgets.dart';
 
 import 'picture_item.dart';
 
@@ -18,6 +21,7 @@ class PictureItemContent extends StatelessWidget {
     Key? key,
     required this.crossAxisSpacing,
     required this.picture,
+    required this.gallery,
     this.heroLabel,
     this.pictureStyle,
     this.doubleLike = false,
@@ -30,6 +34,7 @@ class PictureItemContent extends StatelessWidget {
   final PictureStyle? pictureStyle;
   final bool? doubleLike;
   final pictureItemType? pictureType;
+  final bool gallery;
 
   final PictureRepository _pictureRepository = PictureRepository();
 
@@ -47,13 +52,22 @@ class PictureItemContent extends StatelessWidget {
           ),
           child: LikeGesture(
             onTap: () {
-              Navigator.of(context).pushNamed(
-                RouteName.picture_detail,
-                arguments: {
-                  'picture': picture,
-                  'heroLabel': heroLabel,
-                },
-              );
+              print(gallery);
+              if (gallery) {
+                Navigator.of(context).push<dynamic>(
+                  HeroDetailRoute<void>(
+                    builder: (_) => NewPictureDetail(picture: picture),
+                  ),
+                );
+              } else {
+                Navigator.of(context).pushNamed(
+                  RouteName.picture_detail,
+                  arguments: {
+                    'picture': picture,
+                    'heroLabel': heroLabel,
+                  },
+                );
+              }
             },
             onLike: (doubleLike! && accountStore.isLogin)
                 ? () {
@@ -63,18 +77,23 @@ class PictureItemContent extends StatelessWidget {
             child: SizedBox(
               width: double.infinity,
               height: double.infinity,
-              child: OctoImage(
-                placeholderBuilder: OctoPlaceholder.blurHash(
-                  picture.blurhash,
+              child: Hero(
+                tag: '$heroLabel-${picture.id}',
+                child: OctoImage(
+                  placeholderBuilder: (BuildContext context) {
+                    return Container(
+                      color: HexColor.fromHex(picture.color),
+                    );
+                  },
+                  errorBuilder: OctoError.blurHash(
+                    picture.blurhash,
+                    iconColor: Colors.white,
+                  ),
+                  image: ExtendedImage.network(picture.pictureUrl(
+                    style: pictureStyle,
+                  )).image,
+                  fit: BoxFit.cover,
                 ),
-                errorBuilder: OctoError.blurHash(
-                  picture.blurhash,
-                  iconColor: Colors.white,
-                ),
-                image: ExtendedImage.network(picture.pictureUrl(
-                  style: pictureStyle,
-                )).image,
-                fit: BoxFit.cover,
               ),
             ),
           ),

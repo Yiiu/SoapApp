@@ -273,7 +273,14 @@ packages:
       name: decimal
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "2.0.1"
+    version: "2.1.0"
+  decorated_icon:
+    dependency: "direct main"
+    description:
+      name: decorated_icon
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.2.1"
   dio:
     dependency: "direct main"
     description:
@@ -734,6 +741,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "2.0.4"
+  line_icons:
+    dependency: "direct main"
+    description:
+      name: line_icons
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "2.0.1"
   lints:
     dependency: transitive
     description:

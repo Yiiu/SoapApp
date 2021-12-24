@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 ///
 /// Similar to calling [showDialog] except it can be used with a [Navigator] to
 /// show a [Hero] animation.
-class HeroDialogRoute<T> extends PageRoute<T> {
-  HeroDialogRoute({
+class HeroDetailRoute<T> extends PageRoute<T> {
+  HeroDetailRoute({
     required this.builder,
     this.onBackgroundTap,
   }) : super();
@@ -19,7 +19,7 @@ class HeroDialogRoute<T> extends PageRoute<T> {
   /// The color tween used in the transition to animate the background color.
   final ColorTween _colorTween = ColorTween(
     begin: Colors.black.withOpacity(0),
-    end: Colors.black.withOpacity(0.66),
+    end: Colors.black.withOpacity(1),
   );
 
   @override

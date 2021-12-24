@@ -84,7 +84,7 @@ class NewViewState extends State<NewView>
       appBar: SoapAppBar(
         centerTitle: false,
         border: false,
-        elevation: 0.3,
+        elevation: 0,
         title: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
