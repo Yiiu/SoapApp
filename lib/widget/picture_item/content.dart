@@ -8,10 +8,7 @@ import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/new_picture_detail/new_picture_detail.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/like_gesture.dart';
-import 'package:soap_app/widget/router/hero_detail_route.dart';
 import 'package:soap_app/widget/widgets.dart';
 
 import 'picture_item.dart';
@@ -52,23 +49,23 @@ class PictureItemContent extends StatelessWidget {
           ),
           child: LikeGesture(
             onTap: () {
-              if (gallery) {
-                Navigator.of(context).push<dynamic>(
-                  HeroDetailRoute<void>(
-                    builder: (_) => NewPictureDetail(
-                      picture: picture,
-                    ),
-                  ),
-                );
-              } else {
-                Navigator.of(context).pushNamed(
-                  RouteName.picture_detail,
-                  arguments: {
-                    'picture': picture,
-                    'heroLabel': heroLabel,
-                  },
-                );
-              }
+              // if (gallery) {
+              //   Navigator.of(context).push<dynamic>(
+              //     HeroDetailRoute<void>(
+              //       builder: (_) => NewPictureDetail(
+              //         picture: picture,
+              //       ),
+              //     ),
+              //   );
+              // } else {
+              Navigator.of(context).pushNamed(
+                RouteName.picture_detail,
+                arguments: {
+                  'picture': picture,
+                  'heroLabel': heroLabel,
+                },
+              );
+              // }
             },
             onLike: (doubleLike! && accountStore.isLogin)
                 ? () {
