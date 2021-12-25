@@ -52,11 +52,12 @@ class PictureItemContent extends StatelessWidget {
           ),
           child: LikeGesture(
             onTap: () {
-              print(gallery);
               if (gallery) {
                 Navigator.of(context).push<dynamic>(
                   HeroDetailRoute<void>(
-                    builder: (_) => NewPictureDetail(picture: picture),
+                    builder: (_) => NewPictureDetail(
+                      picture: picture,
+                    ),
                   ),
                 );
               } else {
@@ -89,9 +90,12 @@ class PictureItemContent extends StatelessWidget {
                     picture.blurhash,
                     iconColor: Colors.white,
                   ),
-                  image: ExtendedImage.network(picture.pictureUrl(
-                    style: pictureStyle,
-                  )).image,
+                  image: ExtendedImage.network(
+                    picture.pictureUrl(
+                      style: pictureStyle,
+                    ),
+                    cache: true,
+                  ).image,
                   fit: BoxFit.cover,
                 ),
               ),

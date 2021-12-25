@@ -1,5 +1,6 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:octo_image/octo_image.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/hero/hero_widget.dart';
@@ -7,9 +8,15 @@ import 'package:soap_app/widget/hero/hero_widget.dart';
 typedef DoubleClickAnimationListener = void Function();
 
 class NewPictureDetailImage extends StatefulWidget {
-  NewPictureDetailImage({Key? key, required this.picture}) : super(key: key);
+  const NewPictureDetailImage({
+    Key? key,
+    required this.picture,
+    required this.pictureStyle,
+  }) : super(key: key);
 
-  Picture picture;
+  final PictureStyle pictureStyle;
+
+  final Picture picture;
 
   @override
   _NewPictureDetailImageState createState() => _NewPictureDetailImageState();
@@ -46,11 +53,49 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
         child: ExtendedImage.network(
           getPictureUrl(
             key: widget.picture.key,
-            style: PictureStyle.regular,
+            style: PictureStyle.full,
           ),
+          cache: true,
           fit: BoxFit.contain,
           mode: ExtendedImageMode.gesture,
-          imageCacheName: 'CropImage',
+          loadStateChanged: (ExtendedImageState state) {
+            switch (state.extendedImageLoadState) {
+              case LoadState.loading:
+                // TODO: 第一次获取会闪烁，为了更平滑加上一个placeholder
+                return Center(
+                  child: AspectRatio(
+                    aspectRatio: widget.picture.width / widget.picture.height,
+                    child: OctoImage(
+                      fit: BoxFit.contain,
+                      image: ExtendedImage.network(
+                        getPictureUrl(
+                          key: widget.picture.key,
+                          style: widget.pictureStyle,
+                        ),
+                        cache: true,
+                      ).image,
+                      placeholderBuilder: (BuildContext context) {
+                        return Container(
+                          color: HexColor.fromHex(widget.picture.color),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              case LoadState.completed:
+                // TODO: Handle this case.
+                break;
+              case LoadState.failed:
+                return ExtendedImage.network(
+                  getPictureUrl(
+                    key: widget.picture.key,
+                    style: widget.pictureStyle,
+                  ),
+                  cache: true,
+                );
+                break;
+            }
+          },
           initGestureConfigHandler: (ExtendedImageState state) {
             double? initialScale = 1.0;
             // if (state.extendedImageInfo != null) {

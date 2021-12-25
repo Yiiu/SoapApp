@@ -40,6 +40,7 @@ class NewList extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 12),
           child: PictureItem(
             doubleLike: true,
+            heroLabel: 'new-picture-detail',
             picture: newListStore.pictureList![i],
             pictureStyle: PictureStyle.thumb,
             gallery: true,

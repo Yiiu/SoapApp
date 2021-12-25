@@ -7,14 +7,17 @@ import 'package:soap_app/pages/new_picture_detail/widgets/image.dart';
 import 'package:soap_app/pages/new_picture_detail/widgets/top.dart';
 
 import 'package:soap_app/pages/picture_detail/stores/picture_detail_store.dart';
+import 'package:soap_app/utils/utils.dart';
 
 class NewPictureDetail extends StatefulWidget {
   const NewPictureDetail({
     Key? key,
     required this.picture,
+    this.pictureStyle = PictureStyle.small,
   }) : super(key: key);
 
   final Picture picture;
+  final PictureStyle? pictureStyle;
 
   @override
   _NewPictureDetailState createState() => _NewPictureDetailState();
@@ -49,13 +52,6 @@ class _NewPictureDetailState extends State<NewPictureDetail>
   void dispose() {
     _pageStore.close();
     super.dispose();
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: <SystemUiOverlay>[
-        SystemUiOverlay.top,
-        SystemUiOverlay.bottom,
-      ],
-    );
   }
 
   @override
@@ -83,6 +79,7 @@ class _NewPictureDetailState extends State<NewPictureDetail>
                 color: Colors.transparent,
                 child: NewPictureDetailImage(
                   picture: _pageStore.picture ?? widget.picture,
+                  pictureStyle: widget.pictureStyle!,
                 ),
               ),
             ),

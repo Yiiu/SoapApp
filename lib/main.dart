@@ -41,11 +41,13 @@ Future<void> main() async {
       SystemUiOverlay.bottom,
     ],
   );
-  const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  );
-  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  // const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent,
+  //   statusBarIconBrightness: Brightness.dark,
+  //   systemNavigationBarColor: Color(0x0012254A),
+  //   systemNavigationBarDividerColor: Color(0x0012254A),
+  // );
+  // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   // await FlutterStatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
   // await FlutterStatusbarManager.setColor(
   //   Colors.transparent,

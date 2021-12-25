@@ -122,58 +122,60 @@ class _HomeBottomTabState extends State<HomeBottomTab>
           shift: widget.vertical == VerticalDirection.down
               ? const Offset(0, 1)
               : Offset.zero,
-          child: Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(100.0),
-                topRight: Radius.circular(100.0),
-                bottomLeft: Radius.circular(100.0),
-                bottomRight: Radius.circular(100.0),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Color(0x0d000000),
-                  spreadRadius: 1,
-                  blurRadius: 2,
-                  offset: Offset(0, 2), // changes position of shadow
-                ),
-              ],
-            ),
-            height: 56 + MediaQuery.of(context).padding.bottom,
+          child: Padding(
             padding: EdgeInsets.only(
               bottom: MediaQuery.of(context).padding.bottom,
             ),
-            margin: const EdgeInsets.only(
-              left: 92,
-              right: 92,
-              bottom: 16,
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(100.0),
-                topRight: Radius.circular(100.0),
-                bottomLeft: Radius.circular(100.0),
-                bottomRight: Radius.circular(100.0),
-              ),
-              child: Container(
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(
-                    sigmaX: 16,
-                    sigmaY: 16,
+            child: Container(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(100.0),
+                  topRight: Radius.circular(100.0),
+                  bottomLeft: Radius.circular(100.0),
+                  bottomRight: Radius.circular(100.0),
+                ),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x0d000000),
+                    spreadRadius: 1,
+                    blurRadius: 2,
+                    offset: Offset(0, 2), // changes position of shadow
                   ),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: theme.cardColor.withOpacity(.92),
+                ],
+              ),
+              height: 56,
+              margin: const EdgeInsets.only(
+                left: 92,
+                right: 92,
+                bottom: 16,
+              ),
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(100.0),
+                  topRight: Radius.circular(100.0),
+                  bottomLeft: Radius.circular(100.0),
+                  bottomRight: Radius.circular(100.0),
+                ),
+                child: Container(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(
+                      sigmaX: 16,
+                      sigmaY: 16,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: HomeBottomTab.bottomBar
-                          .map<Widget>(
-                            (SoapBottomNavigationBarItem bar) =>
-                                _iconBuilder(context, bar),
-                          )
-                          .toList(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: theme.cardColor.withOpacity(.92),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: HomeBottomTab.bottomBar
+                            .map<Widget>(
+                              (SoapBottomNavigationBarItem bar) =>
+                                  _iconBuilder(context, bar),
+                            )
+                            .toList(),
+                      ),
                     ),
                   ),
                 ),
