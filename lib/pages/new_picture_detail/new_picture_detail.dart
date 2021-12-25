@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/new_picture_detail/widgets/bottom.dart';
 import 'package:soap_app/pages/new_picture_detail/widgets/handle.dart';
@@ -77,24 +78,31 @@ class _NewPictureDetailState extends State<NewPictureDetail>
                 width: double.infinity,
                 height: double.infinity,
                 color: Colors.transparent,
-                child: NewPictureDetailImage(
-                  picture: _pageStore.picture ?? widget.picture,
-                  pictureStyle: widget.pictureStyle!,
-                ),
+                child: Observer(builder: (_) {
+                  return NewPictureDetailImage(
+                    picture: _pageStore.picture ?? widget.picture,
+                    pictureStyle: widget.pictureStyle!,
+                  );
+                }),
               ),
             ),
-            NewPictureDetailTop(
-              controller: _controller,
-              picture: _pageStore.picture ?? widget.picture,
-            ),
-            NewPictureDetailBottom(
-              controller: _controller,
-              picture: _pageStore.picture ?? widget.picture,
-            ),
-            NewPictureDetailHandle(
-              // controller: _controller,
-              picture: _pageStore.picture ?? widget.picture,
-            ),
+            Observer(builder: (_) {
+              return NewPictureDetailTop(
+                controller: _controller,
+                picture: _pageStore.picture ?? widget.picture,
+              );
+            }),
+            Observer(builder: (_) {
+              return NewPictureDetailBottom(
+                controller: _controller,
+                picture: _pageStore.picture ?? widget.picture,
+              );
+            }),
+            Observer(builder: (_) {
+              return NewPictureDetailHandle(
+                picture: _pageStore.picture!,
+              );
+            }),
           ],
         ),
       ),

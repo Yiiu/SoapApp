@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:decimal/decimal.dart';
 import 'package:exif/exif.dart';
 import 'package:extended_image/extended_image.dart' as extended_image;
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
@@ -168,4 +169,28 @@ Future<File> getImageFile({required Uint8List bytes, String? name}) async {
   }
   file.writeAsBytesSync(sourceBytes);
   return file;
+}
+
+double? initScale({
+  required Size imageSize,
+  required Size size,
+  double? initialScale,
+}) {
+  final double n1 = imageSize.height / imageSize.width;
+  final double n2 = size.height / size.width;
+  if (n1 > n2) {
+    final FittedSizes fittedSizes =
+        applyBoxFit(BoxFit.contain, imageSize, size);
+    //final Size sourceSize = fittedSizes.source;
+    final Size destinationSize = fittedSizes.destination;
+    return size.width / destinationSize.width;
+  } else if (n1 / n2 < 1 / 4) {
+    final FittedSizes fittedSizes =
+        applyBoxFit(BoxFit.contain, imageSize, size);
+    //final Size sourceSize = fittedSizes.source;
+    final Size destinationSize = fittedSizes.destination;
+    return size.height / destinationSize.height;
+  }
+
+  return initialScale;
 }

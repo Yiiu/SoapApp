@@ -720,6 +720,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.3"
+  ionicons:
+    dependency: "direct main"
+    description:
+      name: ionicons
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.2"
   jiffy:
     dependency: "direct main"
     description:

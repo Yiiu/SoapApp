@@ -49,23 +49,24 @@ class PictureItemContent extends StatelessWidget {
           ),
           child: LikeGesture(
             onTap: () {
-              // if (gallery) {
-              //   Navigator.of(context).push<dynamic>(
-              //     HeroDetailRoute<void>(
-              //       builder: (_) => NewPictureDetail(
-              //         picture: picture,
-              //       ),
-              //     ),
-              //   );
-              // } else {
-              Navigator.of(context).pushNamed(
-                RouteName.picture_detail,
-                arguments: {
-                  'picture': picture,
-                  'heroLabel': heroLabel,
-                },
-              );
-              // }
+              if (gallery) {
+                Navigator.of(context).push<dynamic>(
+                  HeroDetailRoute<void>(
+                    builder: (_) => NewPictureDetail(
+                      picture: picture,
+                      pictureStyle: pictureStyle,
+                    ),
+                  ),
+                );
+              } else {
+                Navigator.of(context).pushNamed(
+                  RouteName.picture_detail,
+                  arguments: {
+                    'picture': picture,
+                    'heroLabel': heroLabel,
+                  },
+                );
+              }
             },
             onLike: (doubleLike! && accountStore.isLogin)
                 ? () {

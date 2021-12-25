@@ -200,6 +200,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
                                 OctoPlaceholder.circularProgressIndicator(),
                             image: ExtendedImage.network(
                               widget.url,
+                              cache: true,
                             ).image,
                             fit: BoxFit.cover,
                             imageBuilder: (_, w) {

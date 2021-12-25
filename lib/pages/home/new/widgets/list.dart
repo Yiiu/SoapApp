@@ -42,7 +42,7 @@ class NewList extends StatelessWidget {
             doubleLike: true,
             heroLabel: 'new-picture-detail',
             picture: newListStore.pictureList![i],
-            pictureStyle: PictureStyle.thumb,
+            pictureStyle: PictureStyle.mediumLarge,
             gallery: true,
             pictureType: pictureItemType.single,
           ),

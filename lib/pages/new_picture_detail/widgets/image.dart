@@ -44,6 +44,7 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return ExtendedImageSlidePage(
       key: slidePagekey,
       child: HeroWidget(
@@ -98,22 +99,23 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
           },
           initGestureConfigHandler: (ExtendedImageState state) {
             double? initialScale = 1.0;
-            // if (state.extendedImageInfo != null) {
-            //   initialScale = initScale(
-            //       size: size,
-            //       initialScale: initialScale,
-            //       imageSize: Size(
-            //           state.extendedImageInfo!.image.width.toDouble(),
-            //           state.extendedImageInfo!.image.height
-            //               .toDouble()));
-            // }
+            if (state.extendedImageInfo != null) {
+              initialScale = initScale(
+                size: size,
+                initialScale: initialScale,
+                imageSize: Size(
+                  state.extendedImageInfo!.image.width.toDouble(),
+                  state.extendedImageInfo!.image.height.toDouble(),
+                ),
+              );
+            }
             return GestureConfig(
               minScale: 1,
-              animationMinScale: 0.7,
-              maxScale: 3.0,
-              animationMaxScale: 3.5,
+              animationMinScale: 0.5,
+              maxScale: 4.0,
+              animationMaxScale: 4.5,
               speed: 1.0,
-              inertialSpeed: 100.0,
+              inertialSpeed: 150.0,
               initialScale: 1.0,
               inPageView: true,
               initialAlignment: InitialAlignment.center,

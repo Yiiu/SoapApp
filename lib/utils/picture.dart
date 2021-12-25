@@ -20,7 +20,8 @@ Map<PictureStyle, String> pictureStyleData = {
   PictureStyle.itemprop: '@!itemprop',
   PictureStyle.thumbSmall: '@!thumbnailSmall',
   PictureStyle.avatarSmall: '@!avatarSmall',
-  PictureStyle.avatarRegular: '@!avatarRegular'
+  PictureStyle.avatarRegular: '@!avatarRegular',
+  PictureStyle.mediumLarge: '@!medium_large'
 };
 
 String getPictureUrl({
