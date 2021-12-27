@@ -5,14 +5,19 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/hero/hero_widget.dart';
 
 typedef DoubleClickAnimationListener = void Function();
 
 class NewPictureDetailImage extends StatefulWidget {
-  NewPictureDetailImage({Key? key, required this.picture}) : super(key: key);
+  const NewPictureDetailImage({
+    Key? key,
+    required this.picture,
+    required this.pictureStyle,
+  }) : super(key: key);
 
-  Picture picture;
+  final PictureStyle pictureStyle;
+
+  final Picture picture;
 
   @override
   _NewPictureDetailImageState createState() => _NewPictureDetailImageState();

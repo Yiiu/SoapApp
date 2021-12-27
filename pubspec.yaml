@@ -98,6 +98,8 @@ dependencies:
   flutter_blurhash: ^0.6.0
   searchfield: ^0.5.6
   decorated_icon: ^1.2.1
+  ionicons: ^0.1.2
+  cached_network_image: ^3.2.0
   flutter_statusbar_manager:
     git: git://github.com/rafaelmaeuer/flutter_statusbar_manager.git
   photo_view:

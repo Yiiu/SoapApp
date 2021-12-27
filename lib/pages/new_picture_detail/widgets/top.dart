@@ -33,6 +33,16 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
     );
   }
 
+  void openUserPage(BuildContext context) {
+    Navigator.of(context).pushNamed(
+      RouteName.user,
+      arguments: {
+        'user': widget.picture.user!,
+        'heroId': '',
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -65,21 +75,17 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                 border: false,
                 title: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
-                  child: Row(
-                    children: <Widget>[
-                      TouchableOpacity(
-                        activeOpacity: activeOpacity,
-                        // onTap: () => openUserPage(),
-                        child: Avatar(
+                  child: TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => openUserPage(context),
+                    child: Row(
+                      children: <Widget>[
+                        Avatar(
                           size: 28,
                           image: widget.picture.user!.avatarUrl,
                         ),
-                      ),
-                      TouchableOpacity(
-                        activeOpacity: activeOpacity,
-                        behavior: HitTestBehavior.opaque,
-                        // onTap: () => openUserPage(),
-                        child: Padding(
+                        Padding(
                           padding: const EdgeInsets.symmetric(
                             horizontal: 12,
                             vertical: 8,
@@ -93,8 +99,8 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),

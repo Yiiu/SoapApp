@@ -1,29 +1,15 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
-import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:soap_app/pages/home/new/widgets/list.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/utils/list.dart';
-import 'package:soap_app/utils/query.dart';
 import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/load_more_listener.dart';
-import 'package:soap_app/widget/list/loading.dart';
-import 'package:soap_app/widget/soap_toast.dart';
 
 class NewView extends StatefulWidget {
   const NewView({
@@ -65,12 +51,7 @@ class NewViewState extends State<NewView>
     super.initState();
     Future<void>.delayed(const Duration(milliseconds: 350)).then(
       (dynamic value) async {
-        // widget.refreshController.requestRefresh()
         newListStore.watchQuery();
-        // await widget.refreshController.requestRefresh(
-        //   duration: const Duration(milliseconds: 150),
-        // );
-        // unawaited(HapticFeedback.lightImpact());
       },
     );
   }

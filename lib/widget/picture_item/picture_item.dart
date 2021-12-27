@@ -110,70 +110,75 @@ class PictureItem extends StatelessWidget {
         Text(
           picture.title,
           style: const TextStyle(
-            fontSize: 13,
+            fontSize: 14,
             fontWeight: FontWeight.w500,
           ),
         ),
         const SizedBox(
-          height: 8,
+          height: 4,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                TouchableOpacity(
-                  activeOpacity: activeOpacity,
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.user,
-                      arguments: {
-                        'user': picture.user,
-                        'heroId': picture.id.toString(),
-                      },
-                    );
+            TouchableOpacity(
+              activeOpacity: activeOpacity,
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  RouteName.user,
+                  arguments: {
+                    'user': picture.user,
+                    'heroId': picture.id.toString(),
                   },
-                  child: Hero(
-                    tag:
-                        'user-${picture.user!.username}-${picture.id.toString()}',
-                    child: Avatar(
-                      size: 18,
-                      image: picture.user!.avatarUrl,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: Flex(
-                    direction: Axis.vertical,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TouchableOpacity(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RouteName.user,
-                            arguments: {
-                              'user': picture.user,
-                              'heroId': picture.id.toString(),
-                            },
-                          );
-                        },
-                        child: Text(
-                          picture.user!.fullName,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12,
-                            color: theme.textTheme.bodyText2!.color!
-                                .withOpacity(.6),
-                          ),
-                        ),
+                );
+              },
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 3),
+                child: Flex(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  direction: Axis.horizontal,
+                  children: [
+                    Hero(
+                      tag:
+                          'user-${picture.user!.username}-${picture.id.toString()}',
+                      child: Avatar(
+                        size: 18,
+                        image: picture.user!.avatarUrl,
                       ),
-                    ],
-                  ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      child: Flex(
+                        direction: Axis.vertical,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          TouchableOpacity(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                RouteName.user,
+                                arguments: {
+                                  'user': picture.user,
+                                  'heroId': picture.id.toString(),
+                                },
+                              );
+                            },
+                            child: Text(
+                              picture.user!.fullName,
+                              style: TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 12,
+                                color: theme.textTheme.bodyText2!.color!
+                                    .withOpacity(.6),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ],
+              ),
             ),
             SoapLikeButton(
               isLike: picture.isLike!,

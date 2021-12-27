@@ -1,10 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_statusbar_manager/flutter_statusbar_manager.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:soap_app/config/jpush.dart';
@@ -41,11 +38,13 @@ Future<void> main() async {
       SystemUiOverlay.bottom,
     ],
   );
-  const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-  );
-  SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
+  // const SystemUiOverlayStyle systemUiOverlayStyle = SystemUiOverlayStyle(
+  //   statusBarColor: Colors.transparent,
+  //   statusBarIconBrightness: Brightness.dark,
+  //   systemNavigationBarColor: Color(0x0012254A),
+  //   systemNavigationBarDividerColor: Color(0x0012254A),
+  // );
+  // SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   // await FlutterStatusbarManager.setStyle(StatusBarStyle.DARK_CONTENT);
   // await FlutterStatusbarManager.setColor(
   //   Colors.transparent,
