@@ -202,7 +202,7 @@ class FixedAppBarWrapper extends StatelessWidget {
         ),
         super(key: key);
 
-  final SoapAppBar appBar;
+  final Widget appBar;
   final Widget body;
   final Widget? position;
   final bool backdropBar;

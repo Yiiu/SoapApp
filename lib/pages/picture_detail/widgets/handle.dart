@@ -11,8 +11,6 @@ import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
 import 'package:soap_app/pages/picture_detail/widgets/add_to_collection.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/soap_toast.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -22,8 +20,10 @@ class PictureDetailHandle extends StatefulWidget {
   const PictureDetailHandle({
     Key? key,
     required this.picture,
+    this.handle = true,
   }) : super(key: key);
   final Picture picture;
+  final bool? handle;
 
   @override
   _PictureDetailHandleState createState() => _PictureDetailHandleState();
@@ -106,6 +106,7 @@ class _PictureDetailHandleState extends State<PictureDetailHandle> {
                               child: PictureDetailHandleBasic(
                                 focusNode: focusNode,
                                 store: _store,
+                                handle: widget.handle!,
                                 picture: widget.picture,
                               ),
                             ),
@@ -130,6 +131,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
     required this.focusNode,
     required this.store,
     required this.picture,
+    required this.handle,
   }) : super(key: key);
 
   final PictureRepository _pictureRepository = PictureRepository();
@@ -137,6 +139,8 @@ class PictureDetailHandleBasic extends StatelessWidget {
   final HandleStore store;
   final FocusNode focusNode;
   final Picture picture;
+
+  final bool handle;
 
   bool get isCollected {
     if (picture.currentCollections != null &&
@@ -198,130 +202,132 @@ class PictureDetailHandleBasic extends StatelessWidget {
                 ),
               ),
             ),
-            const SizedBox(width: 12),
-            SizedBox(
-              height: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  LikeButton(
-                    isLiked: picture.isLike,
-                    size: 26,
-                    onTap: (bool like) async {
-                      if (!accountStore.isLogin) {
-                        SoapToast.error('请登录后再操作！');
-                        return like;
-                      }
-                      if (!like) {
-                        await _pictureRepository.liked(picture.id);
-                      } else {
-                        await _pictureRepository.unLike(picture.id);
-                      }
-                      return !like;
-                    },
-                    animationDuration: const Duration(milliseconds: 800),
-                    likeCountAnimationDuration:
-                        const Duration(milliseconds: 250),
-                    circleColor: const CircleColor(
-                        start: Color(0xff00ddff), end: Color(0xff0099cc)),
-                    bubblesColor: const BubblesColor(
-                      dotPrimaryColor: Color(0xff33b5e5),
-                      dotSecondaryColor: Color(0xff0099cc),
-                    ),
-                    likeBuilder: (bool isLiked) {
-                      if (isLiked) {
-                        return ShaderMask(
-                          child: SvgPicture.asset(
-                            'assets/remix/heart-3-fill.svg',
-                            color: const Color(0xfffe2341),
-                          ),
-                          blendMode: BlendMode.srcATop,
-                          shaderCallback: (Rect bounds) => RadialGradient(
-                            center:
-                                Alignment.topLeft.add(Alignment(0.66, 0.66)),
-                            colors: [
-                              Color(0xffEF6F6F),
-                              Color(0xffF03E3E),
-                            ],
-                          ).createShader(bounds),
-                        );
-                      }
-                      return SvgPicture.asset(
-                        'assets/remix/heart-3-line.svg',
-                        color:
-                            theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                      );
-                    },
-                    likeCount: picture.likedCount,
-                    countBuilder: (int? count, bool isLiked, String text) =>
-                        count == 0
-                            ? Text(
-                                '点个赞吧~',
-                                style: TextStyle(
-                                  color: theme.textTheme.bodyText2!.color!
-                                      .withOpacity(.6),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              )
-                            : IntrinsicWidth(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Expanded(
-                                      child: AnimatedNumber(
-                                        number: count,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                  ),
-                  const SizedBox(width: 14),
-                  TouchableOpacity(
-                    onTap: () {
-                      if (!accountStore.isLogin) {
-                        SoapToast.error('请登录后再操作！');
-                        return;
-                      }
-                      showSoapBottomSheet(
-                        context,
-                        child: AddToCollection(
-                          current: picture.currentCollections,
-                          pictureId: picture.id,
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      width: 26,
-                      height: 26,
-                      child: isCollected
-                          ? ShaderMask(
-                              child: SvgPicture.asset(
-                                'assets/feather/star-fill.svg',
-                                color: const Color(0xff47B881),
-                              ),
-                              blendMode: BlendMode.srcATop,
-                              shaderCallback: (Rect bounds) => RadialGradient(
-                                center: Alignment.topLeft
-                                    .add(const Alignment(0.66, 0.66)),
-                                colors: const <Color>[
-                                  Color(0xff82c1a4),
-                                  Color(0xff47b881),
-                                ],
-                              ).createShader(bounds),
-                            )
-                          : Icon(
-                              FeatherIcons.star,
-                              color: theme.textTheme.bodyText2!.color!
-                                  .withOpacity(.6),
-                              size: 25,
+            if (handle) ...[
+              const SizedBox(width: 12),
+              SizedBox(
+                height: double.infinity,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    LikeButton(
+                      isLiked: picture.isLike,
+                      size: 26,
+                      onTap: (bool like) async {
+                        if (!accountStore.isLogin) {
+                          SoapToast.error('请登录后再操作！');
+                          return like;
+                        }
+                        if (!like) {
+                          await _pictureRepository.liked(picture.id);
+                        } else {
+                          await _pictureRepository.unLike(picture.id);
+                        }
+                        return !like;
+                      },
+                      animationDuration: const Duration(milliseconds: 800),
+                      likeCountAnimationDuration:
+                          const Duration(milliseconds: 250),
+                      circleColor: const CircleColor(
+                          start: Color(0xff00ddff), end: Color(0xff0099cc)),
+                      bubblesColor: const BubblesColor(
+                        dotPrimaryColor: Color(0xff33b5e5),
+                        dotSecondaryColor: Color(0xff0099cc),
+                      ),
+                      likeBuilder: (bool isLiked) {
+                        if (isLiked) {
+                          return ShaderMask(
+                            child: SvgPicture.asset(
+                              'assets/remix/heart-3-fill.svg',
+                              color: const Color(0xfffe2341),
                             ),
+                            blendMode: BlendMode.srcATop,
+                            shaderCallback: (Rect bounds) => RadialGradient(
+                              center:
+                                  Alignment.topLeft.add(Alignment(0.66, 0.66)),
+                              colors: [
+                                Color(0xffEF6F6F),
+                                Color(0xffF03E3E),
+                              ],
+                            ).createShader(bounds),
+                          );
+                        }
+                        return SvgPicture.asset(
+                          'assets/remix/heart-3-line.svg',
+                          color:
+                              theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                        );
+                      },
+                      likeCount: picture.likedCount,
+                      countBuilder: (int? count, bool isLiked, String text) =>
+                          count == 0
+                              ? Text(
+                                  '点个赞吧~',
+                                  style: TextStyle(
+                                    color: theme.textTheme.bodyText2!.color!
+                                        .withOpacity(.6),
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )
+                              : IntrinsicWidth(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Expanded(
+                                        child: AnimatedNumber(
+                                          number: count,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                     ),
-                  )
-                ],
+                    const SizedBox(width: 14),
+                    TouchableOpacity(
+                      onTap: () {
+                        if (!accountStore.isLogin) {
+                          SoapToast.error('请登录后再操作！');
+                          return;
+                        }
+                        showSoapBottomSheet(
+                          context,
+                          child: AddToCollection(
+                            current: picture.currentCollections,
+                            pictureId: picture.id,
+                          ),
+                        );
+                      },
+                      child: SizedBox(
+                        width: 26,
+                        height: 26,
+                        child: isCollected
+                            ? ShaderMask(
+                                child: SvgPicture.asset(
+                                  'assets/feather/star-fill.svg',
+                                  color: const Color(0xff47B881),
+                                ),
+                                blendMode: BlendMode.srcATop,
+                                shaderCallback: (Rect bounds) => RadialGradient(
+                                  center: Alignment.topLeft
+                                      .add(const Alignment(0.66, 0.66)),
+                                  colors: const <Color>[
+                                    Color(0xff82c1a4),
+                                    Color(0xff47b881),
+                                  ],
+                                ).createShader(bounds),
+                              )
+                            : Icon(
+                                FeatherIcons.star,
+                                color: theme.textTheme.bodyText2!.color!
+                                    .withOpacity(.6),
+                                size: 25,
+                              ),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
+            ],
           ],
         ),
       ),

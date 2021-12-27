@@ -28,6 +28,9 @@ DocumentNode pictureDetailFragment = gql(r'''
     location {
       ...LocationFragment
     }
+    classify {
+      keyword
+    }
   }
 ''');
 

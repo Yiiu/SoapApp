@@ -49,7 +49,7 @@ class NewViewState extends State<NewView>
   void initState() {
     newListStore.init();
     super.initState();
-    Future<void>.delayed(const Duration(milliseconds: 350)).then(
+    Future<void>.delayed(Duration(milliseconds: screenDelayTimer)).then(
       (dynamic value) async {
         newListStore.watchQuery();
       },

@@ -150,7 +150,12 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                     ),
                     builder: (BuildContext context, snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
-                        return PictureDetailComment(store: _pageStore);
+                        return Observer(builder: (_) {
+                          return PictureDetailComment(
+                            id: _pageStore.picture!.id,
+                            commentCount: _pageStore.picture!.commentCount,
+                          );
+                        });
                       } else {
                         return const SizedBox();
                       }

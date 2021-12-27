@@ -11,6 +11,8 @@ Future<T?> showSoapBottomSheet<T>(
   required Widget child,
   bool hapticFeedback = false,
   bool isScrollControlled = false,
+  double? height,
+  Color? backgroundColor,
 }) async {
   if (hapticFeedback) {
     unawaited(HapticFeedback.lightImpact());
@@ -26,23 +28,34 @@ Future<T?> showSoapBottomSheet<T>(
         topRight: radius,
       ),
     ),
-    builder: (_) => Material(
-      type: MaterialType.transparency,
-      child: ClipRect(
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Theme.of(_).backgroundColor.withOpacity(.94),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(12),
+    builder: (_) {
+      Widget content = Material(
+        type: MaterialType.transparency,
+        child: ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            child: Container(
+              decoration: BoxDecoration(
+                color: backgroundColor ??
+                    Theme.of(_).backgroundColor.withOpacity(.94),
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(12),
+                  topRight: Radius.circular(12),
+                ),
               ),
+              child: child,
             ),
-            child: child,
           ),
         ),
-      ),
-    ),
+      );
+
+      if (height != null) {
+        content = SizedBox(
+          height: height,
+          child: content,
+        );
+      }
+      return content;
+    },
   );
 }

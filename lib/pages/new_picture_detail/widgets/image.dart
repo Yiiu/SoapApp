@@ -79,7 +79,7 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
         : toHeroContext.widget as Hero;
 
     final BorderRadiusTween tween = BorderRadiusTween(
-      begin: BorderRadius.all(Radius.circular(8)),
+      begin: const BorderRadius.all(Radius.circular(8)),
       end: BorderRadius.zero,
     );
 
@@ -112,35 +112,138 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
             child: Stack(
               children: [
                 Center(
-                  child: OctoImage(
-                    placeholderBuilder: (BuildContext context) {
-                      return _heroBuilder(
-                        index,
-                        AspectRatio(
-                          aspectRatio:
-                              widget.picture.width / widget.picture.height,
-                          child: ExtendedImage.network(
-                            widget.picture.pictureUrl(
-                              style: PictureStyle.small,
+                  child: ExtendedImage.network(
+                    getPictureUrl(
+                      key: widget.picture.key,
+                      style: PictureStyle.regular,
+                    ),
+                    fit: BoxFit.contain,
+                    cache: true,
+                    loadStateChanged: (ExtendedImageState state) {
+                      switch (state.extendedImageLoadState) {
+                        case LoadState.loading:
+                          return Center(
+                            child: AspectRatio(
+                              aspectRatio:
+                                  widget.picture.width / widget.picture.height,
+                              child: _heroBuilder(
+                                index,
+                                OctoImage(
+                                  fit: BoxFit.contain,
+                                  image: ExtendedImage.network(
+                                    getPictureUrl(
+                                      key: widget.picture.key,
+                                      style: widget.pictureStyle,
+                                    ),
+                                    cache: true,
+                                  ).image,
+                                  placeholderBuilder: (BuildContext context) {
+                                    return Container(
+                                      color: HexColor.fromHex(
+                                          widget.picture.color),
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                      );
-                    },
-                    image: ExtendedImage.network(
-                      widget.picture.pictureUrl(
-                        style: PictureStyle.regular,
-                      ),
-                    ).image,
-                    fit: BoxFit.cover,
-                    imageBuilder: (_, w) {
-                      return _heroBuilder(index, w);
+                          );
+                        case LoadState.completed:
+                          return _heroBuilder(
+                            index,
+                            ExtendedImage.network(
+                              getPictureUrl(
+                                key: widget.picture.key,
+                                style: PictureStyle.regular,
+                              ),
+                              fit: BoxFit.contain,
+                              cache: true,
+                            ),
+                          );
+                          break;
+                        case LoadState.failed:
+                          // TODO: Handle this case.
+                          break;
+                      }
                     },
                   ),
+                  // child: OctoImage(
+                  //   placeholderBuilder: (BuildContext context) {
+                  //     return _heroBuilder(
+                  //       index,
+                  //       AspectRatio(
+                  //         aspectRatio:
+                  //             widget.picture.width / widget.picture.height,
+                  //         child: ExtendedImage.network(
+                  //           widget.picture.pictureUrl(
+                  //             style: widget.pictureStyle,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //     );
+                  //   },
+                  //   image: ExtendedImage.network(
+                  //     widget.picture.pictureUrl(
+                  //       style: PictureStyle.regular,
+                  //     ),
+                  //   ).image,
+                  //   fit: BoxFit.cover,
+                  //   imageBuilder: (_, w) {
+                  //     return _heroBuilder(index, w);
+                  //   },
+                  // ),
                 ),
               ],
             ),
           ),
+          // _heroBuilder(
+          //   index,
+          //   ExtendedImage.network(
+          //     getPictureUrl(
+          //       key: widget.picture.key,
+          //       style: PictureStyle.full,
+          //     ),
+          //     cache: true,
+          //     loadStateChanged: (ExtendedImageState state) {
+          //       switch (state.extendedImageLoadState) {
+          //         case LoadState.loading:
+          //           // TODO: 第一次获取会闪烁，为了更平滑加上一个placeholder
+          //           return Center(
+          //             child: AspectRatio(
+          //               aspectRatio:
+          //                   widget.picture.width / widget.picture.height,
+          //               child: OctoImage(
+          //                 fit: BoxFit.contain,
+          //                 image: ExtendedImage.network(
+          //                   getPictureUrl(
+          //                     key: widget.picture.key,
+          //                     style: widget.pictureStyle,
+          //                   ),
+          //                   cache: true,
+          //                 ).image,
+          //                 placeholderBuilder: (BuildContext context) {
+          //                   return Container(
+          //                     color: HexColor.fromHex(widget.picture.color),
+          //                   );
+          //                 },
+          //               ),
+          //             ),
+          //           );
+          //         case LoadState.completed:
+          //           // TODO: Handle this case.
+          //           break;
+          //         case LoadState.failed:
+          //           return ExtendedImage.network(
+          //             getPictureUrl(
+          //               key: widget.picture.key,
+          //               style: widget.pictureStyle,
+          //             ),
+          //             cache: true,
+          //           );
+          //           break;
+          //       }
+          //     },
+          //   ),
+          // ),
         );
       },
     );

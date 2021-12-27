@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:json_annotation/json_annotation.dart';
 import 'package:soap_app/model/badge.dart';
 import 'package:soap_app/model/collection.dart';
@@ -41,6 +43,7 @@ class Picture {
     this.exif,
     this.badge,
     this.location,
+    this.classify,
   });
 
   factory Picture.fromJson(Map<String, dynamic> json) =>
@@ -63,10 +66,30 @@ class Picture {
 
   final Map? location;
 
+  final List<Map>? classify;
+
   bool get isChoice {
-    if (badge != null && badge!.indexWhere((e) => e.name == 'choice') != -1)
-      return true;
+    if (badge != null &&
+        badge!.indexWhere((Badge e) => e.name == 'choice') != -1) return true;
     return false;
+  }
+
+  String get sizeStr {
+    // ignore: always_put_control_body_on_new_line
+    if (size <= 0) return '0 B';
+    const List<String> suffixes = [
+      'B',
+      'KB',
+      'MB',
+      'GB',
+      'TB',
+      'PB',
+      'EB',
+      'ZB',
+      'YB'
+    ];
+    final int i = (log(size) / log(1024)).floor();
+    return ((size / pow(1024, i)).toStringAsFixed(2)) + ' ' + suffixes[i];
   }
 
   String pictureUrl({PictureStyle? style}) {
