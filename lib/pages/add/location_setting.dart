@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -44,9 +46,14 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
         },
       ),
     );
-    print(data.data!['searchPlace']);
+    print(data.data!['searchPlace']
+        .toList()
+        .where((place) => place['uid'] != null));
     setState(() {
-      placeList = data.data!['searchPlace'];
+      placeList = data.data!['searchPlace']
+          .toList()
+          .where((place) => place['uid'] != null)
+          .toList();
     });
   }
 
