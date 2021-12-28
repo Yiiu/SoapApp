@@ -40,18 +40,18 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
         variables: {
           'value': _valueController.text,
           'region': _regionController.text,
-        },
+        } as Map<String, dynamic>,
       ),
     );
     setState(() {
-      placeList = data.data!['searchPlace']
+      placeList = (data.data!['searchPlace'] as List<dynamic>)
           .toList()
-          .where((place) => place['uid'] != null)
+          .where((dynamic place) => place['uid'] != null)
           .toList();
     });
   }
 
-  Future onSelected(Map? data) async {
+  Future onSelected(Map<String, dynamic>? data) async {
     if (data != null) {
       final QueryResult detail = await GraphqlConfig.graphQLClient.query(
         QueryOptions(
@@ -59,11 +59,13 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
             placeDetail,
             [...locationFragmentDocumentNode],
           ),
+          // ignore: always_specify_types
           variables: {'uid': data['uid']},
         ),
       );
       setState(() {
-        selected = detail.data?['placeDetail'] ?? data;
+        selected =
+            detail.data?['placeDetail'] as Map<dynamic, dynamic>? ?? data;
       });
     } else {
       setState(() {

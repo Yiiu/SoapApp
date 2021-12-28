@@ -100,8 +100,7 @@ dependencies:
   decorated_icon: ^1.2.1
   ionicons: ^0.1.2
   cached_network_image: ^3.2.0
-  flutter_statusbar_manager:
-    git: git://github.com/rafaelmaeuer/flutter_statusbar_manager.git
+  flutter_image_compress: ^1.1.0
   photo_view:
     # custom photo_view with better gesture recognition
     git: git://github.com/SoapPhoto/photo_view.git

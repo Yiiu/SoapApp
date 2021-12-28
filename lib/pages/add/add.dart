@@ -7,18 +7,19 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/add/location_setting.dart';
-import 'package:soap_app/repository/repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     as WechatAssetsPicker;
 
+import '../../model/picture.dart';
+import '../../repository/repository.dart';
+import '../../store/index.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
+import 'location_setting.dart';
 import 'more_setting.dart';
 import 'stores/add_store.dart';
 import 'widgets/widgets.dart';
@@ -77,7 +78,7 @@ class _AddPageState extends State<AddPage> {
   Future<void> _getImageClassify() async {
     if (widget.assets != null) {
       final Uint8List? thumb =
-          await widget.assets![0].thumbDataWithSize(600, 600, quality: 90);
+          await widget.assets![0].thumbDataWithSize(600, 600, quality: 70);
       if (thumb != null) {
         final String base64Image = base64Encode(thumb);
         final result = await _baiduProvider.getImageClassify(base64Image);
@@ -105,10 +106,17 @@ class _AddPageState extends State<AddPage> {
       if (widget.assets == null) {
         return;
       }
-      final file = await widget.assets![0].loadFile();
+      final File? file = await widget.assets![0].loadFile();
+
       if (file != null) {
         if (_titleController.text.isEmpty) {
           SoapToast.error('请填写标题！');
+          return;
+        }
+        final int size = await file.length();
+        final double mb = size / 1024 / 1024;
+        if (mb > 19) {
+          SoapToast.error('图片过大无法上传，请压缩后在上传！');
           return;
         }
         final Uint8List? thumb = await widget.assets![0].thumbData;
@@ -368,7 +376,8 @@ class _AddPageState extends State<AddPage> {
                                         builder: (_) => _itemBuild(
                                           title: _addStore.location != null
                                               ? Text(
-                                                  _addStore.location!['name'],
+                                                  _addStore.location!['name']
+                                                      as String,
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,
@@ -414,6 +423,9 @@ class _AddPageState extends State<AddPage> {
                               title: widget.edit ? '修改' : '发布',
                               onTap: () => _onOk(),
                             )),
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).padding.bottom,
                   ),
                 ],
               ),

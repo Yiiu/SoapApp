@@ -2,14 +2,14 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/new_picture_detail/widgets/bottom.dart';
-import 'package:soap_app/pages/new_picture_detail/widgets/handle.dart';
-import 'package:soap_app/pages/new_picture_detail/widgets/image.dart';
-import 'package:soap_app/pages/new_picture_detail/widgets/top.dart';
 
-import 'package:soap_app/pages/picture_detail/stores/picture_detail_store.dart';
-import 'package:soap_app/utils/utils.dart';
+import '../../model/picture.dart';
+import '../../utils/utils.dart';
+import '../picture_detail/stores/picture_detail_store.dart';
+import 'widgets/bottom.dart';
+import 'widgets/handle.dart';
+import 'widgets/image.dart';
+import 'widgets/top.dart';
 
 class NewPictureDetail extends StatefulWidget {
   const NewPictureDetail({

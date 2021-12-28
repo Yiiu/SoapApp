@@ -4,15 +4,16 @@ import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/model/tag.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../../config/config.dart';
+import '../../../model/picture.dart';
+import '../../../model/tag.dart';
 import '../constants.dart';
 
-class NewPictureDetailBottom extends StatefulWidget {
-  const NewPictureDetailBottom({
+// ignore: must_be_immutable
+class NewPictureDetailBottom extends StatelessWidget {
+  NewPictureDetailBottom({
     Key? key,
     required this.controller,
     required this.picture,
@@ -20,22 +21,14 @@ class NewPictureDetailBottom extends StatefulWidget {
 
   final AnimationController controller;
   final Picture picture;
-
-  @override
-  _NewPictureDetailBottomState createState() => _NewPictureDetailBottomState();
-}
-
-class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
   late Animation<Offset> _bottomAnimation;
 
-  @override
   void initState() {
-    super.initState();
     _bottomAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 1),
     ).animate(
-      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
   }
 
@@ -53,7 +46,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Text(
-            widget.picture.title,
+            picture.title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.white,
@@ -62,8 +55,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
             ),
           ),
           const SizedBox(height: 4),
-          if (widget.picture.tags != null &&
-              widget.picture.tags!.isNotEmpty) ...[
+          if (picture.tags != null && picture.tags!.isNotEmpty) ...[
             SizedBox(
               width: double.infinity,
               child: Wrap(
@@ -71,7 +63,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
                 runSpacing: 6,
                 alignment: WrapAlignment.start,
                 runAlignment: WrapAlignment.end,
-                children: widget.picture.tags!
+                children: picture.tags!
                     .map(
                       (Tag tag) => TouchableOpacity(
                         activeOpacity: activeOpacity,
@@ -108,7 +100,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
             ),
             const SizedBox(height: 4),
           ],
-          if (widget.picture.location != null) ...[
+          if (picture.location != null) ...[
             Row(
               children: [
                 DecoratedIcon(
@@ -119,7 +111,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  widget.picture.location!['name'],
+                  picture.location!['name'] as String,
                   style: TextStyle(
                     color: Colors.white.withOpacity(.9),
                     fontSize: 12,
@@ -140,7 +132,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
               ),
               const SizedBox(width: 4),
               Text(
-                '发布于 ${Jiffy(widget.picture.createTime.toString()).fromNow()}',
+                '发布于 ${Jiffy(picture.createTime.toString()).fromNow()}',
                 style: TextStyle(
                   color: Colors.white.withOpacity(.6),
                   fontSize: 12,

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
+import '../../../model/picture.dart';
+import '../../../widget/widgets.dart';
 
 class NewPictureDetailTop extends StatefulWidget {
   const NewPictureDetailTop({

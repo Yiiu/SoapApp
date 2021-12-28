@@ -14,8 +14,8 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 import '../constants.dart';
 import 'picture_info.dart';
 
-class NewPictureDetailHandle extends StatefulWidget {
-  const NewPictureDetailHandle({
+class NewPictureDetailHandle extends StatelessWidget {
+  NewPictureDetailHandle({
     Key? key,
     this.onInfo,
     required this.controller,
@@ -25,24 +25,16 @@ class NewPictureDetailHandle extends StatefulWidget {
   final AnimationController controller;
   final Picture picture;
   final void Function()? onInfo;
-
-  @override
-  _NewPictureDetailHandleState createState() => _NewPictureDetailHandleState();
-}
-
-class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
   final PictureRepository _pictureRepository = PictureRepository();
 
   late Animation<double> _opacityAnimation;
 
-  @override
   void initState() {
-    super.initState();
     _opacityAnimation = Tween<double>(
       begin: 1,
       end: 0,
     ).animate(
-      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
     );
   }
 
@@ -88,7 +80,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
     return Column(
       children: <Widget>[
         LikeButton(
-          isLiked: widget.picture.isLike,
+          isLiked: picture.isLike,
           size: 26,
           onTap: (bool like) async {
             if (!accountStore.isLogin) {
@@ -96,9 +88,9 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
               return like;
             }
             if (!like) {
-              await _pictureRepository.liked(widget.picture.id);
+              await _pictureRepository.liked(picture.id);
             } else {
-              await _pictureRepository.unLike(widget.picture.id);
+              await _pictureRepository.unLike(picture.id);
             }
             return !like;
           },
@@ -137,7 +129,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
               ],
             );
           },
-          likeCount: widget.picture.likedCount,
+          likeCount: picture.likedCount,
           countBuilder: (int? count, bool isLiked, String text) =>
               const SizedBox(),
         ),
@@ -147,7 +139,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
             children: [
               Expanded(
                 child: AnimatedNumber(
-                  number: widget.picture.likedCount,
+                  number: picture.likedCount,
                   textStyle: const TextStyle(
                     color: Colors.white,
                     shadows: shadow,
@@ -181,7 +173,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
               const SizedBox(height: 24),
               _handleItem(
                 icon: Ionicons.chatbubble,
-                text: (widget.picture.commentCount ?? 0).toString(),
+                text: (picture.commentCount ?? 0).toString(),
                 onTap: () {
                   showSoapBottomSheet<dynamic>(
                     context,
@@ -191,10 +183,10 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
                         MediaQuery.of(context).padding.top -
                         24,
                     child: CommentBottomModal(
-                      id: widget.picture.id,
-                      picture: widget.picture,
+                      id: picture.id,
+                      picture: picture,
                       handle: false,
-                      commentCount: widget.picture.commentCount,
+                      commentCount: picture.commentCount,
                     ),
                   );
                 },
@@ -206,8 +198,8 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
                   showSoapBottomSheet<dynamic>(
                     context,
                     child: AddToCollection(
-                      current: widget.picture.currentCollections,
-                      pictureId: widget.picture.id,
+                      current: picture.currentCollections,
+                      pictureId: picture.id,
                     ),
                   );
                 },
@@ -219,10 +211,10 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
                   showSoapBottomSheet<dynamic>(
                     context,
                     isScrollControlled: true,
-                    child: PictureInfoModal(picture: widget.picture),
+                    child: PictureInfoModal(picture: picture),
                   );
-                  // if (widget.onInfo != null) {
-                  //   widget.onInfo!();
+                  // if (onInfo != null) {
+                  //   onInfo!();
                   // }
                 },
                 child: const DecoratedIcon(

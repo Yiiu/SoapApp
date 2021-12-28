@@ -107,10 +107,8 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                   child: ExtendedImage.network(
                     getPictureUrl(
                       key: widget.picture.key,
-                      style: PictureStyle.regular,
                     ),
                     fit: BoxFit.contain,
-                    cache: true,
                     loadStateChanged: (ExtendedImageState state) {
                       switch (state.extendedImageLoadState) {
                         case LoadState.loading:
@@ -127,7 +125,6 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                                       key: widget.picture.key,
                                       style: widget.pictureStyle,
                                     ),
-                                    cache: true,
                                   ).image,
                                   placeholderBuilder: (BuildContext context) {
                                     return Container(
@@ -145,10 +142,8 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                             ExtendedImage.network(
                               getPictureUrl(
                                 key: widget.picture.key,
-                                style: PictureStyle.regular,
                               ),
                               fit: BoxFit.contain,
-                              cache: true,
                             ),
                           );
                         case LoadState.failed:
@@ -157,164 +152,12 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                       }
                     },
                   ),
-                  // child: OctoImage(
-                  //   placeholderBuilder: (BuildContext context) {
-                  //     return _heroBuilder(
-                  //       index,
-                  //       AspectRatio(
-                  //         aspectRatio:
-                  //             widget.picture.width / widget.picture.height,
-                  //         child: ExtendedImage.network(
-                  //           widget.picture.pictureUrl(
-                  //             style: widget.pictureStyle,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //     );
-                  //   },
-                  //   image: ExtendedImage.network(
-                  //     widget.picture.pictureUrl(
-                  //       style: PictureStyle.regular,
-                  //     ),
-                  //   ).image,
-                  //   fit: BoxFit.cover,
-                  //   imageBuilder: (_, w) {
-                  //     return _heroBuilder(index, w);
-                  //   },
-                  // ),
                 ),
               ],
             ),
           ),
-          // _heroBuilder(
-          //   index,
-          //   ExtendedImage.network(
-          //     getPictureUrl(
-          //       key: widget.picture.key,
-          //       style: PictureStyle.full,
-          //     ),
-          //     cache: true,
-          //     loadStateChanged: (ExtendedImageState state) {
-          //       switch (state.extendedImageLoadState) {
-          //         case LoadState.loading:
-          //           // TODO: 第一次获取会闪烁，为了更平滑加上一个placeholder
-          //           return Center(
-          //             child: AspectRatio(
-          //               aspectRatio:
-          //                   widget.picture.width / widget.picture.height,
-          //               child: OctoImage(
-          //                 fit: BoxFit.contain,
-          //                 image: ExtendedImage.network(
-          //                   getPictureUrl(
-          //                     key: widget.picture.key,
-          //                     style: widget.pictureStyle,
-          //                   ),
-          //                   cache: true,
-          //                 ).image,
-          //                 placeholderBuilder: (BuildContext context) {
-          //                   return Container(
-          //                     color: HexColor.fromHex(widget.picture.color),
-          //                   );
-          //                 },
-          //               ),
-          //             ),
-          //           );
-          //         case LoadState.completed:
-          //           // TODO: Handle this case.
-          //           break;
-          //         case LoadState.failed:
-          //           return ExtendedImage.network(
-          //             getPictureUrl(
-          //               key: widget.picture.key,
-          //               style: widget.pictureStyle,
-          //             ),
-          //             cache: true,
-          //           );
-          //           break;
-          //       }
-          //     },
-          //   ),
-          // ),
         );
       },
     );
-    // return ExtendedImageSlidePage(
-    //   key: slidePagekey,
-    //   child: HeroWidget(
-    //     tag: 'new-picture-detail-${widget.picture.id}',
-    //     slideType: SlideType.onlyImage,
-    //     slidePagekey: slidePagekey,
-    //     child: ExtendedImage.network(
-    //       getPictureUrl(
-    //         key: widget.picture.key,
-    //         style: PictureStyle.regular,
-    //       ),
-    //       fit: BoxFit.contain,
-    //       mode: ExtendedImageMode.gesture,
-    //       imageCacheName: 'CropImage',
-    //       initGestureConfigHandler: (ExtendedImageState state) {
-    //         double? initialScale = 1.0;
-    //         // if (state.extendedImageInfo != null) {
-    //         //   initialScale = initScale(
-    //         //       size: size,
-    //         //       initialScale: initialScale,
-    //         //       imageSize: Size(
-    //         //           state.extendedImageInfo!.image.width.toDouble(),
-    //         //           state.extendedImageInfo!.image.height
-    //         //               .toDouble()));
-    //         // }
-    //         return GestureConfig(
-    //           minScale: 1,
-    //           animationMinScale: 0.7,
-    //           maxScale: 3.0,
-    //           animationMaxScale: 3.5,
-    //           speed: 1.0,
-    //           inertialSpeed: 100.0,
-    //           initialScale: 1.0,
-    //           inPageView: true,
-    //           initialAlignment: InitialAlignment.center,
-    //         );
-    //       },
-    //       onDoubleTap: (ExtendedImageGestureState state) {
-    //         ///you can use define pointerDownPosition as you can,
-    //         ///default value is double tap pointer down postion.
-    //         final Offset? pointerDownPosition = state.pointerDownPosition;
-    //         final double? begin = state.gestureDetails!.totalScale;
-    //         double end;
-
-    //         //remove old
-    //         _doubleClickAnimation
-    //             ?.removeListener(_doubleClickAnimationListener);
-
-    //         //stop pre
-    //         _doubleClickAnimationController.stop();
-
-    //         //reset to use
-    //         _doubleClickAnimationController.reset();
-
-    //         if (begin == doubleTapScales[0]) {
-    //           end = doubleTapScales[1];
-    //         } else {
-    //           end = doubleTapScales[0];
-    //         }
-
-    //         _doubleClickAnimationListener = () {
-    //           //print(_animation.value);
-    //           state.handleDoubleTap(
-    //               scale: _doubleClickAnimation!.value,
-    //               doubleTapPosition: pointerDownPosition);
-    //         };
-    //         _doubleClickAnimation = _doubleClickAnimationController
-    //             .drive(Tween<double>(begin: begin, end: end));
-
-    //         _doubleClickAnimation!.addListener(_doubleClickAnimationListener);
-
-    //         _doubleClickAnimationController.forward();
-    //       },
-    //     ),
-    //   ),
-    //   slideAxis: SlideAxis.vertical,
-    //   slideType: SlideType.onlyImage,
-    // );
   }
 }

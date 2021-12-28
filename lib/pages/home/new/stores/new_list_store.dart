@@ -61,7 +61,7 @@ abstract class _NewListStoreBase with Store {
     final Map<String, dynamic> variables2 = {
       'query': query,
       'type': type,
-    };
+    } as Map<String, dynamic>;
     final graphql.Request queryRequest = graphql.Request(
       operation: graphql.Operation(
         document: document,
@@ -82,7 +82,7 @@ abstract class _NewListStoreBase with Store {
     await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
       fetchPolicy: graphql.FetchPolicy.networkOnly,
-      variables: {'query': query, 'type': type},
+      variables: {'query': query, 'type': type} as Map<String, dynamic>,
     ));
     // if (result.data != null) {
     //   setPictureList(result.data);
@@ -98,7 +98,7 @@ abstract class _NewListStoreBase with Store {
       variables: {
         'query': {...query, 'page': page + 1},
         'type': type
-      },
+      } as Map<String, dynamic>,
     ));
     // try {
     if (result.data != null) {
@@ -126,7 +126,7 @@ abstract class _NewListStoreBase with Store {
         document: document,
         fetchResults: true,
         fetchPolicy: graphql.FetchPolicy.networkOnly,
-        variables: {'query': query, 'type': type},
+        variables: {'query': query, 'type': type} as Map<String, dynamic>,
       ),
     );
     _observableQuery!.stream.listen((graphql.QueryResult result) {

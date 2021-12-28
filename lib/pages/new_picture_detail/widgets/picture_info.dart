@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/widget/widgets.dart';
+import '../../../model/picture.dart';
+import '../../../widget/widgets.dart';
 
 class PictureInfoModal extends StatelessWidget {
   const PictureInfoModal({
@@ -347,7 +347,7 @@ class PictureInfoModal extends StatelessWidget {
                                   color: theme.backgroundColor,
                                 ),
                                 child: Text(
-                                  e['keyword'],
+                                  e['keyword'] as String,
                                   style: const TextStyle(
                                     fontSize: 12,
                                   ),

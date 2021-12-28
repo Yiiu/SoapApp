@@ -68,7 +68,7 @@ class _UserPageState extends State<UserPage>
           'page': 1,
           'pageSize': 30,
         },
-      },
+      } as Map<String, dynamic>,
     );
     final Map<String, dynamic>? cacheData =
         GraphqlConfig.graphQLClient.readQuery(queryRequest);

@@ -475,6 +475,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "0.30.0"
+  flutter_image_compress:
+    dependency: "direct main"
+    description:
+      name: flutter_image_compress
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "1.1.0"
   flutter_inappwebview:
     dependency: "direct main"
     description:
@@ -524,15 +531,6 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
-  flutter_statusbar_manager:
-    dependency: "direct main"
-    description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "5ab0bb72bdd7aee0fa4d99fc5e3e58e03df8e031"
-      url: "git://github.com/rafaelmaeuer/flutter_statusbar_manager.git"
-    source: git
-    version: "3.1.2"
   flutter_svg:
     dependency: "direct main"
     description:

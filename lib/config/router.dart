@@ -2,24 +2,25 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/model/tag.dart';
-import 'package:soap_app/model/user.dart';
-import 'package:soap_app/pages/about/about.dart';
-import 'package:soap_app/pages/account/login.dart';
-import 'package:soap_app/pages/add/add.dart';
-import 'package:soap_app/pages/collection_detail/collection_detail.dart';
-import 'package:soap_app/pages/edit_profile/edit_profile.dart';
-import 'package:soap_app/pages/home/index.dart';
-import 'package:soap_app/pages/picture_detail/picture_detail.dart';
-import 'package:soap_app/pages/setting/setting.dart';
-import 'package:soap_app/pages/tag_detail/tag_detail.dart';
-import 'package:soap_app/pages/user/user.dart';
-import 'package:soap_app/pages/webview/oauth_webview.dart';
-import 'package:soap_app/utils/oauth.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+import '../model/collection.dart';
+import '../model/picture.dart';
+import '../model/tag.dart';
+import '../model/user.dart';
+import '../pages/about/about.dart';
+import '../pages/account/login.dart';
+import '../pages/add/add.dart';
+import '../pages/collection_detail/collection_detail.dart';
+import '../pages/edit_profile/edit_profile.dart';
+import '../pages/home/index.dart';
+import '../pages/picture_detail/picture_detail.dart';
+import '../pages/setting/setting.dart';
+import '../pages/tag_detail/tag_detail.dart';
+import '../pages/user/user.dart';
+import '../pages/webview/oauth_webview.dart';
+import '../utils/oauth.dart';
+import '../widget/widgets.dart';
 
 class RouteName {
   static const String home = '/';

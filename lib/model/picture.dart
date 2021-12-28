@@ -89,7 +89,7 @@ class Picture {
       'YB'
     ];
     final int i = (log(size) / log(1024)).floor();
-    return ((size / pow(1024, i)).toStringAsFixed(2)) + ' ' + suffixes[i];
+    return '${(size / pow(1024, i)).toStringAsFixed(2)} ${suffixes[i]}';
   }
 
   String pictureUrl({PictureStyle? style}) {
