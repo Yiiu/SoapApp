@@ -50,7 +50,7 @@ class _AddPageState extends State<AddPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
-  dynamic? _classify;
+  dynamic _classify;
 
   double progressValue = 1;
   @override
@@ -175,10 +175,9 @@ class _AddPageState extends State<AddPage> {
     void Function()? onTap,
     Color? iconColor,
   }) {
-    final ThemeData theme = Theme.of(context);
     return GestureDetector(
       onTap: onTap,
-      child: Container(
+      child: SizedBox(
         height: 56,
         child: Flex(
           direction: Axis.horizontal,
@@ -229,7 +228,6 @@ class _AddPageState extends State<AddPage> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Material(
       color: Theme.of(context).cardColor,
       child: FixedAppBarWrapper(

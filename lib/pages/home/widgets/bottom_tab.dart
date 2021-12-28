@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/widget/animations/animated_shifted_position.dart';
@@ -18,7 +17,7 @@ class SoapBottomNavigationBarItem {
 }
 
 class HomeBottomTab extends StatefulWidget {
-  HomeBottomTab({
+  const HomeBottomTab({
     Key? key,
     required this.onChange,
     required this.selectedIndex,
@@ -99,7 +98,7 @@ class _HomeBottomTabState extends State<HomeBottomTab>
                     widget.selectedIndex == HomeBottomTab.bottomBar.indexOf(bar)
                         ? theme.primaryIconTheme.color
                         : bar.title == 'Add'
-                            ? Color(0xffff9f55)
+                            ? const Color(0xffff9f55)
                             : theme.textTheme.bodyText2!.color!.withOpacity(.3),
               ),
             )

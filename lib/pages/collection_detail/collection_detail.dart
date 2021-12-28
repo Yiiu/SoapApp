@@ -144,7 +144,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
           TouchableOpacity(
             activeOpacity: activeOpacity,
             onTap: () {
-              showSoapBottomSheet(
+              showSoapBottomSheet<dynamic>(
                 context,
                 child: CollectionMoreHandle(
                   collection: collection,

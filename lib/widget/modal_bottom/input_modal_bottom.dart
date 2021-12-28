@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:soap_app/widget/input.dart';
 import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
 
@@ -27,8 +26,6 @@ class _InputModalModalBottomState extends State<InputModalModalBottom> {
   final TextEditingController _textController = TextEditingController();
 
   final FocusNode _textFocusNode = FocusNode();
-
-  final bool _okBind = false;
 
   @override
   void initState() {

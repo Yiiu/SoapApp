@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 class PictureItemHeader extends StatelessWidget {
-  PictureItemHeader({
+  const PictureItemHeader({
     Key? key,
     this.heroLabel,
     required this.mainAxisSpacing,
@@ -15,10 +14,10 @@ class PictureItemHeader extends StatelessWidget {
     required this.picture,
   }) : super(key: key);
 
-  double crossAxisSpacing;
-  double mainAxisSpacing;
-  String? heroLabel;
-  Picture picture;
+  final double crossAxisSpacing;
+  final double mainAxisSpacing;
+  final String? heroLabel;
+  final Picture picture;
 
   @override
   Widget build(BuildContext context) {

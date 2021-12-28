@@ -132,12 +132,13 @@ class SoapToast {
               overlayColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed))
+                      states.contains(MaterialState.pressed)) {
                     return Theme.of(context)
                         .textTheme
                         .bodyText2!
                         .color!
                         .withOpacity(0.12);
+                  }
                   return Colors.transparent; // Defer to the widget's default.
                 },
               ),
@@ -182,14 +183,14 @@ class SoapToast {
 }
 
 class CustomOffsetAnimation extends StatefulWidget {
-  final AnimationController controller;
-  final Widget child;
-
   const CustomOffsetAnimation({
     Key? key,
     required this.controller,
     required this.child,
   }) : super(key: key);
+
+  final AnimationController controller;
+  final Widget child;
 
   @override
   _CustomOffsetAnimationState createState() => _CustomOffsetAnimationState();

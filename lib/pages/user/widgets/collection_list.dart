@@ -112,7 +112,7 @@ class UserCollectionListState extends State<UserCollectionList>
                   return TouchableOpacity(
                     activeOpacity: activeOpacity,
                     onTap: () {
-                      showSoapBottomSheet(
+                      showSoapBottomSheet<dynamic>(
                         context,
                         isScrollControlled: true,
                         child: AddCollectionModal(
@@ -176,7 +176,7 @@ class UserCollectionListState extends State<UserCollectionList>
                   final Collection item = list[i - 1];
                   if (accountStore.isLogin &&
                       item.user!.username == accountStore.userInfo!.username) {
-                    showSoapBottomSheet(
+                    showSoapBottomSheet<dynamic>(
                       context,
                       child: CollectionMoreHandle(
                         collection: list[i - 1],

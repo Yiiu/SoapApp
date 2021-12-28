@@ -129,7 +129,7 @@ class _SettingPageState extends State<SettingPage> {
                   },
                 ),
                 onPressed: () {
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     child: MoreHandleModal(
                       title:
@@ -181,7 +181,7 @@ class _SettingPageState extends State<SettingPage> {
                   },
                 ),
                 onPressed: () {
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     child: MoreHandleModal(
                       title: '首页样式',
@@ -247,7 +247,7 @@ class _SettingPageState extends State<SettingPage> {
                     action: appStore.displayMode != null
                         ? Text(
                             appStore.modeList[appStore.displayMode!].toString())
-                        : Text(''),
+                        : const Text(''),
                     onPressed: () async {
                       showSoapBottomSheet<void>(
                         context,
@@ -342,7 +342,7 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
-              SoapDivider(),
+              const SoapDivider(),
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.locale'),
                 action: Observer(builder: (_) {
@@ -376,7 +376,6 @@ class _SettingPageState extends State<SettingPage> {
                                     ),
                                   );
                                 }
-                                print(value);
                                 // appStore.setImgMode(value);
                                 // Navigator.of(context).pop();
                               }),

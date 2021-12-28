@@ -20,7 +20,7 @@ class CommentRepository {
     if (commentId != null) {
       variables['commentId'] = commentId;
     }
-    final QueryResult result = await GraphqlConfig.graphQLClient.mutate(
+    await GraphqlConfig.graphQLClient.mutate(
       MutationOptions(
         document: addFragments(mutations.addComment, [
           ...commentFragmentDocumentNode,

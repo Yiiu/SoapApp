@@ -2,11 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/repository/collection_repository.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/collection/add_collection_modal.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal_item.dart';
-import 'package:soap_app/widget/soap_toast.dart';
 import 'package:soap_app/widget/widgets.dart';
 
 class CollectionMoreHandle extends StatelessWidget {
@@ -54,7 +49,7 @@ class CollectionMoreHandle extends StatelessWidget {
                 title: '编辑',
                 onTap: () {
                   Navigator.of(context).pop();
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     isScrollControlled: true,
                     child: AddCollectionModal(

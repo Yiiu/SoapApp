@@ -17,6 +17,7 @@ enum ExifProperties {
   focalLength,
   aperture,
   exposureTime,
+  // ignore: constant_identifier_names
   ISO,
   meteringMode,
   exposureMode,
@@ -43,13 +44,13 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
       await File(path).readAsBytes(),
     );
 
-    if (data == null || data.isEmpty) {
+    if (data.isEmpty) {
       print('No EXIF information found\n');
       return null;
     }
     final Map<String, Object?> exif = {};
     // print(data.keys);
-    for (String? key in data.keys) {
+    for (final String? key in data.keys) {
       if (key != null && data[key] != null) {
         switch (key) {
           case 'Image Model':
@@ -114,7 +115,7 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
   }
 }
 
-Future<void> saveImage(String imageUrl, {bool isAsset: false}) async {
+Future<void> saveImage(String imageUrl, {bool isAsset = false}) async {
   try {
     if (imageUrl == null) throw '保存失败，图片不存在！';
 
@@ -145,7 +146,6 @@ Future<void> saveImage(String imageUrl, {bool isAsset: false}) async {
       imageBytes,
       quality: 100,
     );
-    print(result);
 
     if (result == null || result == '') {
       throw '图片保存失败';

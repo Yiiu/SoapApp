@@ -20,7 +20,6 @@ class NewPictureDetailTop extends StatefulWidget {
 
 class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
   late Animation<Offset> _topAnimation;
-  late Animation<Offset> _opacityAnimation;
 
   @override
   void initState() {
@@ -67,44 +66,42 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                   ),
                 ),
               ),
-              Container(
-                child: SoapAppBar(
-                  backgroundColor: Colors.transparent,
-                  textColor: Colors.white,
-                  brightness: Brightness.dark,
-                  automaticallyImplyLeading: true,
-                  elevation: 0,
-                  border: false,
-                  centerTitle: false,
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
-                    child: TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => openUserPage(context),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Avatar(
-                            size: 28,
-                            image: widget.picture.user!.avatarUrl,
+              SoapAppBar(
+                backgroundColor: Colors.transparent,
+                textColor: Colors.white,
+                brightness: Brightness.dark,
+                automaticallyImplyLeading: true,
+                elevation: 0,
+                border: false,
+                centerTitle: false,
+                title: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => openUserPage(context),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Avatar(
+                          size: 28,
+                          image: widget.picture.user!.avatarUrl,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            child: Text(
-                              widget.picture.user!.fullName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: Colors.white,
-                              ),
+                          child: Text(
+                            widget.picture.user!.fullName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Colors.white,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

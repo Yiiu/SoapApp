@@ -242,9 +242,9 @@ class PictureDetailHandleBasic extends StatelessWidget {
                             ),
                             blendMode: BlendMode.srcATop,
                             shaderCallback: (Rect bounds) => RadialGradient(
-                              center:
-                                  Alignment.topLeft.add(Alignment(0.66, 0.66)),
-                              colors: [
+                              center: Alignment.topLeft
+                                  .add(const Alignment(0.66, 0.66)),
+                              colors: const [
                                 Color(0xffEF6F6F),
                                 Color(0xffF03E3E),
                               ],
@@ -289,7 +289,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                           SoapToast.error('请登录后再操作！');
                           return;
                         }
-                        showSoapBottomSheet(
+                        showSoapBottomSheet<dynamic>(
                           context,
                           child: AddToCollection(
                             current: picture.currentCollections,

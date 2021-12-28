@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/config.dart';
 
 class MoreHandleModal extends StatelessWidget {
   const MoreHandleModal({

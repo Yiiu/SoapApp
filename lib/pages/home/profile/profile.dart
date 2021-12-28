@@ -1,11 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/config/router.dart';
 import 'package:soap_app/pages/home/profile/widgets/user_item.dart';
 import 'package:soap_app/pages/home/profile/widgets/user_num_item.dart';
 import 'package:soap_app/store/index.dart';
@@ -84,7 +82,7 @@ class _ProfileViewState extends State<ProfileView> {
           padding: const EdgeInsets.all(0),
           children: <Widget>[
             const ProfileUserItem(),
-            SoapDivider(),
+            const SoapDivider(),
             const ProfileUserNumItem(),
             const SizedBox(
               height: 12,

@@ -26,7 +26,6 @@ class SoapLikeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return SizedBox(
       child: Row(
         children: [
@@ -75,7 +74,8 @@ class SoapLikeButton extends StatelessWidget {
               );
             },
             likeCount: likedCount,
-            countBuilder: (int? count, bool isLiked, String text) => SizedBox(),
+            countBuilder: (int? count, bool isLiked, String text) =>
+                const SizedBox(),
           ),
           IntrinsicWidth(
             child: Row(

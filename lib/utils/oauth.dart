@@ -1,5 +1,5 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:enum_to_string/enum_to_string.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 enum OauthType { github, google, weibo }
 enum OauthStateType { login, authorize }
@@ -13,7 +13,7 @@ Uri getOauthUrl(
   String authority = '';
   String unencodedPath = '';
   Map<String, String> query = {};
-  String cb =
+  final String cb =
       'https://soapphoto.com/oauth/${EnumToString.convertToString(type)}/redirect';
   switch (type) {
     case OauthType.github:

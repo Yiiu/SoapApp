@@ -5,16 +5,18 @@ part 'badge.g.dart';
 @JsonSerializable()
 class Badge {
   Badge({
-    required this.id,
     this.type,
     this.name,
     this.rate,
+    required this.id,
   });
+
+  factory Badge.fromJson(Map<String, dynamic> json) => _$BadgeFromJson(json);
+
   final int id;
   final String? type;
   final String? name;
   final String? rate;
 
-  factory Badge.fromJson(Map<String, dynamic> json) => _$BadgeFromJson(json);
   Map<String, dynamic> toJson() => _$BadgeToJson(this);
 }

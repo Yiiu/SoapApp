@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/model/collection.dart';
 import 'package:soap_app/widget/collection_item/preview_item.dart';
-import 'package:styled_text/styled_text.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({Key? key, required this.collection}) : super(key: key);
@@ -38,7 +37,7 @@ class CollectionItem extends StatelessWidget {
                     overflow: TextOverflow.fade,
                     maxLines: 1,
                     softWrap: false,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontWeight: FontWeight.w500,
                     ),
                   ),

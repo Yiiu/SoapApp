@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 
 class LoadMoreListener extends StatefulWidget {
   const LoadMoreListener({
+    Key? key,
     required this.child,
     this.listen = true,
     this.onLoadMore,
-  });
+  }) : super(key: key);
 
   final Widget child;
   final bool listen;

@@ -7,15 +7,16 @@ import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
 import 'package:soap_app/widget/select_list.dart';
 
 class HeroPhotoView extends StatefulWidget {
-  HeroPhotoView({
+  const HeroPhotoView({
+    Key? key,
+    this.heroLabel,
     required this.image,
     required this.id,
-    this.heroLabel,
-  });
+  }) : super(key: key);
 
   final String image;
   final int id;
-  String? heroLabel;
+  final String? heroLabel;
 
   @override
   _HeroPhotoViewState createState() => _HeroPhotoViewState();
@@ -111,7 +112,7 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
             loadStateChanged: (ExtendedImageState state) {
               if (state.extendedImageLoadState == LoadState.loading) {
                 final ImageChunkEvent? loadingProgress = state.loadingProgress;
-                if (loadingProgress == null)
+                if (loadingProgress == null) {
                   return Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
@@ -120,12 +121,13 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
                       ),
                     ),
                   );
+                }
                 final double? progress =
                     loadingProgress.expectedTotalBytes != null
                         ? loadingProgress.cumulativeBytesLoaded /
                             loadingProgress.expectedTotalBytes!
                         : null;
-                if (progress == null)
+                if (progress == null) {
                   return Center(
                     child: CircularProgressIndicator(
                       strokeWidth: 2,
@@ -134,6 +136,7 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
                       ),
                     ),
                   );
+                }
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -166,8 +169,8 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
             onDoubleTap: (ExtendedImageGestureState state) {
               ///you can use define pointerDownPosition as you can,
               ///default value is double tap pointer down position.
-              var pointerDownPosition = state.pointerDownPosition;
-              double begin = state.gestureDetails!.totalScale!;
+              final Offset? pointerDownPosition = state.pointerDownPosition;
+              final double begin = state.gestureDetails!.totalScale!;
               double end;
 
               //remove old

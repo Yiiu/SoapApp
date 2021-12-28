@@ -5,6 +5,7 @@ import '../widgets.dart';
 /// Implicitly animates the position of the [child] relative to the size of the
 /// [child].
 class AnimatedShiftedPosition extends ImplicitlyAnimatedWidget {
+  // ignore: use_key_in_widget_constructors
   const AnimatedShiftedPosition({
     required this.child,
     required this.shift,
@@ -26,10 +27,10 @@ class _AnimatedRelativePositionState
 
   @override
   void forEachTween(TweenVisitor<dynamic> visitor) {
-    final newTween = visitor(
+    final Tween<dynamic>? newTween = visitor(
       _offsetTween,
       widget.shift,
-      (dynamic value) => Tween<Offset>(begin: value),
+      (dynamic value) => Tween<Offset>(begin: value as Offset?),
     );
 
     if (newTween is Tween<Offset>) {
@@ -39,7 +40,7 @@ class _AnimatedRelativePositionState
 
   @override
   Widget build(BuildContext context) {
-    final offset = _offsetTween!.evaluate(animation);
+    final Offset offset = _offsetTween!.evaluate(animation);
 
     return ShiftedPosition(
       shift: offset,

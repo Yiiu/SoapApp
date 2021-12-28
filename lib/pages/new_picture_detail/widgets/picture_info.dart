@@ -9,6 +9,7 @@ class PictureInfoModal extends StatelessWidget {
   }) : super(key: key);
   final Picture picture;
 
+  @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MoreHandleModal(
@@ -312,7 +313,7 @@ class PictureInfoModal extends StatelessWidget {
               ),
               const SizedBox(height: 18),
               if (picture.classify != null)
-                Container(
+                SizedBox(
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

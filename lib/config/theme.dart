@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 
 const double appBarHeight = 58.0;
@@ -17,7 +15,7 @@ mixin ThemeConfig {
   static Color lightAccent = Colors.blueGrey[900]!;
   static Color darkAccent = Colors.white;
   static Color lightBG = const Color(0xffFAFAFA);
-  static Color darkBG = Color(0xff0d0d0f);
+  static Color darkBG = const Color(0xff0d0d0f);
   static Color badgeColor = Colors.red;
   static Color lightTextColor = const Color(0xff3f3d56);
   static Color darkTextColor = const Color(0xffffffff);

@@ -27,10 +27,11 @@ class ScrollDirection extends InheritedWidget {
 
 class ScrollDirectionListener extends StatefulWidget {
   const ScrollDirectionListener({
-    required this.child,
+    Key? key,
     this.onScrollDirectionChanged,
     this.depth,
-  });
+    required this.child,
+  }) : super(key: key);
 
   final Widget child;
 

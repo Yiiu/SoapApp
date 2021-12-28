@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 
 class BottomBouncingScrollPhysics extends ScrollPhysics {
   const BottomBouncingScrollPhysics({ScrollPhysics? parent})
@@ -28,7 +27,7 @@ class BottomBouncingScrollPhysics extends ScrollPhysics {
         math.max(position.pixels - position.maxScrollExtent, 0.0);
     final double overscrollPast =
         overscrollPastEnd; //math.max(overscrollPastStart, overscrollPastEnd);
-    final bool easing = (overscrollPastEnd > 0.0 && offset > 0.0);
+    final bool easing = overscrollPastEnd > 0.0 && offset > 0.0;
 
     final double friction = easing
         // Apply less resistance when easing the overscroll vs tensioning.
@@ -56,13 +55,15 @@ class BottomBouncingScrollPhysics extends ScrollPhysics {
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) {
     if (value < position.pixels &&
-        position.pixels <= position.minScrollExtent) // underscroll
+        position.pixels <= position.minScrollExtent) {
       return value - position.pixels;
+    }
     // if (position.maxScrollExtent <= position.pixels && position.pixels < value) // overscroll
     //   return value - position.pixels;
     if (value < position.minScrollExtent &&
-        position.minScrollExtent < position.pixels) // hit top edge
+        position.minScrollExtent < position.pixels) {
       return value - position.minScrollExtent;
+    }
     // if (position.pixels < position.maxScrollExtent && position.maxScrollExtent < value) // hit bottom edge
     //   return value - position.maxScrollExtent;
     return 0.0;

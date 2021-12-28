@@ -28,19 +28,11 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
   GlobalKey<ExtendedImageSlidePageState> slidePagekey =
       GlobalKey<ExtendedImageSlidePageState>();
 
-  late AnimationController _doubleClickAnimationController;
-  Animation<double>? _doubleClickAnimation;
-  late DoubleClickAnimationListener _doubleClickAnimationListener;
-
   List<double> doubleTapScales = <double>[1.0, 2.0];
 
   @override
   void initState() {
     super.initState();
-    _doubleClickAnimationController = AnimationController(
-      duration: const Duration(milliseconds: 150),
-      vsync: this,
-    );
   }
 
   Widget _heroBuilder(
@@ -159,7 +151,6 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                               cache: true,
                             ),
                           );
-                          break;
                         case LoadState.failed:
                           // TODO: Handle this case.
                           break;

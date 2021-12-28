@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/physics.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -25,10 +24,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    List<Locale> an = [
+    final List<Locale> an = [
       const Locale('en', 'US'),
     ];
-    List<Locale> ios = [
+    final List<Locale> ios = [
       const Locale('en', 'US'),
     ];
     return RefreshConfiguration(

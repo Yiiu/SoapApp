@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/picture_detail/widgets/widgets.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../config/config.dart';
+import '../../model/picture.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
 import 'stores/picture_detail_store.dart';
+import 'widgets/widgets.dart';
 
 class PictureDetailPage extends StatefulWidget {
   const PictureDetailPage({
@@ -78,7 +78,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           TouchableOpacity(
             activeOpacity: activeOpacity,
             onTap: () {
-              showSoapBottomSheet(
+              showSoapBottomSheet<dynamic>(
                 context,
                 child: PictureDetailMoreHandle(
                   picture: _pageStore.picture!,

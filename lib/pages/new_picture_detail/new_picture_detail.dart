@@ -1,9 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/new_picture_detail/widgets/bottom.dart';
 import 'package:soap_app/pages/new_picture_detail/widgets/handle.dart';
@@ -45,7 +43,7 @@ class _NewPictureDetailState extends State<NewPictureDetail>
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    // TODO: 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画。
+    // TODO(pictureDetail): 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画.
     _controller.value = 1;
     Timer(const Duration(milliseconds: 250), () {
       _controller.reverse(from: 1);

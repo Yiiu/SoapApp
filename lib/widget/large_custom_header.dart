@@ -49,12 +49,12 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
   final TextStyle titleTextStyle;
 
   double makeStickyHeaderBgColor(double shrinkOffset) {
-    double opacity = shrinkOffset / (this.maxExtent - this.minExtent);
+    final double opacity = shrinkOffset / (maxExtent - minExtent);
     return opacity > 1 ? 1 : opacity;
   }
 
   double makeStickyTitleBgColor(double shrinkOffset) {
-    double opacity = shrinkOffset / (this.maxExtent - this.minExtent);
+    final double opacity = shrinkOffset / (maxExtent - minExtent);
     return opacity > 1 ? 1 : opacity;
   }
 
@@ -64,7 +64,6 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
     double shrinkOffset,
     bool overlapsContent,
   ) {
-    bool shrink = shrinkOffset >= titleHeight - 30;
     final ThemeData theme = Theme.of(context);
     return Container(
       constraints: const BoxConstraints.expand(),

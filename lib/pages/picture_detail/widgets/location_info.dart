@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/model/picture.dart';
 
 class PictureLocationInfo extends StatelessWidget {
   const PictureLocationInfo({

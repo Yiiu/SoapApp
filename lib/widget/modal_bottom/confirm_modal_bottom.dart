@@ -77,12 +77,13 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                       overlayColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
                           if (states.contains(MaterialState.focused) ||
-                              states.contains(MaterialState.pressed))
+                              states.contains(MaterialState.pressed)) {
                             return Theme.of(context)
                                 .textTheme
                                 .bodyText2!
                                 .color!
                                 .withOpacity(0.12);
+                          }
                           return Colors
                               .transparent; // Defer to the widget's default.
                         },
@@ -110,15 +111,17 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                           Theme.of(context).primaryColor),
                       overlayColor: MaterialStateProperty.resolveWith<Color>(
                         (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.hovered))
+                          if (states.contains(MaterialState.hovered)) {
                             return Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.04);
+                          }
                           if (states.contains(MaterialState.focused) ||
-                              states.contains(MaterialState.pressed))
+                              states.contains(MaterialState.pressed)) {
                             return Theme.of(context)
                                 .primaryColor
                                 .withOpacity(0.12);
+                          }
                           return Colors
                               .transparent; // Defer to the widget's default.
                         },

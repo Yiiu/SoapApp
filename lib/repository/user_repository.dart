@@ -13,7 +13,7 @@ class UserRepository {
         document: addFragments(query.userIsFollowing, [userFollowInfoFragment]),
         fetchPolicy: FetchPolicy.networkOnly,
         variables: {
-          "username": username,
+          'username': username,
         } as Map<String, dynamic>,
       ),
     );

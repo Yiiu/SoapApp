@@ -17,6 +17,7 @@ class Exif {
     this.focalLength,
     this.aperture,
     this.exposureTime,
+    // ignore: non_constant_identifier_names
     this.ISO,
     // this.lensModel,
     // this.whiteBalance,
@@ -36,6 +37,7 @@ class Exif {
   final double? focalLength;
   final double? aperture;
   final String? exposureTime;
+  // ignore: non_constant_identifier_names
   final int? ISO;
   // String? lensModel;
   // String? whiteBalance;

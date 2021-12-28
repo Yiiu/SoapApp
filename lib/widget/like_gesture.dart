@@ -105,7 +105,7 @@ class TikTokFavoriteAnimationIcon extends StatefulWidget {
     Key? key,
     this.onAnimationComplete,
     required this.position,
-    this.size: 100,
+    this.size = 100,
   }) : super(key: key);
 
   final Offset position;
@@ -167,7 +167,7 @@ class _TikTokFavoriteAnimationIconState
     if (value < dismissDuration) {
       return 0.99;
     }
-    var res = 0.99 - (value - dismissDuration) / (1 - dismissDuration);
+    final res = 0.99 - (value - dismissDuration) / (1 - dismissDuration);
     return res < 0 ? 0 : res;
   }
 
@@ -192,14 +192,14 @@ class _TikTokFavoriteAnimationIconState
       child: content,
       blendMode: BlendMode.srcATop,
       shaderCallback: (Rect bounds) => RadialGradient(
-        center: Alignment.topLeft.add(Alignment(0.66, 0.66)),
-        colors: [
+        center: Alignment.topLeft.add(const Alignment(0.66, 0.66)),
+        colors: const [
           Color(0xffEF6F6F),
           Color(0xffF03E3E),
         ],
       ).createShader(bounds),
     );
-    Widget body = Transform.rotate(
+    final Widget body = Transform.rotate(
       angle: rotate,
       child: Opacity(
         opacity: opa,

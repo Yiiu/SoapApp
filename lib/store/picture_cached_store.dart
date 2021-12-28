@@ -6,8 +6,6 @@ class PictureCachedStore = _PictureCachedStoreBase with _$PictureCachedStore;
 
 // 用来记录本地删除的那些图片，然后过滤掉
 abstract class _PictureCachedStoreBase with Store {
-  late ReactionDisposer _dispose;
-
   @observable
   List<int> deleteIds = ObservableList<int>();
 
@@ -29,18 +27,7 @@ abstract class _PictureCachedStoreBase with Store {
     autoruns();
   }
 
-  void autoruns() {
-    _dispose = autorun((_) {
-      StorageUtil.preferences!.setStringList(
-        'pictureCached.deleteIds',
-        deleteIds.map((e) => e.toString()).toList(),
-      );
-      StorageUtil.preferences!.setStringList(
-        'pictureCached.privateIds',
-        privateIds.map((e) => e.toString()).toList(),
-      );
-    });
-  }
+  void autoruns() {}
 
   @action
   void addDeleteId(int id) {

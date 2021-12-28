@@ -1,7 +1,5 @@
 import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
 import 'package:soap_app/config/config.dart';
@@ -140,7 +138,8 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
             );
           },
           likeCount: widget.picture.likedCount,
-          countBuilder: (int? count, bool isLiked, String text) => SizedBox(),
+          countBuilder: (int? count, bool isLiked, String text) =>
+              const SizedBox(),
         ),
         IntrinsicWidth(
           child: Row(
@@ -166,7 +165,6 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     return Positioned(
       right: 0,
       bottom: 0,
@@ -185,7 +183,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
                 icon: Ionicons.chatbubble,
                 text: (widget.picture.commentCount ?? 0).toString(),
                 onTap: () {
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     // backgroundColor:
                     isScrollControlled: true,
@@ -205,7 +203,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
               _handleItem(
                 icon: Ionicons.bookmark,
                 onTap: () {
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     child: AddToCollection(
                       current: widget.picture.currentCollections,
@@ -218,7 +216,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
               TouchableOpacity(
                 activeOpacity: activeOpacity,
                 onTap: () {
-                  showSoapBottomSheet(
+                  showSoapBottomSheet<dynamic>(
                     context,
                     isScrollControlled: true,
                     child: PictureInfoModal(picture: widget.picture),

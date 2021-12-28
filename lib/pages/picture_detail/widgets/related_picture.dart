@@ -20,7 +20,7 @@ class RelatedPicture extends StatefulWidget {
 class _RelatedPictureState extends State<RelatedPicture> {
   @override
   Widget build(BuildContext context) {
-    Map<String, int> variables = {
+    final Map<String, int> variables = {
       'id': widget.id,
       'limit': 10,
     };
@@ -41,7 +41,7 @@ class _RelatedPictureState extends State<RelatedPicture> {
         }
 
         if (result.isLoading) {
-          return Text('Loading');
+          return const Text('Loading');
         }
 
         final List<Picture> listData = Picture.fromListJson(

@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/const.dart';
 import 'package:soap_app/config/theme.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -61,7 +60,7 @@ class _SoapAppBarState extends State<SoapAppBar>
 
   @override
   Widget build(BuildContext context) {
-    Widget _title = widget.title ?? Text('');
+    Widget _title = widget.title ?? const Text('');
     if (widget.centerTitle) {
       _title = Center(child: _title);
     }
@@ -196,11 +195,7 @@ class FixedAppBarWrapper extends StatelessWidget {
     required this.body,
     this.backdropBar = false,
     this.position,
-  })  : assert(
-          appBar != null && body != null,
-          'All fields must not be null.',
-        ),
-        super(key: key);
+  }) : super(key: key);
 
   final Widget appBar;
   final Widget body;

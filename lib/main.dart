@@ -4,12 +4,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:soap_app/config/jpush.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/storage.dart';
 
 import 'config/graphql.dart';
+import 'config/jpush.dart';
 import 'pages/app.dart';
+import 'store/index.dart';
+import 'utils/storage.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

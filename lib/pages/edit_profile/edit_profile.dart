@@ -3,12 +3,12 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/pages/setting/widgets/setting_item.dart';
-import 'package:soap_app/repository/account_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 
+import '../../repository/account_repository.dart';
+import '../../store/index.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
+import '../setting/widgets/setting_item.dart';
 import 'widgets/edit_birthday.dart';
 import 'widgets/edit_gender_modal.dart';
 
@@ -17,7 +17,6 @@ class EditProfilePage extends StatelessWidget {
 
   final AccountProvider _accountProvider = AccountProvider();
 
-  @override
   void initState() {
     accountStore.getUserInfo();
   }
@@ -33,9 +32,9 @@ class EditProfilePage extends StatelessWidget {
       'birthdayShow': accountStore.userInfo!.birthdayShow,
       ...newData,
     };
-    if (accountStore.userInfo!.birthday == null) {
-      data['birthday'] = accountStore.userInfo!.birthday.toString();
-    }
+    // if (accountStore.userInfo!.birthday == null) {
+    //   data['birthday'] = accountStore.userInfo!.birthday.toString();
+    // }
     try {
       await _accountProvider.updateProfile(data);
       SoapToast.success('保存成功');
@@ -50,7 +49,6 @@ class EditProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    print(accountStore.userInfo!.birthday);
     return Material(
       color: theme.backgroundColor,
       child: FixedAppBarWrapper(
@@ -168,7 +166,7 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showSoapBottomSheet(
+                        showSoapBottomSheet<dynamic>(
                           context,
                           isScrollControlled: true,
                           child: InputModalModalBottom(
@@ -198,7 +196,7 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showSoapBottomSheet(
+                        showSoapBottomSheet<dynamic>(
                           context,
                           child: EditGenderModal(
                             gender: accountStore.userInfo!.gender,
@@ -214,7 +212,6 @@ class EditProfilePage extends StatelessWidget {
                     const SoapDivider(),
                     SettingItem(
                       title: '生日',
-                      actionIcon: true,
                       border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
@@ -229,7 +226,7 @@ class EditProfilePage extends StatelessWidget {
                         }),
                       ),
                       onPressed: () {
-                        showSoapBottomSheet(
+                        showSoapBottomSheet<dynamic>(
                           context,
                           isScrollControlled: true,
                           child: EditBirthday(
@@ -259,7 +256,7 @@ class EditProfilePage extends StatelessWidget {
                             ),
                           ),
                           onPressed: () {
-                            showSoapBottomSheet(
+                            showSoapBottomSheet<dynamic>(
                               context,
                               isScrollControlled: true,
                               child: InputModalModalBottom(

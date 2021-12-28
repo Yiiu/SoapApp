@@ -4,7 +4,6 @@ import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/config.dart';
 import 'package:soap_app/graphql/graphql.dart';
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/utils.dart';
 
 part 'new_list_store.g.dart';
@@ -80,7 +79,6 @@ abstract class _NewListStoreBase with Store {
   }
 
   Future<void> refresh() async {
-    print('refesh');
     await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
       fetchPolicy: graphql.FetchPolicy.networkOnly,
@@ -138,7 +136,6 @@ abstract class _NewListStoreBase with Store {
           return;
         }
         if (result.isLoading) {
-          print('loading');
           return;
         }
         setPictureList(result.data);

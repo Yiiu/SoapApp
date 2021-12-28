@@ -150,20 +150,6 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
     );
   }
 
-  Widget _bottomBuilder() {
-    return Positioned(
-      bottom: 0,
-      child: Material(
-        type: MaterialType.transparency,
-        child: TouchableOpacity(
-          child: Container(
-            child: Text('test'),
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(

@@ -18,16 +18,16 @@ enum FollowModalType {
 }
 
 class FollowModal extends StatefulWidget {
-  FollowModal({
+  const FollowModal({
     Key? key,
     this.type = FollowModalType.follower,
     this.scrollController,
     required this.id,
   }) : super(key: key);
 
-  int id;
-  FollowModalType type;
-  ScrollController? scrollController;
+  final int id;
+  final FollowModalType type;
+  final ScrollController? scrollController;
 
   @override
   _FollowModalState createState() => _FollowModalState();

@@ -66,7 +66,7 @@ class _EditTagState extends State<EditTag> {
               textInputAction: TextInputAction.done,
               keyboardType: TextInputType.text,
               length: values.length,
-              delimiters: [',', ' '],
+              delimiters: const [',', ' '],
               hasAddButton: false,
               inputDecoration: const InputDecoration(
                 border: InputBorder.none,
@@ -105,7 +105,6 @@ class _Chip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const double height = 24;
     return Chip(
       backgroundColor: const Color(0xff1890ff).withOpacity(.15),
       labelPadding: const EdgeInsets.only(left: 8.0),

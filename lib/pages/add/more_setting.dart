@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:soap_app/pages/setting/widgets/setting_item.dart';
-import 'package:soap_app/widget/app_bar.dart';
+
+import '../../widget/app_bar.dart';
+import '../setting/widgets/setting_item.dart';
 
 class MoreSettingPage extends StatefulWidget {
   const MoreSettingPage({

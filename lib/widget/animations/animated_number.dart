@@ -86,10 +86,10 @@ class _AnimatedNumberState extends State<AnimatedNumber>
   @override
   Widget build(BuildContext context) {
     if (_oldNumberStr != _newNumberStr) {
-      var changedIndex = 0;
+      int changedIndex = 0;
 
       if (_oldNumberStr!.length == _newNumberStr!.length) {
-        for (var i = 0; i < _oldNumberStr!.length; i++) {
+        for (int i = 0; i < _oldNumberStr!.length; i++) {
           if (_oldNumberStr![i] != _newNumberStr![i]) {
             changedIndex = i;
             break;
@@ -98,16 +98,16 @@ class _AnimatedNumberState extends State<AnimatedNumber>
       }
 
       // the unchanged part of the text
-      final unchanged = _newNumberStr!.substring(0, changedIndex);
+      final String unchanged = _newNumberStr!.substring(0, changedIndex);
 
       // the old text that should animate out
-      final oldText = _oldNumberStr!.substring(
+      final String oldText = _oldNumberStr!.substring(
         changedIndex,
         _oldNumberStr!.length,
       );
 
       // the new text that should animate in
-      final newText = _newNumberStr!.substring(
+      final String newText = _newNumberStr!.substring(
         changedIndex,
         _newNumberStr!.length,
       );
@@ -120,7 +120,7 @@ class _AnimatedNumberState extends State<AnimatedNumber>
             animation: _controller,
             builder: (_, __) => Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Text(unchanged,
                     style: const TextStyle(
                       fontFamily: 'Rubik',

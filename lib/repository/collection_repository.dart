@@ -2,9 +2,9 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
+import 'package:soap_app/graphql/mutations.dart' as mutations;
 import 'package:soap_app/graphql/query.dart';
 import 'package:soap_app/store/index.dart';
-import 'package:soap_app/graphql/mutations.dart' as mutations;
 
 class CollectionRepository {
   CollectionRepository();
@@ -13,7 +13,7 @@ class CollectionRepository {
     final Map<String, Object?> variables = {
       'data': data,
     };
-    final QueryResult result = await GraphqlConfig.graphQLClient.mutate(
+    await GraphqlConfig.graphQLClient.mutate(
       MutationOptions(
         document: addFragments(mutations.addCollection, [
           ...collectionDetailFragmentDocumentNode,
@@ -57,7 +57,7 @@ class CollectionRepository {
       'id': id,
       'data': data,
     };
-    final QueryResult result = await GraphqlConfig.graphQLClient.mutate(
+    await GraphqlConfig.graphQLClient.mutate(
       MutationOptions(
         document: addFragments(mutations.updateCollection, [
           ...collectionDetailFragmentDocumentNode,

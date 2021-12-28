@@ -287,7 +287,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                             context,
                             isScrollControlled: true,
                             child: FollowModal(
-                              key: ValueKey('followedModal'),
+                              key: const ValueKey('followedModal'),
                               type: FollowModalType.followed,
                               scrollController:
                                   ModalScrollController.of(context),

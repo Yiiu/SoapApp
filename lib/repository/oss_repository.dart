@@ -2,14 +2,14 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:typed_data';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:mime_type/mime_type.dart';
-import 'package:uuid/uuid.dart';
-import 'package:dio/dio.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:mime_type/mime_type.dart';
+import 'package:soap_app/store/index.dart';
+import 'package:uuid/uuid.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 Uuid uuid = const Uuid();
 
@@ -108,7 +108,7 @@ class OssProvider {
     };
     final MediaType contentType;
     if (Platform.isIOS) {
-      String mimeType = mime(await asset.titleAsync)!;
+      final String mimeType = mime(await asset.titleAsync)!;
       contentType = MediaType(
         mimeType.split('/')[0],
         mimeType.split('/')[1],
@@ -119,7 +119,6 @@ class OssProvider {
         asset.mimeType!.split('/')[1],
       );
     }
-    print(contentType);
     final Map<String, Object?> map = {
       'key': dotenv.env['OSS_PREFIX_PATH']! + uuid.v4(),
       'OSSAccessKeyId': accessKeyID,
@@ -143,7 +142,9 @@ class OssProvider {
         responseType: ResponseType.plain,
       ),
       onSendProgress: (progress, total) {
-        if (onSendProgress != null) onSendProgress(progress / total);
+        if (onSendProgress != null) {
+          onSendProgress(progress / total);
+        }
       },
       data: data,
     );

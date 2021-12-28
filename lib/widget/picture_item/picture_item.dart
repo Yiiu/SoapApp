@@ -5,7 +5,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:soap_app/config/config.dart';
 
 import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/repository/repository.dart';
 import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -25,7 +24,7 @@ class PictureInfoWidget {
 }
 
 class PictureItem extends StatelessWidget {
-  PictureItem({
+  const PictureItem({
     Key? key,
     required this.picture,
     this.pictureType = pictureItemType.waterfall,
@@ -49,8 +48,6 @@ class PictureItem extends StatelessWidget {
   final pictureItemType? pictureType;
   final bool? doubleLike;
   final bool gallery;
-
-  final PictureRepository _pictureRepository = PictureRepository();
 
   Widget _bottomBuilder(BuildContext context) {
     final ThemeData theme = Theme.of(context);

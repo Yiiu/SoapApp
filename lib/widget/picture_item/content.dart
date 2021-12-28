@@ -1,17 +1,13 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/config/router.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/pages/new_picture_detail/new_picture_detail.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/utils.dart';
 import 'package:soap_app/widget/widgets.dart';
-
-import 'picture_item.dart';
 
 class PictureItemContent extends StatelessWidget {
   PictureItemContent({

@@ -70,7 +70,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               count: accountStore.userInfo?.followedCount,
               onTap: accountStore.isLogin
                   ? () {
-                      showSoapBottomSheet(
+                      showSoapBottomSheet<dynamic>(
                         context,
                         isScrollControlled: true,
                         child: FollowModal(
@@ -87,7 +87,7 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
               count: accountStore.userInfo?.followerCount,
               onTap: accountStore.isLogin
                   ? () {
-                      showSoapBottomSheet(
+                      showSoapBottomSheet<dynamic>(
                         context,
                         isScrollControlled: true,
                         child: FollowModal(

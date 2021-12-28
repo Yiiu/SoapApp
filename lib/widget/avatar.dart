@@ -3,7 +3,6 @@ import 'dart:typed_data';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:octo_image/octo_image.dart';
 
 class Avatar extends StatelessWidget {
@@ -28,7 +27,7 @@ class Avatar extends StatelessWidget {
       image: ExtendedImage.network(image).image,
       placeholderBuilder: OctoPlaceholder.circleAvatar(
         backgroundColor: Colors.white12,
-        text: Text(''),
+        text: const Text(''),
       ),
       errorBuilder: OctoError.icon(color: Colors.red),
       fit: BoxFit.cover,

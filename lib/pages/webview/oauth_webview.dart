@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/config/router.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/oauth.dart';
 import 'package:soap_app/widget/widgets.dart';
@@ -116,8 +115,9 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
                     progressValue = progress / 100;
                   });
                 },
-                shouldOverrideUrlLoading: (controller, navigationAction) async {
-                  var uri = navigationAction.request.url!;
+                shouldOverrideUrlLoading: (InAppWebViewController controller,
+                    NavigationAction navigationAction) async {
+                  final Uri uri = navigationAction.request.url!;
 
                   if (![
                     'http',

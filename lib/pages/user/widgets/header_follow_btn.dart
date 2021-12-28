@@ -44,8 +44,9 @@ class UserHeaderFollowBtn extends StatelessWidget {
             overlayColor: MaterialStateProperty.resolveWith<Color>(
               (Set<MaterialState> states) {
                 if (states.contains(MaterialState.focused) ||
-                    states.contains(MaterialState.pressed))
+                    states.contains(MaterialState.pressed)) {
                   return Colors.black.withOpacity(.1);
+                }
                 return Colors.transparent; // Defer ;})to the widget's default.
               },
             ),
@@ -96,8 +97,9 @@ class UserHeaderFollowBtn extends StatelessWidget {
                 overlayColor: MaterialStateProperty.resolveWith<Color>(
                   (Set<MaterialState> states) {
                     if (states.contains(MaterialState.focused) ||
-                        states.contains(MaterialState.pressed))
+                        states.contains(MaterialState.pressed)) {
                       return Colors.black.withOpacity(.1);
+                    }
                     return Colors.transparent; // Defer to the widget's default.
                   },
                 ),
@@ -144,8 +146,9 @@ class UserHeaderFollowBtn extends StatelessWidget {
               overlayColor: MaterialStateProperty.resolveWith<Color>(
                 (Set<MaterialState> states) {
                   if (states.contains(MaterialState.focused) ||
-                      states.contains(MaterialState.pressed))
+                      states.contains(MaterialState.pressed)) {
                     return Colors.black.withOpacity(.1);
+                  }
                   return Colors.transparent; // Defer to the widget's default.
                 },
               ),

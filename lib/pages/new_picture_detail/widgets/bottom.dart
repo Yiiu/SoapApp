@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
@@ -28,7 +27,6 @@ class NewPictureDetailBottom extends StatefulWidget {
 
 class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
   late Animation<Offset> _bottomAnimation;
-  late Animation<Offset> _opacityAnimation;
 
   @override
   void initState() {

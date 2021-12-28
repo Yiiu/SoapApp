@@ -39,9 +39,6 @@ class _UserPageState extends State<UserPage>
 
   bool _pictureListCached = false;
 
-  final GlobalKey<State<StatefulWidget>> _pictureListKey = GlobalKey();
-  final GlobalKey<State<StatefulWidget>> _collectionListKey = GlobalKey();
-
   @override
   void initState() {
     user = widget.user;

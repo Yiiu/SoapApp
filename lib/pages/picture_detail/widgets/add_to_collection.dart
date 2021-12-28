@@ -15,7 +15,6 @@ import 'package:soap_app/utils/picture.dart';
 import 'package:soap_app/widget/list/error.dart';
 import 'package:soap_app/widget/list/loading.dart';
 import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/physics/bottom_bouncing_scroll_physics.dart';
 
 class AddToCollection extends StatefulWidget {
   const AddToCollection({

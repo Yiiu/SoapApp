@@ -2,7 +2,6 @@ import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
 import 'package:soap_app/config/config.dart';
-import 'package:soap_app/config/graphql.dart';
 import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/query.dart' as query;
@@ -57,7 +56,7 @@ abstract class _PictureDetailPageStoreBase with Store {
     return false;
   }
 
-  void watchQuery() async {
+  Future<void> watchQuery() async {
     // 和导航过渡动画错开来
     await Future<void>.delayed(Duration(milliseconds: screenDelayTimer));
     _observableQuery = GraphqlConfig.graphQLClient.watchQuery(

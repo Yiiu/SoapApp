@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 
 class HeroWidget extends StatefulWidget {
   const HeroWidget({
+    Key? key,
     required this.child,
     required this.tag,
     required this.slidePagekey,
     this.radius = const Radius.circular(6),
     this.slideType = SlideType.onlyImage,
-  });
+  }) : super(key: key);
 
   final Radius radius;
   final Widget child;
