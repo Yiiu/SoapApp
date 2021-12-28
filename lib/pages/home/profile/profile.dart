@@ -51,8 +51,7 @@ class _ProfileViewState extends State<ProfileView> {
     return FixedAppBarWrapper(
       appBar: SoapAppBar(
         centerTitle: false,
-        elevation: 0,
-        border: true,
+        elevation: 0.5,
         actionsPadding: const EdgeInsets.only(
           right: 16,
         ),

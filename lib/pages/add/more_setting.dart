@@ -40,7 +40,6 @@ class _MoreSettingPageState extends State<MoreSettingPage> {
       color: Theme.of(context).backgroundColor,
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
-          border: false,
           elevation: 0.5,
           automaticallyImplyLeading: true,
           title: Padding(

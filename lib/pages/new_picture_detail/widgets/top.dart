@@ -73,7 +73,6 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                 brightness: Brightness.dark,
                 automaticallyImplyLeading: true,
                 elevation: 0,
-                border: false,
                 centerTitle: false,
                 title: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),

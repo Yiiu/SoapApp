@@ -63,8 +63,7 @@ class _FollowModalState extends State<FollowModal> {
         appBar: SoapAppBar(
           topPadding: false,
           backdrop: true,
-          border: true,
-          elevation: 0,
+          elevation: 0.5,
           title: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(

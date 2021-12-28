@@ -74,16 +74,14 @@ class NewList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (_) => SmartRefresher(
-        enablePullUp: false,
-        enablePullDown: true,
-        physics: const BouncingScrollPhysics(),
-        controller: controller,
-        onRefresh: onRefresh,
-        onLoading: () async {},
-        child: _listBuilder(context),
-      ),
+    return SmartRefresher(
+      enablePullUp: false,
+      enablePullDown: true,
+      physics: const BouncingScrollPhysics(),
+      controller: controller,
+      onRefresh: onRefresh,
+      onLoading: () async {},
+      child: _listBuilder(context),
     );
   }
 }

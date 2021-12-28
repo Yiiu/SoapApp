@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/utils/list.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/utils/query.dart';
-import 'package:soap_app/widget/list/empty.dart';
-import 'package:soap_app/widget/list/error.dart';
-import 'package:soap_app/widget/list/loading.dart';
-import 'package:soap_app/widget/picture_item/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+
+import '../model/picture.dart';
+import '../utils/exception.dart';
+import '../utils/list.dart';
+import '../utils/picture.dart';
+import '../utils/query.dart';
+import 'list/empty.dart';
+import 'list/error.dart';
+import 'list/loading.dart';
+import 'picture_item/picture_item.dart';
 
 class PictureList extends StatefulWidget {
   const PictureList({
@@ -155,7 +156,7 @@ class _PictureListState extends State<PictureList>
             ),
             itemCount: listData.list.length,
             itemBuilder: (_, int i) => PictureItem(
-              heroLabel: 'user-list',
+              heroLabel: 'new-picture-detail',
               crossAxisSpacing: 0,
               mainAxisSpacing: padding,
               picture: listData.list[i],

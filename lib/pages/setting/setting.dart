@@ -58,8 +58,7 @@ class _SettingPageState extends State<SettingPage> {
       child: FixedAppBarWrapper(
         appBar: SoapAppBar(
           automaticallyImplyLeading: true,
-          elevation: 0,
-          border: true,
+          elevation: 0.5,
           actionsPadding: const EdgeInsets.only(
             right: 12,
           ),

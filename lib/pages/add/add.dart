@@ -240,7 +240,6 @@ class _AddPageState extends State<AddPage> {
       color: Theme.of(context).cardColor,
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
-          border: false,
           elevation: 0.5,
           automaticallyImplyLeading: true,
         ),

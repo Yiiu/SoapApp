@@ -11,9 +11,14 @@ class ScrollDirection extends InheritedWidget {
 
   final VerticalDirection? direction;
 
+  /// `true` when the user is scrolling up (or left if the axis is horizontal).
   bool get up => direction == VerticalDirection.up;
+  bool get left => up;
 
+  /// `true` when the user is scrolling down (or right if the axis is
+  /// horizontal).
   bool get down => direction == VerticalDirection.down;
+  bool get right => down;
 
   static ScrollDirection? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<ScrollDirection>();
@@ -98,8 +103,11 @@ class _ScrollDirectionListenerState extends State<ScrollDirectionListener>
       return false;
     }
 
-    final scrollPosition = notification.metrics.pixels;
-    if (scrollPosition <= 100) {
+    final double scrollPosition = notification.metrics.pixels;
+    if (notification.metrics.axisDirection == AxisDirection.left ||
+        notification.metrics.axisDirection == AxisDirection.right) {
+      _changeDirection(VerticalDirection.up);
+    } else if (scrollPosition <= 100) {
       _changeDirection(VerticalDirection.up);
     } else if (_lastPosition < scrollPosition) {
       // scrolling down

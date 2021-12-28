@@ -14,8 +14,8 @@ import 'package:touchable_opacity/touchable_opacity.dart';
 import '../constants.dart';
 import 'picture_info.dart';
 
-class NewPictureDetailHandle extends StatelessWidget {
-  NewPictureDetailHandle({
+class NewPictureDetailHandle extends StatefulWidget {
+  const NewPictureDetailHandle({
     Key? key,
     this.onInfo,
     required this.controller,
@@ -25,16 +25,24 @@ class NewPictureDetailHandle extends StatelessWidget {
   final AnimationController controller;
   final Picture picture;
   final void Function()? onInfo;
+
+  @override
+  _NewPictureDetailHandleState createState() => _NewPictureDetailHandleState();
+}
+
+class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
   final PictureRepository _pictureRepository = PictureRepository();
 
   late Animation<double> _opacityAnimation;
 
+  @override
   void initState() {
+    super.initState();
     _opacityAnimation = Tween<double>(
       begin: 1,
       end: 0,
     ).animate(
-      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
     );
   }
 
@@ -80,7 +88,7 @@ class NewPictureDetailHandle extends StatelessWidget {
     return Column(
       children: <Widget>[
         LikeButton(
-          isLiked: picture.isLike,
+          isLiked: widget.picture.isLike,
           size: 26,
           onTap: (bool like) async {
             if (!accountStore.isLogin) {
@@ -88,9 +96,9 @@ class NewPictureDetailHandle extends StatelessWidget {
               return like;
             }
             if (!like) {
-              await _pictureRepository.liked(picture.id);
+              await _pictureRepository.liked(widget.picture.id);
             } else {
-              await _pictureRepository.unLike(picture.id);
+              await _pictureRepository.unLike(widget.picture.id);
             }
             return !like;
           },
@@ -129,7 +137,7 @@ class NewPictureDetailHandle extends StatelessWidget {
               ],
             );
           },
-          likeCount: picture.likedCount,
+          likeCount: widget.picture.likedCount,
           countBuilder: (int? count, bool isLiked, String text) =>
               const SizedBox(),
         ),
@@ -139,7 +147,7 @@ class NewPictureDetailHandle extends StatelessWidget {
             children: [
               Expanded(
                 child: AnimatedNumber(
-                  number: picture.likedCount,
+                  number: widget.picture.likedCount,
                   textStyle: const TextStyle(
                     color: Colors.white,
                     shadows: shadow,
@@ -173,7 +181,7 @@ class NewPictureDetailHandle extends StatelessWidget {
               const SizedBox(height: 24),
               _handleItem(
                 icon: Ionicons.chatbubble,
-                text: (picture.commentCount ?? 0).toString(),
+                text: (widget.picture.commentCount ?? 0).toString(),
                 onTap: () {
                   showSoapBottomSheet<dynamic>(
                     context,
@@ -183,10 +191,10 @@ class NewPictureDetailHandle extends StatelessWidget {
                         MediaQuery.of(context).padding.top -
                         24,
                     child: CommentBottomModal(
-                      id: picture.id,
-                      picture: picture,
+                      id: widget.picture.id,
+                      picture: widget.picture,
                       handle: false,
-                      commentCount: picture.commentCount,
+                      commentCount: widget.picture.commentCount,
                     ),
                   );
                 },
@@ -198,8 +206,8 @@ class NewPictureDetailHandle extends StatelessWidget {
                   showSoapBottomSheet<dynamic>(
                     context,
                     child: AddToCollection(
-                      current: picture.currentCollections,
-                      pictureId: picture.id,
+                      current: widget.picture.currentCollections,
+                      pictureId: widget.picture.id,
                     ),
                   );
                 },
@@ -211,10 +219,10 @@ class NewPictureDetailHandle extends StatelessWidget {
                   showSoapBottomSheet<dynamic>(
                     context,
                     isScrollControlled: true,
-                    child: PictureInfoModal(picture: picture),
+                    child: PictureInfoModal(picture: widget.picture),
                   );
-                  // if (onInfo != null) {
-                  //   onInfo!();
+                  // if (widget.onInfo != null) {
+                  //   widget.onInfo!();
                   // }
                 },
                 child: const DecoratedIcon(

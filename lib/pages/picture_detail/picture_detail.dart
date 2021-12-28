@@ -60,7 +60,6 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
       backdropBar: true,
       appBar: SoapAppBar(
         backdrop: true,
-        border: false,
         automaticallyImplyLeading: true,
         elevation: 0,
         title: PictureAppBarTitle(

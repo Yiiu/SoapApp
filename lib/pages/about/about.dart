@@ -12,8 +12,7 @@ class AboutPage extends StatelessWidget {
       child: FixedAppBarWrapper(
         appBar: const SoapAppBar(
           automaticallyImplyLeading: true,
-          elevation: 0,
-          border: true,
+          elevation: 0.5,
           actionsPadding: EdgeInsets.only(
             right: 12,
           ),

@@ -4,16 +4,15 @@ import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:soap_app/config/config.dart';
+import 'package:soap_app/model/picture.dart';
+import 'package:soap_app/model/tag.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
-import '../../../config/config.dart';
-import '../../../model/picture.dart';
-import '../../../model/tag.dart';
 import '../constants.dart';
 
-// ignore: must_be_immutable
-class NewPictureDetailBottom extends StatelessWidget {
-  NewPictureDetailBottom({
+class NewPictureDetailBottom extends StatefulWidget {
+  const NewPictureDetailBottom({
     Key? key,
     required this.controller,
     required this.picture,
@@ -21,14 +20,22 @@ class NewPictureDetailBottom extends StatelessWidget {
 
   final AnimationController controller;
   final Picture picture;
+
+  @override
+  _NewPictureDetailBottomState createState() => _NewPictureDetailBottomState();
+}
+
+class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
   late Animation<Offset> _bottomAnimation;
 
+  @override
   void initState() {
+    super.initState();
     _bottomAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 1),
     ).animate(
-      CurvedAnimation(parent: controller, curve: Curves.easeInOut),
+      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
     );
   }
 
@@ -46,7 +53,7 @@ class NewPictureDetailBottom extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: <Widget>[
           Text(
-            picture.title,
+            widget.picture.title,
             style: TextStyle(
               fontWeight: FontWeight.w600,
               color: Colors.white,
@@ -55,7 +62,8 @@ class NewPictureDetailBottom extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 4),
-          if (picture.tags != null && picture.tags!.isNotEmpty) ...[
+          if (widget.picture.tags != null &&
+              widget.picture.tags!.isNotEmpty) ...[
             SizedBox(
               width: double.infinity,
               child: Wrap(
@@ -63,7 +71,7 @@ class NewPictureDetailBottom extends StatelessWidget {
                 runSpacing: 6,
                 alignment: WrapAlignment.start,
                 runAlignment: WrapAlignment.end,
-                children: picture.tags!
+                children: widget.picture.tags!
                     .map(
                       (Tag tag) => TouchableOpacity(
                         activeOpacity: activeOpacity,
@@ -100,7 +108,7 @@ class NewPictureDetailBottom extends StatelessWidget {
             ),
             const SizedBox(height: 4),
           ],
-          if (picture.location != null) ...[
+          if (widget.picture.location != null) ...[
             Row(
               children: [
                 DecoratedIcon(
@@ -111,7 +119,7 @@ class NewPictureDetailBottom extends StatelessWidget {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  picture.location!['name'] as String,
+                  widget.picture.location!['name'] as String,
                   style: TextStyle(
                     color: Colors.white.withOpacity(.9),
                     fontSize: 12,
@@ -132,7 +140,7 @@ class NewPictureDetailBottom extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                '发布于 ${Jiffy(picture.createTime.toString()).fromNow()}',
+                '发布于 ${Jiffy(widget.picture.createTime.toString()).fromNow()}',
                 style: TextStyle(
                   color: Colors.white.withOpacity(.6),
                   fontSize: 12,
@@ -141,36 +149,36 @@ class NewPictureDetailBottom extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 6),
-          ClipRRect(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(100.0),
-            ),
-            child: BackdropFilter(
-              filter: ImageFilter.blur(
-                sigmaX: 16,
-                sigmaY: 16,
-              ),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.1),
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 2,
-                ),
-                child: Text(
-                  '查看原图',
-                  style: TextStyle(
-                    color: Colors.white.withOpacity(.9),
-                    fontSize: 11,
-                    shadows: shadow,
-                  ),
-                ),
-              ),
-            ),
-          ),
+          // const SizedBox(height: 6),
+          // ClipRRect(
+          //   borderRadius: const BorderRadius.all(
+          //     Radius.circular(100.0),
+          //   ),
+          //   child: BackdropFilter(
+          //     filter: ImageFilter.blur(
+          //       sigmaX: 16,
+          //       sigmaY: 16,
+          //     ),
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         color: Colors.white.withOpacity(.1),
+          //         borderRadius: BorderRadius.circular(25),
+          //       ),
+          //       padding: const EdgeInsets.symmetric(
+          //         horizontal: 10,
+          //         vertical: 2,
+          //       ),
+          //       child: Text(
+          //         '查看原图',
+          //         style: TextStyle(
+          //           color: Colors.white.withOpacity(.9),
+          //           fontSize: 11,
+          //           shadows: shadow,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

@@ -55,7 +55,6 @@ class EditProfilePage extends StatelessWidget {
         appBar: const SoapAppBar(
           automaticallyImplyLeading: true,
           elevation: 0,
-          border: false,
           actionsPadding: EdgeInsets.only(
             right: 12,
           ),
@@ -233,6 +232,7 @@ class EditProfilePage extends StatelessWidget {
                             birthday: accountStore.userInfo!.birthday,
                             birthdayShow: accountStore.userInfo!.birthdayShow,
                             onOk: (Map<String, Object?> data) async {
+                              print(data);
                               await _updateProfile(data);
                               Navigator.of(context).pop();
                             },

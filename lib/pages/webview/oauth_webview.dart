@@ -45,9 +45,8 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
     return Material(
       child: FixedAppBarWrapper(
         appBar: SoapAppBar(
-          border: true,
           automaticallyImplyLeading: true,
-          elevation: 0,
+          elevation: 0.5,
           title: const Text('登录'),
           actionsPadding: const EdgeInsets.only(
             right: 12,

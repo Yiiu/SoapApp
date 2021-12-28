@@ -81,7 +81,6 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
       color: Theme.of(context).backgroundColor,
       child: FixedAppBarWrapper(
         appBar: SoapAppBar(
-          border: false,
           elevation: 0.5,
           automaticallyImplyLeading: true,
           title: const Padding(
