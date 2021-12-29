@@ -130,7 +130,7 @@ abstract class _AppStoreBase with Store {
   Future<void> _initializeDisplayMode() async {
     try {
       if (Platform.isAndroid) {
-        WidgetsBinding.instance?.addPostFrameCallback((timeStamp) async {
+        WidgetsBinding.instance?.addPostFrameCallback((Duration timeStamp) async {
           modeList = await FlutterDisplayMode.supported;
           if (displayMode != null && modeList.length > displayMode!) {
             await FlutterDisplayMode.setPreferredMode(modeList[displayMode!]);

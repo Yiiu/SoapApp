@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/model/tag.dart';
-import 'package:soap_app/pages/picture_detail/widgets/tag_item.dart';
-import 'package:soap_app/widget/medal.dart';
+
+import '../../../model/picture.dart';
+import '../../../model/tag.dart';
+import '../../../widget/medal.dart';
+import 'tag_item.dart';
 
 class PictureTitleInfo extends StatelessWidget {
   const PictureTitleInfo({
@@ -58,7 +59,6 @@ class PictureTitleInfo extends StatelessWidget {
                   child: Wrap(
                     spacing: 6,
                     runSpacing: 6,
-                    alignment: WrapAlignment.start,
                     runAlignment: WrapAlignment.end,
                     children: picture.tags!
                         .map(
@@ -76,7 +76,6 @@ class PictureTitleInfo extends StatelessWidget {
                 Visibility(
                   visible: picture.isPrivate != null && picture.isPrivate!,
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       SizedBox(
                         height: 14,

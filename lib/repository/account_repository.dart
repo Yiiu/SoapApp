@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
-import 'package:soap_app/config/graphql.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/mutations.dart' as mutations;
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../config/graphql.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/mutations.dart' as mutations;
+import '../store/index.dart';
+import '../widget/soap_toast.dart';
 
 class AccountProvider {
   AccountProvider() {

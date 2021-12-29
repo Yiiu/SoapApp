@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../../config/config.dart';
+import '../../../../store/index.dart';
+import '../../../../widget/widgets.dart';
 
 class ProfileUserItem extends StatelessWidget {
   const ProfileUserItem({Key? key}) : super(key: key);
@@ -51,7 +52,6 @@ class ProfileUserItem extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
                 child: Padding(
                   padding: const EdgeInsets.only(left: 12),
                   child: Observer(

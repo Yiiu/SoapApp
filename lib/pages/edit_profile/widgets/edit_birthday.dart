@@ -76,15 +76,15 @@ class _EditBirthdayState extends State<EditBirthday> {
             config: <SelectTileConfig<int>>[
               SelectTileConfig<int>(
                   title: FlutterI18n.translate(
-                      context, "profile.edit.label.birthday_secret"),
+                      context, 'profile.edit.label.birthday_secret'),
                   value: 0),
               SelectTileConfig<int>(
                   title: FlutterI18n.translate(
-                      context, "profile.edit.label.birthday_show_day"),
+                      context, 'profile.edit.label.birthday_show_day'),
                   value: 1),
               SelectTileConfig<int>(
                   title: FlutterI18n.translate(
-                      context, "profile.edit.label.birthday_show horoscope"),
+                      context, 'profile.edit.label.birthday_show horoscope'),
                   value: 2),
             ],
           ),

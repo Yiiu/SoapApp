@@ -1,9 +1,9 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/config/graphql.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/mutations.dart' as mutations;
-import 'package:soap_app/graphql/query.dart' as query;
+import '../config/graphql.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/mutations.dart' as mutations;
+import '../graphql/query.dart' as query;
 
 class CommentRepository {
   Future<void> addComment({
@@ -41,7 +41,7 @@ class CommentRepository {
               variables: variables,
             );
 
-            final data = cache.readQuery(queryRequest);
+            final Map<String, dynamic>? data = cache.readQuery(queryRequest);
             if (data?['comments'] != null) {
               data!['comments']['count']++;
               (data['comments']['data'] as List).insert(

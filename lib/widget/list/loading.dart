@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/widget/list/widget.dart';
+import 'widget.dart';
 
 class SoapListLoading extends StatelessWidget {
   const SoapListLoading({
@@ -23,8 +23,6 @@ class SoapListLoading extends StatelessWidget {
         padding: const EdgeInsets.only(top: 16),
         height: double.infinity,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
             Column(
               children: <Widget>[

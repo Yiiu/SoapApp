@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 const double appBarHeight = 58.0;
 
@@ -68,12 +69,11 @@ mixin ThemeConfig {
     backgroundColor: const Color(0xfff9fafa),
     primaryColorBrightness: Brightness.light,
     primaryColor: lightPrimary,
-    accentColor: lightAccent,
     scaffoldBackgroundColor: lightBG,
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
     appBarTheme: const AppBarTheme(
-      brightness: Brightness.light,
+      systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     primaryIconTheme: IconThemeData(color: lightTextColor.withOpacity(.8)),
     dialogBackgroundColor: const Color(0xff000000),
@@ -83,7 +83,7 @@ mixin ThemeConfig {
       ),
       selectedItemColor: lightTextColor,
     ),
-    cardColor: const Color(0xffffffff),
+    cardColor: const Color(0xffffffff), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: lightAccent),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -92,14 +92,13 @@ mixin ThemeConfig {
     brightness: Brightness.dark,
     backgroundColor: darkBG,
     primaryColor: darkPrimary,
-    accentColor: darkAccent,
     scaffoldBackgroundColor: darkBG,
     textTheme: _darkTextTheme,
     primaryIconTheme: IconThemeData(color: darkTextColor.withOpacity(.8)),
     errorColor: const Color(0xffff4757),
     cardColor: const Color(0xff19181e),
     appBarTheme: const AppBarTheme(
-      brightness: Brightness.dark,
+      systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
     dialogBackgroundColor: const Color(0xff000000),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
@@ -107,6 +106,6 @@ mixin ThemeConfig {
         color: darkTextColor,
       ),
       selectedItemColor: const Color(0xff141414),
-    ),
+    ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: darkAccent),
   );
 }

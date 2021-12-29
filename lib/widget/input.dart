@@ -50,7 +50,6 @@ class SoapInput extends StatelessWidget {
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            width: 1,
             color: Theme.of(context).primaryColor,
           ),
           borderRadius: const BorderRadius.all(

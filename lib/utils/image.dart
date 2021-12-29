@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../widget/soap_toast.dart';
 
 enum ExifProperties {
   model,
@@ -137,8 +137,7 @@ Future<void> saveImage(String imageUrl, {bool isAsset = false}) async {
       imageBytes = bytes.buffer.asUint8List();
     } else {
       /// 保存网络图片
-      imageBytes = await extended_image.getNetworkImageData(imageUrl,
-          useCache: true) as Uint8List;
+      imageBytes = await extended_image.getNetworkImageData(imageUrl) as Uint8List;
     }
 
     /// 保存图片

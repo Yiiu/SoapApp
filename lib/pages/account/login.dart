@@ -4,13 +4,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/pages/account/stores/login.store.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../config/config.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
 import 'constants.dart';
+import 'stores/login.store.dart';
 import 'widgets/input.dart';
 
 class LoginPage extends StatefulWidget {
@@ -47,7 +47,7 @@ class _LoginPageState extends State<LoginPage> {
       store.setLoading(true);
       await store.login();
       SoapToast.success('登录成功');
-      Navigator.of(context).popUntil((route) {
+      Navigator.of(context).popUntil((Route route) {
         if (route.settings.name == 'login') {
           return false;
         }
@@ -132,7 +132,6 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
                   child: Container(
                     width: double.infinity,
                     decoration: const BoxDecoration(
@@ -215,12 +214,11 @@ class _LoginPageState extends State<LoginPage> {
               left: 0,
               right: 0,
               child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
                   _oauthBtn(
                     svg: 'assets/svg/github.svg',
-                    background: Color(0xff171515),
+                    background: const Color(0xff171515),
                     color: theme.backgroundColor,
                     type: OauthType.github,
                   ),

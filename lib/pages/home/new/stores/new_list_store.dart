@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import '../../../../config/config.dart';
 import '../../../../graphql/graphql.dart';
 import '../../../../model/picture.dart';
+import '../../../../utils/list.dart';
 import '../../../../utils/utils.dart';
 
 part 'new_list_store.g.dart';
@@ -60,10 +61,10 @@ abstract class _NewListStoreBase with Store {
   }
 
   bool setQueryCache() {
-    final Map<String, dynamic> variables2 = {
+    final Map<String, dynamic> variables2 = <String, dynamic>{
       'query': query,
       'type': type,
-    } as Map<String, dynamic>;
+    };
     final graphql.Request queryRequest = graphql.Request(
       operation: graphql.Operation(
         document: document,
@@ -84,7 +85,7 @@ abstract class _NewListStoreBase with Store {
     await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
       fetchPolicy: graphql.FetchPolicy.networkOnly,
-      variables: {'query': query, 'type': type} as Map<String, dynamic>,
+      variables: <String, dynamic>{'query': query, 'type': type},
     ));
     // if (result.data != null) {
     //   setPictureList(result.data);
@@ -97,10 +98,10 @@ abstract class _NewListStoreBase with Store {
         await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
       fetchPolicy: graphql.FetchPolicy.networkOnly,
-      variables: {
+      variables: <String, dynamic>{
         'query': {...query, 'page': page + 1},
         'type': type
-      } as Map<String, dynamic>,
+      },
     ));
     // try {
     if (result.data != null) {
@@ -128,7 +129,7 @@ abstract class _NewListStoreBase with Store {
         document: document,
         fetchResults: true,
         fetchPolicy: graphql.FetchPolicy.networkOnly,
-        variables: {'query': query, 'type': type} as Map<String, dynamic>,
+        variables: <String, dynamic>{'query': query, 'type': type},
       ),
     );
     _observableQuery!.stream.listen((graphql.QueryResult result) {
@@ -150,7 +151,7 @@ abstract class _NewListStoreBase with Store {
   @action
   void setPictureList(Map<String, dynamic>? data, {bool noList = false}) {
     if (data != null) {
-      final result = pictureListDataFormat(
+      final ListData<Picture> result = pictureListDataFormat(
         data,
         label: 'pictures',
       );

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/picture_item/picture_item.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+
+import '../../../graphql/fragments.dart';
+import '../../../graphql/gql.dart';
+import '../../../graphql/query.dart';
+import '../../../model/picture.dart';
+import '../../../utils/picture.dart';
+import '../../../widget/picture_item/picture_item.dart';
 
 class RelatedPicture extends StatefulWidget {
   const RelatedPicture({Key? key, required this.id}) : super(key: key);

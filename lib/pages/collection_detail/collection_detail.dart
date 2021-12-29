@@ -4,12 +4,13 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/graphql.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../config/config.dart';
+import '../../graphql/graphql.dart';
+import '../../model/collection.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
 
 class CollectionDetailPage extends StatefulWidget {
   const CollectionDetailPage({

@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/oauth.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../config/config.dart';
+import '../../store/index.dart';
+import '../../utils/oauth.dart';
+import '../../widget/widgets.dart';
 
 class OauthWebViewPage extends StatefulWidget {
   const OauthWebViewPage({Key? key, required this.type}) : super(key: key);

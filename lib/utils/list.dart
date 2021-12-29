@@ -1,5 +1,5 @@
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/store/index.dart';
+import '../model/picture.dart';
+import '../store/index.dart';
 
 class ListData<E> {
   ListData({

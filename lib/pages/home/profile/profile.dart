@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
-
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/pages/home/profile/widgets/user_item.dart';
-import 'package:soap_app/pages/home/profile/widgets/user_num_item.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/divider.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
+import '../../../store/index.dart';
+import '../../../widget/app_bar.dart';
+import '../../../widget/divider.dart';
+import 'widgets/user_item.dart';
+import 'widgets/user_num_item.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({

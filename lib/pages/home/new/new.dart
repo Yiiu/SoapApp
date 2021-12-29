@@ -1,18 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/pages/home/new/new_list.dart';
 
 import '../../../config/config.dart';
-import '../../../store/index.dart';
 import '../../../widget/app_bar.dart';
-import '../../../widget/list/load_more_listener.dart';
+import 'new_list.dart';
 import 'stores/new_list_store.dart';
-import 'widgets/list.dart';
 
 class NewView extends StatefulWidget {
   const NewView({
@@ -62,7 +57,7 @@ class NewViewState extends State<NewView>
 
   @override
   Widget build(BuildContext context) {
-    ThemeData theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     return DefaultTabController(
       length: 1,
       child: FixedAppBarWrapper(
@@ -72,7 +67,7 @@ class NewViewState extends State<NewView>
           title: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              FlutterI18n.translate(context, "nav.home"),
+              FlutterI18n.translate(context, 'nav.home'),
               style: const TextStyle(
                 fontWeight: FontWeight.w600,
               ),

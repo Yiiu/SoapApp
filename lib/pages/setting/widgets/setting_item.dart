@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
 
 class SettingItem extends StatelessWidget {
   const SettingItem({
@@ -44,7 +45,6 @@ class SettingItem extends StatelessWidget {
           direction: Axis.horizontal,
           children: <Widget>[
             Expanded(
-              flex: 1,
               child: SizedBox(
                 child: Text(
                   title,

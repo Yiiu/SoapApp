@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/config.dart';
+import '../config/config.dart';
 
 void showBasicModalBottomSheet({
   bool enableDrag = false,

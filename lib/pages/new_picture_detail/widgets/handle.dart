@@ -2,15 +2,15 @@ import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:like_button/like_button.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/picture_detail/widgets/widgets.dart';
-import 'package:soap_app/repository/repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/comment_bottom/comment_bottom.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../../config/config.dart';
+import '../../../model/picture.dart';
+import '../../../repository/repository.dart';
+import '../../../store/index.dart';
+import '../../../widget/comment_bottom/comment_bottom.dart';
+import '../../../widget/widgets.dart';
+import '../../picture_detail/widgets/widgets.dart';
 import '../constants.dart';
 import 'picture_info.dart';
 

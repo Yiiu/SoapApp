@@ -1,7 +1,9 @@
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/model/location.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/repository/picture_repository.dart';
+import '../../../model/tag.dart';
+
+import '../../../model/location.dart';
+import '../../../model/picture.dart';
+import '../../../repository/picture_repository.dart';
 
 part 'add_store.g.dart';
 
@@ -37,7 +39,7 @@ abstract class _AddStoreBase with Store {
   @action
   void editInit(Picture picture) {
     isPrivate = picture.isPrivate ?? false;
-    tags = picture.tags!.map<String>((e) => e.name).toList();
+    tags = picture.tags!.map<String>((Tag e) => e.name).toList();
     location = picture.location;
   }
 

@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pedantic/pedantic.dart';
-import 'package:soap_app/config/config.dart';
+import '../../config/config.dart';
 
 /// Shows a harpy styled modal bottom sheet with the [child] in a column.
 Future<T?> showSoapBottomSheet<T>(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/theme.dart';
+import '../../config/theme.dart';
 
 class SoapListWidget extends StatelessWidget {
   const SoapListWidget({
@@ -20,7 +20,6 @@ class SoapListWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     if (notScrollView) {
       return SmartRefresher(
-        enablePullUp: false,
         enablePullDown: onRefresh != null,
         controller: controller,
         physics: const BouncingScrollPhysics(),
@@ -39,7 +38,6 @@ class SoapListWidget extends StatelessWidget {
         ];
       },
       body: SmartRefresher(
-        enablePullUp: false,
         enablePullDown: onRefresh != null,
         controller: controller,
         physics: const BouncingScrollPhysics(),

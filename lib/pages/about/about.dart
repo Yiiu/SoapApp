@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/widget/widgets.dart';
+import '../../widget/widgets.dart';
 
 class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -34,7 +34,6 @@ class AboutPage extends StatelessWidget {
                     Radius.circular(200),
                   ),
                   border: Border.all(
-                    color: Colors.black,
                     width: 10,
                   ),
                 ),

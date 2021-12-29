@@ -1,12 +1,12 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/config/graphql.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/mutations.dart' as mutations;
-import 'package:soap_app/graphql/query.dart' as query;
-import 'package:soap_app/model/location.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/exception.dart';
+import '../config/graphql.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/mutations.dart' as mutations;
+import '../graphql/query.dart' as query;
+import '../model/location.dart';
+import '../store/index.dart';
+import '../utils/exception.dart';
 
 class PictureRepository {
   void _updatedCurrentCollection(

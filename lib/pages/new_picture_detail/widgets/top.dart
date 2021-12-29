@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/pages/picture_detail/widgets/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../config/config.dart';
 import '../../../model/picture.dart';
 import '../../../widget/widgets.dart';
+import '../../picture_detail/widgets/widgets.dart';
 
 class NewPictureDetailTop extends StatefulWidget {
   const NewPictureDetailTop({
@@ -98,7 +98,7 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                   ),
                 ],
                 title: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(),
                   child: TouchableOpacity(
                     activeOpacity: activeOpacity,
                     behavior: HitTestBehavior.opaque,

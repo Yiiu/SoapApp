@@ -5,15 +5,15 @@ import 'package:extended_image/extended_image.dart' as extended_image;
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:share/share.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/repository/picture_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/image.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal_item.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../../../config/router.dart';
+import '../../../model/picture.dart';
+import '../../../repository/picture_repository.dart';
+import '../../../store/index.dart';
+import '../../../utils/image.dart';
+import '../../../utils/picture.dart';
+import '../../../widget/more_handle_modal/more_handle_modal.dart';
+import '../../../widget/more_handle_modal/more_handle_modal_item.dart';
+import '../../../widget/soap_toast.dart';
 
 class PictureDetailMoreHandle extends StatelessWidget {
   PictureDetailMoreHandle({
@@ -47,7 +47,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
                 svg: 'assets/remix/share-line.svg',
                 title: FlutterI18n.translate(context, 'common.label.share'),
                 onTap: () async {
-                  final data = await extended_image.getCachedImageFile(
+                  final File? data = await extended_image.getCachedImageFile(
                       picture.pictureUrl(style: PictureStyle.regular));
                   if (data != null) {
                     final Uint8List bytes = await data.readAsBytes();

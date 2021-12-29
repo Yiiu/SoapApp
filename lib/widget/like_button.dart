@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:like_button/like_button.dart';
-import 'package:soap_app/repository/repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/widgets.dart';
+import '../repository/repository.dart';
+import '../store/index.dart';
+import 'widgets.dart';
 
 class SoapLikeButton extends StatelessWidget {
   SoapLikeButton({
@@ -54,10 +54,6 @@ class SoapLikeButton extends StatelessWidget {
             likeBuilder: (bool isLiked) {
               if (isLiked) {
                 return ShaderMask(
-                  child: SvgPicture.asset(
-                    'assets/remix/heart-3-fill.svg',
-                    color: const Color(0xfffe2341),
-                  ),
                   blendMode: BlendMode.srcATop,
                   shaderCallback: (Rect bounds) => RadialGradient(
                     center: Alignment.topLeft.add(const Alignment(0.66, 0.66)),
@@ -66,6 +62,10 @@ class SoapLikeButton extends StatelessWidget {
                       Color(0xffF03E3E),
                     ],
                   ).createShader(bounds),
+                  child: SvgPicture.asset(
+                    'assets/remix/heart-3-fill.svg',
+                    color: const Color(0xfffe2341),
+                  ),
                 );
               }
               return SvgPicture.asset(

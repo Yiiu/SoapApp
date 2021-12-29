@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/pages/home/widgets/bottom_tab.dart';
-import 'package:soap_app/widget/list/scroll_direction_listener.dart';
+
+import '../../../widget/list/scroll_direction_listener.dart';
+import 'bottom_tab.dart';
 
 typedef OnChangeFunc = Future<void> Function(int index);
 

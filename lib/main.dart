@@ -15,14 +15,13 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Future.wait<dynamic>({
     initHiveForFlutter(),
-    dotenv.load(fileName: '.env'),
+    dotenv.load(),
     StorageUtil.initialize(),
   });
   jpush.setup(
     appKey: dotenv.env['SENTRY_URL']!,
     channel: 'theChannel',
     production: true,
-    debug: false,
   );
   accountStore.initialize();
   await Future.wait<dynamic>({

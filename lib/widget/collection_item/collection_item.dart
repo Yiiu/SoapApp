@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/widget/collection_item/preview_item.dart';
+import '../../model/collection.dart';
+import 'preview_item.dart';
 
 class CollectionItem extends StatelessWidget {
   const CollectionItem({Key? key, required this.collection}) : super(key: key);
@@ -48,8 +48,6 @@ class CollectionItem extends StatelessWidget {
               padding: const EdgeInsets.only(top: 6, bottom: 6),
               child: Flex(
                 direction: Axis.horizontal,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     '照片',

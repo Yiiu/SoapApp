@@ -3,8 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/theme.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../config/theme.dart';
 
 class SoapAppBar extends StatefulWidget {
   const SoapAppBar({
@@ -66,8 +67,9 @@ class _SoapAppBarState extends State<SoapAppBar>
     }
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
-    final Brightness baseBrightness =
-        widget.brightness ?? appBarTheme.brightness ?? Brightness.light;
+    final Brightness baseBrightness = widget.brightness ??
+        appBarTheme.systemOverlayStyle?.statusBarBrightness ??
+        Brightness.light;
     // theme.primaryColorBrightness;
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light
@@ -132,7 +134,6 @@ class _SoapAppBarState extends State<SoapAppBar>
                       ? Alignment.center
                       : AlignmentDirectional.centerStart,
                   child: DefaultTextStyle(
-                    child: _title,
                     style: theme.textTheme.bodyText2!.copyWith(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -140,6 +141,7 @@ class _SoapAppBarState extends State<SoapAppBar>
                     maxLines: 1,
                     softWrap: false,
                     overflow: TextOverflow.ellipsis,
+                    child: _title,
                   ),
                 ),
               ),

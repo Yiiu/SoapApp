@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/pages/add/widgets/input.dart';
-import 'package:soap_app/repository/collection_repository.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../../config/config.dart';
+import '../../model/collection.dart';
+import '../../pages/add/widgets/input.dart';
+import '../../repository/collection_repository.dart';
+import '../soap_toast.dart';
 
 class AddCollectionModal extends StatefulWidget {
   const AddCollectionModal({
@@ -48,7 +48,7 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
       SoapToast.error('标题是必填的');
       return;
     }
-    final data = {
+    final Map<String, Object> data = {
       'name': _titleController.text,
       'bio': _bioController.text,
       'isPrivate': _controller.value,
@@ -185,8 +185,7 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
                     ListTile(
                       dense: true,
                       contentPadding: const EdgeInsets.symmetric(
-                        vertical: 0,
-                        horizontal: 0,
+                        
                       ),
                       title: const Text(
                         '仅自己可见',

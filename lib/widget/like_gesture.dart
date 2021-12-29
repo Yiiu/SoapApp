@@ -2,8 +2,6 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bounce/flutter_bounce.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 /// 视频手势封装

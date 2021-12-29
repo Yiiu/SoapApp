@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/model/user.dart';
+import 'picture.dart';
+import 'user.dart';
 
 part 'collection.g.dart';
 

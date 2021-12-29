@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
-import 'package:soap_app/widget/input.dart';
-import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
+import '../input.dart';
+import 'confirm_modal_bottom.dart';
 
 class InputModalModalBottom extends StatefulWidget {
   const InputModalModalBottom({

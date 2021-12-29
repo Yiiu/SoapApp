@@ -7,9 +7,10 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
+
+import '../store/index.dart';
 
 Uuid uuid = const Uuid();
 
@@ -141,7 +142,7 @@ class OssProvider {
       options: Options(
         responseType: ResponseType.plain,
       ),
-      onSendProgress: (progress, total) {
+      onSendProgress: (int progress, int total) {
         if (onSendProgress != null) {
           onSendProgress(progress / total);
         }

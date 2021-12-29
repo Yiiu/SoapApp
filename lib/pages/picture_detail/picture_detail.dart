@@ -46,7 +46,6 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
           heroLabel: 'picture-${widget.heroLabel}-${_pageStore.picture!.id}',
           url: getPictureUrl(
             key: _pageStore.picture!.key,
-            style: PictureStyle.regular,
           ),
         ),
       ),
@@ -147,7 +146,7 @@ class _PictureDetailPageState extends State<PictureDetailPage> {
                     future: Future<dynamic>.delayed(
                       Duration(milliseconds: screenDelayTimer),
                     ),
-                    builder: (BuildContext context, snapshot) {
+                    builder: (BuildContext context, AsyncSnapshot snapshot) {
                       if (snapshot.connectionState == ConnectionState.done) {
                         return Observer(builder: (_) {
                           return PictureDetailComment(

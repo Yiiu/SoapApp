@@ -1,7 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../config/config.dart';
 
 class SoapButton extends StatelessWidget {
   const SoapButton({

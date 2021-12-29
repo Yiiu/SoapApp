@@ -33,7 +33,6 @@ class PictureInfoModal extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -57,7 +56,6 @@ class PictureInfoModal extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -88,7 +86,6 @@ class PictureInfoModal extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -112,7 +109,6 @@ class PictureInfoModal extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -143,7 +139,6 @@ class PictureInfoModal extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -170,7 +165,6 @@ class PictureInfoModal extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -204,7 +198,6 @@ class PictureInfoModal extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -231,7 +224,6 @@ class PictureInfoModal extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -264,7 +256,6 @@ class PictureInfoModal extends StatelessWidget {
                 direction: Axis.horizontal,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -291,7 +282,6 @@ class PictureInfoModal extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                    flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
@@ -322,7 +312,6 @@ class PictureInfoModal extends StatelessWidget {
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
                         FlutterI18n.translate(
@@ -336,11 +325,10 @@ class PictureInfoModal extends StatelessWidget {
                       Wrap(
                         spacing: 6,
                         runSpacing: 6,
-                        alignment: WrapAlignment.start,
                         runAlignment: WrapAlignment.end,
                         children: picture.classify!
                             .map(
-                              (e) => Container(
+                              (Map e) => Container(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 4,
                                   horizontal: 12,

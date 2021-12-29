@@ -2,10 +2,10 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/picture.dart';
+import '../../../config/theme.dart';
+import '../../../model/picture.dart';
+import '../../../store/index.dart';
+import '../../../utils/picture.dart';
 
 class PictureDetailImage extends StatelessWidget {
   const PictureDetailImage({

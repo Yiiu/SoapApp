@@ -26,7 +26,7 @@ class TransparentRoute extends PageRoute<void> {
   @override
   Widget buildPage(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation) {
-    final result = builder(context);
+    final Widget result = builder(context);
     return FadeTransition(
       opacity: Tween<double>(begin: 0, end: 1).animate(animation),
       child: Semantics(

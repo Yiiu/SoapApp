@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/model/tag.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../../config/config.dart';
+import '../../../model/picture.dart';
+import '../../../model/tag.dart';
 import '../constants.dart';
 
 class NewPictureDetailBottom extends StatefulWidget {
@@ -119,7 +119,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  widget.picture.location!.name as String,
+                  widget.picture.location!.name,
                   style: TextStyle(
                     color: Colors.white.withOpacity(.9),
                     fontSize: 12,

@@ -105,7 +105,7 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
     );
     return PhotoViewGallery.builder(
       itemCount: 1,
-      pageController: PageController(initialPage: 0),
+      pageController: PageController(),
       backgroundDecoration: const BoxDecoration(color: Colors.transparent),
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {

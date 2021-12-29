@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:soap_app/model/user.dart';
+import 'user.dart';
 
 part 'comment.g.dart';
 

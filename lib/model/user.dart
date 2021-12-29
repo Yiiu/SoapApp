@@ -61,7 +61,7 @@ class User {
   }
 
   bool get isVip {
-    if (badge != null && badge!.indexWhere((e) => e.name == 'prestige') != -1) {
+    if (badge != null && badge!.indexWhere((Badge e) => e.name == 'prestige') != -1) {
       return true;
     }
     return false;

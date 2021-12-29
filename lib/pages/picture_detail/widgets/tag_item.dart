@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/tag.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
+import '../../../model/tag.dart';
 
 class TagItem extends StatelessWidget {
   const TagItem({
@@ -37,7 +38,6 @@ class TagItem extends StatelessWidget {
           color: const Color(0xFF5789d1).withOpacity(.15),
         ),
         child: Wrap(
-          direction: Axis.horizontal,
           children: <Widget>[
             Container(
               height: height - 8,

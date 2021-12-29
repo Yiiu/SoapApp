@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:material_tag_editor/tag_editor.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import '../../../widget/more_handle_modal/more_handle_modal.dart';
 
 class EditTag extends StatefulWidget {
   const EditTag({
@@ -79,7 +79,7 @@ class _EditTagState extends State<EditTag> {
                 // _onAdd(title);
                 // FocusScope.of(context).requestFocus(focusNode);
               },
-              tagBuilder: (context, index) => _Chip(
+              tagBuilder: (BuildContext context, int index) => _Chip(
                 index: index,
                 label: values[index],
                 onDeleted: _onDelete,

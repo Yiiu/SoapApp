@@ -6,10 +6,11 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/custom_dismissible.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../config/config.dart';
+import 'app_bar.dart';
+import 'custom_dismissible.dart';
 
 class HeroPhotoGallery extends StatefulWidget {
   const HeroPhotoGallery({
@@ -160,7 +161,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
             onDismissed: () => Navigator.of(context).maybePop(),
             child: PhotoViewGallery.builder(
               itemCount: 1,
-              pageController: PageController(initialPage: 0),
+              pageController: PageController(),
               backgroundDecoration:
                   const BoxDecoration(color: Colors.transparent),
               scrollPhysics: const BouncingScrollPhysics(),
@@ -186,10 +187,9 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
                                 OctoPlaceholder.circularProgressIndicator(),
                             image: ExtendedImage.network(
                               widget.url,
-                              cache: true,
                             ).image,
                             fit: BoxFit.cover,
-                            imageBuilder: (_, w) {
+                            imageBuilder: (_, Widget w) {
                               return _heroBuilder(index, w);
                             },
                             errorBuilder: OctoError.icon(),

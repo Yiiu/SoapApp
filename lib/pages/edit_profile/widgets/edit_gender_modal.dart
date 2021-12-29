@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
-import 'package:soap_app/widget/widgets.dart';
+import '../../../widget/widgets.dart';
 
 class EditGenderModal extends StatefulWidget {
   const EditGenderModal({
@@ -61,8 +61,7 @@ class _EditGenderModalState extends State<EditGenderModal> {
             child: ListTile(
               dense: true,
               contentPadding: const EdgeInsets.symmetric(
-                vertical: 0,
-                horizontal: 0,
+                
               ),
               title: Text(
                 '是否展示性别',

@@ -7,14 +7,13 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
-import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:soap_app/model/location.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     as WechatAssetsPicker;
 
+import '../../model/location.dart';
 import '../../model/picture.dart';
 import '../../repository/repository.dart';
 import '../../store/index.dart';
@@ -82,7 +81,7 @@ class _AddPageState extends State<AddPage> {
           await widget.assets![0].thumbDataWithSize(600, 600, quality: 70);
       if (thumb != null) {
         final String base64Image = base64Encode(thumb);
-        final result = await _baiduProvider.getImageClassify(base64Image);
+        final Response? result = await _baiduProvider.getImageClassify(base64Image);
         if (result?.data?['result'] != null) {
           _classify = result!.data!['result'];
         }
@@ -191,10 +190,8 @@ class _AddPageState extends State<AddPage> {
         child: Flex(
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 1,
               child: Flex(
                 direction: Axis.horizontal,
                 children: <Widget>[
@@ -212,7 +209,6 @@ class _AddPageState extends State<AddPage> {
                     width: 8,
                   ),
                   Expanded(
-                    flex: 1,
                     child: title,
                   ),
                 ],
@@ -255,7 +251,6 @@ class _AddPageState extends State<AddPage> {
                 direction: Axis.vertical,
                 children: <Widget>[
                   Expanded(
-                    flex: 1,
                     child: SizedBox(
                       child: Column(
                         children: <Widget>[
@@ -376,8 +371,7 @@ class _AddPageState extends State<AddPage> {
                                         builder: (_) => _itemBuild(
                                           title: _addStore.location != null
                                               ? Text(
-                                                  _addStore.location!.name
-                                                      as String,
+                                                  _addStore.location!.name,
                                                   maxLines: 1,
                                                   overflow:
                                                       TextOverflow.ellipsis,

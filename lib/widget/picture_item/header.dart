@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../config/config.dart';
+import '../../model/picture.dart';
+import '../avatar.dart';
 
 class PictureItemHeader extends StatelessWidget {
   const PictureItemHeader({
@@ -50,7 +51,6 @@ class PictureItemHeader extends StatelessWidget {
                     tag:
                         'user-${picture.user!.username}-${picture.id.toString()}',
                     child: Avatar(
-                      size: 32,
                       image: picture.user!.avatarUrl,
                     ),
                   ),
@@ -73,7 +73,7 @@ class PictureItemHeader extends StatelessWidget {
                           );
                         },
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 0),
+                          padding: const EdgeInsets.only(),
                           child: Text(
                             picture.user!.fullName,
                             style: const TextStyle(

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/model/location.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../config/config.dart';
 import '../../graphql/graphql.dart';
+import '../../model/location.dart';
 import '../../widget/widgets.dart';
 
 class LocationSettingPage extends StatefulWidget {
@@ -38,10 +38,10 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
           searchPlace,
           [...locationFragmentDocumentNode],
         ),
-        variables: {
+        variables: <String, String>{
           'value': _valueController.text,
           'region': _regionController.text,
-        } as Map<String, dynamic>,
+        },
       ),
     );
     setState(() {
@@ -214,7 +214,6 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
               ),
             ),
             Expanded(
-              flex: 1,
               child: MediaQuery.removePadding(
                 removeTop: true,
                 context: context,

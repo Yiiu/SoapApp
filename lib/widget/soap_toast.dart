@@ -59,7 +59,6 @@ class SoapToast {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const CupertinoActivityIndicator(),
@@ -84,11 +83,9 @@ class SoapToast {
     SoapToast.confirmThrottling =
         Throttling(duration: const Duration(seconds: 2));
     BotToast.showAnimationWidget(
-      clickClose: false,
       allowClick: false,
       onlyOne: true,
-      crossPage: true,
-      wrapToastAnimation: (controller, cancel, child) => Stack(
+      wrapToastAnimation: (AnimationController controller, cancel, Widget child) => Stack(
         children: <Widget>[
           GestureDetector(
             onTap: () {
@@ -96,15 +93,15 @@ class SoapToast {
             },
             //The DecoratedBox here is very important,he will fill the entire parent component
             child: AnimatedBuilder(
-              builder: (_, child) => Opacity(
+              builder: (_, Widget? child) => Opacity(
                 opacity: controller.value,
                 child: child,
               ),
+              animation: controller,
               child: const DecoratedBox(
                 decoration: BoxDecoration(color: Colors.black26),
                 child: SizedBox.expand(),
               ),
-              animation: controller,
             ),
           ),
           CustomOffsetAnimation(
@@ -216,7 +213,6 @@ class _CustomOffsetAnimationState extends State<CustomOffsetAnimation> {
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      child: widget.child,
       animation: widget.controller,
       builder: (BuildContext context, Widget? child) {
         return FractionalTranslation(
@@ -225,13 +221,14 @@ class _CustomOffsetAnimationState extends State<CustomOffsetAnimation> {
             child: Transform.scale(
               scale: tweenScale.evaluate(animation),
               child: Opacity(
-                child: child,
                 opacity: animation.value,
+                child: child,
               ),
             ),
           ),
         );
       },
+      child: widget.child,
     );
   }
 }

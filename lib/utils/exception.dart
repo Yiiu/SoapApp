@@ -1,11 +1,11 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../widget/soap_toast.dart';
 
 void captureException(dynamic throwable, {dynamic stackTrace}) {
   if (throwable is OperationException) {
     if (throwable.linkException is NetworkException) {
-      print('网络错误：' + throwable.linkException.toString());
+      print('网络错误：${throwable.linkException}');
       // handle network issues, maybe
     } else {
       if (throwable.graphqlErrors.isNotEmpty) {

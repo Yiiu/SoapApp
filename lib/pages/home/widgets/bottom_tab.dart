@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/widget/animations/animated_shifted_position.dart';
+import '../../../widget/animations/animated_shifted_position.dart';
 
 import 'tab_view.dart';
 
@@ -86,7 +86,6 @@ class _HomeBottomTabState extends State<HomeBottomTab>
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 22),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             SizedBox(
@@ -168,7 +167,6 @@ class _HomeBottomTabState extends State<HomeBottomTab>
                         ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: HomeBottomTab.bottomBar
                               .map<Widget>(
                                 (SoapBottomNavigationBarItem bar) =>

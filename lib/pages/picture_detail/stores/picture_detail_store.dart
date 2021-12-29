@@ -1,11 +1,11 @@
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart' as query;
-import 'package:soap_app/model/picture.dart';
+import '../../../config/config.dart';
+import '../../../graphql/fragments.dart';
+import '../../../graphql/gql.dart';
+import '../../../graphql/query.dart' as query;
+import '../../../model/picture.dart';
 
 part 'picture_detail_store.g.dart';
 

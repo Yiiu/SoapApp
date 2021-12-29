@@ -1,10 +1,10 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:soap_app/utils/image.dart';
-import 'package:soap_app/widget/modal_bottom_sheet.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
-import 'package:soap_app/widget/select_list.dart';
+import '../utils/image.dart';
+import 'modal_bottom_sheet.dart';
+import 'more_handle_modal/more_handle_modal.dart';
+import 'select_list.dart';
 
 class HeroPhotoView extends StatefulWidget {
   const HeroPhotoView({
@@ -140,7 +140,6 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
                 return Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       CircularProgressIndicator(
                         value: progress,
@@ -200,16 +199,12 @@ class _HeroPhotoViewState extends State<HeroPhotoView>
 
               _animationController?.forward();
             },
-            initGestureConfigHandler: (state) {
+            initGestureConfigHandler: (ExtendedImageState state) {
               return GestureConfig(
                 minScale: scales[0],
                 animationMinScale: scales[0] - 0.3,
                 maxScale: scales[1],
                 animationMaxScale: scales[1] + 0.5,
-                speed: 1.0,
-                inertialSpeed: 100.0,
-                initialScale: 1.0,
-                initialAlignment: InitialAlignment.center,
               );
             },
             // flightShuttleBuilder: (BuildContext flightContext,

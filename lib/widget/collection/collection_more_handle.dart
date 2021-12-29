@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/repository/collection_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/widgets.dart';
+import '../../model/collection.dart';
+import '../../repository/collection_repository.dart';
+import '../../store/index.dart';
+import '../widgets.dart';
 
 class CollectionMoreHandle extends StatelessWidget {
   CollectionMoreHandle({

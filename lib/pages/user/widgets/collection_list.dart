@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/graphql.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
+import '../../../graphql/graphql.dart';
+import '../../../model/collection.dart';
+import '../../../store/index.dart';
+import '../../../utils/utils.dart';
+import '../../../widget/widgets.dart';
 
 class UserCollectionList extends StatefulWidget {
   const UserCollectionList({
@@ -28,11 +29,11 @@ class UserCollectionListState extends State<UserCollectionList>
   bool get wantKeepAlive => true;
 
   final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
   final RefreshController _errorRefreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
   final RefreshController _loaddingRefreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   bool get isOwner {
     if (accountStore.isLogin &&
@@ -100,8 +101,6 @@ class UserCollectionListState extends State<UserCollectionList>
         }
 
         return SmartRefresher(
-          enablePullUp: false,
-          enablePullDown: true,
           controller: _refreshController,
           physics: const BouncingScrollPhysics(),
           child: ListView.builder(
@@ -126,7 +125,6 @@ class UserCollectionListState extends State<UserCollectionList>
                       color: Theme.of(context).cardColor,
                       child: Flex(
                         direction: Axis.horizontal,
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           SizedBox(
                             width: 20,
@@ -161,7 +159,7 @@ class UserCollectionListState extends State<UserCollectionList>
               }
               return TouchableOpacity(
                 key: ValueKey<String>(
-                  list[i - 1].id.toString() + 'collection_item',
+                  '${list[i - 1].id}collection_item',
                 ),
                 activeOpacity: activeOpacity,
                 onTap: () {

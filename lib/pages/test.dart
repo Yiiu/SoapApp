@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TestPage extends StatefulWidget {
-  TestPage({Key? key}) : super(key: key);
+  const TestPage({Key? key}) : super(key: key);
 
   @override
   _TestPageState createState() => _TestPageState();
@@ -34,7 +34,7 @@ class _TestPageState extends State<TestPage> {
             ),
             if (isTest)
               TextButton(
-                child: Text('test'),
+                child: const Text('test'),
                 onPressed: () {
                   FocusScope.of(context).requestFocus(focusNode);
                   // focusNode.requestFocus();

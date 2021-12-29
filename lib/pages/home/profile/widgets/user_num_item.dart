@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../../config/config.dart';
+import '../../../../store/index.dart';
+import '../../../../widget/widgets.dart';
 
 class ProfileUserNumItem extends StatefulWidget {
   const ProfileUserNumItem({Key? key}) : super(key: key);
@@ -22,14 +23,13 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
   }) {
     final ThemeData theme = Theme.of(context);
     return Expanded(
-      flex: 1,
       child: TouchableOpacity(
         activeOpacity: activeOpacity,
         behavior: HitTestBehavior.opaque,
         onTap: onTap,
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 0),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           child: Column(
             children: <Widget>[
               Text(
@@ -91,7 +91,6 @@ class _ProfileUserNumItemState extends State<ProfileUserNumItem> {
                         context,
                         isScrollControlled: true,
                         child: FollowModal(
-                          type: FollowModalType.follower,
                           scrollController: ModalScrollController.of(context),
                           id: accountStore.userInfo!.id,
                         ),

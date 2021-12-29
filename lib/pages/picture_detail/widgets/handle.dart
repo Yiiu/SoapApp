@@ -6,14 +6,15 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:like_button/like_button.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/picture_detail/stores/handle_store.dart';
-import 'package:soap_app/pages/picture_detail/widgets/add_to_collection.dart';
-import 'package:soap_app/repository/picture_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../../config/config.dart';
+import '../../../model/picture.dart';
+import '../../../repository/picture_repository.dart';
+import '../../../store/index.dart';
+import '../../../widget/widgets.dart';
+import '../stores/handle_store.dart';
+import 'add_to_collection.dart';
 
 const double pictureDetailHandleHeight = 62;
 
@@ -161,7 +162,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
           direction: Axis.horizontal,
           children: <Widget>[
             Expanded(
-              flex: 1,
               child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
@@ -238,10 +238,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
                       likeBuilder: (bool isLiked) {
                         if (isLiked) {
                           return ShaderMask(
-                            child: SvgPicture.asset(
-                              'assets/remix/heart-3-fill.svg',
-                              color: const Color(0xfffe2341),
-                            ),
                             blendMode: BlendMode.srcATop,
                             shaderCallback: (Rect bounds) => RadialGradient(
                               center: Alignment.topLeft
@@ -251,6 +247,10 @@ class PictureDetailHandleBasic extends StatelessWidget {
                                 Color(0xffF03E3E),
                               ],
                             ).createShader(bounds),
+                            child: SvgPicture.asset(
+                              'assets/remix/heart-3-fill.svg',
+                              color: const Color(0xfffe2341),
+                            ),
                           );
                         }
                         return SvgPicture.asset(
@@ -304,10 +304,6 @@ class PictureDetailHandleBasic extends StatelessWidget {
                         height: 26,
                         child: isCollected
                             ? ShaderMask(
-                                child: SvgPicture.asset(
-                                  'assets/feather/star-fill.svg',
-                                  color: const Color(0xff47B881),
-                                ),
                                 blendMode: BlendMode.srcATop,
                                 shaderCallback: (Rect bounds) => RadialGradient(
                                   center: Alignment.topLeft
@@ -317,6 +313,10 @@ class PictureDetailHandleBasic extends StatelessWidget {
                                     Color(0xff47b881),
                                   ],
                                 ).createShader(bounds),
+                                child: SvgPicture.asset(
+                                  'assets/feather/star-fill.svg',
+                                  color: const Color(0xff47B881),
+                                ),
                               )
                             : Icon(
                                 FeatherIcons.star,
@@ -412,7 +412,6 @@ class _PictureDetailHandleCommentState
                 ),
                 contentPadding: const EdgeInsets.symmetric(
                   horizontal: 20,
-                  vertical: 0,
                 ),
               ),
             ),

@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:soap_app/store/index.dart';
+import '../store/index.dart';
 
 class BaiduProvider {
   BaiduProvider();
@@ -22,7 +22,7 @@ class BaiduProvider {
   }
 
   Future<Response?> getImageClassify(String image) async {
-    final _token = await token();
+    final Response _token = await token();
     final Dio httpClient = Dio()
       ..options.baseUrl = 'https://aip.baidubce.com/rest/2.0'
       ..options.connectTimeout = 5000;

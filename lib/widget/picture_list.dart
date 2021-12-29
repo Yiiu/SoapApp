@@ -42,13 +42,13 @@ class _PictureListState extends State<PictureList>
   bool get wantKeepAlive => true;
 
   final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   final RefreshController _loadingRefreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   final RefreshController _errorRefreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   int page = 1;
   int pageSize = 30;

@@ -1,5 +1,5 @@
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/utils/storage.dart';
+import '../utils/storage.dart';
 part 'picture_cached_store.g.dart';
 
 class PictureCachedStore = _PictureCachedStoreBase with _$PictureCachedStore;

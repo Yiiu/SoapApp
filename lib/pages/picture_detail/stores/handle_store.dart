@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/repository/comment_repository.dart';
+import '../../../model/picture.dart';
+import '../../../repository/comment_repository.dart';
 
 part 'handle_store.g.dart';
 

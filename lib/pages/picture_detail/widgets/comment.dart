@@ -69,8 +69,6 @@ class PictureDetailComment extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
                                   Text(
                                     comment.user!.fullName,
@@ -138,7 +136,7 @@ class PictureDetailComment extends StatelessWidget {
             children: <Widget>[
               if (commentCount != null)
                 Text(
-                  commentCount.toString() + ' 条评论',
+                  '$commentCount 条评论',
                   style: TextStyle(
                     fontSize: 14,
                     color: theme.textTheme.bodyText2!.color!.withOpacity(.6),

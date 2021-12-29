@@ -5,11 +5,11 @@ import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
+import '../../../config/config.dart';
+import '../../../utils/utils.dart';
+import '../../../widget/widgets.dart';
 import '../stores/user_store.dart';
 import 'header_follow_btn.dart';
 
@@ -38,7 +38,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
   @override
   void initState() {
     super.initState();
-    Future<void>.delayed(const Duration(milliseconds: 0), () {
+    Future<void>.delayed(const Duration(), () {
       setHeight();
     });
     _timer = Timer.periodic(const Duration(milliseconds: 2000), (Timer timer) {
@@ -266,13 +266,12 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
         ),
         Padding(
           padding: const EdgeInsets.symmetric(
-            horizontal: 0,
+            
           ),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[
               Expanded(
-                flex: 1,
                 child: Flex(
                   direction: Axis.horizontal,
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -311,7 +310,6 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                               scrollController:
                                   ModalScrollController.of(context),
                               id: widget.store.user!.id,
-                              type: FollowModalType.follower,
                             ),
                           );
                         },

@@ -54,7 +54,7 @@ class _LoadMoreListenerState extends State<LoadMoreListener> {
   }
 
   bool _onNotification(ScrollNotification notification) {
-    final scrollPosition = notification.metrics.pixels;
+    final double scrollPosition = notification.metrics.pixels;
 
     if (_lastPosition < scrollPosition) {
       _changeDirection(VerticalDirection.down);

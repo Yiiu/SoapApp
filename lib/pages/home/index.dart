@@ -4,13 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/pages/home/widgets/tab_view.dart';
-import 'package:soap_app/store/index.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
+import '../../config/router.dart';
+import '../../store/index.dart';
 import 'new/new.dart';
 import 'profile/profile.dart';
+import 'widgets/tab_view.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _MyHomePageState extends State<HomePage>
   late TabController tabController;
 
   final RefreshController _newRefreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   @override
   void initState() {

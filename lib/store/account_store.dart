@@ -4,15 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
-import 'package:soap_app/config/graphql.dart';
-import 'package:soap_app/config/jpush.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart' as query;
-import 'package:soap_app/model/user.dart';
-import 'package:soap_app/repository/account_repository.dart';
-import 'package:soap_app/utils/storage.dart';
-import 'package:soap_app/widget/soap_toast.dart';
+import '../config/graphql.dart';
+import '../config/jpush.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/query.dart' as query;
+import '../model/user.dart';
+import '../repository/account_repository.dart';
+import '../utils/storage.dart';
+import '../widget/soap_toast.dart';
 
 part 'account_store.g.dart';
 
@@ -72,14 +72,14 @@ abstract class _AccountStoreBase with Store {
   void setSentrtyInfo(User? user) {
     if (user != null) {
       Sentry.configureScope(
-        (scope) => scope.user = SentryUser(
+        (Scope scope) => scope.user = SentryUser(
           id: user.id.toString(),
           username: user.username,
           email: user.email,
         ),
       );
     } else {
-      Sentry.configureScope((scope) => scope.user = null);
+      Sentry.configureScope((Scope scope) => scope.user = null);
     }
   }
 

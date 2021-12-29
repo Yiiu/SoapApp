@@ -231,10 +231,10 @@ abstract class _Picture with Store {
   }
 
   String pictureUrl({PictureStyle? style}) {
-    if (RegExp('^photo\/').hasMatch(key)) {
+    if (RegExp('^photo/').hasMatch(key)) {
       return getPictureUrl(key: key, style: style);
     }
-    return getPictureUrl(key: 'photo/' + key, style: style);
+    return getPictureUrl(key: 'photo/$key', style: style);
   }
 }
 

@@ -51,7 +51,7 @@ class _CustomDismissibleState extends State<CustomDismissible>
   }
 
   void _updateMoveAnimation() {
-    final end = _dragExtent.sign;
+    final double end = _dragExtent.sign;
 
     _moveAnimation = _moveController.drive(
       Tween<Offset>(
@@ -80,8 +80,8 @@ class _CustomDismissibleState extends State<CustomDismissible>
       return;
     }
 
-    final delta = details.primaryDelta!;
-    final oldDragExtent = _dragExtent;
+    final double delta = details.primaryDelta!;
+    final double oldDragExtent = _dragExtent;
 
     if (_dragExtent + delta < 0) {
       _dragExtent += delta;

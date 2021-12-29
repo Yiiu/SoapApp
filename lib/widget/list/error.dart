@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/widget/list/widget.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../config/config.dart';
+import 'widget.dart';
 
 class SoapListError extends StatelessWidget {
   const SoapListError({
@@ -36,7 +37,6 @@ class SoapListError extends StatelessWidget {
             );
           },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Column(

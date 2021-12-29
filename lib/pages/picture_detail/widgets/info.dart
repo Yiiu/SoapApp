@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/model/picture.dart';
+import '../../../model/picture.dart';
 
 class PictureDetailInfo extends StatelessWidget {
   const PictureDetailInfo({
@@ -27,7 +27,6 @@ class PictureDetailInfo extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
                   width: 22.0,
@@ -65,7 +64,6 @@ class PictureDetailInfo extends StatelessWidget {
           const SizedBox(height: 8),
           SizedBox(
             child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 SizedBox(
                   width: 22.0,

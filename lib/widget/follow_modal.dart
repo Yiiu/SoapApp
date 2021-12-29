@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
-import 'package:soap_app/model/user.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/widget/app_bar.dart';
-import 'package:soap_app/widget/avatar.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../config/config.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/query.dart';
+import '../model/user.dart';
+import '../utils/exception.dart';
+import 'app_bar.dart';
+import 'avatar.dart';
 
 enum FollowModalType {
   follower,
@@ -49,7 +50,7 @@ class _FollowModalState extends State<FollowModal> {
 
   @override
   Widget build(BuildContext context) {
-    final variables = {
+    final Map<String, Object> variables = {
       'id': widget.id,
       'query': {
         'pageSize': 30,

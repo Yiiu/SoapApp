@@ -168,7 +168,6 @@ class PictureItem extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 3),
                   child: Flex(
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     direction: Axis.horizontal,
                     children: <Widget>[
                       Hero(

@@ -57,8 +57,6 @@ class _MoreSettingPageState extends State<MoreSettingPage> {
               border: false,
               action: AdvancedSwitch(
                 controller: _controller,
-                width: 50.0,
-                height: 30.0,
               ),
               onPressed: () async {
                 _controller.value = !_controller.value;

@@ -1,9 +1,9 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/config/graphql.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/mutations.dart' as mutations;
-import 'package:soap_app/graphql/query.dart' as query;
+import '../config/graphql.dart';
+import '../graphql/fragments.dart';
+import '../graphql/gql.dart';
+import '../graphql/mutations.dart' as mutations;
+import '../graphql/query.dart' as query;
 
 class UserRepository {
   Future<void> _setFollowInfoCache(
@@ -12,9 +12,9 @@ class UserRepository {
       QueryOptions(
         document: addFragments(query.userIsFollowing, [userFollowInfoFragment]),
         fetchPolicy: FetchPolicy.networkOnly,
-        variables: {
+        variables: <String, String>{
           'username': username,
-        } as Map<String, dynamic>,
+        },
       ),
     );
     if (result.data?['user'] != null) {

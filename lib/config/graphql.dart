@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:soap_app/store/index.dart';
+import '../store/index.dart';
 
 class GraphqlConfig {
   static HttpLink httpLink = HttpLink(
     '${dotenv.env['API_URL']}/graphql',
-    defaultHeaders: {
+    defaultHeaders: <String, String>{
       'accept': 'application/json',
     },
   );
 
   static AuthLink authLink = AuthLink(
-    headerKey: 'Authorization',
     getToken: () async {
       if (accountStore.accessToken != null) {
         return 'Bearer ${accountStore.accessToken}';

@@ -2,11 +2,12 @@ import 'package:extended_list/extended_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:waterfall_flow/waterfall_flow.dart';
+
+import '../../../../store/index.dart';
+import '../../../../utils/utils.dart';
+import '../../../../widget/widgets.dart';
+import '../stores/new_list_store.dart';
 
 class NewList extends StatelessWidget {
   const NewList({
@@ -60,7 +61,7 @@ class NewList extends StatelessWidget {
           mainAxisSpacing: 8,
         ),
         itemCount: newListStore.pictureList!.length,
-        itemBuilder: (_, int i) => Observer(builder: (context) {
+        itemBuilder: (_, int i) => Observer(builder: (BuildContext context) {
           return PictureItem(
             heroLabel: 'new-picture-detail',
             crossAxisSpacing: 0,
@@ -79,8 +80,6 @@ class NewList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
-      enablePullUp: false,
-      enablePullDown: true,
       physics: const BouncingScrollPhysics(),
       controller: controller,
       onRefresh: onRefresh,

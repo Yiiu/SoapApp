@@ -4,17 +4,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/repository/picture_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/list/error.dart';
-import 'package:soap_app/widget/list/loading.dart';
-import 'package:soap_app/widget/more_handle_modal/more_handle_modal.dart';
+import '../../../graphql/fragments.dart';
+import '../../../graphql/gql.dart';
+import '../../../graphql/query.dart';
+import '../../../model/collection.dart';
+import '../../../repository/picture_repository.dart';
+import '../../../store/index.dart';
+import '../../../utils/exception.dart';
+import '../../../utils/picture.dart';
+import '../../../widget/list/error.dart';
+import '../../../widget/list/loading.dart';
+import '../../../widget/more_handle_modal/more_handle_modal.dart';
 
 class AddToCollection extends StatefulWidget {
   const AddToCollection({
@@ -32,7 +32,7 @@ class AddToCollection extends StatefulWidget {
 
 class _AddToCollectionState extends State<AddToCollection> {
   final RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+      RefreshController();
 
   final PictureRepository pictureRepository = PictureRepository();
 
@@ -133,7 +133,7 @@ class _AddToCollectionState extends State<AddToCollection> {
                                   );
                                   setState(() {
                                     currentList = currentList
-                                        .where((e) => e != collection.id)
+                                        .where((int e) => e != collection.id)
                                         .toList();
                                   });
                                 } else {

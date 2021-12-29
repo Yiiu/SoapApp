@@ -3,11 +3,11 @@ import 'dart:io';
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../config/config.dart';
 import '../../config/router.dart';
 import '../../store/app_store.dart';
 import '../../store/index.dart';

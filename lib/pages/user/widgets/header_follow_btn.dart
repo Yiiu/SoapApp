@@ -3,10 +3,11 @@ import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/pages/user/stores/user_store.dart';
-import 'package:soap_app/repository/user_repository.dart';
 import 'package:throttling/throttling.dart';
+
+import '../../../config/router.dart';
+import '../../../repository/user_repository.dart';
+import '../stores/user_store.dart';
 
 class UserHeaderFollowBtn extends StatelessWidget {
   UserHeaderFollowBtn({Key? key, required this.store}) : super(key: key);
@@ -35,7 +36,6 @@ class UserHeaderFollowBtn extends StatelessWidget {
             padding: MaterialStateProperty.all(
               const EdgeInsets.symmetric(
                 horizontal: 18,
-                vertical: 0,
               ),
             ),
             backgroundColor: MaterialStateProperty.all(
@@ -59,7 +59,6 @@ class UserHeaderFollowBtn extends StatelessWidget {
             side: MaterialStateProperty.all(
               BorderSide(
                 color: Colors.white.withOpacity(.8),
-                width: 1,
               ),
             ),
           ),
@@ -87,8 +86,7 @@ class UserHeaderFollowBtn extends StatelessWidget {
                 ),
                 padding: MaterialStateProperty.all(
                   const EdgeInsets.symmetric(
-                    // horizontal: 6,
-                    vertical: 0,
+                    
                   ),
                 ),
                 backgroundColor: MaterialStateProperty.all(
@@ -112,7 +110,6 @@ class UserHeaderFollowBtn extends StatelessWidget {
                 side: MaterialStateProperty.all(
                   const BorderSide(
                     color: Colors.white,
-                    width: 1,
                   ),
                 ),
               ),
@@ -137,7 +134,6 @@ class UserHeaderFollowBtn extends StatelessWidget {
               padding: MaterialStateProperty.all(
                 const EdgeInsets.symmetric(
                   horizontal: 24,
-                  vertical: 0,
                 ),
               ),
               backgroundColor: MaterialStateProperty.all(

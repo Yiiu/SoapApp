@@ -124,7 +124,7 @@ class _StyleSettingPageState extends State<StyleSettingPage> {
                                   },
                                   config: appStore.modeList
                                       .map(
-                                        (e) => SelectTileConfig<int>(
+                                        (DisplayMode e) => SelectTileConfig<int>(
                                             title: e.toString(), value: e.id),
                                       )
                                       .toList(),

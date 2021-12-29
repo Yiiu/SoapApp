@@ -1,8 +1,8 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/utils/picture.dart';
+import '../../model/collection.dart';
+import '../../utils/picture.dart';
 
 class CollectionPreiewItem extends StatelessWidget {
   const CollectionPreiewItem({

@@ -132,7 +132,7 @@ class _UserPageState extends State<UserPage>
                           future: Future<dynamic>.delayed(
                             Duration(milliseconds: screenDelayTimer),
                           ),
-                          builder: (BuildContext context, snapshot) {
+                          builder: (BuildContext context, AsyncSnapshot snapshot) {
                             if (snapshot.connectionState ==
                                 ConnectionState.done) {
                               return PictureList(
