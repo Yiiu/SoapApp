@@ -20,14 +20,17 @@ class PictureList extends StatefulWidget {
     required this.document,
     required this.label,
     required this.variables,
+    this.heroLabel,
     this.enablePullUp = true,
     this.enablePullDown = true,
   }) : super(key: key);
+
   final DocumentNode document;
   final String label;
   final Map<String, Object> variables;
   final bool enablePullUp;
   final bool enablePullDown;
+  final String? heroLabel;
 
   @override
   _PictureListState createState() => _PictureListState();
@@ -140,7 +143,6 @@ class _PictureListState extends State<PictureList>
           return const SoapListEmpty();
           // return ;
         }
-
         return SmartRefresher(
           enablePullUp: widget.enablePullUp,
           enablePullDown: widget.enablePullDown,
@@ -156,7 +158,7 @@ class _PictureListState extends State<PictureList>
             ),
             itemCount: listData.list.length,
             itemBuilder: (_, int i) => PictureItem(
-              heroLabel: 'new-picture-detail',
+              heroLabel: widget.heroLabel,
               crossAxisSpacing: 0,
               mainAxisSpacing: padding,
               picture: listData.list[i],

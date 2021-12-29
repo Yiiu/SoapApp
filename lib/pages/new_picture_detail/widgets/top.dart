@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:soap_app/pages/picture_detail/widgets/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../../config/config.dart';
@@ -45,13 +47,14 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
 
   @override
   Widget build(BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Positioned(
       child: Hero(
         tag: '_NewPictureDetailTopState',
         child: SlideTransition(
           position: _topAnimation,
           child: Stack(
-            children: [
+            children: <Widget>[
               Positioned(
                 child: Container(
                   height: 120,
@@ -74,6 +77,26 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                 automaticallyImplyLeading: true,
                 elevation: 0,
                 centerTitle: false,
+                actions: [
+                  TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    onTap: () {
+                      showSoapBottomSheet<dynamic>(
+                        context,
+                        child: PictureDetailMoreHandle(
+                          picture: widget.picture,
+                        ),
+                      );
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 12),
+                      child: Icon(
+                        FeatherIcons.moreHorizontal,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
                 title: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: TouchableOpacity(

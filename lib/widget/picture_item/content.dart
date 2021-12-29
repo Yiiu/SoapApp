@@ -1,13 +1,15 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/new_picture_detail/new_picture_detail.dart';
-import 'package:soap_app/repository/picture_repository.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
+
+import '../../model/picture.dart';
+import '../../pages/new_picture_detail/new_picture_detail.dart';
+import '../../repository/picture_repository.dart';
+import '../../store/index.dart';
+import '../../utils/utils.dart';
+import '../widgets.dart';
 
 class PictureItemContent extends StatelessWidget {
   PictureItemContent({
@@ -33,7 +35,7 @@ class PictureItemContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AspectRatio(
+    final Widget content = AspectRatio(
       aspectRatio: picture.width / picture.height,
       child: ClipRRect(
         borderRadius: pictureType == pictureItemType.single
@@ -44,21 +46,22 @@ class PictureItemContent extends StatelessWidget {
             color: HexColor.fromHex(picture.color),
           ),
           child: LikeGesture(
+            onLike: (doubleLike! && accountStore.isLogin)
+                ? () {
+                    _pictureRepository.liked(picture.id);
+                  }
+                : null,
             onTap: () {
               Navigator.of(context).push<dynamic>(
                 HeroDetailRoute<void>(
                   builder: (_) => NewPictureDetail(
+                    heroLabel: heroLabel,
                     picture: picture,
                     pictureStyle: pictureStyle,
                   ),
                 ),
               );
             },
-            onLike: (doubleLike! && accountStore.isLogin)
-                ? () {
-                    _pictureRepository.liked(picture.id);
-                  }
-                : null,
             child: SizedBox(
               width: double.infinity,
               height: double.infinity,
@@ -78,7 +81,6 @@ class PictureItemContent extends StatelessWidget {
                     picture.pictureUrl(
                       style: pictureStyle,
                     ),
-                    cache: true,
                   ).image,
                   fit: BoxFit.cover,
                 ),
@@ -87,6 +89,16 @@ class PictureItemContent extends StatelessWidget {
           ),
         ),
       ),
+    );
+    if (doubleLike != null && doubleLike!) {
+      return content;
+    }
+    return Bounceable(
+      curve: Curves.easeInOut,
+      reverseCurve: Curves.easeInOut,
+      // reverseCurve: Curves.easeOutCubic,
+      onTap: () {},
+      child: content,
     );
   }
 }

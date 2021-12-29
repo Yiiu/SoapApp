@@ -37,11 +37,11 @@ class PictureDetailMoreHandle extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MoreHandleModal(
-      title: '更多操作',
+      title: FlutterI18n.translate(context, 'picture.more.title'),
       child: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
         child: Row(
-          children: [
+          children: <Widget>[
             if (picture.isPrivate == null || !picture.isPrivate!) ...[
               MoreHandleModalItem(
                 svg: 'assets/remix/share-line.svg',
@@ -69,7 +69,7 @@ class PictureDetailMoreHandle extends StatelessWidget {
             if (isOwner) ...[
               MoreHandleModalItem(
                 svg: 'assets/remix/image-edit-line.svg',
-                title: '编辑',
+                title: FlutterI18n.translate(context, 'common.label.edit'),
                 onTap: () {
                   Navigator.of(context).pop();
                   Navigator.of(context).pushNamed(
@@ -83,11 +83,11 @@ class PictureDetailMoreHandle extends StatelessWidget {
               const SizedBox(width: 24),
               MoreHandleModalItem(
                 svg: 'assets/remix/delete-bin-5-line.svg',
-                title: '删除',
+                title: FlutterI18n.translate(context, 'common.label.delete'),
                 color: theme.errorColor,
                 onTap: () {
                   SoapToast.confirm(
-                    '是否要删除图片？',
+                    FlutterI18n.translate(context, 'picture.more.delete_title'),
                     context: context,
                     confirm: () async {
                       await pictureRepository.deletePicture(picture.id);

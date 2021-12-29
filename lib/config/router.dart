@@ -1,7 +1,8 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, avoid_dynamic_calls
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/pages/setting/style_setting.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../model/collection.dart';
@@ -29,6 +30,7 @@ class RouteName {
   static const String login = 'login';
   static const String user = 'user';
   static const String setting = 'setting';
+  static const String style_setting = 'style_setting';
   static const String collection_detail = 'collection_detail';
   static const String tag_detail = 'tag_detail';
   static const String webview = 'webview';
@@ -70,6 +72,10 @@ class Router {
       case RouteName.setting:
         return CupertinoPageRoute<void>(
           builder: (_) => const SettingPage(),
+        );
+      case RouteName.style_setting:
+        return CupertinoPageRoute<void>(
+          builder: (_) => const StyleSettingPage(),
         );
       case RouteName.collection_detail:
         return CupertinoPageRoute<void>(

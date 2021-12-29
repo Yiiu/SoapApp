@@ -14,12 +14,14 @@ import 'widgets/top.dart';
 class NewPictureDetail extends StatefulWidget {
   const NewPictureDetail({
     Key? key,
+    this.heroLabel,
     required this.picture,
     this.pictureStyle = PictureStyle.small,
   }) : super(key: key);
 
   final Picture picture;
   final PictureStyle? pictureStyle;
+  final String? heroLabel;
 
   @override
   _NewPictureDetailState createState() => _NewPictureDetailState();
@@ -69,7 +71,7 @@ class _NewPictureDetailState extends State<NewPictureDetail>
       child: AnimatedBuilder(
         animation: _controller,
         builder: (_, __) => Stack(
-          children: [
+          children: <Widget>[
             GestureDetector(
               onTap: () {
                 if (!full) {
@@ -91,6 +93,7 @@ class _NewPictureDetailState extends State<NewPictureDetail>
                   return NewPictureDetailImage(
                     picture: _pageStore.picture ?? widget.picture,
                     pictureStyle: widget.pictureStyle!,
+                    heroLabel: widget.heroLabel,
                   );
                 }),
               ),

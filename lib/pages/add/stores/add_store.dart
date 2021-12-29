@@ -1,4 +1,5 @@
 import 'package:mobx/mobx.dart';
+import 'package:soap_app/model/location.dart';
 import 'package:soap_app/model/picture.dart';
 import 'package:soap_app/repository/picture_repository.dart';
 
@@ -19,7 +20,7 @@ abstract class _AddStoreBase with Store {
   List<String> tags = ObservableList<String>();
 
   @observable
-  Map? location;
+  Location? location;
 
   @action
   void setPrivate(bool value) => isPrivate = value;
@@ -31,7 +32,7 @@ abstract class _AddStoreBase with Store {
   void setTags(List<String> value) => tags = value;
 
   @action
-  void setLocation(Map? value) => location = value;
+  void setLocation(Location? value) => location = value;
 
   @action
   void editInit(Picture picture) {

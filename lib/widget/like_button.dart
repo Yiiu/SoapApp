@@ -28,7 +28,7 @@ class SoapLikeButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       child: Row(
-        children: [
+        children: <Widget>[
           LikeButton(
             isLiked: isLike,
             size: iconSize,
@@ -80,7 +80,7 @@ class SoapLikeButton extends StatelessWidget {
           IntrinsicWidth(
             child: Row(
               mainAxisSize: MainAxisSize.min,
-              children: [
+              children: <Widget>[
                 Expanded(
                   child: AnimatedNumber(
                     number: likedCount,

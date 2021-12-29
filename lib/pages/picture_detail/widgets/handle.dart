@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:like_button/like_button.dart';
@@ -190,7 +191,8 @@ class PictureDetailHandleBasic extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        '说点什么吧',
+                        FlutterI18n.translate(
+                            context, 'comment.label.input_placeholder'),
                         style: TextStyle(
                           color:
                               theme.textTheme.bodyText2!.color!.withOpacity(.7),
@@ -272,7 +274,7 @@ class PictureDetailHandleBasic extends StatelessWidget {
                               : IntrinsicWidth(
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: [
+                                    children: <Widget>[
                                       Expanded(
                                         child: AnimatedNumber(
                                           number: count,
@@ -443,7 +445,8 @@ class _PictureDetailHandleCommentState
                           width: 40,
                           child: Center(
                             child: Text(
-                              '评论',
+                              FlutterI18n.translate(
+                                  context, 'comment.label.comment'),
                               style: TextStyle(
                                 color: theme.primaryColor,
                               ),

@@ -66,7 +66,7 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
           ],
         ),
         body: Stack(
-          children: [
+          children: <Widget>[
             SizedBox(
               width: double.infinity,
               height: double.infinity,

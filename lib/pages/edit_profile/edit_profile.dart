@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
@@ -52,16 +53,16 @@ class EditProfilePage extends StatelessWidget {
     return Material(
       color: theme.backgroundColor,
       child: FixedAppBarWrapper(
-        appBar: const SoapAppBar(
+        appBar: SoapAppBar(
           automaticallyImplyLeading: true,
           elevation: 0,
-          actionsPadding: EdgeInsets.only(
+          actionsPadding: const EdgeInsets.only(
             right: 12,
           ),
           title: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              '编辑个人资料',
+              FlutterI18n.translate(context, 'profile.edit.title'),
             ),
           ),
         ),
@@ -77,12 +78,11 @@ class EditProfilePage extends StatelessWidget {
                   vertical: 24,
                 ),
                 child: Align(
-                  alignment: Alignment.center,
                   child: SizedBox(
                     width: 86,
                     height: 86,
                     child: Stack(
-                      children: [
+                      children: <Widget>[
                         Center(
                           child: Observer(
                             builder: (_) => Avatar(
@@ -117,7 +117,7 @@ class EditProfilePage extends StatelessWidget {
                 color: theme.cardColor,
                 child: Flex(
                   direction: Axis.vertical,
-                  children: [
+                  children: <Widget>[
                     SettingItem(
                       title: 'ID',
                       actionIcon: false,
@@ -133,9 +133,10 @@ class EditProfilePage extends StatelessWidget {
                         );
                       }),
                     ),
-                    SoapDivider(),
+                    const SoapDivider(),
                     SettingItem(
-                      title: '用户名',
+                      title: FlutterI18n.translate(
+                          context, 'profile.edit.label.username'),
                       actionIcon: false,
                       border: false,
                       action: Observer(builder: (_) {
@@ -151,8 +152,8 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     const SoapDivider(),
                     SettingItem(
-                      title: '昵称',
-                      actionIcon: true,
+                      title: FlutterI18n.translate(
+                          context, 'profile.edit.label.fullname'),
                       border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
@@ -170,7 +171,10 @@ class EditProfilePage extends StatelessWidget {
                           isScrollControlled: true,
                           child: InputModalModalBottom(
                             defaultValue: accountStore.userInfo!.fullName,
-                            title: '编辑昵称',
+                            title: FlutterI18n.translate(
+                                    context, 'profile.edit.label.edit') +
+                                FlutterI18n.translate(
+                                    context, 'profile.edit.label.fullname'),
                             onOk: (String value) async {
                               await _updateProfile({'name': value});
                               Navigator.of(context).pop();
@@ -181,8 +185,8 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     const SoapDivider(),
                     SettingItem(
-                      title: '性别',
-                      actionIcon: true,
+                      title: FlutterI18n.translate(
+                          context, 'profile.edit.label.gender'),
                       border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
@@ -210,14 +214,16 @@ class EditProfilePage extends StatelessWidget {
                     ),
                     const SoapDivider(),
                     SettingItem(
-                      title: '生日',
+                      title: FlutterI18n.translate(
+                          context, 'profile.edit.label.birthday'),
                       border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
                           return Text(
                             accountStore.userInfo!.birthday != null
                                 ? Jiffy(accountStore.userInfo!.birthday!).MMMd
-                                : '暂无',
+                                : FlutterI18n.translate(
+                                    context, 'profile.edit.label.none'),
                             textAlign: TextAlign.end,
                             maxLines: 1,
                             overflow: TextOverflow.fade,
@@ -232,7 +238,6 @@ class EditProfilePage extends StatelessWidget {
                             birthday: accountStore.userInfo!.birthday,
                             birthdayShow: accountStore.userInfo!.birthdayShow,
                             onOk: (Map<String, Object?> data) async {
-                              print(data);
                               await _updateProfile(data);
                               Navigator.of(context).pop();
                             },
@@ -244,8 +249,8 @@ class EditProfilePage extends StatelessWidget {
                     Observer(
                       builder: (_) {
                         return SettingItem(
-                          title: '简介',
-                          actionIcon: true,
+                          title: FlutterI18n.translate(
+                              context, 'profile.edit.label.bio'),
                           border: false,
                           action: Expanded(
                             child: Text(
@@ -262,7 +267,10 @@ class EditProfilePage extends StatelessWidget {
                               child: InputModalModalBottom(
                                 maxLines: 4,
                                 defaultValue: accountStore.userInfo!.bio,
-                                title: '编辑简介',
+                                title: FlutterI18n.translate(
+                                        context, 'profile.edit.label.edit') +
+                                    FlutterI18n.translate(
+                                        context, 'profile.edit.label.bio'),
                                 onOk: (String value) async {
                                   await _updateProfile({'bio': value});
                                   Navigator.of(context).pop();

@@ -1,14 +1,16 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/graphql/fragments.dart';
-import 'package:soap_app/graphql/gql.dart';
-import 'package:soap_app/graphql/query.dart' as query;
-import 'package:soap_app/model/comment.dart';
-import 'package:soap_app/utils/exception.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/list/empty.dart';
+
+import '../../../graphql/fragments.dart';
+import '../../../graphql/gql.dart';
+import '../../../graphql/query.dart' as query;
+import '../../../model/comment.dart';
+import '../../../utils/exception.dart';
+import '../../../widget/avatar.dart';
+import '../../../widget/list/empty.dart';
 
 class PictureDetailComment extends StatelessWidget {
   const PictureDetailComment({
@@ -119,9 +121,9 @@ class PictureDetailComment extends StatelessWidget {
                   .toList(),
             );
           } else {
-            content = const Center(
+            content = Center(
               child: SoapListEmpty(
-                message: '留个言吧!',
+                message: FlutterI18n.translate(context, 'comment.label.empty'),
               ),
             );
           }

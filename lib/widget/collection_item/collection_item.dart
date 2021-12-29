@@ -18,7 +18,7 @@ class CollectionItem extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: <Widget>[
             Row(
               children: <Widget>[
                 if (collection.isPrivate == true)
@@ -50,7 +50,7 @@ class CollectionItem extends StatelessWidget {
                 direction: Axis.horizontal,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+                children: <Widget>[
                   Text(
                     '照片',
                     style: TextStyle(
@@ -94,7 +94,7 @@ class CollectionItem extends StatelessWidget {
           ],
         ),
       ),
-      // children: [
+      // children: <Widget>[
       //   if (collection.preview != null && collection.preview!.length > 0)
       //     Expanded(
       //       child: OctoImage(

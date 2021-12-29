@@ -72,7 +72,7 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
         color: theme.cardColor,
       ),
       child: Stack(
-        children: [
+        children: <Widget>[
           Container(
             color: theme.cardColor,
             height: double.infinity,

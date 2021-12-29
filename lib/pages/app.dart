@@ -56,7 +56,6 @@ class _MyAppState extends State<MyApp> {
         noDataText: '已经到底啦',
         loadingIcon: CupertinoActivityIndicator(),
       ),
-      headerTriggerDistance: 80.0,
       springDescription: const SpringDescription(
         stiffness: 170,
         damping: 16,
@@ -64,14 +63,12 @@ class _MyAppState extends State<MyApp> {
       ), // 自定义回弹动画,三个属性值意义请查询flutter api
       enableScrollWhenRefreshCompleted:
           true, //这个属性不兼容PageView和TabBarView,如果你特别需要TabBarView左右滑动,你需要把它设置为true
-      enableLoadingWhenFailed: true, //在加载失败的状态下,用户仍然可以通过手势上拉来触发加载更多
       child: Observer(
         builder: (_) => MaterialApp(
           localizationsDelegates: [
             S.delegate,
             FlutterI18nDelegate(
               translationLoader: FileTranslationLoader(
-                useCountryCode: false,
                 // fallbackFile: 'zh',
                 basePath: 'assets/i18n',
               ),

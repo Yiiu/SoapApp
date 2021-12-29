@@ -1,10 +1,11 @@
 import 'package:gql/ast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/graphql.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/utils.dart';
+
+import '../../../../config/config.dart';
+import '../../../../graphql/graphql.dart';
+import '../../../../model/picture.dart';
+import '../../../../utils/utils.dart';
 
 part 'new_list_store.g.dart';
 
@@ -14,7 +15,8 @@ abstract class _NewListStoreBase with Store {
   graphql.ObservableQuery? _observableQuery;
 
   @observable
-  List<Picture>? pictureList;
+  @ObservablePictureListConverter()
+  ObservableList<Picture>? pictureList;
 
   @observable
   ListData<Picture>? listData;
@@ -107,10 +109,10 @@ abstract class _NewListStoreBase with Store {
         label: 'pictures',
       );
       if (pictureList != null) {
-        pictureList = <Picture>[
+        pictureList = ObservableList<Picture>.of([
           ...pictureList!,
           ...more.list,
-        ];
+        ]);
         setPictureList(result.data, noList: true);
       }
     }
@@ -156,7 +158,7 @@ abstract class _NewListStoreBase with Store {
       pageSize = result.pageSize;
       count = result.count;
       if (!noList) {
-        pictureList = result.list;
+        pictureList = ObservableList<Picture>.of(result.list);
       }
       // listData = pictureListDataFormat(
       //   data,

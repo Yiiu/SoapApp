@@ -60,7 +60,7 @@ class PictureItemHeader extends StatelessWidget {
                   child: Flex(
                     direction: Axis.vertical,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       TouchableOpacity(
                         onTap: () {
                           Navigator.pushNamed(

@@ -79,38 +79,12 @@ class _ProfileViewState extends State<ProfileView> {
         child: ListView(
           physics: const BouncingScrollPhysics(),
           padding: const EdgeInsets.all(0),
-          children: <Widget>[
-            const ProfileUserItem(),
-            const SoapDivider(),
-            const ProfileUserNumItem(),
-            const SizedBox(
+          children: const <Widget>[
+            ProfileUserItem(),
+            SoapDivider(),
+            ProfileUserNumItem(),
+            SizedBox(
               height: 12,
-            ),
-            Observer(
-              builder: (_) => Visibility(
-                visible: accountStore.isLogin,
-                child: Container(
-                  color: theme.cardColor,
-                  child: TouchableOpacity(
-                    activeOpacity: activeOpacity,
-                    onTap: signup,
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 12,
-                      ),
-                      child: Text(
-                        FlutterI18n.translate(context, 'profile.btn.signout'),
-                        style: TextStyle(
-                          color: theme.errorColor,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
             ),
           ],
         ),

@@ -34,7 +34,7 @@ class Medal extends StatelessWidget {
       width: size ?? 34,
       height: size ?? 34,
       child: Stack(
-        children: [
+        children: <Widget>[
           SizedBox(
             width: size ?? 34,
             height: size ?? 34,

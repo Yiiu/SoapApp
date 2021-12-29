@@ -127,7 +127,7 @@ class _AnimatedNumberState extends State<AnimatedNumber>
                     ).merge(widget.textStyle)),
                 Stack(
                   fit: StackFit.passthrough,
-                  children: [
+                  children: <Widget>[
                     FractionalTranslation(
                       translation: _oldNumber! > widget.number!
                           ? _newSlideAnimation.value

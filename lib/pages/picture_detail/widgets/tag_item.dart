@@ -38,7 +38,7 @@ class TagItem extends StatelessWidget {
         ),
         child: Wrap(
           direction: Axis.horizontal,
-          children: [
+          children: <Widget>[
             Container(
               height: height - 8,
               width: height - 8,

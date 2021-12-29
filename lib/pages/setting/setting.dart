@@ -6,12 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:soap_app/config/router.dart';
-import 'package:soap_app/store/app_store.dart';
-import 'package:soap_app/store/index.dart';
-import 'package:soap_app/utils/utils.dart';
-import 'package:soap_app/widget/widgets.dart';
-
+import 'package:soap_app/config/config.dart';
+import 'package:touchable_opacity/touchable_opacity.dart';
+import '../../config/router.dart';
+import '../../store/app_store.dart';
+import '../../store/index.dart';
+import '../../utils/utils.dart';
+import '../../widget/widgets.dart';
 import 'widgets/setting_item.dart';
 
 class SettingPage extends StatefulWidget {
@@ -84,10 +85,9 @@ class _SettingPageState extends State<SettingPage> {
                         actionIcon: false,
                         action: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
+                          children: <Widget>[
                             Avatar(
                               image: accountStore.userInfo!.avatarUrl,
-                              size: 32,
                             ),
                           ],
                         ),
@@ -98,10 +98,18 @@ class _SettingPageState extends State<SettingPage> {
                       )
                     : const SizedBox(),
               ),
+              const SoapDivider(),
+              SettingItem(
+                title: FlutterI18n.translate(
+                    context, 'setting.label.style_setting'),
+                border: false,
+                onPressed: () {
+                  Navigator.of(context).pushNamed(RouteName.style_setting);
+                },
+              ),
               const SizedBox(height: 14),
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.theme'),
-                actionIcon: true,
                 border: false,
                 action: Observer(
                   builder: (_) {
@@ -168,55 +176,8 @@ class _SettingPageState extends State<SettingPage> {
               ),
               const SoapDivider(),
               SettingItem(
-                title: FlutterI18n.translate(context, 'setting.label.theme'),
-                actionIcon: true,
-                border: false,
-                action: Observer(
-                  builder: (_) {
-                    if (appStore.homeStyle == 1) {
-                      return const Text('单列');
-                    }
-                    return const Text('瀑布流');
-                  },
-                ),
-                onPressed: () {
-                  showSoapBottomSheet<dynamic>(
-                    context,
-                    child: MoreHandleModal(
-                      title: '首页样式',
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Observer(
-                          builder: (_) {
-                            return SoapSelectList<int>(
-                              value: appStore.homeStyle,
-                              onChange: (int value) => setState(() {
-                                appStore.setHomeStyle(value);
-                                Navigator.of(context).pop();
-                              }),
-                              config: <SelectTileConfig<int>>[
-                                SelectTileConfig<int>(
-                                  title: '单列',
-                                  value: 1,
-                                ),
-                                SelectTileConfig<int>(
-                                  title: '瀑布流',
-                                  value: 2,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SoapDivider(),
-              SettingItem(
                 title:
                     FlutterI18n.translate(context, 'setting.label.image_cache'),
-                actionIcon: true,
                 border: false,
                 action: Text(
                   cached,
@@ -227,6 +188,8 @@ class _SettingPageState extends State<SettingPage> {
                     FlutterI18n.translate(
                         context, 'setting.confirm.image_cache_confirm'),
                     context: context,
+                    cancelText: Text(FlutterI18n.translate(
+                        context, 'setting.btn.clean_cancel')),
                     confirmText: Text(FlutterI18n.translate(
                         context, 'setting.btn.clean_cache')),
                     confirm: () async {
@@ -237,111 +200,6 @@ class _SettingPageState extends State<SettingPage> {
                 },
               ),
               const SizedBox(height: 14),
-              if (isAndroid) ...[
-                Observer(
-                  builder: (_) => SettingItem(
-                    title: '刷新率选择',
-                    actionIcon: true,
-                    border: false,
-                    action: appStore.displayMode != null
-                        ? Text(
-                            appStore.modeList[appStore.displayMode!].toString())
-                        : const Text(''),
-                    onPressed: () async {
-                      showSoapBottomSheet<void>(
-                        context,
-                        child: MoreHandleModal(
-                          title: '刷新率和分辨率选择',
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 16),
-                            child: Observer(builder: (_) {
-                              return SoapSelectList<int?>(
-                                value: appStore.displayMode,
-                                onChange: (int? value) async {
-                                  if (value != null) {
-                                    await FlutterDisplayMode.setPreferredMode(
-                                      appStore.modeList[value],
-                                    );
-                                    appStore.setDisplayMode(
-                                        appStore.modeList[value].id);
-                                    Navigator.of(context).pop();
-                                  }
-                                },
-                                config: appStore.modeList
-                                    .map(
-                                      (e) => SelectTileConfig<int>(
-                                          title: e.toString(), value: e.id),
-                                    )
-                                    .toList(),
-                              );
-                            }),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ),
-                Container(
-                  height: 1,
-                  color: theme.cardColor,
-                  child: Center(
-                    child: Container(
-                      height: 0.4,
-                      color: theme.textTheme.overline!.color!.withOpacity(.1),
-                    ),
-                  ),
-                ),
-              ],
-              SettingItem(
-                title: FlutterI18n.translate(context, 'setting.label.img_mode'),
-                action: Observer(builder: (_) {
-                  return Text(appStore.imgMode == 1
-                      ? FlutterI18n.translate(
-                          context, 'setting.value.img_mode.big')
-                      : FlutterI18n.translate(
-                          context, 'setting.value.img_mode.small'));
-                }),
-                actionIcon: true,
-                border: false,
-                onPressed: () {
-                  showSoapBottomSheet<void>(
-                    context,
-                    child: MoreHandleModal(
-                      title: FlutterI18n.translate(
-                          context, 'setting.title.img_mode'),
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Observer(builder: (_) {
-                          return SoapSelectList<int>(
-                            value: appStore.imgMode,
-                            onChange: (int value) => setState(() {
-                              appStore.setImgMode(value);
-                              Navigator.of(context).pop();
-                            }),
-                            config: <SelectTileConfig<int>>[
-                              SelectTileConfig<int>(
-                                title: FlutterI18n.translate(
-                                    context, 'setting.value.img_mode.big'),
-                                subtitle: FlutterI18n.translate(
-                                    context, 'setting.message.img_mode.big'),
-                                value: 1,
-                              ),
-                              SelectTileConfig<int>(
-                                title: FlutterI18n.translate(
-                                    context, 'setting.value.img_mode.small'),
-                                subtitle: FlutterI18n.translate(
-                                    context, 'setting.message.img_mode.small'),
-                                value: 2,
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const SoapDivider(),
               SettingItem(
                 title: FlutterI18n.translate(context, 'setting.label.locale'),
                 action: Observer(builder: (_) {
@@ -350,7 +208,6 @@ class _SettingPageState extends State<SettingPage> {
                       : FlutterI18n.translate(
                           context, 'setting.value.locale.system'));
                 }),
-                actionIcon: true,
                 border: false,
                 onPressed: () {
                   showSoapBottomSheet<void>(
@@ -405,6 +262,34 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
+              if (accountStore.isLogin) ...<Widget>[
+                const SizedBox(height: 14),
+                Observer(
+                  builder: (_) => Container(
+                    color: theme.cardColor,
+                    child: TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      onTap: () async {
+                        await accountStore.signup();
+                      },
+                      behavior: HitTestBehavior.opaque,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 12,
+                          horizontal: 12,
+                        ),
+                        child: Text(
+                          FlutterI18n.translate(context, 'profile.btn.signout'),
+                          style: TextStyle(
+                            color: theme.errorColor,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

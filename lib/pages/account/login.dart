@@ -217,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
+                children: <Widget>[
                   _oauthBtn(
                     svg: 'assets/svg/github.svg',
                     background: Color(0xff171515),

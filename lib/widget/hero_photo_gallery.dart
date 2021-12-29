@@ -155,7 +155,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
     return AnimatedBuilder(
       animation: _controller,
       builder: (_, __) => Stack(
-        children: [
+        children: <Widget>[
           CustomDismissible(
             onDismissed: () => Navigator.of(context).maybePop(),
             child: PhotoViewGallery.builder(
@@ -174,7 +174,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
                   child: Container(
                     color: Colors.transparent,
                     child: Stack(
-                      children: [
+                      children: <Widget>[
                         GestureDetector(
                           onTap: () {
                             Navigator.of(context).maybePop();

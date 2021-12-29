@@ -2,7 +2,8 @@
   "nav": {
     "home": "Home",
     "profile": "Profile",
-    "setting": "Setting"
+    "setting": "Setting",
+    "style_setting": "Personalization"
   },
   "setting": {
     "label": {
@@ -10,7 +11,8 @@
       "theme": "Theme",
       "image_cache": "Image Cache",
       "img_mode": "Image display",
-      "locale": "Language"
+      "locale": "Language",
+      "style_setting": "Personalization"
     },
     "value": {
       "theme": {
@@ -24,18 +26,25 @@
       },
       "locale": {
         "system": "System Language"
+      },
+      "home_style": {
+        "single": "Single Row",
+        "waterfall": "Waterfall"
       }
     },
     "title": {
       "theme": "Set Theme",
       "img_mode": "Set Image Display",
-      "locale": "Select Language"
+      "locale": "Select Language",
+      "home_style": "Home style",
+      "display_mode": "Display mode"
     },
     "confirm": {
       "image_cache_confirm": "Do you want to clear the image cache?"
     },
     "btn": {
-      "clean_cache": "Clear"
+      "clean_cache": "Clear",
+      "clean_cancel": "Cancel"
     },
     "message": {
       "img_mode": {
@@ -47,6 +56,21 @@
   "profile": {
     "btn": {
       "signout": "Log Out"
+    },
+    "edit": {
+      "title": "Edit Profile",
+      "label": {
+        "username": "Username",
+        "fullname": "Full Name",
+        "edit": "Edit ",
+        "gender": "Gender",
+        "birthday": "Birthday",
+        "bio": "Bio",
+        "birthday_secret": "Secret",
+        "birthday_show_day": "Show date",
+        "birthday_show horoscope": "Show horoscope",
+        "none": "None"
+      }
     }
   },
   "common": {
@@ -56,7 +80,70 @@
       "likes": "Likes",
       "popularity": "Popularity",
       "follow": "Follow",
-      "share": "Share"
+      "share": "Share",
+      "please_enter": "Please enter",
+      "cancel": "Cancel",
+      "edit": "Edit",
+      "save": "Save",
+      "delete": "Delete",
+      "like": "Like",
+      "views": "Views"
+    }
+  },
+  "picture": {
+    "more": {
+      "title": "More",
+      "delete_title": "Should I delete the image?"
+    },
+    "edit": {
+      "confirm": "Save",
+      "success": "Saved successfully!",
+      "title": "Edit picture"
+    },
+    "editExif": {
+      "confirmBtn": "Modify",
+      "title": "EXIF Edit"
+    },
+    "info": {
+      "ISO": "ISO",
+      "aperture": "Aperture",
+      "dimensions": "dimensions",
+      "exposureTime": "Exposure Time",
+      "focalLength": "FocalLength",
+      "make": "Make",
+      "model": "Model",
+      "size": "Size",
+      "title": "Info",
+      "dimension": "Dimension",
+      "smart_tags": "Smart Tags"
+    },
+    "label": {
+      "delete": "Delete",
+      "deleteTitle": "Whether to confirm the deletion, it cannot be restored after deletion!",
+      "privateBio": "This picture is only visible to you",
+      "setting": "Setting",
+      "detail": "Info",
+      "collection": "Collection",
+      "form_now": "Posted {time}"
+    },
+    "upload": {
+      "deleteImage": "Delete picture",
+      "noImgWarn": "Please select a picture",
+      "selectImg": "Please select a picture",
+      "uploadBtn": "Upload",
+      "uploadError": "Image upload failed!",
+      "uploadSuccess": "Picture uploaded successfully!",
+      "yup_title_required": "Please enter the title"
+    }
+  },
+  "comment": {
+    "title": {
+      "all_comment": "All Comments"
+    },
+    "label": {
+      "empty": "Leave a comment!",
+      "input_placeholder": "Say something.",
+      "comment": "Comment"
     }
   }
 }

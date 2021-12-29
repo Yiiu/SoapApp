@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bounce/flutter_bounce.dart';
 import 'package:soap_app/config/config.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -27,13 +28,6 @@ class LikeGesture extends StatefulWidget {
 class _LikeGestureState extends State<LikeGesture> {
   final GlobalKey _key = GlobalKey();
 
-  // 内部转换坐标点
-  Offset _p(Offset p) {
-    final RenderBox getBox =
-        _key.currentContext!.findRenderObject() as RenderBox;
-    return getBox.globalToLocal(p);
-  }
-
   List<Offset> icons = [];
 
   bool canAddFavorite = false;
@@ -45,7 +39,7 @@ class _LikeGestureState extends State<LikeGesture> {
     final Stack iconStack = Stack(
       children: icons
           .map<Widget>(
-            (p) => TikTokFavoriteAnimationIcon(
+            (Offset p) => TikTokFavoriteAnimationIcon(
               key: Key(p.toString()),
               position: p,
               onAnimationComplete: () {
@@ -56,15 +50,50 @@ class _LikeGestureState extends State<LikeGesture> {
           .toList(),
     );
     return TouchableOpacity(
-      activeOpacity: activeOpacity,
+      activeOpacity: 1,
       key: _key,
-      onTapDown: (detail) {
+      onTapDown: (TapDownDetails detail) {
         if (widget.onLike == null) {
           return;
         }
         setState(() {
           if (canAddFavorite) {
-            icons.add(_p(detail.globalPosition));
+            Offset off = detail.localPosition;
+            // TODO: 相同位置会报错，让他稍稍移动一下
+            if (icons.isNotEmpty) {
+              off = icons.firstWhere(
+                (Offset of) {
+                  if (of.dx == detail.localPosition.dx &&
+                      of.dy == detail.localPosition.dy) {
+                    return true;
+                  }
+                  return false;
+                },
+                orElse: () => Offset.zero,
+              );
+              if (off == Offset.zero) {
+                off = detail.localPosition;
+              } else {
+                print(off);
+                print(Offset(
+                  detail.localPosition.dx +
+                      math.Random().nextDouble() +
+                      math.Random().nextDouble(),
+                  detail.localPosition.dy +
+                      math.Random().nextDouble() +
+                      math.Random().nextDouble(),
+                ));
+                off = Offset(
+                  detail.localPosition.dx +
+                      math.Random().nextDouble() -
+                      math.Random().nextDouble(),
+                  detail.localPosition.dy +
+                      math.Random().nextDouble() -
+                      math.Random().nextDouble(),
+                );
+              }
+            }
+            icons.add(off);
             widget.onLike?.call();
             justAddFavorite = true;
           } else {
@@ -72,7 +101,7 @@ class _LikeGestureState extends State<LikeGesture> {
           }
         });
       },
-      onTapUp: (detail) {
+      onTapUp: (TapUpDetails detail) {
         timer?.cancel();
         if (widget.onLike == null) {
           widget.onTap?.call();
@@ -135,8 +164,6 @@ class _TikTokFavoriteAnimationIconState
   @override
   void initState() {
     _animationController = AnimationController(
-      lowerBound: 0,
-      upperBound: 1,
       duration: const Duration(milliseconds: 1600),
       vsync: this,
     );
@@ -148,7 +175,7 @@ class _TikTokFavoriteAnimationIconState
     super.initState();
   }
 
-  void startAnimation() async {
+  Future<void> startAnimation() async {
     await _animationController.forward();
     widget.onAnimationComplete?.call();
   }
@@ -167,7 +194,7 @@ class _TikTokFavoriteAnimationIconState
     if (value < dismissDuration) {
       return 0.99;
     }
-    final res = 0.99 - (value - dismissDuration) / (1 - dismissDuration);
+    final double res = 0.99 - (value - dismissDuration) / (1 - dismissDuration);
     return res < 0 ? 0 : res;
   }
 
@@ -189,15 +216,15 @@ class _TikTokFavoriteAnimationIconState
       color: Colors.redAccent,
     );
     content = ShaderMask(
-      child: content,
       blendMode: BlendMode.srcATop,
       shaderCallback: (Rect bounds) => RadialGradient(
         center: Alignment.topLeft.add(const Alignment(0.66, 0.66)),
-        colors: const [
+        colors: const <Color>[
           Color(0xffEF6F6F),
           Color(0xffF03E3E),
         ],
       ).createShader(bounds),
+      child: content,
     );
     final Widget body = Transform.rotate(
       angle: rotate,

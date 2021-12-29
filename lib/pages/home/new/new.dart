@@ -124,7 +124,7 @@ class NewViewState extends State<NewView>
         body: TabBarView(
           physics: const NeverScrollableScrollPhysics(),
           controller: tabController,
-          children: [
+          children: <Widget>[
             NewListPageView(
               store: newListStore,
               refreshController: widget.refreshController,

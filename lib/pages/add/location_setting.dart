@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:soap_app/model/location.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../config/config.dart';
@@ -13,7 +14,7 @@ class LocationSettingPage extends StatefulWidget {
     this.onChange,
   }) : super(key: key);
 
-  final void Function(Map?)? onChange;
+  final void Function(Location?)? onChange;
 
   @override
   _LocationSettingPageState createState() => _LocationSettingPageState();
@@ -23,9 +24,9 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
   final TextEditingController _regionController = TextEditingController();
   final TextEditingController _valueController = TextEditingController();
 
-  List placeList = [];
+  List placeList = <dynamic>[];
 
-  Map? selected;
+  Location? selected;
 
   Future<void> search() async {
     if (_valueController.text == '') {
@@ -60,16 +61,17 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
             [...locationFragmentDocumentNode],
           ),
           // ignore: always_specify_types
-          variables: {'uid': data['uid']},
+          variables: <String, dynamic>{'uid': data['uid']},
         ),
       );
       setState(() {
-        selected =
-            detail.data?['placeDetail'] as Map<dynamic, dynamic>? ?? data;
+        selected = Location.fromJson(
+          detail.data?['placeDetail'] as Map<String, dynamic>? ?? data,
+        );
       });
     } else {
       setState(() {
-        selected = data;
+        selected = Location.fromJson(data!);
       });
     }
   }
@@ -116,7 +118,7 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
           ],
         ),
         body: Column(
-          children: [
+          children: <Widget>[
             Container(
               color: theme.cardColor,
               padding: const EdgeInsets.symmetric(
@@ -237,15 +239,15 @@ class _LocationSettingPageState extends State<LocationSettingPage> {
                             : null,
                       );
                     } else {
-                      final bool s =
-                          selected?['uid'] == placeList[i - 1]['uid'];
+                      final bool s = selected?.uid == placeList[i - 1]['uid'];
                       return ListTile(
-                        title: Text(placeList[i - 1]?['name']),
-                        subtitle: Text(placeList[i - 1]?['address'] ?? ''),
+                        title: Text(placeList[i - 1]?['name'] as String),
+                        subtitle:
+                            Text(placeList[i - 1]?['address'] as String? ?? ''),
                         tileColor: theme.cardColor,
                         selected: s,
                         onTap: () {
-                          onSelected(placeList[i - 1]);
+                          onSelected(placeList[i - 1] as Map<String, dynamic>);
                         },
                         trailing: s
                             ? Icon(

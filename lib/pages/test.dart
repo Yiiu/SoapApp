@@ -23,7 +23,7 @@ class _TestPageState extends State<TestPage> {
       child: Container(
         color: Colors.white,
         child: Stack(
-          children: [
+          children: <Widget>[
             Positioned(
               top: isTest ? 12 : 0,
               left: 0,

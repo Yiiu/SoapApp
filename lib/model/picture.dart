@@ -1,72 +1,210 @@
 import 'dart:math';
 
 import 'package:json_annotation/json_annotation.dart';
-import 'package:soap_app/model/badge.dart';
-import 'package:soap_app/model/collection.dart';
-import 'package:soap_app/model/exif.dart';
-import 'package:soap_app/model/tag.dart';
-import 'package:soap_app/utils/picture.dart';
+import 'package:mobx/mobx.dart';
 
-// import '../utils/picture.dart';
-import './user.dart';
+import '../utils/picture.dart';
+import 'badge.dart';
+import 'collection.dart';
+import 'exif.dart';
+import 'location.dart';
+import 'tag.dart';
+import 'user.dart';
 
 part 'picture.g.dart';
 
 @JsonSerializable()
-class Picture {
-  Picture({
-    required this.id,
-    required this.key,
-    required this.title,
-    required this.bio,
-    required this.views,
-    required this.size,
-    required this.color,
-    required this.isDark,
-    required this.height,
-    required this.width,
-    required this.model,
-    required this.blurhash,
-    required this.createTime,
-    required this.updateTime,
-    this.currentCollections,
-    this.isPrivate,
+class Picture extends _Picture with _$Picture {
+  Picture(
+    int id,
+    String key,
+    String title,
+    String blurhash,
+    String color,
+    String? hash,
+    String? originalname,
+    String? mimetype,
+    String? make,
+    String? model,
+    String? bio,
+    int views,
+    int size,
+    int height,
+    int width,
+    int? likedCount,
+    int? commentCount,
+    bool? isLike,
+    bool? isPrivate,
+    bool isDark,
+    DateTime createTime,
+    DateTime updateTime,
+    User? user,
+    List<Collection>? currentCollections,
+    List<Tag>? tags,
+    Exif? exif,
+    List<Badge>? badge,
+    Location? location,
+    List<Map>? classify,
+  ) : super(
+          id,
+          key,
+          title,
+          blurhash,
+          color,
+          hash,
+          originalname,
+          mimetype,
+          make,
+          model,
+          bio,
+          views,
+          size,
+          height,
+          width,
+          likedCount,
+          commentCount,
+          isLike,
+          isPrivate,
+          isDark,
+          createTime,
+          updateTime,
+          user,
+          currentCollections,
+          tags,
+          exif,
+          badge,
+          location,
+          classify,
+        );
+
+  factory Picture.fromJson(Map<String, dynamic> json) =>
+      _$PictureFromJson(json);
+
+  static List<Picture> fromListJson(List<dynamic> list) => list
+      .map<Picture>((dynamic p) => Picture.fromJson(p as Map<String, dynamic>))
+      .toList();
+  Map<String, dynamic> toJson() => _$PictureToJson(this);
+}
+
+abstract class _Picture with Store {
+  _Picture(
+    this.id,
+    this.key,
+    this.title,
+    this.blurhash,
+    this.color,
     this.hash,
     this.originalname,
     this.mimetype,
-    this.isLike = false,
-    this.likedCount = 0,
-    this.commentCount = 0,
     this.make,
+    this.model,
+    this.bio,
+    this.views,
+    this.size,
+    this.height,
+    this.width,
+    this.likedCount,
+    this.commentCount,
+    this.isLike,
+    this.isPrivate,
+    this.isDark,
+    this.createTime,
+    this.updateTime,
     this.user,
+    this.currentCollections,
     this.tags,
     this.exif,
     this.badge,
     this.location,
     this.classify,
-  });
+  );
 
-  factory Picture.fromJson(Map<String, dynamic> json) =>
-      _$PictureFromJson(json);
+  @observable
+  int id;
 
-  final int id;
-  final String key, title, blurhash, color;
-  final String? hash, originalname, mimetype, make, model, bio;
-  final int views, size, height, width;
-  final int? commentCount, likedCount;
-  final bool? isLike, isPrivate;
-  final bool isDark;
-  final DateTime createTime, updateTime;
+  @observable
+  String key;
 
-  final List<Collection>? currentCollections;
-  final User? user;
-  final List<Tag>? tags;
-  final Exif? exif;
-  final List<Badge>? badge;
+  @observable
+  String title;
 
-  final Map? location;
+  @observable
+  String blurhash;
 
-  final List<Map>? classify;
+  @observable
+  String color;
+
+  @observable
+  String? hash;
+
+  @observable
+  String? originalname;
+
+  @observable
+  String? mimetype;
+
+  @observable
+  String? make;
+
+  @observable
+  String? model;
+
+  @observable
+  String? bio;
+
+  @observable
+  int views;
+
+  @observable
+  int size;
+
+  @observable
+  int height;
+
+  @observable
+  int width;
+
+  @observable
+  int? commentCount = 0;
+
+  @observable
+  int? likedCount = 0;
+
+  @observable
+  bool? isLike = false;
+
+  @observable
+  bool? isPrivate;
+
+  @observable
+  bool isDark;
+
+  @observable
+  DateTime createTime;
+
+  @observable
+  DateTime updateTime;
+
+  @observable
+  User? user;
+
+  @observable
+  List<Collection>? currentCollections;
+
+  @observable
+  List<Tag>? tags;
+
+  @observable
+  Exif? exif;
+
+  @observable
+  List<Badge>? badge;
+
+  @observable
+  Location? location;
+
+  @observable
+  List<Map>? classify;
 
   bool get isChoice {
     if (badge != null &&
@@ -98,9 +236,17 @@ class Picture {
     }
     return getPictureUrl(key: 'photo/' + key, style: style);
   }
+}
 
-  static List<Picture> fromListJson(List<dynamic> list) => list
-      .map<Picture>((dynamic p) => Picture.fromJson(p as Map<String, dynamic>))
-      .toList();
-  Map<String, dynamic> toJson() => _$PictureToJson(this);
+class ObservablePictureListConverter extends JsonConverter<
+    ObservableList<Picture>, Iterable<Map<String, dynamic>>> {
+  const ObservablePictureListConverter();
+
+  @override
+  ObservableList<Picture> fromJson(Iterable<Map<String, dynamic>> json) =>
+      ObservableList<Picture>.of(json.map(Picture.fromJson));
+
+  @override
+  Iterable<Map<String, dynamic>> toJson(ObservableList<Picture> object) =>
+      object.map((Picture element) => element.toJson());
 }

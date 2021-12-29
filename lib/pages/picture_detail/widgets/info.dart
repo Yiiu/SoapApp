@@ -24,11 +24,11 @@ class PictureDetailInfo extends StatelessWidget {
       ),
       color: theme.cardColor,
       child: Column(
-        children: [
+        children: <Widget>[
           SizedBox(
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 SizedBox(
                   width: 22.0,
                   height: 22.0,
@@ -42,7 +42,7 @@ class PictureDetailInfo extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.only(top: 2),
                   child: Row(
-                    children: [
+                    children: <Widget>[
                       Text(
                         picture.make!,
                         style: const TextStyle(

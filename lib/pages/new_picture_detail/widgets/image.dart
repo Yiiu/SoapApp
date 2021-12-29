@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/utils.dart';
+
+import '../../../model/picture.dart';
+import '../../../utils/utils.dart';
+import '../../../widget/widgets.dart';
 
 typedef DoubleClickAnimationListener = void Function();
 
@@ -13,11 +15,14 @@ class NewPictureDetailImage extends StatefulWidget {
     Key? key,
     required this.picture,
     required this.pictureStyle,
+    this.heroLabel,
   }) : super(key: key);
 
   final PictureStyle pictureStyle;
 
   final Picture picture;
+
+  final String? heroLabel;
 
   @override
   _NewPictureDetailImageState createState() => _NewPictureDetailImageState();
@@ -39,24 +44,27 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
     int index,
     Widget child,
   ) {
-    return Hero(
-      flightShuttleBuilder: (
-        _,
-        Animation<double> animation,
-        HeroFlightDirection flightDirection,
-        BuildContext fromHeroContext,
-        BuildContext toHeroContext,
-      ) =>
-          _flightShuttleBuilder(
-        index,
-        animation,
-        flightDirection,
-        fromHeroContext,
-        toHeroContext,
-      ),
-      tag: 'new-picture-detail-${widget.picture.id}',
-      child: child,
-    );
+    if (widget.heroLabel != null) {
+      return Hero(
+        flightShuttleBuilder: (
+          _,
+          Animation<double> animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,
+        ) =>
+            _flightShuttleBuilder(
+          index,
+          animation,
+          flightDirection,
+          fromHeroContext,
+          toHeroContext,
+        ),
+        tag: '${widget.heroLabel}-${widget.picture.id}',
+        child: child,
+      );
+    }
+    return child;
   }
 
   Widget _flightShuttleBuilder(
@@ -87,6 +95,14 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(
+      ExtendedNetworkImageProvider(
+        getPictureUrl(
+          key: widget.picture.key,
+        ),
+      ),
+      context,
+    );
     return PhotoViewGallery.builder(
       itemCount: 1,
       pageController: PageController(initialPage: 0),
@@ -102,8 +118,9 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
           child: Container(
             color: Colors.transparent,
             child: Stack(
-              children: [
+              children: <Widget>[
                 Center(
+                  // 防止 hero 动画的时候抖动
                   child: ExtendedImage.network(
                     getPictureUrl(
                       key: widget.picture.key,
@@ -112,27 +129,25 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                     loadStateChanged: (ExtendedImageState state) {
                       switch (state.extendedImageLoadState) {
                         case LoadState.loading:
-                          return Center(
-                            child: AspectRatio(
-                              aspectRatio:
-                                  widget.picture.width / widget.picture.height,
-                              child: _heroBuilder(
-                                index,
-                                OctoImage(
-                                  fit: BoxFit.contain,
-                                  image: ExtendedImage.network(
-                                    getPictureUrl(
-                                      key: widget.picture.key,
-                                      style: widget.pictureStyle,
-                                    ),
-                                  ).image,
-                                  placeholderBuilder: (BuildContext context) {
-                                    return Container(
-                                      color: HexColor.fromHex(
-                                          widget.picture.color),
-                                    );
-                                  },
-                                ),
+                          return AspectRatio(
+                            aspectRatio:
+                                widget.picture.width / widget.picture.height,
+                            child: _heroBuilder(
+                              index,
+                              OctoImage(
+                                fit: BoxFit.contain,
+                                image: ExtendedImage.network(
+                                  getPictureUrl(
+                                    key: widget.picture.key,
+                                    style: widget.pictureStyle,
+                                  ),
+                                ).image,
+                                placeholderBuilder: (BuildContext context) {
+                                  return Container(
+                                    color:
+                                        HexColor.fromHex(widget.picture.color),
+                                  );
+                                },
                               ),
                             ),
                           );
@@ -147,8 +162,17 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
                             ),
                           );
                         case LoadState.failed:
-                          // TODO: Handle this case.
-                          break;
+                          SoapToast.error('图片加载失败！');
+                          return AspectRatio(
+                            aspectRatio:
+                                widget.picture.width / widget.picture.height,
+                            child: _heroBuilder(
+                              index,
+                              Container(
+                                color: HexColor.fromHex(widget.picture.color),
+                              ),
+                            ),
+                          );
                       }
                     },
                   ),

@@ -1,8 +1,92 @@
 {
+  "profile": {
+    "edit": {
+      "label": {
+        "gender": "性别",
+        "birthday": "生日",
+        "none": "暂无",
+        "bio": "简介",
+        "edit": "编辑",
+        "birthday_secret": "保密",
+        "birthday_show_day": "显示日期",
+        "birthday_show horoscope": "显示星座",
+        "username": "用户名",
+        "fullname": "昵称"
+      },
+      "title": "编辑个人资料"
+    },
+    "btn": {
+      "signout": "登出"
+    }
+  },
+  "common": {
+    "label": {
+      "please_enter": "请输入",
+      "cancel": "取消",
+      "edit": "编辑",
+      "save": "保存",
+      "delete": "删除",
+      "share": "分享",
+      "follow": "关 注",
+      "followers": "粉丝",
+      "following": "关注",
+      "like": "喜欢",
+      "likes": "喜欢",
+      "popularity": "人气",
+      "views": "浏览量"
+    }
+  },
   "nav": {
+    "setting": " 设置",
     "home": "首页",
     "profile": "个人中心",
-    "setting": "设置"
+    "style_setting": "个性化设置"
+  },
+  "picture": {
+    "more": {
+      "title": "更多操作",
+      "delete_title": "是否要删除图片？"
+    },
+    "info": {
+      "title": "信息",
+      "make": "设备",
+      "model": "型号",
+      "focalLength": "焦距",
+      "aperture": "光圈",
+      "exposureTime": "快门速度",
+      "ISO": "ISO",
+      "dimensions": "尺寸",
+      "size": "大小",
+      "dimension": "尺寸",
+      "smart_tags": "智能标签"
+    },
+    "edit": {
+      "title": "编辑图片",
+      "confirm": "保存",
+      "success": "保存成功！"
+    },
+    "label": {
+      "privateBio": "这个图片仅自己可见",
+      "delete": "删除",
+      "deleteTitle": "是否确认删除，删除之后不能恢复！",
+      "detail": "详情",
+      "setting": "设置",
+      "collection": "收藏",
+      "form_now": "发布于{time}"
+    },
+    "upload": {
+      "deleteImage": "删除图片",
+      "uploadError": "图片上传失败！",
+      "uploadSuccess": "图片上传成功！",
+      "noImgWarn": "请选择图片",
+      "selectImg": "请选择图片",
+      "yup_title_required": "请输入标题",
+      "uploadBtn": "上传"
+    },
+    "editExif": {
+      "title": "图片信息修改",
+      "confirmBtn": "修改"
+    }
   },
   "setting": {
     "label": {
@@ -10,7 +94,8 @@
       "theme": "主题",
       "image_cache": "图片缓存",
       "img_mode": "图片显示",
-      "locale": "语言"
+      "locale": "语言",
+      "style_setting": "个性化设置"
     },
     "value": {
       "theme": {
@@ -24,18 +109,25 @@
       },
       "locale": {
         "system": "系统语言"
+      },
+      "home_style": {
+        "single": "单列",
+        "waterfall": "瀑布流"
       }
     },
     "title": {
       "theme": "主题设置",
       "img_mode": "图片显示",
-      "locale": "选择语言"
+      "locale": "选择语言",
+      "display_mode": "刷新率选择",
+      "home_style": "首页样式"
     },
     "confirm": {
       "image_cache_confirm": "是否清除图片缓存？"
     },
     "btn": {
-      "clean_cache": "清除"
+      "clean_cache": "清除",
+      "clean_cancel": "取消"
     },
     "message": {
       "img_mode": {
@@ -44,19 +136,14 @@
       }
     }
   },
-  "profile": {
-    "btn": {
-      "signout": "退出登录"
-    }
-  },
-  "common": {
+  "comment": {
     "label": {
-      "following": "关注",
-      "followers": "粉丝",
-      "likes": "喜欢",
-      "popularity": "人气",
-      "follow": "关 注",
-      "share": "分享"
+      "comment": "评论",
+      "empty": "留个言吧！",
+      "input_placeholder": "说点什么"
+    },
+    "title": {
+      "all_comment": "全部评论"
     }
   }
 }

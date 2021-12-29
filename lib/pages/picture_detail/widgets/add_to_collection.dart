@@ -195,7 +195,7 @@ class _AddToCollectionState extends State<AddToCollection> {
                                     )
                                   : null,
                               title: Row(
-                                children: [
+                                children: <Widget>[
                                   if (collection.isPrivate == true)
                                     Container(
                                       margin: const EdgeInsets.only(

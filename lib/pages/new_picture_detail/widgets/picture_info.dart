@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import '../../../model/picture.dart';
 import '../../../widget/widgets.dart';
 
@@ -13,7 +14,7 @@ class PictureInfoModal extends StatelessWidget {
   Widget build(BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return MoreHandleModal(
-      title: '图片信息',
+      title: FlutterI18n.translate(context, 'picture.info.title'),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Container(
@@ -26,18 +27,18 @@ class PictureInfoModal extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 12),
           child: Flex(
             direction: Axis.vertical,
-            children: [
+            children: <Widget>[
               Flex(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 direction: Axis.horizontal,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '点赞',
+                          FlutterI18n.translate(context, 'common.label.like'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -59,9 +60,9 @@ class PictureInfoModal extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '浏览量',
+                          FlutterI18n.translate(context, 'common.label.views'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -85,14 +86,14 @@ class PictureInfoModal extends StatelessWidget {
               Flex(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 direction: Axis.horizontal,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '设备',
+                          FlutterI18n.translate(context, 'common.label.views'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -114,9 +115,9 @@ class PictureInfoModal extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '型号',
+                          FlutterI18n.translate(context, 'picture.info.model'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -140,14 +141,15 @@ class PictureInfoModal extends StatelessWidget {
               Flex(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 direction: Axis.horizontal,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '焦距',
+                          FlutterI18n.translate(
+                              context, 'picture.info.focalLength'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -171,9 +173,10 @@ class PictureInfoModal extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '光圈',
+                          FlutterI18n.translate(
+                              context, 'picture.info.aperture'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -199,14 +202,15 @@ class PictureInfoModal extends StatelessWidget {
               Flex(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 direction: Axis.horizontal,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '快门速度',
+                          FlutterI18n.translate(
+                              context, 'picture.info.exposureTime'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -230,9 +234,9 @@ class PictureInfoModal extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          'ISO',
+                          FlutterI18n.translate(context, 'picture.info.ISO'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -258,14 +262,15 @@ class PictureInfoModal extends StatelessWidget {
               Flex(
                 // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 direction: Axis.horizontal,
-                children: [
+                children: <Widget>[
                   Expanded(
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '尺寸',
+                          FlutterI18n.translate(
+                              context, 'picture.info.dimension'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -289,9 +294,9 @@ class PictureInfoModal extends StatelessWidget {
                     flex: 1,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
+                      children: <Widget>[
                         Text(
-                          '大小',
+                          FlutterI18n.translate(context, 'picture.info.size'),
                           style: TextStyle(
                             fontSize: 11,
                             color: theme.textTheme.bodyText2!.color!
@@ -318,9 +323,10 @@ class PictureInfoModal extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: <Widget>[
                       Text(
-                        '智能标签',
+                        FlutterI18n.translate(
+                            context, 'picture.info.smart_tags'),
                         style: TextStyle(
                           fontSize: 11,
                           color:

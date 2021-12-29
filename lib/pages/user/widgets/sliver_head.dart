@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/avatar.dart';
-import 'package:soap_app/widget/large_custom_header.dart';
 import 'package:tab_indicator_styler/tab_indicator_styler.dart';
 
+import '../../../config/theme.dart';
+import '../../../utils/picture.dart';
+import '../../../widget/avatar.dart';
+import '../../../widget/large_custom_header.dart';
 import '../stores/user_store.dart';
 import 'header_content.dart';
 
@@ -63,8 +63,8 @@ class _SliverHeaderState extends State<SliverHeader> {
           decoration: BoxDecoration(
             color: theme.cardColor,
             borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(12),
-              topRight: Radius.circular(12),
+              topLeft: Radius.circular(18),
+              topRight: Radius.circular(18),
             ),
             boxShadow: const <BoxShadow>[
               BoxShadow(
@@ -91,36 +91,34 @@ class _SliverHeaderState extends State<SliverHeader> {
             },
             labelColor: theme.textTheme.bodyText2!.color,
             indicator: MaterialIndicator(
-              height: 2,
-              topLeftRadius: 4,
-              topRightRadius: 4,
-              horizontalPadding: 80,
-              tabPosition: TabPosition.bottom,
+              height: 3,
+              topLeftRadius: 12,
+              topRightRadius: 12,
+              bottomLeftRadius: 12,
+              bottomRightRadius: 12,
+              horizontalPadding: 92,
               color: theme.primaryColor.withOpacity(.8),
             ),
           ),
         ),
-        bar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0),
-          child: Row(
-            children: <Widget>[
-              Avatar(
-                size: 38,
-                image: widget.store.user!.avatarUrl,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 12),
-                child: Text(
-                  widget.store.user!.fullName,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 17,
-                  ),
+        bar: Row(
+          children: <Widget>[
+            Avatar(
+              size: 38,
+              image: widget.store.user!.avatarUrl,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Text(
+                widget.store.user!.fullName,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 17,
                 ),
-              )
-            ],
-          ),
+              ),
+            )
+          ],
         ),
         actions: [
           // TouchableOpacity(

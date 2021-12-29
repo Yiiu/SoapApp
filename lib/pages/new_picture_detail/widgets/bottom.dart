@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:decorated_icon/decorated_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:jiffy/jiffy.dart';
 import 'package:soap_app/config/config.dart';
 import 'package:soap_app/model/picture.dart';
@@ -69,7 +70,6 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
               child: Wrap(
                 spacing: 6,
                 runSpacing: 6,
-                alignment: WrapAlignment.start,
                 runAlignment: WrapAlignment.end,
                 children: widget.picture.tags!
                     .map(
@@ -84,7 +84,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
                           );
                         },
                         child: Row(
-                          children: [
+                          children: <Widget>[
                             const Icon(
                               FeatherIcons.hash,
                               size: 12,
@@ -110,7 +110,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
           ],
           if (widget.picture.location != null) ...[
             Row(
-              children: [
+              children: <Widget>[
                 DecoratedIcon(
                   FeatherIcons.mapPin,
                   size: 12,
@@ -119,7 +119,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
                 ),
                 const SizedBox(width: 4),
                 Text(
-                  widget.picture.location!['name'] as String,
+                  widget.picture.location!.name as String,
                   style: TextStyle(
                     color: Colors.white.withOpacity(.9),
                     fontSize: 12,
@@ -131,7 +131,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
             const SizedBox(height: 6),
           ],
           Row(
-            children: [
+            children: <Widget>[
               DecoratedIcon(
                 FeatherIcons.clock,
                 size: 12,
@@ -140,7 +140,11 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
               ),
               const SizedBox(width: 4),
               Text(
-                '发布于 ${Jiffy(widget.picture.createTime.toString()).fromNow()}',
+                FlutterI18n.translate(
+                    context, 'picture.label.form_now', translationParams: {
+                  'time': Jiffy(widget.picture.createTime.toString()).fromNow()
+                }),
+                // '发布于 ${Jiffy(widget.picture.createTime.toString()).fromNow()}',
                 style: TextStyle(
                   color: Colors.white.withOpacity(.6),
                   fontSize: 12,
@@ -194,7 +198,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
         position: _bottomAnimation,
         child: Stack(
           alignment: AlignmentDirectional.bottomStart,
-          children: [
+          children: <Widget>[
             IgnorePointer(
               child: Container(
                 height: 200 + MediaQuery.of(context).padding.bottom,

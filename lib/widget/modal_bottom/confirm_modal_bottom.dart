@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/config.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
+import '../../config/config.dart';
 
 class ConfirmModalBottom extends StatefulWidget {
   const ConfirmModalBottom({
@@ -68,7 +70,7 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -90,7 +92,7 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                       ),
                     ),
                     child: Text(
-                      '取消',
+                      FlutterI18n.translate(context, 'common.label.cancel'),
                       style: TextStyle(
                         color: Theme.of(context).textTheme.caption!.color,
                         fontSize: 14,
@@ -98,7 +100,8 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                     ),
                   ),
                   Text(
-                    widget.title ?? '编辑',
+                    widget.title ??
+                        FlutterI18n.translate(context, 'common.label.edit'),
                     style: TextStyle(
                       color: Theme.of(context).textTheme.bodyText2!.color,
                       fontSize: 16,
@@ -130,9 +133,9 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                     onPressed: () {
                       _onOk();
                     },
-                    child: const Text(
-                      '保存',
-                      style: TextStyle(
+                    child: Text(
+                      FlutterI18n.translate(context, 'common.label.save'),
+                      style: const TextStyle(
                         fontSize: 14,
                       ),
                     ),
@@ -140,10 +143,10 @@ class _ConfirmModalBottomState extends State<ConfirmModalBottom> {
                 ],
               ),
               if (widget.topPadding != null && widget.topPadding! > 0)
-                SizedBox(height: widget.topPadding!),
+                SizedBox(height: widget.topPadding),
               widget.child,
               if (widget.bottomPadding != null && widget.bottomPadding! > 0)
-                SizedBox(height: widget.bottomPadding!),
+                SizedBox(height: widget.bottomPadding),
             ],
           ),
         ),

@@ -145,7 +145,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       Row(
-                        children: [
+                        children: <Widget>[
                           Observer(builder: (_) {
                             return Text(
                               widget.store.user!.fullName,
@@ -170,7 +170,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                       const SizedBox(height: 4),
                       Observer(builder: (_) {
                         return Row(
-                          children: [
+                          children: <Widget>[
                             if (widget.store.user!.gender >= 0)
                               Container(
                                 height: 22,
@@ -213,7 +213,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                                       const EdgeInsets.symmetric(vertical: 2),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.min,
-                                    children: [
+                                    children: <Widget>[
                                       SizedBox(
                                         width: 12,
                                         height: 12,
@@ -270,7 +270,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
           ),
           child: Flex(
             direction: Axis.horizontal,
-            children: [
+            children: <Widget>[
               Expanded(
                 flex: 1,
                 child: Flex(

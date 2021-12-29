@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_cupertino_datetime_picker/flutter_cupertino_datetime_picker.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:jiffy/jiffy.dart';
-import 'package:soap_app/widget/widgets.dart';
+
+import '../../../widget/widgets.dart';
 
 class EditBirthday extends StatefulWidget {
   const EditBirthday({
@@ -48,7 +50,7 @@ class _EditBirthdayState extends State<EditBirthday> {
         });
       },
       child: Column(
-        children: [
+        children: <Widget>[
           DatePickerWidget(
             initDateTime: Jiffy(_value).dateTime,
             onChange: (DateTime date, List<int> _) {
@@ -68,13 +70,22 @@ class _EditBirthdayState extends State<EditBirthday> {
           ),
           SoapSelectList<int>(
             value: birthdayShow,
-            onChange: (value) => setState(() {
+            onChange: (int value) => setState(() {
               birthdayShow = value;
             }),
             config: <SelectTileConfig<int>>[
-              SelectTileConfig<int>(title: '保密', value: 0),
-              SelectTileConfig<int>(title: '显示日期', value: 1),
-              SelectTileConfig<int>(title: '显示星座', value: 2),
+              SelectTileConfig<int>(
+                  title: FlutterI18n.translate(
+                      context, "profile.edit.label.birthday_secret"),
+                  value: 0),
+              SelectTileConfig<int>(
+                  title: FlutterI18n.translate(
+                      context, "profile.edit.label.birthday_show_day"),
+                  value: 1),
+              SelectTileConfig<int>(
+                  title: FlutterI18n.translate(
+                      context, "profile.edit.label.birthday_show horoscope"),
+                  value: 2),
             ],
           ),
         ],

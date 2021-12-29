@@ -36,7 +36,7 @@ class SoapButton extends StatelessWidget {
         ),
         child: Center(
           child: Stack(
-            children: [
+            children: <Widget>[
               AnimatedOpacity(
                 opacity: loading! ? 0 : 1,
                 duration: const Duration(milliseconds: 300),

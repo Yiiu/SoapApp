@@ -4,6 +4,7 @@ import 'package:soap_app/graphql/fragments.dart';
 import 'package:soap_app/graphql/gql.dart';
 import 'package:soap_app/graphql/mutations.dart' as mutations;
 import 'package:soap_app/graphql/query.dart' as query;
+import 'package:soap_app/model/location.dart';
 import 'package:soap_app/store/index.dart';
 import 'package:soap_app/utils/exception.dart';
 
@@ -102,7 +103,7 @@ class PictureRepository {
     required String bio,
     required bool isPrivate,
     required List<String> tags,
-    Map? location,
+    Location? location,
   }) async {
     final Map<String, Object> variables = {
       'id': id,

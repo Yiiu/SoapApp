@@ -11,6 +11,7 @@ import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:soap_app/model/location.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart'
     as WechatAssetsPicker;
 
@@ -191,7 +192,7 @@ class _AddPageState extends State<AddPage> {
           direction: Axis.horizontal,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Expanded(
               flex: 1,
               child: Flex(
@@ -244,7 +245,7 @@ class _AddPageState extends State<AddPage> {
           automaticallyImplyLeading: true,
         ),
         body: Stack(
-          children: [
+          children: <Widget>[
             GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
@@ -257,7 +258,7 @@ class _AddPageState extends State<AddPage> {
                     flex: 1,
                     child: SizedBox(
                       child: Column(
-                        children: [
+                        children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(16),
                             child: SizedBox(
@@ -265,7 +266,7 @@ class _AddPageState extends State<AddPage> {
                                 // direction: Axis.vertical,
                                 // mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: <Widget>[
                                   SizedBox(
                                     width: 80,
                                     height: 80,
@@ -375,7 +376,7 @@ class _AddPageState extends State<AddPage> {
                                         builder: (_) => _itemBuild(
                                           title: _addStore.location != null
                                               ? Text(
-                                                  _addStore.location!['name']
+                                                  _addStore.location!.name
                                                       as String,
                                                   maxLines: 1,
                                                   overflow:
@@ -395,7 +396,7 @@ class _AddPageState extends State<AddPage> {
                                                 builder: (_) =>
                                                     LocationSettingPage(
                                                   // isPrivate: _addStore.isPrivate,
-                                                  onChange: (Map? data) {
+                                                  onChange: (Location? data) {
                                                     _addStore.setLocation(data);
                                                   },
                                                 ),

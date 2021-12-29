@@ -1,13 +1,14 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:soap_app/config/config.dart';
-
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/picture.dart';
-import 'package:soap_app/widget/widgets.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
+
+import '../../config/config.dart';
+import '../../model/picture.dart';
+import '../../utils/picture.dart';
+import '../widgets.dart';
 
 enum pictureItemType { single, waterfall }
 
@@ -32,6 +33,7 @@ class PictureItem extends StatelessWidget {
     this.heroLabel = 'list',
     this.header = true,
     this.fall = false,
+    this.avatar = true,
     this.doubleLike = false,
     this.gallery = false,
     this.crossAxisSpacing = 16,
@@ -40,10 +42,11 @@ class PictureItem extends StatelessWidget {
 
   final Picture picture;
   final bool header;
-  final String heroLabel;
+  final String? heroLabel;
   final double crossAxisSpacing;
   final double mainAxisSpacing;
   final bool fall;
+  final bool avatar;
   final PictureStyle? pictureStyle;
   final pictureItemType? pictureType;
   final bool? doubleLike;
@@ -75,19 +78,21 @@ class PictureItem extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: <Widget>[
               Padding(
                 padding: const EdgeInsets.only(right: 16),
-                child: SoapLikeButton(
-                  isLike: picture.isLike!,
-                  likedCount: picture.likedCount!,
-                  id: picture.id,
-                  iconSize: 22,
-                  textStyle: TextStyle(
-                    fontSize: 14,
-                    color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
-                  ),
-                ),
+                child: Observer(builder: (_) {
+                  return SoapLikeButton(
+                    isLike: picture.isLike ?? false,
+                    likedCount: picture.likedCount ?? 0,
+                    id: picture.id,
+                    iconSize: 22,
+                    textStyle: TextStyle(
+                      fontSize: 14,
+                      color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                    ),
+                  );
+                }),
               ),
             ],
           ),
@@ -100,95 +105,130 @@ class PictureItem extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: <Widget>[
         const SizedBox(
           height: 8,
         ),
-        Text(
-          picture.title,
-          style: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        const SizedBox(
-          height: 4,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            TouchableOpacity(
-              activeOpacity: activeOpacity,
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.user,
-                  arguments: {
-                    'user': picture.user,
-                    'heroId': picture.id.toString(),
-                  },
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 3),
-                child: Flex(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  direction: Axis.horizontal,
-                  children: [
-                    Hero(
-                      tag:
-                          'user-${picture.user!.username}-${picture.id.toString()}',
-                      child: Avatar(
-                        size: 18,
-                        image: picture.user!.avatarUrl,
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Flex(
-                        direction: Axis.vertical,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TouchableOpacity(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RouteName.user,
-                                arguments: {
-                                  'user': picture.user,
-                                  'heroId': picture.id.toString(),
-                                },
-                              );
-                            },
-                            child: Text(
-                              picture.user!.fullName,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 12,
-                                color: theme.textTheme.bodyText2!.color!
-                                    .withOpacity(.6),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+        if (!avatar)
+          Flex(
+            direction: Axis.horizontal,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Flexible(
+                fit: FlexFit.tight,
+                child: Text(
+                  picture.title,
+                  maxLines: 1,
+                  softWrap: false,
+                  overflow: TextOverflow.fade,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
-            ),
-            SoapLikeButton(
-              isLike: picture.isLike!,
-              likedCount: picture.likedCount!,
-              id: picture.id,
-              iconSize: 18,
-              textStyle: TextStyle(
-                fontSize: 12,
-                color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+              SoapLikeButton(
+                isLike: picture.isLike ?? false,
+                likedCount: picture.likedCount ?? 0,
+                id: picture.id,
+                iconSize: 18,
+                textStyle: TextStyle(
+                  fontSize: 12,
+                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                ),
               ),
-            )
-          ],
-        ),
+            ],
+          ),
+        if (avatar) ...[
+          Text(
+            picture.title,
+            maxLines: 1,
+            softWrap: false,
+            overflow: TextOverflow.fade,
+            style: const TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              TouchableOpacity(
+                activeOpacity: activeOpacity,
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    RouteName.user,
+                    arguments: {
+                      'user': picture.user,
+                      'heroId': picture.id.toString(),
+                    },
+                  );
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: 3),
+                  child: Flex(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      Hero(
+                        tag:
+                            'user-${picture.user!.username}-${picture.id.toString()}',
+                        child: Avatar(
+                          size: 18,
+                          image: picture.user!.avatarUrl,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Flex(
+                          direction: Axis.vertical,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            TouchableOpacity(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RouteName.user,
+                                  arguments: {
+                                    'user': picture.user,
+                                    'heroId': picture.id.toString(),
+                                  },
+                                );
+                              },
+                              child: Text(
+                                picture.user!.fullName,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 12,
+                                  color: theme.textTheme.bodyText2!.color!
+                                      .withOpacity(.6),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SoapLikeButton(
+                isLike: picture.isLike ?? false,
+                likedCount: picture.likedCount ?? 0,
+                id: picture.id,
+                iconSize: 18,
+                textStyle: TextStyle(
+                  fontSize: 12,
+                  color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 4,
+          ),
+        ],
         const SizedBox(
           height: 16,
         ),
@@ -209,7 +249,7 @@ class PictureItem extends StatelessWidget {
               picture: picture,
             ),
           Stack(
-            children: [
+            children: <Widget>[
               PictureItemContent(
                 heroLabel: heroLabel,
                 crossAxisSpacing: crossAxisSpacing,

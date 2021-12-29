@@ -1,8 +1,9 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:soap_app/model/badge.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/utils/date.dart' as date;
-import 'package:soap_app/utils/picture.dart';
+
+import '../utils/date.dart' as date;
+import '../utils/picture.dart';
+import 'badge.dart';
+import 'picture.dart';
 
 // import '../utils/picture.dart';
 

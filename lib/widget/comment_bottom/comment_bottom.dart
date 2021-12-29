@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/model/picture.dart';
-import 'package:soap_app/pages/picture_detail/widgets/widgets.dart';
-import 'package:soap_app/widget/widgets.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
+
+import '../../config/config.dart';
+import '../../model/picture.dart';
+import '../../pages/picture_detail/widgets/widgets.dart';
+import '../widgets.dart';
 
 class CommentBottomModal extends StatelessWidget {
   const CommentBottomModal({
@@ -21,9 +23,9 @@ class CommentBottomModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: [
+      children: <Widget>[
         MoreHandleModal(
-          title: '全部评论',
+          title: FlutterI18n.translate(context, 'comment.title.all_comment'),
           child: Expanded(
             child: SizedBox(
               width: double.infinity,
@@ -31,7 +33,10 @@ class CommentBottomModal extends StatelessWidget {
                 future: Future<dynamic>.delayed(
                   Duration(milliseconds: screenDelayTimer),
                 ),
-                builder: (BuildContext context, snapshot) {
+                builder: (
+                  BuildContext context,
+                  AsyncSnapshot<dynamic> snapshot,
+                ) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     return PictureDetailComment(
                       id: id,

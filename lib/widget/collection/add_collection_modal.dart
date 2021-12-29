@@ -86,7 +86,7 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
             children: <Widget>[
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+                children: <Widget>[
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
@@ -161,7 +161,7 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
-                  children: [
+                  children: <Widget>[
                     SizedBox(
                       width: double.infinity,
                       child: AddInput(

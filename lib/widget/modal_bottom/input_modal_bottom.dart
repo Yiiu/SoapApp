@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:soap_app/widget/input.dart';
 import 'package:soap_app/widget/modal_bottom/confirm_modal_bottom.dart';
 
@@ -45,7 +46,7 @@ class _InputModalModalBottomState extends State<InputModalModalBottom> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),
         child: Column(
-          children: [
+          children: <Widget>[
             SizedBox(
               // height: 40,
               width: double.infinity,
@@ -53,7 +54,8 @@ class _InputModalModalBottomState extends State<InputModalModalBottom> {
                 autofocus: true,
                 maxLines: widget.maxLines,
                 focusNode: _textFocusNode,
-                label: widget.label ?? '请输入',
+                label: widget.label ??
+                    FlutterI18n.translate(context, 'common.label.please_enter'),
                 controller: _textController,
               ),
             ),

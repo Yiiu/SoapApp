@@ -38,14 +38,16 @@ class NewList extends StatelessWidget {
         itemBuilder: (BuildContext _, int i) => Container(
           color: theme.cardColor,
           margin: const EdgeInsets.only(bottom: 12),
-          child: PictureItem(
-            doubleLike: true,
-            heroLabel: 'new-picture-detail',
-            picture: newListStore.pictureList![i],
-            pictureStyle: PictureStyle.mediumLarge,
-            gallery: true,
-            pictureType: pictureItemType.single,
-          ),
+          child: Observer(builder: (_) {
+            return PictureItem(
+              doubleLike: true,
+              heroLabel: 'new-picture-detail',
+              picture: newListStore.pictureList![i],
+              pictureStyle: PictureStyle.mediumLarge,
+              gallery: true,
+              pictureType: pictureItemType.single,
+            );
+          }),
         ),
         itemCount: newListStore.pictureList!.length,
       );
@@ -58,16 +60,18 @@ class NewList extends StatelessWidget {
           mainAxisSpacing: 8,
         ),
         itemCount: newListStore.pictureList!.length,
-        itemBuilder: (_, int i) => PictureItem(
-          heroLabel: 'new-picture-detail',
-          crossAxisSpacing: 0,
-          mainAxisSpacing: 8,
-          picture: newListStore.pictureList![i],
-          header: false,
-          fall: true,
-          gallery: true,
-          pictureStyle: PictureStyle.thumb,
-        ),
+        itemBuilder: (_, int i) => Observer(builder: (context) {
+          return PictureItem(
+            heroLabel: 'new-picture-detail',
+            crossAxisSpacing: 0,
+            mainAxisSpacing: 8,
+            picture: newListStore.pictureList![i],
+            header: false,
+            fall: true,
+            gallery: true,
+            pictureStyle: PictureStyle.thumb,
+          );
+        }),
       );
     }
   }

@@ -32,7 +32,7 @@ class CollectionMoreHandle extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: 24, right: 24, bottom: 16),
         child: Row(
-          children: [
+          children: <Widget>[
             // if (picture.isPrivate == null || !picture.isPrivate!) ...[
             //   MoreHandleModalItem(
             //     svg: 'assets/remix/share-line.svg',

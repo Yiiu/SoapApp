@@ -2,11 +2,11 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
     as extended;
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
-import 'package:soap_app/config/config.dart';
-import 'package:soap_app/graphql/graphql.dart';
-import 'package:soap_app/model/user.dart';
-import 'package:soap_app/widget/picture_list.dart';
 
+import '../../config/config.dart';
+import '../../graphql/graphql.dart';
+import '../../model/user.dart';
+import '../../widget/picture_list.dart';
 import 'stores/user_store.dart';
 import 'widgets/collection_list.dart';
 import 'widgets/sliver_head.dart';
@@ -61,14 +61,14 @@ class _UserPageState extends State<UserPage>
           [...pictureListFragmentDocumentNode],
         ),
       ),
-      variables: {
+      variables: <String, dynamic>{
         'username': user.username,
         // ignore: prefer_const_literals_to_create_immutables
-        'query': {
+        'query': <String, int>{
           'page': 1,
           'pageSize': 30,
         },
-      } as Map<String, dynamic>,
+      },
     );
     final Map<String, dynamic>? cacheData =
         GraphqlConfig.graphQLClient.readQuery(queryRequest);
@@ -121,8 +121,9 @@ class _UserPageState extends State<UserPage>
                             userPictures,
                             [...pictureListFragmentDocumentNode],
                           ),
+                          heroLabel: 'user-picture-list-${user.username}',
                           label: 'userPicturesByName',
-                          variables: {
+                          variables: <String, String>{
                             'username': user.username,
                           },
                         ),
@@ -139,6 +140,7 @@ class _UserPageState extends State<UserPage>
                                   userPictures,
                                   [...pictureListFragmentDocumentNode],
                                 ),
+                                heroLabel: 'user-picture-list-${user.username}',
                                 label: 'userPicturesByName',
                                 variables: {
                                   'username': user.username,

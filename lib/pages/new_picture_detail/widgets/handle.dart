@@ -144,7 +144,7 @@ class _NewPictureDetailHandleState extends State<NewPictureDetailHandle> {
         IntrinsicWidth(
           child: Row(
             mainAxisSize: MainAxisSize.min,
-            children: [
+            children: <Widget>[
               Expanded(
                 child: AnimatedNumber(
                   number: widget.picture.likedCount,

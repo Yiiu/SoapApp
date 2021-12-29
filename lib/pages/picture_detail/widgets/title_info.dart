@@ -28,7 +28,7 @@ class PictureTitleInfo extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Row(
-              children: [
+              children: <Widget>[
                 if (picture.isChoice) ...[
                   Medal(
                     type: MedalType.choice,
@@ -72,7 +72,7 @@ class PictureTitleInfo extends StatelessWidget {
               ),
             const SizedBox(height: 12),
             Row(
-              children: [
+              children: <Widget>[
                 Visibility(
                   visible: picture.isPrivate != null && picture.isPrivate!,
                   child: Row(

@@ -126,7 +126,7 @@ class _FollowModalState extends State<FollowModal> {
                         horizontal: 14,
                       ),
                       child: Row(
-                        children: [
+                        children: <Widget>[
                           TouchableOpacity(
                             activeOpacity: activeOpacity,
                             onTap: () {
@@ -151,7 +151,7 @@ class _FollowModalState extends State<FollowModal> {
                               child: Flex(
                                 direction: Axis.vertical,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
+                                children: <Widget>[
                                   TouchableOpacity(
                                     activeOpacity: activeOpacity,
                                     onTap: () {

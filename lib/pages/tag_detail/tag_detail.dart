@@ -57,10 +57,10 @@ class _TagDetailPageState extends State<TagDetailPage> {
           child: Flex(
             direction: Axis.vertical,
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+            children: <Widget>[
               Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
+                children: <Widget>[
                   SizedBox(
                     width: 22,
                     height: 22,
@@ -158,6 +158,7 @@ class _TagDetailPageState extends State<TagDetailPage> {
                 query.tagPictures,
                 [...pictureListFragmentDocumentNode],
               ),
+              heroLabel: 'tag-picture-list',
               label: 'tagPictures',
               variables: {
                 'name': data.name,

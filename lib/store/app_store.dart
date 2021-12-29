@@ -4,8 +4,8 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:mobx/mobx.dart';
-import 'package:soap_app/config/theme.dart';
-import 'package:soap_app/utils/storage.dart';
+import '../config/theme.dart';
+import '../utils/storage.dart';
 
 part 'app_store.g.dart';
 

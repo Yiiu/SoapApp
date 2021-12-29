@@ -24,7 +24,7 @@ class AboutPage extends StatelessWidget {
           ),
         ),
         body: ListView(
-          children: [
+          children: <Widget>[
             Center(
               child: Container(
                 width: 200,

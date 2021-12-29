@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soap_app/model/location.dart';
 
 class PictureLocationInfo extends StatelessWidget {
   const PictureLocationInfo({
@@ -7,7 +8,7 @@ class PictureLocationInfo extends StatelessWidget {
     required this.location,
   }) : super(key: key);
 
-  final Map location;
+  final Location location;
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +38,14 @@ class PictureLocationInfo extends StatelessWidget {
           ),
           const SizedBox(width: 12),
           Text(
-            location['city'] as String? ?? '',
+            location.city as String? ?? '',
             style: const TextStyle(
               fontSize: 14,
             ),
           ),
           const Text('·'),
           Text(
-            location['name'] as String? ?? '',
+            location.name as String? ?? '',
             style: const TextStyle(
               fontSize: 14,
             ),

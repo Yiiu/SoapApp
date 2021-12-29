@@ -50,7 +50,7 @@ class _MoreSettingPageState extends State<MoreSettingPage> {
           ),
         ),
         body: Column(
-          children: [
+          children: <Widget>[
             SettingItem(
               title: '仅自己可见',
               actionIcon: false,
