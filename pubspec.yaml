@@ -102,6 +102,7 @@ dependencies:
   cached_network_image: ^3.2.0
   flutter_image_compress: ^1.1.0
   flutter_bounce: ^1.1.0
+  tiktoklikescroller: ^0.1.8
   flutter_bounceable: ^1.0.2
   photo_view:
     # custom photo_view with better gesture recognition

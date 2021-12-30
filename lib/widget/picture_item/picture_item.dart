@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../config/config.dart';
@@ -28,6 +29,7 @@ class PictureItem extends StatelessWidget {
   const PictureItem({
     Key? key,
     required this.picture,
+    this.store,
     this.pictureType = pictureItemType.waterfall,
     this.pictureStyle = PictureStyle.small,
     this.heroLabel = 'list',
@@ -36,10 +38,12 @@ class PictureItem extends StatelessWidget {
     this.avatar = true,
     this.doubleLike = false,
     this.gallery = false,
+    this.detailList = false,
     this.crossAxisSpacing = 16,
     this.mainAxisSpacing = 20,
   }) : super(key: key);
 
+  final ListStoreBase? store;
   final Picture picture;
   final bool header;
   final String? heroLabel;
@@ -51,6 +55,7 @@ class PictureItem extends StatelessWidget {
   final pictureItemType? pictureType;
   final bool? doubleLike;
   final bool gallery;
+  final bool detailList;
 
   Widget _bottomBuilder(BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -257,6 +262,8 @@ class PictureItem extends StatelessWidget {
                 doubleLike: doubleLike,
                 pictureType: pictureType,
                 gallery: gallery,
+                store: store,
+                detailList: detailList,
               ),
               if (picture.isChoice)
                 Positioned(

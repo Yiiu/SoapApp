@@ -34,6 +34,13 @@
       "likes": "喜欢",
       "popularity": "人气",
       "views": "浏览量"
+    },
+    "refresh": {
+      "release_text": "松开刷新",
+      "idle_text": "下拉刷新",
+      "refreshing_text": "刷新中",
+      "complete_text": "刷新成功",
+      "failed_text": "刷新失败"
     }
   },
   "nav": {

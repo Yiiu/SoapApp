@@ -88,6 +88,13 @@
       "delete": "Delete",
       "like": "Like",
       "views": "Views"
+    },
+    "refresh": {
+      "release_text": "Release",
+      "idle_text": "Idle",
+      "refreshing_text": "Refreshing",
+      "complete_text": "Complete",
+      "failed_text": "Failed"
     }
   },
   "picture": {

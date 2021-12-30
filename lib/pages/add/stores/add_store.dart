@@ -1,8 +1,8 @@
 import 'package:mobx/mobx.dart';
-import '../../../model/tag.dart';
 
 import '../../../model/location.dart';
 import '../../../model/picture.dart';
+import '../../../model/tag.dart';
 import '../../../repository/picture_repository.dart';
 
 part 'add_store.g.dart';

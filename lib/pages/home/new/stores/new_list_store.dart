@@ -10,11 +10,20 @@ import '../../../../utils/utils.dart';
 
 part 'new_list_store.g.dart';
 
+// ignore: library_private_types_in_public_api
 class NewListStore = _NewListStoreBase with _$NewListStore;
 
-abstract class _NewListStoreBase with Store {
+class ListStoreBase {
+  ObservableList<Picture>? pictureList;
+  int page = 1;
+  int pageSize = 30;
+  int count = 0;
+}
+
+abstract class _NewListStoreBase with Store implements ListStoreBase {
   graphql.ObservableQuery? _observableQuery;
 
+  @override
   @observable
   @ObservablePictureListConverter()
   ObservableList<Picture>? pictureList;
@@ -22,12 +31,15 @@ abstract class _NewListStoreBase with Store {
   @observable
   ListData<Picture>? listData;
 
+  @override
   @observable
   int page = 1;
 
+  @override
   @observable
   int pageSize = 30;
 
+  @override
   @observable
   int count = 0;
 

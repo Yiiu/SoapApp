@@ -73,6 +73,7 @@ mixin ThemeConfig {
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
     appBarTheme: const AppBarTheme(
+      brightness: Brightness.dark,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     primaryIconTheme: IconThemeData(color: lightTextColor.withOpacity(.8)),
@@ -83,7 +84,7 @@ mixin ThemeConfig {
       ),
       selectedItemColor: lightTextColor,
     ),
-    cardColor: const Color(0xffffffff), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: lightAccent),
+    cardColor: const Color(0xffffffff),
   );
 
   static ThemeData darkTheme = ThemeData(
@@ -98,6 +99,7 @@ mixin ThemeConfig {
     errorColor: const Color(0xffff4757),
     cardColor: const Color(0xff19181e),
     appBarTheme: const AppBarTheme(
+      brightness: Brightness.light,
       systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
     dialogBackgroundColor: const Color(0xff000000),
@@ -106,6 +108,6 @@ mixin ThemeConfig {
         color: darkTextColor,
       ),
       selectedItemColor: const Color(0xff141414),
-    ), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: darkAccent),
+    ),
   );
 }

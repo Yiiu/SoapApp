@@ -45,7 +45,7 @@ class PictureLocationInfo extends StatelessWidget {
           ),
           const Text('·'),
           Text(
-            location.name ?? '',
+            location.name,
             style: const TextStyle(
               fontSize: 14,
             ),

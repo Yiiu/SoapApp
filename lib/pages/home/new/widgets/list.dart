@@ -67,6 +67,8 @@ class NewList extends StatelessWidget {
             crossAxisSpacing: 0,
             mainAxisSpacing: 8,
             picture: newListStore.pictureList![i],
+            store: newListStore,
+            detailList: true,
             header: false,
             fall: true,
             gallery: true,

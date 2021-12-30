@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
 import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
 
+import '../../config/config.dart';
 import '../../model/picture.dart';
-import '../../pages/new_picture_detail/new_picture_detail.dart';
 import '../../repository/picture_repository.dart';
 import '../../store/index.dart';
 import '../../utils/utils.dart';
@@ -21,8 +22,12 @@ class PictureItemContent extends StatelessWidget {
     this.pictureStyle,
     this.doubleLike = false,
     this.pictureType,
+    this.store,
+    this.detailList = false,
   }) : super(key: key);
 
+  final bool detailList;
+  final ListStoreBase? store;
   final double crossAxisSpacing;
   final String? heroLabel;
   final Picture picture;
@@ -52,15 +57,25 @@ class PictureItemContent extends StatelessWidget {
                   }
                 : null,
             onTap: () {
-              Navigator.of(context).push<dynamic>(
-                HeroDetailRoute<void>(
-                  builder: (_) => NewPictureDetail(
-                    heroLabel: heroLabel,
-                    picture: picture,
-                    pictureStyle: pictureStyle,
-                  ),
-                ),
-              );
+              if (store != null && detailList) {
+                Navigator.of(context).pushNamed(
+                  RouteName.new_picture_detail_list,
+                  arguments: <String, dynamic>{
+                    'store': store,
+                    'pictureStyle': pictureStyle,
+                    'initialPicture': picture,
+                  },
+                );
+              } else {
+                Navigator.of(context).pushNamed(
+                  RouteName.new_picture_detail,
+                  arguments: <String, dynamic>{
+                    'heroLabel': heroLabel,
+                    'picture': picture,
+                    'pictureStyle': pictureStyle,
+                  },
+                );
+              }
             },
             child: SizedBox(
               width: double.infinity,

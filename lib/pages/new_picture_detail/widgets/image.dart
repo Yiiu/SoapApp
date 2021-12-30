@@ -37,7 +37,23 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   void initState() {
+    precache();
     super.initState();
+  }
+
+  Future<void> precache() async {
+    // await precacheImage(
+    //   ExtendedNetworkImageProvider(
+    //     getPictureUrl(
+    //       key: widget.picture.key,
+    //     ),
+    //   ),
+    //   context,
+    //   onError: (Object o, StackTrace? err) {
+    //     print(err);
+    //   },
+    // );
+    // print('ok');
   }
 
   Widget _heroBuilder(
@@ -95,14 +111,6 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   Widget build(BuildContext context) {
-    precacheImage(
-      ExtendedNetworkImageProvider(
-        getPictureUrl(
-          key: widget.picture.key,
-        ),
-      ),
-      context,
-    );
     return PhotoViewGallery.builder(
       itemCount: 1,
       pageController: PageController(),
@@ -121,60 +129,84 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
               children: <Widget>[
                 Center(
                   // 防止 hero 动画的时候抖动
-                  child: ExtendedImage.network(
-                    getPictureUrl(
-                      key: widget.picture.key,
-                    ),
-                    fit: BoxFit.contain,
-                    loadStateChanged: (ExtendedImageState state) {
-                      switch (state.extendedImageLoadState) {
-                        case LoadState.loading:
-                          return AspectRatio(
-                            aspectRatio:
-                                widget.picture.width / widget.picture.height,
-                            child: _heroBuilder(
-                              index,
-                              OctoImage(
-                                fit: BoxFit.contain,
-                                image: ExtendedImage.network(
-                                  getPictureUrl(
-                                    key: widget.picture.key,
-                                    style: widget.pictureStyle,
-                                  ),
-                                ).image,
-                                placeholderBuilder: (BuildContext context) {
-                                  return Container(
-                                    color:
-                                        HexColor.fromHex(widget.picture.color),
-                                  );
-                                },
-                              ),
-                            ),
-                          );
-                        case LoadState.completed:
-                          return _heroBuilder(
-                            index,
-                            ExtendedImage.network(
+                  child: AspectRatio(
+                    aspectRatio: widget.picture.width / widget.picture.height,
+                    child: _heroBuilder(
+                      index,
+                      OctoImage(
+                        fit: BoxFit.contain,
+                        fadeInDuration: Duration.zero,
+                        fadeOutDuration: Duration.zero,
+                        image: ExtendedImage.network(
+                          getPictureUrl(
+                            key: widget.picture.key,
+                          ),
+                        ).image,
+                        placeholderBuilder: (BuildContext context) {
+                          return OctoImage(
+                            fadeInDuration: Duration.zero,
+                            fadeOutDuration: Duration.zero,
+                            fit: BoxFit.contain,
+                            image: ExtendedImage.network(
                               getPictureUrl(
                                 key: widget.picture.key,
+                                style: widget.pictureStyle,
                               ),
-                              fit: BoxFit.contain,
-                            ),
+                            ).image,
+                            placeholderBuilder: (BuildContext context) {
+                              return AspectRatio(
+                                aspectRatio: widget.picture.width /
+                                    widget.picture.height,
+                                child: Container(
+                                  color: HexColor.fromHex(widget.picture.color),
+                                ),
+                              );
+                            },
                           );
-                        case LoadState.failed:
-                          SoapToast.error('图片加载失败！');
-                          return AspectRatio(
-                            aspectRatio:
-                                widget.picture.width / widget.picture.height,
-                            child: _heroBuilder(
-                              index,
-                              Container(
-                                color: HexColor.fromHex(widget.picture.color),
-                              ),
-                            ),
-                          );
-                      }
-                    },
+                        },
+                      ),
+                      // ExtendedImage.network(
+                      //   getPictureUrl(
+                      //     key: widget.picture.key,
+                      //     style: widget.pictureStyle,
+                      //   ),
+                      //   fit: BoxFit.contain,
+                      //   loadStateChanged: (ExtendedImageState state) {
+                      //     switch (state.extendedImageLoadState) {
+                      //       case LoadState.loading:
+                      //         return AspectRatio(
+                      //           aspectRatio:
+                      //               widget.picture.width / widget.picture.height,
+                      //           child: Container(
+                      //             color: HexColor.fromHex(widget.picture.color),
+                      //           ),
+                      //         );
+                      //       case LoadState.completed:
+                      //       // return _heroBuilder(
+                      //       //   index,
+                      //       //   ExtendedImage.network(
+                      //       //     getPictureUrl(
+                      //       //       key: widget.picture.key,
+                      //       //     ),
+                      //       //     fit: BoxFit.contain,
+                      //       //   ),
+                      //       // );
+                      //       case LoadState.failed:
+                      //         SoapToast.error('图片加载失败！');
+                      //         return AspectRatio(
+                      //           aspectRatio:
+                      //               widget.picture.width / widget.picture.height,
+                      //           child: _heroBuilder(
+                      //             index,
+                      //             Container(
+                      //               color: HexColor.fromHex(widget.picture.color),
+                      //             ),
+                      //           ),
+                      //         );
+                      //     }
+                      //   },
+                      // ),
+                    ),
                   ),
                 ),
               ],

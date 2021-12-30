@@ -67,9 +67,8 @@ class _SoapAppBarState extends State<SoapAppBar>
     }
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
-    final Brightness baseBrightness = widget.brightness ??
-        appBarTheme.systemOverlayStyle?.statusBarBrightness ??
-        Brightness.light;
+    final Brightness baseBrightness =
+        widget.brightness ?? appBarTheme.brightness ?? Brightness.light;
     // theme.primaryColorBrightness;
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light

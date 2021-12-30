@@ -50,7 +50,7 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
     final ThemeData theme = Theme.of(context);
     return Positioned(
       child: Hero(
-        tag: '_NewPictureDetailTopState',
+        tag: '_NewPictureDetailTopState${widget.picture.id}',
         child: SlideTransition(
           position: _topAnimation,
           child: Stack(

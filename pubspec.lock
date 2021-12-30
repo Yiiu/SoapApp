@@ -1369,6 +1369,13 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.0"
+  tiktoklikescroller:
+    dependency: "direct main"
+    description:
+      name: tiktoklikescroller
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.1.8"
   timing:
     dependency: transitive
     description:

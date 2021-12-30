@@ -32,63 +32,76 @@ class _MyAppState extends State<MyApp> {
     final List<Locale> ios = [
       const Locale('en', 'US'),
     ];
-    return RefreshConfiguration(
-      headerBuilder: () => const ClassicHeader(
-        releaseText: '松开刷新',
-        idleText: '下拉刷新',
-        refreshingText: '刷新中',
-        completeText: '刷新成功',
-        failedText: '刷新失败',
-        failedIcon: Icon(FeatherIcons.alertCircle, color: Colors.red),
-        refreshingIcon: CupertinoActivityIndicator(),
-        idleIcon: Icon(FeatherIcons.arrowDown, color: Colors.grey),
-        releaseIcon: Icon(FeatherIcons.arrowUp, color: Colors.grey),
-        refreshStyle: RefreshStyle.UnFollow,
-      ),
-      footerBuilder: () => const ClassicFooter(
-        loadingText: '加载中',
-        canLoadingText: '松手加载',
-        idleText: '上拉加载',
-        idleIcon: Icon(FeatherIcons.arrowUp, color: Colors.grey),
-        canLoadingIcon: Icon(FeatherIcons.loader, color: Colors.grey),
-        failedIcon: Icon(FeatherIcons.alertCircle, color: Colors.red),
-        failedText: '加载失败,请重试',
-        noDataText: '已经到底啦',
-        loadingIcon: CupertinoActivityIndicator(),
-      ),
-      springDescription: const SpringDescription(
-        stiffness: 170,
-        damping: 16,
-        mass: 1.9,
-      ), // 自定义回弹动画,三个属性值意义请查询flutter api
-      enableScrollWhenRefreshCompleted:
-          true, //这个属性不兼容PageView和TabBarView,如果你特别需要TabBarView左右滑动,你需要把它设置为true
-      child: Observer(
-        builder: (_) => MaterialApp(
-          localizationsDelegates: [
-            S.delegate,
-            FlutterI18nDelegate(
-              translationLoader: FileTranslationLoader(
-                // fallbackFile: 'zh',
-                basePath: 'assets/i18n',
-              ),
+    return Observer(
+      builder: (_) => MaterialApp(
+        localizationsDelegates: [
+          S.delegate,
+          FlutterI18nDelegate(
+            translationLoader: FileTranslationLoader(
+              // fallbackFile: 'zh',
+              basePath: 'assets/i18n',
             ),
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: supportedLocales,
-          builder: BotToastInit(),
-          navigatorObservers: [BotToastNavigatorObserver()],
-          debugShowCheckedModeBanner: false,
-          initialRoute: RouterConfig.RouteName.home,
-          onGenerateRoute: RouterConfig.Router.generateRoute,
-          themeMode: appStore.themeMode,
-          theme: ThemeConfig.lightTheme,
-          darkTheme: ThemeConfig.darkTheme,
-          title: Constants.appName,
-          locale: appStore.localeMode,
-        ),
+          ),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+        ],
+        supportedLocales: supportedLocales,
+        builder: (BuildContext context, Widget? widget) {
+          return BotToastInit()(
+            context,
+            RefreshConfiguration(
+              headerBuilder: () => ClassicHeader(
+                releaseText: FlutterI18n.translate(
+                    context, 'common.refresh.release_text'),
+                idleText:
+                    FlutterI18n.translate(context, 'common.refresh.idle_text'),
+                refreshingText: FlutterI18n.translate(
+                    context, 'common.refresh.refreshing_text'),
+                completeText: FlutterI18n.translate(
+                    context, 'common.refresh.complete_text'),
+                failedText: FlutterI18n.translate(
+                    context, 'common.refresh.failed_text'),
+                failedIcon:
+                    const Icon(FeatherIcons.alertCircle, color: Colors.red),
+                refreshingIcon: const CupertinoActivityIndicator(),
+                idleIcon:
+                    const Icon(FeatherIcons.arrowDown, color: Colors.grey),
+                releaseIcon:
+                    const Icon(FeatherIcons.arrowUp, color: Colors.grey),
+                refreshStyle: RefreshStyle.UnFollow,
+              ),
+              footerBuilder: () => const ClassicFooter(
+                loadingText: '加载中',
+                canLoadingText: '松手加载',
+                idleText: '上拉加载',
+                idleIcon: Icon(FeatherIcons.arrowUp, color: Colors.grey),
+                canLoadingIcon: Icon(FeatherIcons.loader, color: Colors.grey),
+                failedIcon: Icon(FeatherIcons.alertCircle, color: Colors.red),
+                failedText: '加载失败,请重试',
+                noDataText: '已经到底啦',
+                loadingIcon: CupertinoActivityIndicator(),
+              ),
+              springDescription: const SpringDescription(
+                stiffness: 170,
+                damping: 16,
+                mass: 1.9,
+              ), // 自定义回弹动画,三个属性值意义请查询flutter api
+              enableScrollWhenRefreshCompleted:
+                  true, //这个属性不兼容PageView和TabBarView,如果你特别需要TabBarView左右滑动,你需要把它设置为true
+              child: widget!,
+            ),
+          );
+        },
+        navigatorObservers: [BotToastNavigatorObserver()],
+        debugShowCheckedModeBanner: false,
+        initialRoute: RouterConfig.RouteName.home,
+        onGenerateRoute: RouterConfig.Router.generateRoute,
+        themeMode: appStore.themeMode,
+        theme: ThemeConfig.lightTheme,
+        darkTheme: ThemeConfig.darkTheme,
+        title: Constants.appName,
+        locale: appStore.localeMode,
       ),
     );
   }

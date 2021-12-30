@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:tiktoklikescroller/tiktoklikescroller.dart';
 
 import '../../model/picture.dart';
 import '../../utils/utils.dart';
@@ -14,14 +15,16 @@ import 'widgets/top.dart';
 class NewPictureDetail extends StatefulWidget {
   const NewPictureDetail({
     Key? key,
-    this.heroLabel,
     required this.picture,
+    this.initialAnimation = true,
+    this.heroLabel,
     this.pictureStyle = PictureStyle.small,
   }) : super(key: key);
 
   final Picture picture;
   final PictureStyle? pictureStyle;
   final String? heroLabel;
+  final bool initialAnimation;
 
   @override
   _NewPictureDetailState createState() => _NewPictureDetailState();
@@ -39,28 +42,35 @@ class _NewPictureDetailState extends State<NewPictureDetail>
 
   @override
   void initState() {
+    print('initState');
+    print(widget.picture.title);
     super.initState();
     _pageStore.init(widget.picture);
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
-    // TODO(pictureDetail): 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画.
-    _controller.value = 1;
-    Timer(const Duration(milliseconds: 250), () {
-      _controller.reverse(from: 1);
-      _pageStore.watchQuery();
-    });
+    if (widget.initialAnimation) {
+      // TODO(pictureDetail): 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画.
+      _controller.value = 1;
+      Timer(const Duration(milliseconds: 250), () {
+        _controller.reverse(from: 1);
+        _pageStore.watchQuery();
+      });
+    }
   }
 
   @override
   void didPop() {
+    print('didPop');
     _controller.forward();
   }
 
   @override
   void dispose() {
+    print('dispose');
     _pageStore.close();
+    _controller.dispose();
     super.dispose();
   }
 

@@ -2,6 +2,10 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
+import 'package:soap_app/pages/new_picture_detail/new_picture_detail.dart';
+import 'package:soap_app/pages/new_picture_detail/page_view.dart';
+import 'package:soap_app/utils/utils.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../model/collection.dart';
@@ -27,6 +31,8 @@ class RouteName {
   static const String home = '/';
   static const String test = 'test';
   static const String picture_detail = 'picture_detail';
+  static const String new_picture_detail = 'new_picture_detail';
+  static const String new_picture_detail_list = 'new_picture_detail_list';
   static const String login = 'login';
   static const String user = 'user';
   static const String setting = 'setting';
@@ -67,6 +73,27 @@ class Router {
           builder: (_) => PictureDetailPage(
             picture: (settings.arguments! as dynamic)['picture'] as Picture,
             heroLabel: (settings.arguments! as dynamic)['heroLabel'] as String?,
+          ),
+        );
+      case RouteName.new_picture_detail:
+        // return HeroDetailRoute<void>(builder: (_) => PictureDetail());
+        return HeroDetailRoute<void>(
+          builder: (_) => NewPictureDetail(
+            heroLabel: (settings.arguments! as dynamic)['heroLabel'] as String?,
+            picture: (settings.arguments! as dynamic)['picture'] as Picture,
+            pictureStyle: (settings.arguments! as dynamic)['pictureStyle']
+                as PictureStyle?,
+          ),
+        );
+      case RouteName.new_picture_detail_list:
+        // return HeroDetailRoute<void>(builder: (_) => PictureDetail());
+        return HeroDetailRoute<void>(
+          builder: (_) => PictureDetail(
+            initialPicture:
+                (settings.arguments! as dynamic)['initialPicture'] as Picture,
+            store: (settings.arguments! as dynamic)['store'] as ListStoreBase,
+            pictureStyle: (settings.arguments! as dynamic)['pictureStyle']
+                as PictureStyle?,
           ),
         );
       case RouteName.setting:
