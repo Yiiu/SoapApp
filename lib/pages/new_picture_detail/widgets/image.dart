@@ -16,6 +16,7 @@ class NewPictureDetailImage extends StatefulWidget {
     required this.picture,
     required this.pictureStyle,
     this.heroLabel,
+    this.photoViewListen,
   }) : super(key: key);
 
   final PictureStyle pictureStyle;
@@ -23,6 +24,8 @@ class NewPictureDetailImage extends StatefulWidget {
   final Picture picture;
 
   final String? heroLabel;
+
+  final void Function(PhotoViewControllerValue)? photoViewListen;
 
   @override
   _NewPictureDetailImageState createState() => _NewPictureDetailImageState();
@@ -35,9 +38,12 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   List<double> doubleTapScales = <double>[1.0, 2.0];
 
+  final PhotoViewController _photoController = PhotoViewController();
+
   @override
   void initState() {
-    precache();
+    // precache();
+    _photoController.outputStateStream.listen(widget.photoViewListen);
     super.initState();
   }
 
@@ -118,11 +124,12 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
       scrollPhysics: const BouncingScrollPhysics(),
       builder: (BuildContext context, int index) {
         return PhotoViewGalleryPageOptions.customChild(
+          controller: _photoController,
           initialScale: PhotoViewComputedScale.covered,
           minScale: PhotoViewComputedScale.contained,
           // tightMode: true,
           maxScale: PhotoViewComputedScale.covered * 3,
-          gestureDetectorBehavior: HitTestBehavior.opaque,
+          gestureDetectorBehavior: HitTestBehavior.translucent,
           child: Container(
             color: Colors.transparent,
             child: Stack(

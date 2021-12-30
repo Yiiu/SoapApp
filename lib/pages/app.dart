@@ -9,12 +9,12 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../config/const.dart';
+// ignore: library_prefixes
 import '../config/router.dart' as RouterConfig;
 import '../config/theme.dart';
 import '../generated/l10n.dart';
 import '../store/app_store.dart';
 import '../store/index.dart';
-import '../widget/will_pop_soap.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);

@@ -210,7 +210,7 @@ packages:
       name: connectivity_plus
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "1.4.0"
+    version: "2.1.0"
   connectivity_plus_linux:
     dependency: transitive
     description:
@@ -488,7 +488,7 @@ packages:
       name: flutter_i18n
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.30.0"
+    version: "0.31.0"
   flutter_image_compress:
     dependency: "direct main"
     description:
@@ -645,14 +645,14 @@ packages:
       name: graphql
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1-beta.2"
   graphql_flutter:
     dependency: "direct main"
     description:
       name: graphql_flutter
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "5.0.0"
+    version: "5.0.1-beta.2"
   graphs:
     dependency: transitive
     description:
@@ -1146,7 +1146,7 @@ packages:
       name: rxdart
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "0.26.0"
+    version: "0.27.3"
   searchfield:
     dependency: "direct main"
     description:

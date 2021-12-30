@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:photo_view/photo_view.dart';
 import 'package:tiktoklikescroller/tiktoklikescroller.dart';
 
 import '../../model/picture.dart';
@@ -19,12 +20,15 @@ class NewPictureDetail extends StatefulWidget {
     this.initialAnimation = true,
     this.heroLabel,
     this.pictureStyle = PictureStyle.small,
+    this.photoViewListen,
+    // this.
   }) : super(key: key);
 
   final Picture picture;
   final PictureStyle? pictureStyle;
   final String? heroLabel;
   final bool initialAnimation;
+  final void Function(PhotoViewControllerValue)? photoViewListen;
 
   @override
   _NewPictureDetailState createState() => _NewPictureDetailState();
@@ -102,6 +106,7 @@ class _NewPictureDetailState extends State<NewPictureDetail>
                 child: Observer(builder: (_) {
                   return NewPictureDetailImage(
                     picture: _pageStore.picture ?? widget.picture,
+                    photoViewListen: widget.photoViewListen,
                     pictureStyle: widget.pictureStyle!,
                     heroLabel: widget.heroLabel,
                   );
