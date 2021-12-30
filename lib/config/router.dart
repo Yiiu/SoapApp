@@ -29,6 +29,7 @@ import '../widget/widgets.dart';
 
 class RouteName {
   static const String home = '/';
+  static const String first_home = 'first_home';
   static const String test = 'test';
   static const String picture_detail = 'picture_detail';
   static const String new_picture_detail = 'new_picture_detail';
@@ -52,6 +53,11 @@ class Router {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     switch (settings.name) {
       case RouteName.home:
+        return CupertinoPageRoute<void>(
+          builder: (_) => const HomePage(),
+          settings: settings,
+        );
+      case RouteName.first_home:
         return CupertinoPageRoute<void>(
           builder: (_) => const HomePage(),
           settings: settings,

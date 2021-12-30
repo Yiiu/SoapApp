@@ -262,32 +262,37 @@ class _SettingPageState extends State<SettingPage> {
                   );
                 },
               ),
-              if (accountStore.isLogin) ...<Widget>[
-                const SizedBox(height: 14),
-                Container(
-                  color: theme.cardColor,
-                  child: TouchableOpacity(
-                    activeOpacity: activeOpacity,
-                    onTap: () async {
-                      await accountStore.signup();
-                    },
-                    behavior: HitTestBehavior.opaque,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 12,
-                        horizontal: 12,
-                      ),
-                      child: Text(
-                        FlutterI18n.translate(context, 'profile.btn.signout'),
-                        style: TextStyle(
-                          color: theme.errorColor,
-                          fontSize: 16,
-                        ),
+              // if (accountStore.isLogin) ...<Widget>[
+              const SizedBox(height: 14),
+              Container(
+                color: theme.cardColor,
+                child: TouchableOpacity(
+                  activeOpacity: activeOpacity,
+                  onTap: () async {
+                    await accountStore.signup();
+                    SoapToast.success('已登出!');
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      RouteName.first_home,
+                      (route) => route.isFirst,
+                    );
+                  },
+                  behavior: HitTestBehavior.opaque,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 12,
+                      horizontal: 12,
+                    ),
+                    child: Text(
+                      FlutterI18n.translate(context, 'profile.btn.signout'),
+                      style: TextStyle(
+                        color: theme.errorColor,
+                        fontSize: 16,
                       ),
                     ),
                   ),
                 ),
-              ],
+              ),
+              // ],
             ],
           ),
         ),

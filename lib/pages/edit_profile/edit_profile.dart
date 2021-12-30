@@ -39,6 +39,7 @@ class EditProfilePage extends StatelessWidget {
     try {
       await _accountProvider.updateProfile(data);
       SoapToast.success('保存成功');
+      accountStore.getUserInfo();
     } on OperationException catch (_, stackTrace) {
       captureException(_, stackTrace: stackTrace);
       // print(_.graphqlErrors[0].extensions?['exception']['message']);

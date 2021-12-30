@@ -73,7 +73,7 @@ mixin ThemeConfig {
     errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
     appBarTheme: const AppBarTheme(
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     primaryIconTheme: IconThemeData(color: lightTextColor.withOpacity(.8)),

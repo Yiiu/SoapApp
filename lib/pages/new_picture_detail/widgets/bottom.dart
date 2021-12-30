@@ -28,6 +28,7 @@ class NewPictureDetailBottom extends StatefulWidget {
 
 class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
   late Animation<Offset> _bottomAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -35,6 +36,12 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
     _bottomAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, 1),
+    ).animate(
+      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
+    );
+    _opacityAnimation = Tween<double>(
+      begin: 1,
+      end: 0,
     ).animate(
       CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
     );
@@ -194,38 +201,41 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
       bottom: 0,
       left: 0,
       right: 0,
-      child: SlideTransition(
-        position: _bottomAnimation,
-        child: Stack(
-          alignment: AlignmentDirectional.bottomStart,
-          children: <Widget>[
-            IgnorePointer(
-              child: Container(
-                height: 200 + MediaQuery.of(context).padding.bottom,
-              ),
-            ),
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: IgnorePointer(
+      child: FadeTransition(
+        opacity: _opacityAnimation,
+        child: SlideTransition(
+          position: _bottomAnimation,
+          child: Stack(
+            alignment: AlignmentDirectional.bottomStart,
+            children: <Widget>[
+              IgnorePointer(
                 child: Container(
-                  height: 160 + MediaQuery.of(context).padding.bottom,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.bottomCenter,
-                      end: Alignment.topCenter,
-                      colors: [
-                        Colors.black45,
-                        Colors.transparent,
-                      ],
+                  height: 200 + MediaQuery.of(context).padding.bottom,
+                ),
+              ),
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: IgnorePointer(
+                  child: Container(
+                    height: 160 + MediaQuery.of(context).padding.bottom,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.bottomCenter,
+                        end: Alignment.topCenter,
+                        colors: [
+                          Colors.black45,
+                          Colors.transparent,
+                        ],
+                      ),
                     ),
                   ),
                 ),
               ),
-            ),
-            _buildContent(context),
-          ],
+              _buildContent(context),
+            ],
+          ),
         ),
       ),
     );

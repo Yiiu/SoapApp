@@ -1,8 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:soap_app/model/picture.dart';
 
+import '../../model/picture.dart';
 import '../../utils/utils.dart';
 import '../home/new/stores/new_list_store.dart';
 import 'new_picture_detail.dart';
@@ -53,22 +55,23 @@ class PictureDetailState extends State<PictureDetail>
 
   late int currentIndex;
 
-  late int _lastReportedPage = 0;
-
   @override
   void initState() {
     _refreshController = RefreshController();
     initialIndex = widget.store.pictureList!.indexWhere(
         (Picture picture) => picture.id == widget.initialPicture.id);
     currentIndex = initialIndex;
-    _lastReportedPage = initialIndex;
     controller = PageController(initialPage: initialIndex);
     super.initState();
   }
 
   @override
+  void deactivate() {
+    super.deactivate();
+  }
+
+  @override
   void dispose() {
-    // TODO: implement dispose
     _refreshController.dispose();
     super.dispose();
   }
@@ -83,10 +86,13 @@ class PictureDetailState extends State<PictureDetail>
               notification is ScrollUpdateNotification) {
             final PageMetrics metrics = notification.metrics as PageMetrics;
             final int currentPage = metrics.page!.round();
-            if (currentPage != _lastReportedPage) {
-              _lastReportedPage = currentPage;
-              // this will callback onPageChange()
-              print('onPageChange + $currentPage');
+            if (currentPage != currentIndex) {
+              setState(() {
+                currentIndex = currentPage;
+              });
+              // Timer(const Duration(milliseconds: 400), () {
+              //   setState(() {});
+              // });
             }
           }
           return false;
@@ -97,7 +103,6 @@ class PictureDetailState extends State<PictureDetail>
           onRefresh: () async {
             print('onRefresh');
             await Future<void>.delayed(const Duration(milliseconds: 4000));
-
             if (mounted) setState(() {});
             _refreshController.refreshFailed();
           },
@@ -111,9 +116,13 @@ class PictureDetailState extends State<PictureDetail>
                 delegate: SliverChildListDelegate(
                   widget.store.pictureList!.map((Picture picture) {
                     final int idx = widget.store.pictureList!.indexOf(picture);
+                    if (currentIndex + 2 <= idx || currentIndex - 2 >= idx) {
+                      return Container();
+                    }
                     return NewPictureDetail(
                       key: Key(widget.store.pictureList![idx].id.toString()),
                       picture: widget.store.pictureList![idx],
+                      current: currentIndex == idx,
                       heroLabel:
                           currentIndex == idx ? 'new-picture-detail' : null,
                       initialAnimation: false,

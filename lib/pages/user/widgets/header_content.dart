@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
@@ -198,42 +199,57 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                               ),
                             const SizedBox(width: 8),
                             if (widget.store.user!.birthday != null)
-                              Container(
-                                height: 22,
-                                decoration: BoxDecoration(
-                                  color: Colors.white.withOpacity(.1),
-                                  borderRadius: BorderRadius.circular(25),
-                                ),
-                                padding: const EdgeInsets.symmetric(
-                                  horizontal: 8,
-                                  vertical: 2,
-                                ),
-                                child: Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 2),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: <Widget>[
-                                      SizedBox(
-                                        width: 12,
-                                        height: 12,
-                                        child: SvgPicture.asset(
-                                          'assets/svg/constellation/${constellationEng[widget.store.user!.constellation!]}.svg',
-                                          color: const Color(0xffff85c0),
+                              if (widget.store.user!.birthdayShow != 0)
+                                Container(
+                                  height: 22,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white.withOpacity(.1),
+                                    borderRadius: BorderRadius.circular(25),
+                                  ),
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 2,
+                                  ),
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 2),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 12,
+                                          height: 12,
+                                          child: SvgPicture.asset(
+                                            'assets/svg/constellation/${constellationEng[widget.store.user!.constellation!]}.svg',
+                                            color: const Color(0xffff85c0),
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 2),
-                                      Text(
-                                        widget.store.user!.constellation!,
-                                        style: TextStyle(
-                                          color: Colors.white.withOpacity(.8),
-                                          fontSize: 10,
-                                        ),
-                                      )
-                                    ],
+                                        const SizedBox(width: 3),
+                                        if (widget.store.user!.birthdayShow ==
+                                            2)
+                                          Text(
+                                            widget.store.user!.constellation!,
+                                            style: TextStyle(
+                                              color:
+                                                  Colors.white.withOpacity(.8),
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                        if (widget.store.user!.birthdayShow ==
+                                            1)
+                                          Text(
+                                            Jiffy(widget.store.user!.birthday!)
+                                                .MMMMd,
+                                            style: TextStyle(
+                                              color:
+                                                  Colors.white.withOpacity(.8),
+                                              fontSize: 10,
+                                            ),
+                                          ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
                           ],
                         );
                       }),
@@ -265,9 +281,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
           }),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(
-            
-          ),
+          padding: const EdgeInsets.symmetric(),
           child: Flex(
             direction: Axis.horizontal,
             children: <Widget>[

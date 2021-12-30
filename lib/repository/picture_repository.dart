@@ -105,14 +105,14 @@ class PictureRepository {
     required List<String> tags,
     Location? location,
   }) async {
-    final Map<String, Object> variables = {
+    final Map<String, dynamic> variables = <String, dynamic>{
       'id': id,
-      'data': {
+      'data': <String, dynamic>{
         'title': title,
         'bio': bio,
         'isPrivate': isPrivate,
         'tags': tags,
-        'location': location,
+        'locationUid': location?.uid,
       }
     };
     final QueryResult result = await GraphqlConfig.graphQLClient.mutate(

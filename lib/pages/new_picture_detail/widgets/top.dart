@@ -23,6 +23,7 @@ class NewPictureDetailTop extends StatefulWidget {
 
 class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
   late Animation<Offset> _topAnimation;
+  late Animation<double> _opacityAnimation;
 
   @override
   void initState() {
@@ -30,6 +31,12 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
     _topAnimation = Tween<Offset>(
       begin: Offset.zero,
       end: const Offset(0, -1),
+    ).animate(
+      CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
+    );
+    _opacityAnimation = Tween<double>(
+      begin: 1,
+      end: 0,
     ).animate(
       CurvedAnimation(parent: widget.controller, curve: Curves.easeInOut),
     );
@@ -51,85 +58,88 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
     return Positioned(
       child: Hero(
         tag: '_NewPictureDetailTopState${widget.picture.id}',
-        child: SlideTransition(
-          position: _topAnimation,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                child: Container(
-                  height: 120,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Colors.black45,
-                        Colors.transparent,
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              SoapAppBar(
-                backgroundColor: Colors.transparent,
-                textColor: Colors.white,
-                brightness: Brightness.dark,
-                automaticallyImplyLeading: true,
-                elevation: 0,
-                centerTitle: false,
-                actions: [
-                  TouchableOpacity(
-                    activeOpacity: activeOpacity,
-                    onTap: () {
-                      showSoapBottomSheet<dynamic>(
-                        context,
-                        child: PictureDetailMoreHandle(
-                          picture: widget.picture,
-                        ),
-                      );
-                    },
-                    child: const Padding(
-                      padding: EdgeInsets.only(right: 12),
-                      child: Icon(
-                        FeatherIcons.moreHorizontal,
-                        color: Colors.white,
+        child: FadeTransition(
+          opacity: _opacityAnimation,
+          child: SlideTransition(
+            position: _topAnimation,
+            child: Stack(
+              children: <Widget>[
+                Positioned(
+                  child: Container(
+                    height: 120,
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Colors.black45,
+                          Colors.transparent,
+                        ],
                       ),
                     ),
                   ),
-                ],
-                title: Padding(
-                  padding: const EdgeInsets.symmetric(),
-                  child: TouchableOpacity(
-                    activeOpacity: activeOpacity,
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () => openUserPage(context),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        Avatar(
-                          size: 28,
-                          image: widget.picture.user!.avatarUrl,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 8,
+                ),
+                SoapAppBar(
+                  backgroundColor: Colors.transparent,
+                  textColor: Colors.white,
+                  brightness: Brightness.dark,
+                  automaticallyImplyLeading: true,
+                  elevation: 0,
+                  centerTitle: false,
+                  actions: [
+                    TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      onTap: () {
+                        showSoapBottomSheet<dynamic>(
+                          context,
+                          child: PictureDetailMoreHandle(
+                            picture: widget.picture,
                           ),
-                          child: Text(
-                            widget.picture.user!.fullName,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: Colors.white,
+                        );
+                      },
+                      child: const Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Icon(
+                          FeatherIcons.moreHorizontal,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                  title: Padding(
+                    padding: const EdgeInsets.symmetric(),
+                    child: TouchableOpacity(
+                      activeOpacity: activeOpacity,
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () => openUserPage(context),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Avatar(
+                            size: 28,
+                            image: widget.picture.user!.avatarUrl,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12,
+                              vertical: 8,
+                            ),
+                            child: Text(
+                              widget.picture.user!.fullName,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 15,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

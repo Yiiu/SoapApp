@@ -17,6 +17,7 @@ class NewPictureDetail extends StatefulWidget {
   const NewPictureDetail({
     Key? key,
     required this.picture,
+    this.current,
     this.initialAnimation = true,
     this.heroLabel,
     this.pictureStyle = PictureStyle.small,
@@ -28,6 +29,7 @@ class NewPictureDetail extends StatefulWidget {
   final PictureStyle? pictureStyle;
   final String? heroLabel;
   final bool initialAnimation;
+  final bool? current;
   final void Function(PhotoViewControllerValue)? photoViewListen;
 
   @override
@@ -46,22 +48,31 @@ class _NewPictureDetailState extends State<NewPictureDetail>
 
   @override
   void initState() {
-    print('initState');
-    print(widget.picture.title);
-    super.initState();
     _pageStore.init(widget.picture);
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 400),
     );
+    _pageStore.watchQuery();
+    // if (widget.current != null && widget.current!) {
+    // }
     if (widget.initialAnimation) {
       // TODO(pictureDetail): 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画.
       _controller.value = 1;
       Timer(const Duration(milliseconds: 250), () {
         _controller.reverse(from: 1);
-        _pageStore.watchQuery();
       });
     }
+    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    if (widget.current != null && widget.current!) {
+      print('initState');
+      print(widget.picture.title);
+    }
+    super.didChangeDependencies();
   }
 
   @override

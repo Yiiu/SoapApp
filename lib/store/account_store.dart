@@ -125,9 +125,11 @@ abstract class _AccountStoreBase with Store {
     accessTokenExpiresAt = null;
     userInfo = null;
     setSentrtyInfo(userInfo);
-    await StorageUtil.preferences!.remove('account.accessToken');
-    await StorageUtil.preferences!.remove('account.userInfo');
-    await GraphqlConfig.graphQLClient.resetStore();
+    await Future.wait<dynamic>({
+      StorageUtil.preferences!.remove('account.accessToken'),
+      StorageUtil.preferences!.remove('account.userInfo'),
+      GraphqlConfig.graphQLClient.resetStore()!,
+    });
   }
 
   @action

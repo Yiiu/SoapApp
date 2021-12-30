@@ -60,10 +60,13 @@ Future<void> main() async {
         options.debug = false;
         options.dsn = dotenv.env['SENTRY_URL'];
       },
-      appRunner: () => runApp(GraphQLProvider(
-        client: GraphqlConfig.client,
-        child: const MyApp(),
-      )),
+      appRunner: () {
+        accountStore.initializeSentry();
+        runApp(GraphQLProvider(
+          client: GraphqlConfig.client,
+          child: const MyApp(),
+        ));
+      },
     );
   } else {
     runApp(GraphQLProvider(
