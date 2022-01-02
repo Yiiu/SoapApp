@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -90,68 +91,72 @@ class PictureDetailState extends State<PictureDetail>
               setState(() {
                 currentIndex = currentPage;
               });
-              // Timer(const Duration(milliseconds: 400), () {
-              //   setState(() {});
-              // });
             }
           }
           return false;
         },
-        child: SmartRefresher(
-          enablePullUp: true,
-          controller: _refreshController,
-          onRefresh: () async {
-            print('onRefresh');
-            await Future<void>.delayed(const Duration(milliseconds: 4000));
-            if (mounted) setState(() {});
-            _refreshController.refreshFailed();
-          },
-          child: CustomScrollView(
-            physics: canScroll
-                ? const PageScrollPhysics(parent: BouncingScrollPhysics())
-                : const NeverScrollableScrollPhysics(),
-            controller: controller,
-            slivers: <Widget>[
-              SliverFillViewport(
-                delegate: SliverChildListDelegate(
-                  widget.store.pictureList!.map((Picture picture) {
-                    final int idx = widget.store.pictureList!.indexOf(picture);
-                    if (currentIndex + 2 <= idx || currentIndex - 2 >= idx) {
-                      return Container();
-                    }
-                    return NewPictureDetail(
-                      key: Key(widget.store.pictureList![idx].id.toString()),
-                      picture: widget.store.pictureList![idx],
-                      current: currentIndex == idx,
-                      heroLabel:
-                          currentIndex == idx ? 'new-picture-detail' : null,
-                      initialAnimation: false,
-                      pictureStyle: widget.pictureStyle,
-                      photoViewListen: (PhotoViewControllerValue event) {
-                        if (event.scale == 1.0 && !canScroll) {
-                          setState(() {
-                            canScroll = true;
-                          });
-                        }
-                        if (event.scale != 1.0 && canScroll) {
-                          setState(() {
-                            canScroll = false;
-                          });
-                        }
-                      },
-                    );
-                  }).toList(),
-                ),
-              )
-            ],
-          ),
-          onLoading: () async {
-            print('onload');
-            await Future<void>.delayed(const Duration(milliseconds: 2000));
-            if (mounted) setState(() {});
-            _refreshController.loadFailed();
-          },
-        ),
+        child: Observer(builder: (_) {
+          return SmartRefresher(
+            enablePullUp: true,
+            controller: _refreshController,
+            onRefresh: () async {
+              await widget.store.refresh();
+              _refreshController.refreshCompleted();
+            },
+            onLoading: () async {
+              if (widget.store.noMore) {
+                _refreshController.loadNoData();
+                return;
+              }
+              await widget.store.fetchMore();
+              // _refreshController.loadComplete();
+              controller.nextPage(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.easeInOut,
+              );
+            },
+            child: CustomScrollView(
+              physics: canScroll
+                  ? const PageScrollPhysics(parent: BouncingScrollPhysics())
+                  : const NeverScrollableScrollPhysics(),
+              controller: controller,
+              slivers: <Widget>[
+                SliverFillViewport(
+                  delegate: SliverChildListDelegate(
+                    widget.store.pictureList!.map((Picture picture) {
+                      final int idx =
+                          widget.store.pictureList!.indexOf(picture);
+                      if (currentIndex + 2 <= idx || currentIndex - 2 >= idx) {
+                        return Container();
+                      }
+                      return NewPictureDetail(
+                        key: Key(widget.store.pictureList![idx].id.toString()),
+                        picture: widget.store.pictureList![idx],
+                        current: currentIndex == idx,
+                        heroLabel:
+                            currentIndex == idx ? 'new-picture-detail' : null,
+                        initialAnimation: false,
+                        pictureStyle: widget.pictureStyle,
+                        photoViewListen: (PhotoViewControllerValue event) {
+                          if (event.scale == 1.0 && !canScroll) {
+                            setState(() {
+                              canScroll = true;
+                            });
+                          }
+                          if (event.scale != 1.0 && canScroll) {
+                            setState(() {
+                              canScroll = false;
+                            });
+                          }
+                        },
+                      );
+                    }).toList(),
+                  ),
+                )
+              ],
+            ),
+          );
+        }),
       ),
     );
     // return PageView.builder(

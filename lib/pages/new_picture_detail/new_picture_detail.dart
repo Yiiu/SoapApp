@@ -37,7 +37,10 @@ class NewPictureDetail extends StatefulWidget {
 }
 
 class _NewPictureDetailState extends State<NewPictureDetail>
-    with SingleTickerProviderStateMixin<NewPictureDetail>, RouteAware {
+    with
+        SingleTickerProviderStateMixin<NewPictureDetail>,
+        RouteAware,
+        WidgetsBindingObserver {
   late AnimationController _controller;
 
   final PictureDetailPageStore _pageStore = PictureDetailPageStore();
@@ -54,8 +57,10 @@ class _NewPictureDetailState extends State<NewPictureDetail>
       duration: const Duration(milliseconds: 400),
     );
     _pageStore.watchQuery();
-    // if (widget.current != null && widget.current!) {
-    // }
+    if (widget.current != null && widget.current!) {
+      print('initState');
+      print(widget.picture.title);
+    }
     if (widget.initialAnimation) {
       // TODO(pictureDetail): 因为 hero 或者挡住其他的层级，所以等hero动画完成再开始动画.
       _controller.value = 1;
@@ -63,22 +68,13 @@ class _NewPictureDetailState extends State<NewPictureDetail>
         _controller.reverse(from: 1);
       });
     }
+    // WidgetsBinding.instance.
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    if (widget.current != null && widget.current!) {
-      print('initState');
-      print(widget.picture.title);
-    }
     super.didChangeDependencies();
-  }
-
-  @override
-  void didPop() {
-    print('didPop');
-    _controller.forward();
   }
 
   @override

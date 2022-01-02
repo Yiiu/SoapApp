@@ -106,35 +106,32 @@ class _NewPictureDetailTopState extends State<NewPictureDetailTop> {
                       ),
                     ),
                   ],
-                  title: Padding(
-                    padding: const EdgeInsets.symmetric(),
-                    child: TouchableOpacity(
-                      activeOpacity: activeOpacity,
-                      behavior: HitTestBehavior.opaque,
-                      onTap: () => openUserPage(context),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          Avatar(
-                            size: 28,
-                            image: widget.picture.user!.avatarUrl,
+                  title: TouchableOpacity(
+                    activeOpacity: activeOpacity,
+                    behavior: HitTestBehavior.opaque,
+                    onTap: () => openUserPage(context),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Avatar(
+                          size: 28,
+                          image: widget.picture.user!.avatarUrl,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 12,
+                            vertical: 8,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 12,
-                              vertical: 8,
-                            ),
-                            child: Text(
-                              widget.picture.user!.fullName,
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                                color: Colors.white,
-                              ),
+                          child: Text(
+                            widget.picture.user!.fullName,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                              color: Colors.white,
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ),

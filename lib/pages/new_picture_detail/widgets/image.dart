@@ -6,7 +6,6 @@ import 'package:photo_view/photo_view_gallery.dart';
 
 import '../../../model/picture.dart';
 import '../../../utils/utils.dart';
-import '../../../widget/widgets.dart';
 
 typedef DoubleClickAnimationListener = void Function();
 
