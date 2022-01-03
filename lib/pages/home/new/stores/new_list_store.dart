@@ -18,6 +18,18 @@ class ListStoreBase {
   int page = 1;
   int pageSize = 30;
   int count = 0;
+
+  int get morePage {
+    return 0;
+  }
+
+  bool get noMore {
+    return true;
+  }
+
+  Future<void> fetchMore() async {}
+
+  Future<void> refresh() async {}
 }
 
 abstract class _NewListStoreBase with Store implements ListStoreBase {
@@ -43,11 +55,13 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
   @observable
   int count = 0;
 
+  @override
   @computed
   int get morePage {
     return (count / pageSize).ceil();
   }
 
+  @override
   @computed
   bool get noMore {
     return page + 1 >= morePage;
@@ -66,6 +80,7 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
 
   @action
   void init() {
+    print('init');
     setQueryCache();
     // if (!setQueryCache(data.id)) {
     // picture = data;
@@ -93,6 +108,7 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
     return false;
   }
 
+  @override
   Future<void> refresh() async {
     await GraphqlConfig.graphQLClient.query(graphql.QueryOptions(
       document: document,
@@ -104,6 +120,7 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
     // }
   }
 
+  @override
   @action
   Future<void> fetchMore() async {
     final graphql.QueryResult result =
@@ -153,7 +170,9 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
         if (result.isLoading) {
           return;
         }
-        setPictureList(result.data);
+        if (result.data?['page'] == page) {
+          setPictureList(result.data);
+        }
         // setPicture(result.data!['picture'] as Map<String, dynamic>?);
       }
     });

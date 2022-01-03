@@ -322,7 +322,7 @@ packages:
       name: exif
       url: "https://pub.flutter-io.cn"
     source: hosted
-    version: "3.0.1"
+    version: "3.1.1"
   extended_image:
     dependency: "direct main"
     description:
