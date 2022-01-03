@@ -8,9 +8,8 @@ A new Flutter project.
 
 ### 👻 preview
 
-| ![Home](doc/img/home.jpg)                     | ![Profile](doc/img/profile.jpg)       | ![Setting](doc/img/setting.jpg) |
-| --------------------------------------------- | ------------------------------------- | ------------------------------- |
-| ![picture_detail](doc/img/picture_detail.jpg) | ![Collection](doc/img/collection.jpg) | ![User](doc/img/user.jpg)       |
+| ![Home](doc/img/home.png) | ![picture_detail](doc/img/picture_detail.png) | ![Setting](doc/img/user_picture.png) |
+| ------------------------- | --------------------------------------------- | ------------------------------------ |
 
 ```
 flutter packages pub run build_runner watch
