@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 /// 视频手势封装
@@ -209,7 +210,7 @@ class _TikTokFavoriteAnimationIconState
   @override
   Widget build(BuildContext context) {
     Widget content = Icon(
-      Icons.favorite,
+      Ionicons.heart,
       size: widget.size,
       color: Colors.redAccent,
     );

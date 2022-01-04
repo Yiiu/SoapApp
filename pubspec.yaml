@@ -83,7 +83,6 @@ dependencies:
   flutter_feather_icons: 2.0.0+1
   cupertino_icons: ^1.0.4
   touchable_opacity: ^1.2.0
-  flutter_easyrefresh: ^2.2.1
   jiffy: ^5.0.0
   octo_image: ^1.0.1
   flutter_mobx: ^2.0.3+2
@@ -199,15 +198,15 @@ flutter:
           weight: 600
         - asset: assets/fonts/Rubik/700W.ttf
           weight: 700
-    - family: 江城圆体
-      fonts:
-        - asset: assets/fonts/江城圆体/400W.ttf
-        - asset: assets/fonts/江城圆体/300W.ttf
-          weight: 300
-        - asset: assets/fonts/江城圆体/500W.ttf
-          weight: 500
-        - asset: assets/fonts/江城圆体/600W.ttf
-          weight: 600
+    # - family: 江城圆体
+    #   fonts:
+    #     - asset: assets/fonts/江城圆体/400W.ttf
+    #     - asset: assets/fonts/江城圆体/300W.ttf
+    #       weight: 300
+    #     - asset: assets/fonts/江城圆体/500W.ttf
+    #       weight: 500
+    #     - asset: assets/fonts/江城圆体/600W.ttf
+    #       weight: 600
     # - family: 思源宋体
     #   fonts:
     #     - asset: assets/fonts/思源宋体/400W.otf

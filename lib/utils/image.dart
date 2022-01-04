@@ -1,5 +1,5 @@
-import 'dart:io';
-import 'dart:typed_data';
+import 'dart:io' as io;
+import 'dart:typed_data' as typed_data;
 
 import 'package:decimal/decimal.dart';
 import 'package:exif/exif.dart';
@@ -41,7 +41,7 @@ Future<Map<String, Object?>?> getEXIF(String path) async {
 
   try {
     final Map<String?, IfdTag> data = await readExifFromBytes(
-      await File(path).readAsBytes(),
+      await io.File(path).readAsBytes(),
     );
 
     if (data.isEmpty) {
@@ -129,7 +129,7 @@ Future<void> saveImage(String imageUrl, {bool isAsset = false}) async {
     }
 
     /// 保存的图片数据
-    Uint8List imageBytes;
+    typed_data.Uint8List imageBytes;
 
     if (isAsset) {
       /// 保存资源图片
@@ -137,7 +137,8 @@ Future<void> saveImage(String imageUrl, {bool isAsset = false}) async {
       imageBytes = bytes.buffer.asUint8List();
     } else {
       /// 保存网络图片
-      imageBytes = await extended_image.getNetworkImageData(imageUrl) as Uint8List;
+      imageBytes = await extended_image.getNetworkImageData(imageUrl)
+          as typed_data.Uint8List;
     }
 
     /// 保存图片
@@ -155,13 +156,14 @@ Future<void> saveImage(String imageUrl, {bool isAsset = false}) async {
   }
 }
 
-Future<File> getImageFile({required Uint8List bytes, String? name}) async {
-  final Uint8List sourceBytes = bytes.buffer.asUint8List();
-  final Directory tempDir = await getTemporaryDirectory();
+Future<io.File> getImageFile(
+    {required typed_data.Uint8List bytes, String? name}) async {
+  final typed_data.Uint8List sourceBytes = bytes.buffer.asUint8List();
+  final io.Directory tempDir = await getTemporaryDirectory();
 
   final String storagePath = tempDir.path;
-  final File file;
-  file = File('$storagePath/$name');
+  final io.File file;
+  file = io.File('$storagePath/$name');
 
   if (!file.existsSync()) {
     file.createSync();

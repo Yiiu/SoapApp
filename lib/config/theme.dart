@@ -64,7 +64,7 @@ mixin ThemeConfig {
   );
 
   static ThemeData lightTheme = ThemeData(
-    fontFamily: '江城圆体',
+    fontFamily: 'Rubik',
     brightness: Brightness.light,
     backgroundColor: const Color(0xfff9fafa),
     primaryColorBrightness: Brightness.light,
@@ -88,7 +88,7 @@ mixin ThemeConfig {
   );
 
   static ThemeData darkTheme = ThemeData(
-    fontFamily: '江城圆体',
+    fontFamily: 'Rubik',
     primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
     backgroundColor: darkBG,

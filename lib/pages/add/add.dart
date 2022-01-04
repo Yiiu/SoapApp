@@ -1,9 +1,10 @@
-import 'dart:convert';
-import 'dart:typed_data';
+import 'dart:convert' as convert;
+import 'dart:io';
+import 'dart:typed_data' as typed_data;
 
 import 'package:blurhash/blurhash.dart';
 import 'package:dio/dio.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:extended_image/extended_image.dart' as extended_image;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
@@ -77,11 +78,12 @@ class _AddPageState extends State<AddPage> {
 
   Future<void> _getImageClassify() async {
     if (widget.assets != null) {
-      final Uint8List? thumb =
+      final typed_data.Uint8List? thumb =
           await widget.assets![0].thumbDataWithSize(600, 600, quality: 70);
       if (thumb != null) {
-        final String base64Image = base64Encode(thumb);
-        final Response? result = await _baiduProvider.getImageClassify(base64Image);
+        final String base64Image = convert.base64Encode(thumb);
+        final Response? result =
+            await _baiduProvider.getImageClassify(base64Image);
         if (result?.data?['result'] != null) {
           _classify = result!.data!['result'];
         }
@@ -119,7 +121,7 @@ class _AddPageState extends State<AddPage> {
           SoapToast.error('图片过大无法上传，请压缩后在上传！');
           return;
         }
-        final Uint8List? thumb = await widget.assets![0].thumbData;
+        final typed_data.Uint8List? thumb = await widget.assets![0].thumbData;
         final Map<String, Object?> info = {};
         final List<Future> futures = <Future>[];
         futures.add(
@@ -157,7 +159,7 @@ class _AddPageState extends State<AddPage> {
           );
           await _ossProvider.addPicture({
             'info': info,
-            'key': jsonDecode(ossData.data as String)['key'],
+            'key': convert.jsonDecode(ossData.data as String)['key'],
             'tags': _addStore.tags
                 .map((String e) => <String, String>{'name': e})
                 .toList(),
@@ -273,7 +275,8 @@ class _AddPageState extends State<AddPage> {
                                                   OctoPlaceholder.blurHash(
                                                 widget.picture!.blurhash,
                                               ),
-                                              image: ExtendedImage.network(
+                                              image: extended_image
+                                                  .ExtendedImage.network(
                                                 widget.picture!.pictureUrl(
                                                   style: PictureStyle.small,
                                                 ),
