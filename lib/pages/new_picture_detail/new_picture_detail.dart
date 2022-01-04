@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:tiktoklikescroller/tiktoklikescroller.dart';
 
 import '../../model/picture.dart';
 import '../../utils/utils.dart';

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'package:flutter/foundation.dart' show kIsWeb;
+
 class SoapListEmpty extends StatelessWidget {
   const SoapListEmpty({
     Key? key,
@@ -22,18 +24,19 @@ class SoapListEmpty extends StatelessWidget {
             height: 120,
             child: Stack(
               children: <Widget>[
-                Positioned(
-                  top: -60,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  child: Lottie.asset(
-                    'assets/lottie/cat.json',
-                    width: 240,
-                    height: 240,
-                    fit: BoxFit.fitWidth,
+                if (!kIsWeb)
+                  Positioned(
+                    top: -60,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Lottie.asset(
+                      'assets/lottie/cat.json',
+                      width: 240,
+                      height: 240,
+                      fit: BoxFit.fitWidth,
+                    ),
                   ),
-                ),
               ],
             ),
           ),
