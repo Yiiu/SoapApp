@@ -42,7 +42,7 @@ class _EditBirthdayState extends State<EditBirthday> {
       onOk: () async {
         String? value;
         if (_value != null) {
-          value = Jiffy(_value).format('yyyy-MM-dd');
+          value = Jiffy.parse(_value!).format(pattern: 'yyyy-MM-dd');
         }
         await widget.onOk.call({
           'birthday': value,
@@ -51,12 +51,12 @@ class _EditBirthdayState extends State<EditBirthday> {
       },
       child: Column(
         children: <Widget>[
-          DatePickerWidget(
-            initDateTime: Jiffy(_value).dateTime,
+          DateTimePickerWidget(
+            initDateTime: Jiffy.parse(_value!).dateTime,
             onChange: (DateTime date, List<int> _) {
               // print(Jiffy(date).format('yyyy-MM-dd'));
               // print(_);
-              _value = Jiffy(date).format('yyyy-MM-dd');
+              _value = Jiffy.parse(date.toString()).format(pattern: 'yyyy-MM-dd');
             },
             pickerTheme: DateTimePickerTheme(
               pickerHeight: 220,

@@ -46,8 +46,8 @@ String getConstellation(String birthday) {
   const String scorpio = '天蝎座'; //Scorpio 天蝎座（10月24日～11月22日）
   const String sagittarius = '射手座'; //Sagittarius 射手座（11月23日～12月21日）
 
-  final int month = Jiffy(birthday).month;
-  final int day = Jiffy(birthday).day;
+  final int month = Jiffy.parse(birthday).month;
+  final int day = Jiffy.parse(birthday).daysInMonth;
   String constellation = '';
 
   switch (month) {

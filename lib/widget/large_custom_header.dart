@@ -110,10 +110,10 @@ class LargeCustomHeader extends SliverPersistentHeaderDelegate {
                     child: OctoImage(
                       image: ExtendedImage.network(backgroundImage!).image,
                       fit: BoxFit.cover,
-                      errorBuilder: OctoError.blurHash(
-                        'L7KAmKP900~p?G_39F%L.T^lR50K',
-                        iconColor: Colors.white,
-                      ),
+                      // errorBuilder: OctoError.blurHash(
+                      //   'L7KAmKP900~p?G_39F%L.T^lR50K',
+                      //   iconColor: Colors.white,
+                      // ),
                     ),
                   ),
                   Positioned(

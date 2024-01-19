@@ -24,7 +24,7 @@ class _AddCollectionModalState extends State<AddCollectionModal> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
 
-  final AdvancedSwitchController _controller = AdvancedSwitchController();
+  final _controller = ValueNotifier<bool>(false);
 
   final FocusNode _titleFocusNode = FocusNode();
   final FocusNode _bioFocusNode = FocusNode();

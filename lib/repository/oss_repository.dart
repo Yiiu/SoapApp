@@ -53,7 +53,7 @@ class OssProvider {
   OssProvider() {
     httpClient = Dio()
       ..options.baseUrl = dotenv.env['API_URL']!
-      ..options.connectTimeout = 5000;
+      ..options.connectTimeout = const Duration(seconds: 5);
   }
   String bucketName = 'soapphoto';
   String endPoint = 'oss-cn-shanghai.aliyuncs.com';

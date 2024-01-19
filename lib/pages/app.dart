@@ -1,7 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/physics.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -9,6 +8,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../config/const.dart';
+
 // ignore: library_prefixes
 import '../config/router.dart' as RouterConfig;
 import '../config/theme.dart';
@@ -17,7 +17,7 @@ import '../store/app_store.dart';
 import '../store/index.dart';
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -86,9 +86,10 @@ class _MyAppState extends State<MyApp> {
                 stiffness: 170,
                 damping: 16,
                 mass: 1.9,
-              ), // 自定义回弹动画,三个属性值意义请查询flutter api
-              enableScrollWhenRefreshCompleted:
-                  true, //这个属性不兼容PageView和TabBarView,如果你特别需要TabBarView左右滑动,你需要把它设置为true
+              ),
+              // 自定义回弹动画,三个属性值意义请查询flutter api
+              enableScrollWhenRefreshCompleted: true,
+              //这个属性不兼容PageView和TabBarView,如果你特别需要TabBarView左右滑动,你需要把它设置为true
               child: widget!,
             ),
           );

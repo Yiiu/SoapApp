@@ -3,7 +3,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/utils/octo_bluehash.dart';
 import '../../config/theme.dart';
 import '../../graphql/fragments.dart';
 import '../../graphql/gql.dart';
@@ -27,6 +27,7 @@ class TagDetailPage extends StatefulWidget {
 
 class _TagDetailPageState extends State<TagDetailPage> {
   late Tag tag;
+
   @override
   void initState() {
     tag = widget.tag;
@@ -43,7 +44,7 @@ class _TagDetailPageState extends State<TagDetailPage> {
         titleHeight: 80,
         barCenterTitle: false,
         backgroundImageMaskColor: const Color.fromRGBO(0, 0, 0, 0.4),
-        backgroundImageWidget: OctoPlaceholder.blurHash(
+        backgroundImageWidget: OctoBlurHashFix.placeHolder(
           'LKO2?U%2Tw=w]~RBVZRi};RPxuwH',
         )(context),
         titleTextStyle: TextStyle(

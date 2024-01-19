@@ -80,11 +80,11 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
 
   @action
   void init() {
-    print('init');
-    setQueryCache();
-    // if (!setQueryCache(data.id)) {
-    // picture = data;
-    // }
+    watchQuery();
+    // 如果没有缓存，就请求
+    if (!setQueryCache()) {
+      refresh();
+    }
   }
 
   bool setQueryCache() {
@@ -115,9 +115,6 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
       fetchPolicy: graphql.FetchPolicy.networkOnly,
       variables: <String, dynamic>{'query': query, 'type': type},
     ));
-    // if (result.data != null) {
-    //   setPictureList(result.data);
-    // }
   }
 
   @override
@@ -152,7 +149,6 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
   }
 
   Future<void> watchQuery() async {
-    await Future<void>.delayed(Duration(milliseconds: screenDelayTimer));
     _observableQuery = GraphqlConfig.graphQLClient.watchQuery(
       graphql.WatchQueryOptions(
         document: document,
@@ -170,10 +166,10 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
         if (result.isLoading) {
           return;
         }
-        if (result.data?['page'] == page) {
+        print(result.data?['pictures']?['page']);
+        if (result.data?['pictures']?['page'] == page) {
           setPictureList(result.data);
         }
-        // setPicture(result.data!['picture'] as Map<String, dynamic>?);
       }
     });
   }
@@ -192,10 +188,6 @@ abstract class _NewListStoreBase with Store implements ListStoreBase {
       if (!noList) {
         pictureList = ObservableList<Picture>.of(result.list);
       }
-      // listData = pictureListDataFormat(
-      //   data,
-      //   label: 'pictures',
-      // );
     }
   }
 }

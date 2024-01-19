@@ -19,7 +19,7 @@ class EditGenderModal extends StatefulWidget {
 }
 
 class _EditGenderModalState extends State<EditGenderModal> {
-  final AdvancedSwitchController _controller = AdvancedSwitchController();
+  final _controller = ValueNotifier<bool>(false);
 
   late int gender;
   late bool genderSecret;

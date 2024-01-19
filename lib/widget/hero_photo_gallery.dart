@@ -76,7 +76,7 @@ class _HeroPhotoGalleryState extends State<HeroPhotoGallery>
       animation: animation,
       builder: (_, __) => ClipRRect(
         clipBehavior: Clip.hardEdge,
-        borderRadius: tween.evaluate(animation),
+        // borderRadius: tween.evaluate(animation),
         child: hero.child,
       ),
     );

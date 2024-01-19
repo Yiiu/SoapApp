@@ -1,12 +1,12 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bounceable/flutter_bounceable.dart';
-import 'package:keframe/frame_separate_widget.dart';
 import 'package:octo_image/octo_image.dart';
-import 'package:soap_app/pages/home/new/stores/new_list_store.dart';
+import 'package:soap_app/utils/octo_bluehash.dart';
 
 import '../../config/config.dart';
 import '../../model/picture.dart';
+import '../../pages/home/new/stores/new_list_store.dart';
 import '../../repository/picture_repository.dart';
 import '../../store/index.dart';
 import '../../utils/utils.dart';
@@ -46,59 +46,54 @@ class PictureItemContent extends StatelessWidget {
         borderRadius: pictureType == pictureItemType.single
             ? BorderRadius.zero
             : BorderRadius.circular(8),
-        child: FrameSeparateWidget(
-          placeHolder: Container(
-            color: HexColor.fromHex(picture.color),
-          ),
-          child: LikeGesture(
-            onLike: (doubleLike! && accountStore.isLogin)
-                ? () {
-                    _pictureRepository.liked(picture.id);
-                  }
-                : null,
-            onTap: () {
-              if (store != null && detailList) {
-                Navigator.of(context).pushNamed(
-                  RouteName.new_picture_detail_list,
-                  arguments: <String, dynamic>{
-                    'store': store,
-                    'pictureStyle': pictureStyle,
-                    'initialPicture': picture,
-                  },
-                );
-              } else {
-                Navigator.of(context).pushNamed(
-                  RouteName.new_picture_detail,
-                  arguments: <String, dynamic>{
-                    'heroLabel': heroLabel,
-                    'picture': picture,
-                    'pictureStyle': pictureStyle,
-                  },
-                );
-              }
-            },
-            child: SizedBox(
-              width: double.infinity,
-              height: double.infinity,
-              child: Hero(
-                tag: '$heroLabel-${picture.id}',
-                child: OctoImage(
-                  placeholderBuilder: (BuildContext context) {
-                    return Container(
-                      color: HexColor.fromHex(picture.color),
-                    );
-                  },
-                  errorBuilder: OctoError.blurHash(
-                    picture.blurhash,
-                    iconColor: Colors.white,
-                  ),
-                  image: ExtendedImage.network(
-                    picture.pictureUrl(
-                      style: pictureStyle,
-                    ),
-                  ).image,
-                  fit: BoxFit.cover,
+        child: LikeGesture(
+          onLike: (doubleLike! && accountStore.isLogin)
+              ? () {
+                  _pictureRepository.liked(picture.id);
+                }
+              : null,
+          onTap: () {
+            if (store != null && detailList) {
+              Navigator.of(context).pushNamed(
+                RouteName.new_picture_detail_list,
+                arguments: <String, dynamic>{
+                  'store': store,
+                  'pictureStyle': pictureStyle,
+                  'initialPicture': picture,
+                },
+              );
+            } else {
+              Navigator.of(context).pushNamed(
+                RouteName.new_picture_detail,
+                arguments: <String, dynamic>{
+                  'heroLabel': heroLabel,
+                  'picture': picture,
+                  'pictureStyle': pictureStyle,
+                },
+              );
+            }
+          },
+          child: SizedBox(
+            width: double.infinity,
+            height: double.infinity,
+            child: Hero(
+              tag: '$heroLabel-${picture.id}',
+              child: OctoImage(
+                placeholderBuilder: (BuildContext context) {
+                  return Container(
+                    color: HexColor.fromHex(picture.color),
+                  );
+                },
+                errorBuilder: OctoBlurHashFix.error(
+                  picture.blurhash,
+                  iconColor: Colors.white,
                 ),
+                image: ExtendedImage.network(
+                  picture.pictureUrl(
+                    style: pictureStyle,
+                  ),
+                ).image,
+                fit: BoxFit.cover,
               ),
             ),
           ),

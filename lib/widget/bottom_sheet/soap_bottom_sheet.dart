@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:pedantic/pedantic.dart';
 import '../../config/config.dart';
 
 /// Shows a harpy styled modal bottom sheet with the [child] in a column.
@@ -14,9 +13,9 @@ Future<T?> showSoapBottomSheet<T>(
   double? height,
   Color? backgroundColor,
 }) async {
-  if (hapticFeedback) {
-    unawaited(HapticFeedback.lightImpact());
-  }
+  // if (hapticFeedback) {
+  //   unawaited(HapticFeedback.lightImpact());
+  // }
 
   return showModalBottomSheet<T>(
     context: context,

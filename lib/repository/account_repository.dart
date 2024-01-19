@@ -12,7 +12,7 @@ class AccountProvider {
   AccountProvider() {
     httpClient = Dio()
       ..options.baseUrl = dotenv.env['API_URL']!
-      ..options.connectTimeout = 5000;
+      ..options.connectTimeout = const Duration(seconds: 5);
   }
 
   late Dio httpClient;

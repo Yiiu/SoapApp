@@ -99,7 +99,7 @@ class PictureTitleInfo extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '发布于 ${Jiffy(picture.createTime.toString()).fromNow()}',
+                  '发布于 ${Jiffy.parse(picture.createTime.toString()).fromNow()}',
                   style: TextStyle(
                     color: theme.textTheme.bodyText2!.color!.withOpacity(.6),
                     fontSize: 13,

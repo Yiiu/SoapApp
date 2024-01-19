@@ -78,7 +78,7 @@ class _OauthWebViewPageState extends State<OauthWebViewPage> {
                   _webViewController = controller;
                 },
                 initialUrlRequest: URLRequest(
-                  url: getOauthUrl(widget.type, OauthStateType.login),
+                //   url: getOauthUrl(widget.type, OauthStateType.login),
                 ),
                 onLoadStart: (InAppWebViewController controller, Uri? uri) {
                   setState(() {

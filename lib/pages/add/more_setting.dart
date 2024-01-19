@@ -19,7 +19,7 @@ class MoreSettingPage extends StatefulWidget {
 }
 
 class _MoreSettingPageState extends State<MoreSettingPage> {
-  final AdvancedSwitchController _controller = AdvancedSwitchController();
+  final _controller = ValueNotifier<bool>(false);
   @override
   void initState() {
     _controller.value = widget.isPrivate;

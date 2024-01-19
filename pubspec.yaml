@@ -18,7 +18,8 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 version: 1.0.1+2
 
 environment:
-  sdk: ">=2.15.0 < 3.0.0"
+  sdk: '>=3.1.3 <4.0.0'
+  flutter: ">=3.0.0"
 
 dependencies:
   json_annotation: ^4.4.0
@@ -27,92 +28,86 @@ dependencies:
   flutter_localizations:
     sdk: flutter
 
-  flutter_launcher_icons:
-    git:
-      url: git://github.com/chrystoffer/flutter_launcher_icons.git
+  flutter_launcher_icons: 0.13.1
   mime_type: ^1.0.0
-  path_provider: ^2.0.8
+  path_provider: ^2.1.2
   flutter_conditional_rendering: ^2.0.0
-  flutter_i18n: ^0.31.0
-  image_gallery_saver:
-    git:
-      url: git://github.com/hui-z/image_gallery_saver.git
-
-  get: ^4.5.1
-  permission_handler: ^8.3.0
-  jpush_flutter: ^2.2.1
-  lottie: ^1.2.1
+  flutter_i18n: ^0.35.0
+  image_gallery_saver: 2.0.3
+  get: ^4.6.6
+  permission_handler: ^11.2.0
+  jpush_flutter: ^2.5.0
+  lottie: ^3.0.0
   flutter_cupertino_datetime_picker: ^3.0.0
-  sentry_flutter: ^6.2.2
-  throttling: ^1.0.0
-  styled_text: ^4.0.0+1
-  auto_animated: ^3.0.1
-  flutter_displaymode: ^0.3.1-nullsafety.0
+  sentry_flutter: ^7.14.0
+  throttling: ^2.0.1
+  styled_text: ^8.1.0
+  auto_animated: ^3.2.0
+  flutter_displaymode: ^0.6.0
   share: ^2.0.4
-  flutter_advanced_switch: ^2.1.0
-  extended_text: ^8.0.2
-  material_tag_editor: ^0.1.1
-  blurhash: ^1.0.0
-  http_parser: ^4.0.0
-  uuid: ^3.0.5
-  crypto: ^3.0.1
-  intl: ^0.17.0
+  flutter_advanced_switch: ^3.0.1
+  extended_text: ^12.0.1
+  material_tag_editor: ^0.1.2
+  blurhash: ^1.1.1
+  http_parser: ^4.0.2
+  uuid: ^4.3.3
+  crypto: ^3.0.3
   palette_generator: ^0.3.2
-  decimal: ^2.1.0
-  wechat_assets_picker: ^6.3.1
-  exif: ^3.1.1
-  url_launcher: ^6.0.17
+  decimal: ^2.3.3
+  wechat_assets_picker: ^9.0.0-dev.2
+  exif: ^3.3.0
+  url_launcher: ^6.2.3
   enum_to_string: ^2.0.1
-  flutter_dotenv: ^5.0.2
-  flutter_inappwebview: ^5.3.2
-  bot_toast: ^4.0.1
-  waterfall_flow: ^3.0.2
-  extended_list: ^3.0.0
-  extended_image: ^6.0.1
-  extended_nested_scroll_view: ^5.0.0
+  flutter_dotenv: ^5.1.0
+  flutter_inappwebview: ^6.0.0-beta.22
+  bot_toast: ^4.1.3
+  waterfall_flow: ^3.0.3
+  extended_list: ^3.0.1
+  extended_image: ^8.2.0
+  extended_nested_scroll_view: ^6.2.1
   tab_indicator_styler: ^2.0.0-null-safety
-  modal_bottom_sheet: ^2.0.0
+  modal_bottom_sheet: ^3.0.0-pre
 
-  shared_preferences: ^2.0.11
+  shared_preferences: ^2.2.2
   validators: ^3.0.0
-  dio: ^4.0.4
-  flutter_svg: ^1.0.0
-  flutter_native_splash: ^1.3.3
-  graphql_flutter: 5.0.1-beta.2
-  gql: 0.13.0
+  dio: ^5.4.0
+  flutter_svg: ^2.0.9
+  flutter_native_splash: ^2.3.9
+  graphql_flutter: 5.2.0-beta.6
+  gql: 1.0.1-alpha+1705114622973
   flutter_feather_icons: 2.0.0+1
-  cupertino_icons: ^1.0.4
+  cupertino_icons: ^1.0.6
   touchable_opacity: ^1.2.0
-  jiffy: ^5.0.0
-  octo_image: ^1.0.1
-  flutter_mobx: ^2.0.3+2
-  mobx: ^2.0.6+1
-  shelf_proxy: ^1.0.1
+  jiffy: ^6.2.1
+  octo_image: ^2.0.0
+  flutter_mobx: ^2.2.0+2
+  mobx: ^2.3.0+1
+  shelf_proxy: ^1.0.4
   like_button: ^2.0.4
   pull_to_refresh: ^2.0.0
-  line_icons: ^2.0.1
-  flutter_staggered_animations: ^1.0.0
-  keframe: ^2.0.3
+  line_icons: ^2.0.3
+  flutter_staggered_animations: ^1.1.1
+  keframe: 3.0.0
   fps_monitor: ^2.0.0
-  flutter_blurhash: ^0.6.0
-  searchfield: ^0.5.6
+  flutter_blurhash: ^0.8.2
+  searchfield: ^0.9.0
   decorated_icon: ^1.2.1
-  ionicons: ^0.1.2
-  cached_network_image: ^3.2.0
-  flutter_image_compress: ^1.1.0
+  ionicons: ^0.2.2
+  cached_network_image: ^3.3.1
+  flutter_image_compress: ^2.1.0
   flutter_bounce: ^1.1.0
   flutter_bounceable: ^1.0.2
-  photo_view:
-    # custom photo_view with better gesture recognition
-    git: git://github.com/SoapPhoto/photo_view.git
-    # git: git://github.com/SoapPhoto/photo_view.git
+  photo_view: 0.14.0
+dependency_overrides:
+  photo_manager: ^3.0.0-dev.2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^2.1.7
-  json_serializable: ^6.1.3
-  mobx_codegen: ^2.0.5+2
-  flutter_lints: ^1.0.4
+  build_runner: ^2.4.8
+  json_serializable: ^6.7.1
+  mobx_codegen: ^2.6.0+1
+  flutter_lints: ^3.0.1
 flutter:
   uses-material-design: true
   assets:
@@ -223,7 +218,7 @@ flutter_native_splash:
 flutter_intl:
   enabled: true
 
-flutter_icons:
+flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/icon/icon.png"

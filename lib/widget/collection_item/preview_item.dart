@@ -1,6 +1,7 @@
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/utils/octo_bluehash.dart';
 import '../../model/collection.dart';
 import '../../utils/picture.dart';
 
@@ -31,7 +32,10 @@ class CollectionPreiewItem extends StatelessWidget {
               child: OctoImage(
                 width: double.infinity,
                 height: double.infinity,
-                placeholderBuilder: OctoPlaceholder.blurHash(
+                placeholderBuilder: OctoBlurHashFix.placeHolder(
+                  collection.preview![0].blurhash,
+                ),
+                errorBuilder: OctoBlurHashFix.error(
                   collection.preview![0].blurhash,
                 ),
                 image: ExtendedImage.network(collection.preview![index]

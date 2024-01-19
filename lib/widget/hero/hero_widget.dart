@@ -100,7 +100,7 @@ class _HeroWidgetState extends State<HeroWidget> {
 
               return ClipRRect(
                 clipBehavior: Clip.hardEdge,
-                borderRadius: tween.evaluate(animation),
+                // borderRadius: tween.evaluate(animation),
                 child: animatedBuilderChild,
               );
             },
@@ -110,7 +110,7 @@ class _HeroWidgetState extends State<HeroWidget> {
           animation: animation,
           builder: (_, __) => ClipRRect(
             clipBehavior: Clip.hardEdge,
-            borderRadius: tween.evaluate(animation),
+            // borderRadius: tween.evaluate(animation),
             child: hero.child,
           ),
         );

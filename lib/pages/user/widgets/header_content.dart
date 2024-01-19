@@ -238,7 +238,7 @@ class _UserHeaderContentState extends State<UserHeaderContent> {
                                         if (widget.store.user!.birthdayShow ==
                                             1)
                                           Text(
-                                            Jiffy(widget.store.user!.birthday!)
+                                            Jiffy.parse(widget.store.user!.birthday!)
                                                 .MMMMd,
                                             style: TextStyle(
                                               color:

@@ -91,7 +91,7 @@ class PictureDetailComment extends StatelessWidget {
                                     ),
                                   ),
                                   Text(
-                                    Jiffy(comment.createTime.toString())
+                                    Jiffy.parse(comment.createTime.toString())
                                         .fromNow(),
                                     textAlign: TextAlign.left,
                                     style: TextStyle(

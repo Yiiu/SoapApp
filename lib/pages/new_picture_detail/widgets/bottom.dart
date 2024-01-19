@@ -149,7 +149,7 @@ class _NewPictureDetailBottomState extends State<NewPictureDetailBottom> {
               Text(
                 FlutterI18n.translate(
                     context, 'picture.label.form_now', translationParams: {
-                  'time': Jiffy(widget.picture.createTime.toString()).fromNow()
+                  'time': Jiffy.parse(widget.picture.createTime.toString()).fromNow()
                 }),
                 // '发布于 ${Jiffy(widget.picture.createTime.toString()).fromNow()}',
                 style: TextStyle(

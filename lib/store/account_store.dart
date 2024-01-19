@@ -70,17 +70,17 @@ abstract class _AccountStoreBase with Store {
   }
 
   void setSentrtyInfo(User? user) {
-    if (user != null) {
-      Sentry.configureScope(
-        (Scope scope) => scope.user = SentryUser(
-          id: user.id.toString(),
-          username: user.username,
-          email: user.email,
-        ),
-      );
-    } else {
-      Sentry.configureScope((Scope scope) => scope.user = null);
-    }
+    // if (user != null) {
+    //   Sentry.configureScope(
+    //     (Scope scope) => scope.user = SentryUser(
+    //       id: user.id.toString(),
+    //       username: user.username,
+    //       email: user.email,
+    //     ),
+    //   );
+    // } else {
+    //   Sentry.configureScope((Scope scope) => scope.user = null);
+    // }
   }
 
   void setJPushInfo(User? user) {

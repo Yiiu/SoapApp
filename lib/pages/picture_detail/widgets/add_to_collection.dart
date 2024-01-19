@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:soap_app/utils/octo_bluehash.dart';
 import '../../../graphql/fragments.dart';
 import '../../../graphql/gql.dart';
 import '../../../graphql/query.dart';
@@ -31,8 +32,7 @@ class AddToCollection extends StatefulWidget {
 }
 
 class _AddToCollectionState extends State<AddToCollection> {
-  final RefreshController _refreshController =
-      RefreshController();
+  final RefreshController _refreshController = RefreshController();
 
   final PictureRepository pictureRepository = PictureRepository();
 
@@ -167,7 +167,7 @@ class _AddToCollectionState extends State<AddToCollection> {
                                         width: 48,
                                         height: 48,
                                         placeholderBuilder:
-                                            OctoPlaceholder.blurHash(
+                                            OctoBlurHashFix.placeHolder(
                                           collection.preview![0].blurhash,
                                         ),
                                         image: ExtendedImage.network(

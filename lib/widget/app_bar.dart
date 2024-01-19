@@ -67,8 +67,7 @@ class _SoapAppBarState extends State<SoapAppBar>
     }
     final AppBarTheme appBarTheme = AppBarTheme.of(context);
     final ThemeData theme = Theme.of(context);
-    final Brightness baseBrightness =
-        widget.brightness ?? appBarTheme.brightness ?? Brightness.light;
+    final Brightness baseBrightness = widget.brightness ?? theme.brightness;
     // theme.primaryColorBrightness;
     final SystemUiOverlayStyle overlayStyle = baseBrightness == Brightness.dark
         ? SystemUiOverlayStyle.light
@@ -171,7 +170,6 @@ class _SoapAppBarState extends State<SoapAppBar>
         );
       }
       return ClipRRect(
-        borderRadius: widget.borderRadius,
         child: BackdropFilter(
           filter: ImageFilter.blur(
             sigmaX: 16,

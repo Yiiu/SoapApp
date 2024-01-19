@@ -26,8 +26,7 @@ class _MyHomePageState extends State<HomePage>
   final int _addIndex = 1;
   late TabController tabController;
 
-  final RefreshController _newRefreshController =
-      RefreshController();
+  final RefreshController _newRefreshController = RefreshController();
 
   @override
   void initState() {
@@ -50,12 +49,12 @@ class _MyHomePageState extends State<HomePage>
         Navigator.pushNamed(context, RouteName.login);
         return;
       } else {
-        final List<AssetEntity>? assets = await AssetPicker.pickAssets(
-          context,
-          routeCurve: Curves.easeOut,
-          routeDuration: const Duration(milliseconds: 250),
-          maxAssets: 1,
-        );
+        final List<AssetEntity>? assets = await AssetPicker.pickAssets(context,
+            pickerConfig: AssetPickerConfig()
+            // routeCurve: Curves.easeOut,
+            // routeDuration: const Duration(milliseconds: 250),
+            // maxAssets: 1,
+            );
         if (assets != null && assets.isNotEmpty) {
           Navigator.of(context).pushNamed(RouteName.add, arguments: {
             'assets': assets,

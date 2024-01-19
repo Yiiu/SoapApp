@@ -84,7 +84,7 @@ class PictureItemHeader extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        Jiffy(picture.createTime.toString()).fromNow(),
+                        Jiffy.parse(picture.createTime.toString()).fromNow(),
                         textAlign: TextAlign.left,
                         style: TextStyle(
                           color:

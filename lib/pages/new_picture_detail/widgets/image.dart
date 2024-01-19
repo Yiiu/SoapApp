@@ -41,23 +41,23 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   void initState() {
-    // precache();
+    precache();
     _photoController.outputStateStream.listen(widget.photoViewListen);
     super.initState();
   }
 
   Future<void> precache() async {
-    // await precacheImage(
-    //   ExtendedNetworkImageProvider(
-    //     getPictureUrl(
-    //       key: widget.picture.key,
-    //     ),
-    //   ),
-    //   context,
-    //   onError: (Object o, StackTrace? err) {
-    //     print(err);
-    //   },
-    // );
+    await precacheImage(
+      ExtendedNetworkImageProvider(
+        getPictureUrl(
+          key: widget.picture.key,
+        ),
+      ),
+      context,
+      onError: (Object o, StackTrace? err) {
+        print(err);
+      },
+    );
     // print('ok');
   }
 
@@ -108,7 +108,7 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
       animation: animation,
       builder: (_, __) => ClipRRect(
         clipBehavior: Clip.hardEdge,
-        borderRadius: tween.evaluate(animation),
+        // borderRadius: tween.evaluate(animation),
         child: hero.child,
       ),
     );

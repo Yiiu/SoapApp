@@ -66,14 +66,10 @@ mixin ThemeConfig {
   static ThemeData lightTheme = ThemeData(
     fontFamily: 'Rubik',
     brightness: Brightness.light,
-    backgroundColor: const Color(0xfff9fafa),
-    primaryColorBrightness: Brightness.light,
     primaryColor: lightPrimary,
     scaffoldBackgroundColor: lightBG,
-    errorColor: const Color(0xffff4757),
     textTheme: _lightTextTheme,
     appBarTheme: const AppBarTheme(
-      brightness: Brightness.light,
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     primaryIconTheme: IconThemeData(color: lightTextColor.withOpacity(.8)),
@@ -89,9 +85,7 @@ mixin ThemeConfig {
 
   static ThemeData darkTheme = ThemeData(
     fontFamily: 'Rubik',
-    primaryColorBrightness: Brightness.dark,
     brightness: Brightness.dark,
-    backgroundColor: darkBG,
     primaryColor: darkPrimary,
     scaffoldBackgroundColor: darkBG,
     textTheme: _darkTextTheme,
@@ -99,7 +93,6 @@ mixin ThemeConfig {
     errorColor: const Color(0xffff4757),
     cardColor: const Color(0xff19181e),
     appBarTheme: const AppBarTheme(
-      brightness: Brightness.light,
       systemOverlayStyle: SystemUiOverlayStyle.light,
     ),
     dialogBackgroundColor: const Color(0xff000000),

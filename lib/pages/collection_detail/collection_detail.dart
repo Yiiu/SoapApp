@@ -4,6 +4,7 @@ import 'package:extended_nested_scroll_view/extended_nested_scroll_view.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:octo_image/octo_image.dart';
+import 'package:soap_app/utils/octo_bluehash.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
 
 import '../../config/config.dart';
@@ -26,6 +27,7 @@ class CollectionDetailPage extends StatefulWidget {
 
 class _CollectionDetailPageState extends State<CollectionDetailPage> {
   late Collection collection;
+
   @override
   void initState() {
     collection = widget.collection;
@@ -42,7 +44,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
         titleHeight: 110,
         barCenterTitle: false,
         backgroundImageMaskColor: const Color.fromRGBO(0, 0, 0, 0.4),
-        backgroundImageWidget: OctoPlaceholder.blurHash(
+        backgroundImageWidget: OctoBlurHashFix.placeHolder(
           collection.pictureCount == 0
               ? 'LKO2?U%2Tw=w]~RBVZRi};RPxuwH'
               : collection.preview![0].blurhash,
@@ -105,7 +107,7 @@ class _CollectionDetailPageState extends State<CollectionDetailPage> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(3),
                       child: OctoImage(
-                        placeholderBuilder: OctoPlaceholder.blurHash(
+                        placeholderBuilder: OctoBlurHashFix.placeHolder(
                           collection.preview![0].blurhash,
                         ),
                         image: ExtendedImage.network(

@@ -11,8 +11,8 @@ import 'package:flutter_feather_icons/flutter_feather_icons.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:octo_image/octo_image.dart';
 import 'package:palette_generator/palette_generator.dart';
-import 'package:wechat_assets_picker/wechat_assets_picker.dart'
-    as WechatAssetsPicker;
+import 'package:soap_app/utils/octo_bluehash.dart';
+import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
 import '../../model/location.dart';
 import '../../model/picture.dart';
@@ -32,7 +32,7 @@ class AddPage extends StatefulWidget {
     this.assets,
     this.picture,
   }) : super(key: key);
-  final List<WechatAssetsPicker.AssetEntity>? assets;
+  final List<AssetEntity>? assets;
   final bool edit;
   final Picture? picture;
 
@@ -55,6 +55,7 @@ class _AddPageState extends State<AddPage> {
   dynamic _classify;
 
   double progressValue = 1;
+
   @override
   void initState() {
     _titleFocusNode = FocusNode();
@@ -79,7 +80,12 @@ class _AddPageState extends State<AddPage> {
   Future<void> _getImageClassify() async {
     if (widget.assets != null) {
       final typed_data.Uint8List? thumb =
-          await widget.assets![0].thumbDataWithSize(600, 600, quality: 70);
+          await widget.assets![0].thumbnailDataWithSize(
+        const ThumbnailSize(
+          200,
+          200,
+        ),
+      );
       if (thumb != null) {
         final String base64Image = convert.base64Encode(thumb);
         final Response? result =
@@ -121,7 +127,8 @@ class _AddPageState extends State<AddPage> {
           SoapToast.error('图片过大无法上传，请压缩后在上传！');
           return;
         }
-        final typed_data.Uint8List? thumb = await widget.assets![0].thumbData;
+        final typed_data.Uint8List? thumb =
+            await widget.assets![0].thumbnailData;
         final Map<String, Object?> info = {};
         final List<Future> futures = <Future>[];
         futures.add(
@@ -272,7 +279,7 @@ class _AddPageState extends State<AddPage> {
                                       child: widget.edit
                                           ? OctoImage(
                                               placeholderBuilder:
-                                                  OctoPlaceholder.blurHash(
+                                                  OctoBlurHashFix.placeHolder(
                                                 widget.picture!.blurhash,
                                               ),
                                               image: extended_image
@@ -284,9 +291,8 @@ class _AddPageState extends State<AddPage> {
                                               fit: BoxFit.cover,
                                             )
                                           : Image(
-                                              image: WechatAssetsPicker
-                                                  .AssetEntityImageProvider(
-                                                      widget.assets![0]),
+                                              image: AssetEntityImageProvider(
+                                                  widget.assets![0]),
                                               fit: BoxFit.cover,
                                             ),
                                     ),

@@ -222,7 +222,7 @@ class EditProfilePage extends StatelessWidget {
                         child: Observer(builder: (_) {
                           return Text(
                             accountStore.userInfo!.birthday != null
-                                ? Jiffy(accountStore.userInfo!.birthday!).MMMd
+                                ? Jiffy.parse(accountStore.userInfo!.birthday!).MMMd
                                 : FlutterI18n.translate(
                                     context, 'profile.edit.label.none'),
                             textAlign: TextAlign.end,

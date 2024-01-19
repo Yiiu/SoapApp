@@ -47,9 +47,8 @@ class PictureDetailMoreHandle extends StatelessWidget {
                 svg: 'assets/remix/share-line.svg',
                 title: FlutterI18n.translate(context, 'common.label.share'),
                 onTap: () async {
-                  final extended_image.File? data =
-                      await extended_image.getCachedImageFile(
-                          picture.pictureUrl(style: PictureStyle.regular));
+                  final dynamic data = await extended_image.getCachedImageFile(
+                      picture.pictureUrl(style: PictureStyle.regular));
                   if (data != null) {
                     final typed_data.Uint8List bytes = await data.readAsBytes();
                     final io.File file = await getImageFile(
