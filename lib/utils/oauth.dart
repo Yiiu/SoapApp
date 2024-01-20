@@ -1,5 +1,4 @@
 import 'package:enum_to_string/enum_to_string.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:soap_app/env/env.dart';
 
 enum OauthType { github, google, weibo }
