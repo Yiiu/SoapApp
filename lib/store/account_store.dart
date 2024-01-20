@@ -3,9 +3,7 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
 import 'package:mobx/mobx.dart';
-import 'package:sentry_flutter/sentry_flutter.dart';
 import '../config/graphql.dart';
-import '../config/jpush.dart';
 import '../graphql/fragments.dart';
 import '../graphql/gql.dart';
 import '../graphql/query.dart' as query;
@@ -85,7 +83,7 @@ abstract class _AccountStoreBase with Store {
 
   void setJPushInfo(User? user) {
     if (user != null) {
-      jpush.setAlias(user.id.toString());
+      // jpush.setAlias(user.id.toString());
     }
   }
 

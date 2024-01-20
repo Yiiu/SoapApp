@@ -152,5 +152,13 @@
       "input_placeholder": "Say something.",
       "comment": "Comment"
     }
+  },
+  "login": {
+    "title": {
+      "login": "Login",
+      "register": "Register",
+      "forgot_password": "Forgot Password",
+      "reset_password": "Reset Password"
+    }
   }
 }

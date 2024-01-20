@@ -41,9 +41,9 @@ class _NewPictureDetailImageState extends State<NewPictureDetailImage>
 
   @override
   void initState() {
-    precache();
     _photoController.outputStateStream.listen(widget.photoViewListen);
     super.initState();
+    precache();
   }
 
   Future<void> precache() async {

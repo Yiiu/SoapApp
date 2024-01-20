@@ -152,5 +152,13 @@
     "title": {
       "all_comment": "全部评论"
     }
+  },
+  "login": {
+    "title": {
+      "login": "登录",
+      "register": "注册",
+      "forget_password": "忘记密码",
+      "reset_password": "重置密码"
+    }
   }
 }

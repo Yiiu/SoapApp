@@ -36,7 +36,6 @@ dependencies:
   image_gallery_saver: 2.0.3
   get: ^4.6.6
   permission_handler: ^11.2.0
-  jpush_flutter: ^2.5.0
   lottie: ^3.0.0
   flutter_cupertino_datetime_picker: ^3.0.0
   sentry_flutter: ^7.14.0
@@ -98,6 +97,7 @@ dependencies:
   flutter_bounce: ^1.1.0
   flutter_bounceable: ^1.0.2
   photo_view: 0.14.0
+  envied: ^0.5.3
 dependency_overrides:
   photo_manager: ^3.0.0-dev.2
 
@@ -108,11 +108,11 @@ dev_dependencies:
   json_serializable: ^6.7.1
   mobx_codegen: ^2.6.0+1
   flutter_lints: ^3.0.1
+  envied_generator: ^0.5.3
 flutter:
   uses-material-design: true
   assets:
     - assets/i18n/
-    - .env
     - assets/images/empty.png
     - assets/images/vip.png
 

@@ -154,7 +154,9 @@ class EditProfilePage extends StatelessWidget {
                     const SoapDivider(),
                     SettingItem(
                       title: FlutterI18n.translate(
-                          context, 'profile.edit.label.fullname'),
+                        context,
+                        'profile.edit.label.fullname',
+                      ),
                       border: false,
                       action: Expanded(
                         child: Observer(builder: (_) {
@@ -222,7 +224,8 @@ class EditProfilePage extends StatelessWidget {
                         child: Observer(builder: (_) {
                           return Text(
                             accountStore.userInfo!.birthday != null
-                                ? Jiffy.parse(accountStore.userInfo!.birthday!).MMMd
+                                ? Jiffy.parse(accountStore.userInfo!.birthday!)
+                                    .MMMd
                                 : FlutterI18n.translate(
                                     context, 'profile.edit.label.none'),
                             textAlign: TextAlign.end,

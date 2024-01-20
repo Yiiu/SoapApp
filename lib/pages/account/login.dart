@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:touchable_opacity/touchable_opacity.dart';
@@ -123,7 +124,7 @@ class _LoginPageState extends State<LoginPage> {
                   alignment: Alignment.center,
                   curve: Curves.easeInOut,
                   child: Text(
-                    '登录',
+                    FlutterI18n.translate(context, 'login.title.login'),
                     style: TextStyle(
                       color: theme.textTheme.bodyText2!.color,
                       fontSize: 36,

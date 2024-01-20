@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime_type/mime_type.dart';
+import 'package:soap_app/env/env.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_assets_picker/wechat_assets_picker.dart';
 
@@ -52,9 +53,10 @@ class SignUtil {
 class OssProvider {
   OssProvider() {
     httpClient = Dio()
-      ..options.baseUrl = dotenv.env['API_URL']!
+      ..options.baseUrl = Env.apiUrl
       ..options.connectTimeout = const Duration(seconds: 5);
   }
+
   String bucketName = 'soapphoto';
   String endPoint = 'oss-cn-shanghai.aliyuncs.com';
 
@@ -121,7 +123,7 @@ class OssProvider {
       );
     }
     final Map<String, Object?> map = {
-      'key': dotenv.env['OSS_PREFIX_PATH']! + uuid.v4(),
+      'key': Env.apiUrl + uuid.v4(),
       'OSSAccessKeyId': accessKeyID,
       'success_action_status': '200',
       'signature': SignUtil.getSignature(accessKeySecret),

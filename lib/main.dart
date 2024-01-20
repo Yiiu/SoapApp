@@ -4,9 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:soap_app/env/env.dart';
 
 import 'config/graphql.dart';
-import 'config/jpush.dart';
 import 'pages/app.dart';
 import 'store/index.dart';
 import 'utils/storage.dart';
@@ -18,11 +18,11 @@ Future<void> main() async {
     dotenv.load(),
     StorageUtil.initialize(),
   });
-  jpush.setup(
-    appKey: dotenv.env['SENTRY_URL']!,
-    channel: 'theChannel',
-    production: true,
-  );
+  // jpush.setup(
+  //   appKey: dotenv.env['SENTRY_URL']!,
+  //   channel: 'theChannel',
+  //   production: true,
+  // );
   accountStore.initialize();
   await Future.wait<dynamic>({
     pictureCachedStore.initialize(),
@@ -58,7 +58,7 @@ Future<void> main() async {
     await SentryFlutter.init(
       (SentryFlutterOptions options) {
         options.debug = false;
-        options.dsn = dotenv.env['SENTRY_URL'];
+        options.dsn = Env.sentryUrl;
       },
       appRunner: () {
         accountStore.initializeSentry();

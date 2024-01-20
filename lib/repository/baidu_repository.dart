@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:soap_app/env/env.dart';
 import '../store/index.dart';
 
 class BaiduProvider {
@@ -7,7 +8,7 @@ class BaiduProvider {
 
   Future<Response> token() {
     final Dio httpClient = Dio()
-      ..options.baseUrl = dotenv.env['API_URL']!
+      ..options.baseUrl = Env.apiUrl
       ..options.connectTimeout = const Duration(seconds: 5);
     final Map<String, String> map = {
       'Authorization': 'Bearer ${accountStore.accessToken}',

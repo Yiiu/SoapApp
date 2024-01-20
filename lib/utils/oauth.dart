@@ -1,7 +1,9 @@
 import 'package:enum_to_string/enum_to_string.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:soap_app/env/env.dart';
 
 enum OauthType { github, google, weibo }
+
 enum OauthStateType { login, authorize }
 
 enum OauthActionType { login, authorize, active }
@@ -21,7 +23,7 @@ Uri getOauthUrl(
       unencodedPath = '/login/oauth/authorize';
       query = {
         'state': EnumToString.convertToString(state),
-        'client_id': dotenv.env['OAUTH_GITHUB_CLIENT_ID']!,
+        'client_id': Env.oauthGithubClientId,
         'redirect_uri': cb,
       };
       break;
@@ -30,7 +32,7 @@ Uri getOauthUrl(
       unencodedPath = '/oauth2/authorize';
       query = {
         'state': EnumToString.convertToString(state),
-        'client_id': dotenv.env['OAUTH_WEIBO_CLIENT_ID']!,
+        'client_id': Env.oauthWeiboClientId,
         'response_type': 'code',
         'redirect_uri': cb,
       };

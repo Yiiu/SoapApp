@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql_flutter/graphql_flutter.dart' as graphql;
+import 'package:soap_app/env/env.dart';
 import '../config/graphql.dart';
 import '../graphql/fragments.dart';
 import '../graphql/gql.dart';
@@ -11,7 +12,7 @@ import '../widget/soap_toast.dart';
 class AccountProvider {
   AccountProvider() {
     httpClient = Dio()
-      ..options.baseUrl = dotenv.env['API_URL']!
+      ..options.baseUrl = Env.apiUrl
       ..options.connectTimeout = const Duration(seconds: 5);
   }
 
@@ -19,7 +20,7 @@ class AccountProvider {
 
   Future<Response> oauth(dynamic data) {
     final Map<String, String> map = {
-      'Authorization': 'Basic ${dotenv.env['BASIC_TOKEN']}'
+      'Authorization': 'Basic ${Env.basicToken}'
     };
     return httpClient.post<dynamic>(
       '/oauth/token',
@@ -33,7 +34,7 @@ class AccountProvider {
 
   Future<Response> oauthToken(String type, dynamic data) {
     final Map<String, String> map = {
-      'Authorization': 'Basic ${dotenv.env['BASIC_TOKEN']}'
+      'Authorization': 'Basic ${Env.basicToken}'
     };
     return httpClient.post<dynamic>(
       '/oauth/$type/token',
