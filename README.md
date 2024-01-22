@@ -4,7 +4,7 @@ A new Flutter project.
 
 ### 👽 Online Demo
 
-**[在线例子](https://app.soapphoto.com/#/)** (Web 效果可能有偏差,真实效果请以手机端为准,第一次加载可能会很久)
+**[在线例子](https://soap-app-yiiu.vercel.app/)** (Web 效果可能有偏差,真实效果请以手机端为准,第一次加载可能会很久)
 
 ### 👻 preview
 
